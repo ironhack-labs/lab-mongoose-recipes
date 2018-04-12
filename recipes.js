@@ -39,8 +39,21 @@ Recipe.insertMany(data, (err, recipe) => {
 });
 
 Recipe.updateOne(
-  {title:{$eq:"Rigatoni alla Genovese"}},
-  {duration: 100}
+  { title: { $eq: "Rigatoni alla Genovese" } },
+  { duration: 100 }
 )
-.then(() => { console.log('The recipe was created') })
-.catch(err => { console.log('An error occured', err) });
+  .then(() => {
+    console.log("The recipe was created");
+  })
+  .catch(err => {
+    console.log("An error occured", err);
+  });
+
+Recipe.deleteOne({ title: { $eq: "Carrot Cake" } })
+  .then(() => {
+    console.log("RECIPE DELETED");
+  })
+  .catch(err => {
+    console.log("An error occured", err);
+  });
+

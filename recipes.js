@@ -6,6 +6,7 @@ const Recipe = require("./models/Recipe");
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!')
+
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
@@ -22,9 +23,19 @@ Recipe.create({
   duration: 90,
   creator: "Raul",
 })
-  .then((recipe) => { console.log('The recipe is saved and its value is: ', recipe) })
+  .then((recipe) => {
+    console.log('The recipe is saved and its title is: ', recipe.title)
+    Recipe.insertMany(data, (error, docs) => {
+      console.log(error)
+      console.log(data)
+    });
+  })
   .catch((err) => { console.log('An error happened:', err) });
-;
+
+
+
+
+
 
 
 

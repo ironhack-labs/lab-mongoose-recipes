@@ -27,6 +27,14 @@ Recipe.create(
   },
   (err, recipe) => {
     if (err) console.log(`An error happened ${err}`);
-    else console.log(`RECIPE CREATED ${recipe}`);
+    else console.log(`RECIPE CREATED ${recipe.title}`);
   }
 );
+
+Recipe.insertMany(data, (err, recipe) => {
+  if (err) console.log(`An error happened ${err}`);
+  else {
+    recipe.forEach(e =>  console.log(`ALL RECEPIES INSERTED ${e.title}`)
+   );
+  }
+});

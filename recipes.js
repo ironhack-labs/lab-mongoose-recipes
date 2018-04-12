@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
   });
 
 
-/* 
+
 Recipe.create({
   title: "Torrijas",
   level: 'Easy Peasy',
@@ -28,13 +28,16 @@ Recipe.create({
     Recipe.insertMany(data, (error, docs) => {
       console.log(error)
       console.log(data)
-    });
+    }).then(obj=>{
+        Recipe.updateOne({ title: "Rigatoni alla Genovese" }, {$set:{ duration: 100 }}).then(obj=>console.log(obj))
+    })
   })
-  .catch((err) => { console.log('An error happened:', err) }); */
+  .catch((err) => { console.log('An error happened:', err) }); 
 
-Recipe.updateOne({ title: "Rigatoni alla Genovese" }, {$set:{ duration: 'hola' }})
-.then(obj=>console.log(obj))
-.catch(err=>console.log(err))
+
+  Recipe.deleteOne({ title: "Carrot Cake"})
+  .then(obj=>console.log(obj))
+  .catch(err=>console.log(err))
 
 
 

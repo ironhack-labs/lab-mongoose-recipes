@@ -34,7 +34,13 @@ Recipe.create(
 Recipe.insertMany(data, (err, recipe) => {
   if (err) console.log(`An error happened ${err}`);
   else {
-    recipe.forEach(e =>  console.log(`ALL RECEPIES INSERTED ${e.title}`)
-   );
+    recipe.forEach(e => console.log(`ALL RECEPIES INSERTED ${e.title}`));
   }
 });
+
+Recipe.updateOne(
+  {title:{$eq:"Rigatoni alla Genovese"}},
+  {duration: 100}
+)
+.then(() => { console.log('The recipe was created') })
+.catch(err => { console.log('An error occured', err) });

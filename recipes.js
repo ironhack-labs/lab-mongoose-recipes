@@ -33,39 +33,58 @@ const recipeSchema = new Schema({
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
-let recipe = Recipe.create({
-  title: "Fish and chips",
-  level: "UltraPro Chef",
-  ingredients: ["fish", "electronic component", "secret ingredient"],
-  cousine: "IronHack",
-  dishType: "Dish",
-  duration: 15,
-  creator: "Belt",
-  created: Date.now()
-}, ()=>{
-  Recipe.findOne({title: "Fish and chips"}).exec((err, objs) => {
+let recipe = Recipe.create(
+  {
+    title: "Fish and chips",
+    level: "UltraPro Chef",
+    ingredients: ["fish", "electronic component", "secret ingredient"],
+    cousine: "IronHack",
+    dishType: "Dish",
+    duration: 15,
+    creator: "Belt",
+    created: Date.now()
+  },
+  () => {
+    Recipe.findOne({ title: "Fish and chips" }).exec((err, objs) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(objs.title);
+      }
+    });
+  }
+);
+let recipes = [];
+require("./data.js").forEach(e => {
+  recipes.push(e);
+});
+Recipe.insertMany(recipes, () => {
+  Recipe.find({}).exec((err, objs) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(objs.title);
+      objs.forEach(e => {
+        console.log(e.title);
+      });
+      Recipe.updateOne(
+        { title: "Rigatoni alla Genovese" },
+        { duration: 100 },
+        err => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Updated successful");
+            Recipe.deleteOne({ title: "Carrot Cake" }, err => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("deleted carrots");
+                mongoose.connection.close();
+              }
+            });
+          }
+        }
+      );
     }
   });
 });
-let recipes = [];
-require('./data.js').forEach( e=> {
-  recipes.push(e);
-});
-Recipe.insertMany(recipes, ()=>{
-  Recipe.find({}).exec((err, objs) => {
-    if(err){
-      console.log(err);
-    }else {
-      objs.forEach(e=>{
-        console.log(e.title);
-      });     
-    }
-  })
-});
-
-  
-

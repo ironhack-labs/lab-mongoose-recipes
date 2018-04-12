@@ -13,7 +13,16 @@ mongoose.connect(db)
   });
 
 Recipe.insertMany( data, (error, recipes) => {
-  Recipe.updateOne( {title:"Rigatoni alla Genovese"}, {duration:100}, msg => console.log(" Rigatoni Updated")).exec();
-
-  Recipe.deleteOne( {title: "Carrot Cake"}, msg => console.log("Carrot Cake removed") );
+  Recipe.updateOne( {title:"Rigatoni alla Genovese"}, {duration:100}, msg => {
+    
+    console.log(" Rigatoni Updated");
+    
+    Recipe.deleteOne( {title: "Carrot Cake"}, msg => {
+      
+      console.log("Carrot Cake removed");
+      
+      mongoose.disconnect();
+    });
+  }
+ )
 } )

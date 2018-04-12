@@ -12,7 +12,11 @@ mongoose.connect('mongodb://localhost/recipeApp')
         console.log(error)
       } else {
         console.log(docs);
-        Receta.collection.updateOne({title:'Rigatoni alla Genovese'}, {level: 'PEPE'});
+        Receta.updateOne({title: 'Rigatoni alla Genovese'},{duration:100}).then( () => {
+          console.log(`Modificado`);
+        Receta.deleteOne({title: "Carrot Cake"}).then(re => console.log(re) )}).then( r => {
+          mongoose.connection.close();
+        });
       }
       
     } )

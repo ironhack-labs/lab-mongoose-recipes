@@ -12,14 +12,22 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
 
 
-  Recipe.create({
-    title: "Torrijas",
-    level: 'Easy Peasy',
-    ingredients: ["Pan", "Leche", "Azucar", "Canela", "Aceite", "Harina", "Limon"],
-    cousine: "Española",
-    dishType: 'Dessert',
-    image: "http://elpetitchef.com/Images/134/presentacion.jpg",
-    duration: 90,
-    creator: "Raul",
-  
-    })
+Recipe.create({
+  title: "Torrijas",
+  level: 'Easy Peasy',
+  ingredients: ["Pan", "Leche", "Azucar", "Canela", "Aceite", "Harina", "Limon"],
+  cousine: "Española",
+  dishType: 'Dessert',
+  image: "http://elpetitchef.com/Images/134/presentacion.jpg",
+  duration: 90,
+  creator: "Raul",
+})
+  .then((recipe) => { console.log('The recipe is saved and its value is: ', recipe) })
+  .catch((err) => { console.log('An error happened:', err) });
+;
+
+
+
+
+
+

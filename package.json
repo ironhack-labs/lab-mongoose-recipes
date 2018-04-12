@@ -1,14 +1,25 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![Ironhack logo](https://i.imgur.com/1QgrNNw.png)",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.0.12"
-  }
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.17.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavierVRM/lab-mongoose-recipes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JavierVRM/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/JavierVRM/lab-mongoose-recipes#readme"
 }

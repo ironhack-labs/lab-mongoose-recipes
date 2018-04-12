@@ -27,33 +27,33 @@ Recipe.create(
   },
   (err, recipe) => {
     if (err) console.log(`An error happened ${err}`);
-    else console.log(`RECIPE CREATED ${recipe.title}`);
+    else {
+      console.log(`RECIPE CREATED ${recipe.title}`);
+      Recipe.insertMany(data, (err, recipe) => {
+        if (err) console.log(`An error happened ${err}`);
+        else {
+          recipe.forEach(e => console.log(`INSERTED: ${e.title}`));
+          Recipe.updateOne(
+            { title: { $eq: "Rigatoni alla Genovese" } },
+            { duration: 100 }
+          )
+            .then(() => {
+              console.log("RECIPE UPDATED");
+              Recipe.deleteOne({ title: { $eq: "Carrot Cake" } })
+                .then(() => {
+                  console.log("RECIPE DELETED");
+                  
+                  mongoose.connection.close();
+                })
+                .catch(err => {
+                  console.log("An error occured", err);
+                });
+            })
+            .catch(err => {
+              console.log("An error occured", err);
+            });
+        }
+      });
+    }
   }
 );
-
-Recipe.insertMany(data, (err, recipe) => {
-  if (err) console.log(`An error happened ${err}`);
-  else {
-    recipe.forEach(e => console.log(`ALL RECEPIES INSERTED ${e.title}`));
-  }
-});
-
-Recipe.updateOne(
-  { title: { $eq: "Rigatoni alla Genovese" } },
-  { duration: 100 }
-)
-  .then(() => {
-    console.log("The recipe was created");
-  })
-  .catch(err => {
-    console.log("An error occured", err);
-  });
-
-Recipe.deleteOne({ title: { $eq: "Carrot Cake" } })
-  .then(() => {
-    console.log("RECIPE DELETED");
-  })
-  .catch(err => {
-    console.log("An error occured", err);
-  });
-

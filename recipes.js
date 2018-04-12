@@ -3,13 +3,15 @@ const Schema   = mongoose.Schema;
 const data = require('./data.js')
 const Recipe = require('./models/Recipe');
 
-mongoose.connect('mongodb://localhost/recipeApp')
+const db = 'mongodb://localhost/recipeApp'
+
+mongoose.connect(db)
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
 
-data.forEach( e => {
-  Recipe.create( e );
-})
+Recipe.insertMany( data, (error, recipes) => {
+  Recipe.updateOne( {title:"Rigatoni alla Genovese"}, {duration:100}).exec();
+} )

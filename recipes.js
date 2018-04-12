@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
   });
 
 
-
+/* 
 Recipe.create({
   title: "Torrijas",
   level: 'Easy Peasy',
@@ -30,7 +30,13 @@ Recipe.create({
       console.log(data)
     });
   })
-  .catch((err) => { console.log('An error happened:', err) });
+  .catch((err) => { console.log('An error happened:', err) }); */
+
+Recipe.updateOne({ title: "Rigatoni alla Genovese" }, {$set:{ duration: 'hola' }})
+.then(obj=>console.log(obj))
+.catch(err=>console.log(err))
+
+
 
 
 

@@ -1,7 +1,7 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![Ironhack logo](https://i.imgur.com/1QgrNNw.png)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
+    "hbs": "^4.0.1",
     "mongoose": "^5.0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmihai/lab-mongoose-recipes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cosmihai/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/cosmihai/lab-mongoose-recipes#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

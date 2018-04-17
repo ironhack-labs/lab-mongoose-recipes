@@ -26,17 +26,24 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
 // --------adding a recipe------------
 
-Recipe.create(data[0], () => {
-  console.log(data[0].title);
-});
+Recipe.create({title: 'Scrambled eggs', level: 'Easy Peasy', ingredients: ['eggs', 'chees'], cousine: 'International', dishType: 'Breakfast', duration: 10, creator: 'Fred Flinstone'})
+  .then((result) => {
+    console.log(result.title);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-for (let i = 1; i < data.length; i++) {
+// ------how do I use insertMany???-----------
+
+for (let i = 0; i < data.length; i++) {
   Recipe.create(data[i], () => {
     console.log(data[i].title);
   });
 }
+// ---------how do I use findByIdAndUpdate---------
+// Recipe.findByIdAndUpdate('5ad51a33bc709b74dddd9ebb', {duration: 100});
 
-Recipe.findByIdAndUpdate('5ad51a33bc709b74dddd9ebb', {duration: 100} );
 // -------------routes -------
 
 // app.get('/', (req, res, next) => {

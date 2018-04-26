@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
 const data = require('./data.js')
-const recipeSchema = require('./schema/recipeSchema.js')
+const Recipe = require('./schema/recipeSchema.js')
 
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
@@ -10,17 +9,13 @@ mongoose.connect('mongodb://localhost/recipeApp')
     console.error('Error connecting to mongo', err)
   });
 
-
-
-const Recipe = mongoose.model('Recipe', recipeSchema);
-
 Recipe.create({title: "chicken", level: 'Easy Peasy', ingredients: ['chicken'],
  cousine: 'International', dishType: ['Dish'], duration: 9, creator: "Me"})
   .then((recipe) => { console.log('New recipe added: ', recipe.title) })
   .catch((err) => { console.log(err)} );
 
 Recipe.insertMany(data)
-.then((recipe) => { console.log('New recipe added: ', data.title) })
+.then((recipe) => { recipe.forEach((rec) => {console.log(rec.title)}) })
 .catch((err) => { console.log(err)} );
 
 setTimeout(() => {

@@ -26,7 +26,7 @@ The `recipes.js` file already connects to the **recipesApp** database. Now we ne
 - **title**. Type `String`. It should be *required* and unique.
 - **level**. Type `String`. Only can be one of the following values: *Easy Peasy* - *Amateur Chef* - *UltraPro Chef* (remember the ENUM :wink:)
 - **ingredients**. Type `Array`.
-- **cousine**. Type `String`. Should be *required*.
+- **cuisine**. Type `String`. Should be *required*.
 - **dishType**. Type `String`. Possible values: *Breakfast* - *Dish* - *Snack* - *Drink* - *Dessert* - *Other*.
 - **image**. Type `String`. Default value: *https://images.media-allrecipes.com/images/75131.jpg*.
 - **duration**. Type `Number`. *Min* value should be 0.

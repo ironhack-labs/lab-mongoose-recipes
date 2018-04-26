@@ -78,4 +78,6 @@ Recipe.findByIdAndRemove('5ae22679d22c6527d196b20c')
     console.log('An error occured: ', err);
   });
 
-mongoose.disconnect();
+setTimeout(function() {
+  mongoose.disconnect();
+}, 1000);

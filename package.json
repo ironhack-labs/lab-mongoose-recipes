@@ -1,7 +1,7 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![Ironhack logo](https://i.imgur.com/1QgrNNw.png)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +10,15 @@
   "license": "ISC",
   "dependencies": {
     "mongoose": "^5.0.12"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanda-sr/lab-mongoose-recipes.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/nanda-sr/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/nanda-sr/lab-mongoose-recipes#readme"
 }

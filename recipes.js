@@ -68,4 +68,4 @@ Recipe.findByIdAndRemove("5b224bb484be990742bd1bc1")
     console.log("An error happened:", err);
   });
 
-//mongoose.disconnect();
+mongoose.disconnect();

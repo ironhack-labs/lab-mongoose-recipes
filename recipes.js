@@ -26,29 +26,34 @@ const recipeSchema = new Schema({
 const Recipe = mongoose.model('Recipe', recipeSchema);
   
 // Iteration 2 - Create a recipe
-// Recipe.create({ title: 'Mediterranean Chicken', level: 'Easy Peasy', ingredients: ['3 tablespoons minced garlic', 'salt to taste', '8 skinless, boneless chicken thighs'], 
-//                 cousine: 'Mediterranean', dishType: ['Dish'], image: 'https://images.media-allrecipes.com/images/75131.jpg', 
-//                 duration: 40, creator: 'Chef Ali', created: Date('2020-12-25') })
-//   .then((recipe) => { console.log('Title:', recipe.title); })
-//   .catch((err) => { console.log('An error happened:', err); });
+let promise1 = Recipe.create({ title: 'Mediterranean Chicken', level: 'Easy Peasy', ingredients: ['3 tablespoons minced garlic', 'salt to taste', '8 skinless, boneless chicken thighs'], 
+                cousine: 'Mediterranean', dishType: ['Dish'], image: 'https://images.media-allrecipes.com/images/75131.jpg', 
+                duration: 40, creator: 'Chef Ali', created: Date('2020-12-25') })
+  .then((recipe) => { console.log('Title:', recipe.title); })
+  .catch((err) => { console.log('An error happened:', err); });
 
 // Iteration 3 - Insert Many recipes
-Recipe.insertMany( data )
+let promise2 = Recipe.insertMany( data )
   .then((recipe) => { 
     for (i=0; i<data.length; i++){
       console.log('Title:', data[i].title);}})
   .catch((err) => { console.log('An error happened:', err); });
 
 // Iteration 4 - Update recipe
-Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-  .then((recipe) => { console.log('Success!'); })
+let promise3 = Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then((recipe) => { console.log('Updating successful!'); })
   .catch((err) => { console.log('An error happened:', err); });
 
 // Iteration 5 - Remove a recipe
-Recipe.remove({ title: "Carrot Cake" })
-  .then((recipe) => { console.log('Success!'); })
+let promise4 = Recipe.remove({ title: "Carrot Cake" })
+  .then((recipe) => { console.log('Removing successful!'); })
   .catch((err) => { console.log('An error happened:', err); });
 
-
-  // console.log(data);
-
+// Iteration 6 - Close the Database
+Promise.all([promise1, promise2, promise3, promise4])
+  .then(recipe => { 
+    mongoose.connection.close(function () { 
+      console.log('Mongoose connection disconnected successful!'); 
+    }); 
+  })
+  .catch((err) => { console.log('An error happened:', err); });

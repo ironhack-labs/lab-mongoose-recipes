@@ -50,4 +50,4 @@ module.exports =
         duration: 30,
         creator: 'Chef Jennifer'
       }
-    ]
+    ];

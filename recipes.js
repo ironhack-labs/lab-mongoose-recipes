@@ -12,10 +12,10 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
 // Iteration 1 - Recipe Schema
 const recipeSchema = new Schema({
-  title: { type: String },
+  title: { type: String, required: true, unique: true },
   level: { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
   ingredients: { type: [] },
-  cousine: { type: String },
+  cousine: { type: String, required: true },
   dishType: { type: String, enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other'] },
   image: { type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg' },
   duration: { type: Number, min: 0 },

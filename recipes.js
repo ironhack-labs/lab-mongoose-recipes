@@ -37,3 +37,32 @@ Recipe.create({
   .then((recipe)=>{console.log('The recipe saved!, the title is:', recipe.title)})
   .catch((err) => {console.log('An error happened:' , err)})
 
+Recipe.insertMany(data)
+.then((recipe) =>{
+  recipe.forEach(element => {
+    console.log('The recipe has been added from the array, and its title is:', element.title);
+  });
+});
+
+Recipe.updateOne(
+  { title: 'Rigatoni alla Genovese' }, 
+  { duration: 100 })
+.then(recipe => {
+  console.log('Success, recipe updated ;)!')
+})
+.catch(err => {
+  console.log('An error happened:', err);
+});
+
+Recipe.deleteOne({title: 'Carrot Cake'})
+.then(recipe => {
+  console.log('Success, recipe removed :O!')
+})
+.catch(err => {
+  console.log('An error happened:', err);
+});
+
+setTimeout(()=>{
+  mongoose.connection.close()
+  console.log('Done:Closed')
+}, 5000)

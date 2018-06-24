@@ -2,6 +2,7 @@
 
 const Recipe = require("../lab-mongoose-recipes/recipes.model");
 require("../lab-mongoose-recipes/db.config");
+const data = require("../lab-mongoose-recipes/data")
 
 const recipe = new Recipe({ 
   title: "Bocata Jamón", 
@@ -24,3 +25,35 @@ recipe.save()
     })
 
 //Iteration 3 - Insert Many recipes
+Recipe.insertMany(data)
+    .then((recipes) => {
+        for (let recipe of recipes){
+            console.log(recipe.title);
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    })
+//Iteration 4 - Update recipe
+
+Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { $set: { duration: 100 } }, { new: true })
+    .then((recipe) => {
+        console.log(`${recipe.title} updated`)
+    })
+    .catch(error => {
+        console.error(error);
+    })
+
+ //Iteration 5 - Remove a recipe
+Recipe.findOneAndRemove({ title: 'Carrot Cake' })
+    .then((recipe) => {
+        console.log(`${recipe.title} removed`);
+    })
+    .catch(error => {
+        console.error(error);
+    })
+
+// Iteration 6 - Close the Database
+
+
+

@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const data = require('./data.js')
 const Recipe = require('./models/recipe.model');
 require('./configs/db.config');

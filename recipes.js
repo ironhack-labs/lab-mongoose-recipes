@@ -1,5 +1,5 @@
 //Iteration 2 - Create a recipe
-
+//const mongoose = require('mongoose');
 const Recipe = require("../lab-mongoose-recipes/recipes.model");
 require("../lab-mongoose-recipes/db.config");
 const data = require("../lab-mongoose-recipes/data")
@@ -54,6 +54,6 @@ Recipe.findOneAndRemove({ title: 'Carrot Cake' })
     })
 
 // Iteration 6 - Close the Database
-
-
+    
+// mongoose.connection.close();
 

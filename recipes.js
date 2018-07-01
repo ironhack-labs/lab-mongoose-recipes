@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-const data = require('./data.js')
+const data = require('./data.js');
 
 //Need to call all functions within the mongoose connect, might catch error multiple times
 mongoose.connect('mongodb://localhost/recipeApp')
@@ -23,10 +23,8 @@ const recipeSchema = new Schema({
   created: Date, 
 });
 
-const Recipe = mongoose.model("Recipe", recipeSchema);
-
 // Iteration 2, Create function for making recipe
-Recipe.create({ 
+let myRecipe = new Recipe({ 
   title: 'Chickpea No-Tuna Sandwich', 
   level: 'Amateur Chef',
   ingredients: ['1 can chickpeas', '3 tablespoons tahini', '2 tablespoons dijon mustard', '1 tablespoon maple syrup', '1/4 cup red onions, diced', '1/4 celery, diced', '1/4 cup pickles, diced', '1 tablespoon capers'],
@@ -38,7 +36,11 @@ Recipe.create({
   .then((recipe) => { console.log(title) })
   .catch((err) => { console.log('An error happened:', err) });
 
-//Iteration 3, Make function to grab data and add to db
+myRecipe.save() // Create a new user and return a promise
+  .then(user => { console.log('The recipe was created') })
+  .catch(err => { console.log('An error occured', err) });
 
+//Iteration 3, Make function to grab data and add to db
+const Recipe = mongoose.model("Recipe", recipeSchema);
 
 module.exports = Recipe;

@@ -34,18 +34,26 @@ const smoothie = {
   creator: 'Yandy',
 }
 
-// Recipe.create(smoothie)
-//   .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
-//   .catch((err) => { console.log(`An error happened ${err}`) });
+const p1 = Recipe.create(smoothie)
+  .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
+  .catch((err) => { console.log('An error happened:', err) });
 
-// Recipe.insertMany(data)
-//   .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
-//   .catch((err) => { console.log(`An error happened: ${err}`) });
+const p2 = Recipe.insertMany(data)
+  .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
+  .catch((err) => { console.log('An error happened:', err) });
 
-Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+const p3 = Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
   .then(() => { console.log(`Duration updated`) })
-  .catch((err) => { console.log(`An error happened: ${err}`) });
+  .catch((err) => { console.log('An error happened:', err) });
 
-Recipe.deleteOne({ title: 'Carrot Cake' })
+const p4 = Recipe.deleteOne({ title: 'Carrot Cake' })
   .then((recipe) => { console.log(`${recipe.title } Deleted`) })
-  .catch((err) => { console.log(`An error happened: ${err}`) });
+  .catch((err) => { console.log('An error happened:', err) });
+
+Promise.all([p1, p2, p3, p4])
+  .then(() => { 
+    mongoose.connection.close(function () { 
+      console.log('Mongoose connection disconnected successful!'); 
+    }); 
+  })
+  .catch((err) => { console.log('An error happened:', err); });

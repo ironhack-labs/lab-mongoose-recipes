@@ -34,10 +34,14 @@ const smoothie = {
   creator: 'Yandy',
 }
 
-Recipe.create(smoothie)
-  .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
-  .catch((err) => { console.log(`An error happened ${err}`) });
+// Recipe.create(smoothie)
+//   .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
+//   .catch((err) => { console.log(`An error happened ${err}`) });
 
-Recipe.insertMany(data)
-  .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
+// Recipe.insertMany(data)
+//   .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
+//   .catch((err) => { console.log(`An error happened: ${err}`) });
+
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then(() => { console.log(`Duration updated`) })
   .catch((err) => { console.log(`An error happened: ${err}`) });

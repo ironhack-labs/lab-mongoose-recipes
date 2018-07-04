@@ -20,3 +20,20 @@ const recipeSchema = new Schema ({
   creator: String,
   created: { type: Date, default: Date.now }, // By default today.
 });
+
+const Recipe = mongoose.model('Reciper', recipeSchema);
+
+const smoothie = {
+  title: 'Early Smoothie',
+  level: 'Easy Peasy',
+  ingredients: ['Kale', 'Flax-seeds', 'Banana', 'Peanut Butter', 'Ginger', 'Blueberries'],
+  cuisine: 'Vegan',
+  dishType: 'Breakfast',
+  image: 'https://www.google.com/search?q=smoothie&rlz=1C5CHFA_enUS713US714&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiJ1enMroTcAhWGtlkKHfJHCdAQ_AUICygC&biw=1280&bih=680#imgrc=_MMLHxgFHC_y9M:',
+  duration: 20,
+  creator: 'Yandy',
+}
+
+Recipe.create(smoothie)
+  .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
+  .catch((err) => { console.log(`An error happened:', ${err}`) });

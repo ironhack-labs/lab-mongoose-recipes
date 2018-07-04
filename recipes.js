@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
 const recipeSchema = new Schema ({
   title: { type: String, required: true, unique: true }, // It should be required and unique.
-  level: { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'Ultrapro Chef'] }, // Only values: Easy Peasy - Amateur Chef - UltraPro Chef
+  level: { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] }, // Only values: Easy Peasy - Amateur Chef - UltraPro Chef
   ingredients: [],
   cuisine: { type: String, required: true }, // Should be required
   dishType: { type: String, enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other'] }, // Possible values: Breakfast - Dish - Snack - Drink - Dessert - Other.
@@ -36,4 +36,8 @@ const smoothie = {
 
 Recipe.create(smoothie)
   .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
-  .catch((err) => { console.log(`An error happened:', ${err}`) });
+  .catch((err) => { console.log(`An error happened ${err}`) });
+
+Recipe.insertMany(data)
+  .then((recipe) => { console.log(`Recipe title ${recipe.title}`) })
+  .catch((err) => { console.log(`An error happened: ${err}`) });

@@ -6,6 +6,7 @@ const data = require('./data.js')
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!')
+    mongoose.disconnect('mongodb://localhost/recipeApp')
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
@@ -64,5 +65,4 @@ const Recipe = mongoose.model('Recipe', recipeSchema)
 // })
 
 //Close database: Iteration 6
-// mongoose.disconnect('mongodb://localhost/recipeApp')
 

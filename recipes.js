@@ -2,10 +2,29 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 const data = require('./data.js')
 
-mongoose.connect('mongodb://localhost/recipeApp')
+mongoose.connect('mongodb://localhost:27017/recipeApp', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!')
-  }).catch(err => {
+    createRecipe()
+      .then((recipe)=>{
+        console.log(recipe.title);
+      });
+    insertManyRecipes()
+      .then((data)=>{
+        data.forEach((e)=>console.log(e.title));
+        console.log('updated rigatoni')
+        updateRigatoni()
+          .then(()=>{
+            console.log('deleted carrot')
+            deleteCarrot()
+              .then(()=>{
+                console.log('disconnecting db')
+                mongoose.disconnect();
+              })
+          })
+      })
+  })
+  .catch(err => {
     console.error('Error connecting to mongo', err)
   });
 
@@ -23,22 +42,43 @@ const recipeSchema = new Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-Recipe.create({
+const createRecipe = ()=> {
+  return Recipe.create({
   title: 'Burger Cangreburger',
   cousine: 'Hamburgers'
-}).then((recipe)=>{
-  console.log(recipe.title);
-}).catch((err)=>{
-  console.log(err);
-});
-
-Recipe.insertMany(data, (err,data)=>{
-  (err)?console.log(err):data.forEach((recipe,i)=>{
-    console.log(recipe.title)
-    if(recipe.title == "Rigatoni alla Genovese"){
-      Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
-      .then(()=>console.log('Rigatonni updated'))
-      .catch(err=>console.log(err));
-    }
-  });
 })
+};
+
+const insertManyRecipes = () => {
+  return Recipe.insertMany(data)
+}
+
+const updateRigatoni = () => {
+  return Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+}
+
+const deleteCarrot = ()=>{
+  return Recipe.deleteOne({ title: "Carrot Cake"})
+}
+
+// Recipe.insertMany(data, (err,data)=>{
+//   (err)?console.log(err):data.forEach((recipe, i, arr)=>{
+//     console.log(recipe.title)
+//     if(recipe.title == "Rigatoni alla Genovese"){
+      
+//       .then(()=>console.log('Rigatonni updated'))
+//       .catch(err=>console.log(err));
+//     }
+//     if(recipe.title == "Carrot Cake"){
+      
+//       .then(()=>console.log('Carrot Cake deleted'))
+//       .catch(err=>console.log(err));
+//     }
+    
+//     if(i == arr.length-1){
+//       console.log('disconnected');
+//       mongoose.disconnect();
+//     }
+//   });
+// });
+

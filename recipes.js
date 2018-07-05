@@ -49,9 +49,9 @@ mongoose
       duration: 40,
       creator: "Pair team"
     });
+    pushData();
     addRecipe(firstRecipe);
-    pushData()
-    updateRecipe();
+    setTimeout((()=>{updateRecipe("Rigatoni alla Genovese");removeRecipe("Carrot Cake");}),1500);
   })
   .catch(err => {
     console.error("Error connecting to mongo", err);
@@ -65,20 +65,31 @@ function pushData() {
     .catch(err => {
       console.log("error");
     });*/
-    Recipe.insertMany(data);
+  Recipe.insertMany(data);
 }
 
-function updateRecipe(){
-  console.log("entrar")
-  Recipe.update({title:"Rigatoni alla Genovese"},{duration:100})
+function updateRecipe(name) {
+  Recipe.updateOne({ title: name }, {$set:{ duration: 100 }})
+  .then((e)=>console.log("Receta modificada "))
+  .catch((err)=>console.log("Error al modificar"))
 }
 
-function addRecipe(r) {
-  r.save()
-    .then(recipe => {
+function addRecipe(recipe) {
+  recipe
+    .save()
+    .then(() => {
       console.log("Añadida");
     })
     .catch(err => {
       console.log("Error al añadir receta");
     });
+}
+
+function removeRecipe(name){
+  Recipe.remove({title:name})
+  .then((e)=>{
+    console.log("Recipe eliminated")
+    mongoose.disconnect()
+    .then((e)=>console.log("Bye"))
+  })
 }

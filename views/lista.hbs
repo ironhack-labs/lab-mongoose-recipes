@@ -1,0 +1,11 @@
+<h1>Estas son las recetos</h1>
+
+{{#each items as |recipe|}}
+<h3>
+    <ul>
+        <li>Name: {{recipe.title}}</li>
+        <li>Level: {{recipe.level}}</li>
+        <li>Cousine: {{recipe.cousine}}</li>
+    </ul>
+</h3>
+{{/each}}

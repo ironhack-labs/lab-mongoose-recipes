@@ -1,14 +1,27 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![Ironhack logo](https://i.imgur.com/1QgrNNw.png)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node recipes.js",
+    "watch": "nodemon recipes.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.0.12"
-  }
+    "express": "^4.16.3",
+    "hbs": "^4.0.1",
+    "mongoose": "^5.2.1",
+    "nodemon": "^1.17.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lili-cadena/lab-mongoose-recipes.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/lili-cadena/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/lili-cadena/lab-mongoose-recipes#readme"
 }

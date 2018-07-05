@@ -31,3 +31,7 @@ Recipe.create({
 }).catch((err)=>{
   console.log(err);
 });
+
+Recipe.insertMany(data, (err,data)=>{
+  (err)?console.log(err):data.forEach((recipe)=>console.log(recipe.title));
+})

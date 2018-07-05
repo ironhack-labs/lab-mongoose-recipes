@@ -61,24 +61,3 @@ const deleteCarrot = ()=>{
   return Recipe.deleteOne({ title: "Carrot Cake"})
 }
 
-// Recipe.insertMany(data, (err,data)=>{
-//   (err)?console.log(err):data.forEach((recipe, i, arr)=>{
-//     console.log(recipe.title)
-//     if(recipe.title == "Rigatoni alla Genovese"){
-      
-//       .then(()=>console.log('Rigatonni updated'))
-//       .catch(err=>console.log(err));
-//     }
-//     if(recipe.title == "Carrot Cake"){
-      
-//       .then(()=>console.log('Carrot Cake deleted'))
-//       .catch(err=>console.log(err));
-//     }
-    
-//     if(i == arr.length-1){
-//       console.log('disconnected');
-//       mongoose.disconnect();
-//     }
-//   });
-// });
-

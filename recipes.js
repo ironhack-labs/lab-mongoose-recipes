@@ -24,40 +24,86 @@ const recipeSchema = new Schema({
 const Recipe = mongoose.model('Recipe', recipeSchema );
 
 // iteration 2
+const createRecipe = function(infoObject) {
+return Recipe.create(infoObject, (err, recipe ) => {
+ if (err) {
+   console.log(err)
+ } else {
+   console.log(recipe.title,'Recipe added successfully')
+ }
 
-// Recipe.create({ title: 'foo', level:'Easy Peasy', ingredients:['Apple','Bread'], cousine: 'French'}, (err,recipe )=>{
-//  if (err) {
-//    console.log(err)
-//  } else {
-//    console.log(recipe.title,'Recipe added successfully')
-//  }
+});
+};
 
-// });
-
+// createRecipe( title: 'foo', level:'Easy Peasy', ingredients:['Apple','Bread'], cousine: 'French'})
 // iteration 3
+const insertRecipes = function (recipesArray){
+return Recipe.insertMany(recipesArray,(err,result )=>{
+  if (err) {
+    console.log(err)
+  } else {
+    console.log('Recipe added successfully');
+    Recipe.find({}, (err,recipe) => {
+      recipe.forEach((item)=> {
+       console.log(item.title)
+      });
+})
+  }
+})
+}
 
-// Recipe.insertMany(data,(err,recipe )=>{
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log('Recipe added successfully');
-//     Recipe.find({}, (err,recipe) => {
-//       recipe.forEach((item)=> {
-//        console.log(item.title)
-//       });
-// })
-//   }
-// });
+// insertRecipes(data);
+
+
+// i3 option 2 monsitas way
+//  Recipe.insertMany(data)
+//  .then((data) => {
+
+//    data.forEach(function(item){
+//      console.log('The title of the recipe is: ' + item.title)
+//    })
+   
+
+//  })
+
 
 // iteration 4
 
-Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+const updateRecipe = function (query, update){
+
+return Recipe.updateOne(query, update)
  .then(()=> {
    console.log('Update success')
  })
  .catch((err)=> {
    console.log(err)
  });
+}
+
+updateRecipe({title: 'Rigatoni alla Genovese'}, {duration: 100});
+
+ //iteration 5
+
+ const deleteRecipe = function (query) {
+return Recipe.deleteOne()
+ .then(()=> {
+  console.log('Delete success')
+})
+.catch((err)=> {
+  console.log(err)
+});
+}
+
+deleteRecipe({title:'Carrot Cake'})
+
+// iteration 6
+
+mongoose.connection.close()
+
+mongoose.disconnect()
+
+
+
  
 
 

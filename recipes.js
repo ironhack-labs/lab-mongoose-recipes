@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
     console.error('Error connecting to mongo', err)
   });
 
-const Recipe = new Schema({
+const recipeSchema = new Schema({
   title: String,
   level: String,
   ingredients: [String],
@@ -21,3 +21,13 @@ const Recipe = new Schema({
   created: {type: Date, default: Date.now}
 })
 
+const Recipe = mongoose.model('Recipe', recipeSchema);
+
+Recipe.create({
+  title: 'Burger Cangreburger',
+  cousine: 'Hamburgers'
+}).then((recipe)=>{
+  console.log(recipe.title);
+}).catch((err)=>{
+  console.log(err);
+});

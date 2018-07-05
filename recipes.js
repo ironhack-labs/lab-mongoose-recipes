@@ -23,6 +23,8 @@ const recipeSchema = new Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema );
 
+// iteration 2
+
 // Recipe.create({ title: 'foo', level:'Easy Peasy', ingredients:['Apple','Bread'], cousine: 'French'}, (err,recipe )=>{
 //  if (err) {
 //    console.log(err)
@@ -32,11 +34,32 @@ const Recipe = mongoose.model('Recipe', recipeSchema );
 
 // });
 
-Recipe.insertMany(data,(err,recipe )=>{
-  if (err) {
-    console.log(err)
-  } else {
-    console.log(recipe.title,'Recipe added successfully')
-  }
-});
+// iteration 3
+
+// Recipe.insertMany(data,(err,recipe )=>{
+//   if (err) {
+//     console.log(err)
+//   } else {
+//     console.log('Recipe added successfully');
+//     Recipe.find({}, (err,recipe) => {
+//       recipe.forEach((item)=> {
+//        console.log(item.title)
+//       });
+// })
+//   }
+// });
+
+// iteration 4
+
+Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+ .then(()=> {
+   console.log('Update success')
+ })
+ .catch((err)=> {
+   console.log(err)
+ });
+ 
+
+
+
 

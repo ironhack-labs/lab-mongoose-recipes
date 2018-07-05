@@ -33,5 +33,12 @@ Recipe.create({
 });
 
 Recipe.insertMany(data, (err,data)=>{
-  (err)?console.log(err):data.forEach((recipe)=>console.log(recipe.title));
+  (err)?console.log(err):data.forEach((recipe,i)=>{
+    console.log(recipe.title)
+    if(recipe.title == "Rigatoni alla Genovese"){
+      Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+      .then(()=>console.log('Rigatonni updated'))
+      .catch(err=>console.log(err));
+    }
+  });
 })

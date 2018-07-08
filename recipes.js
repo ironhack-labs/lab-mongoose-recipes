@@ -4,6 +4,7 @@ const Schema   = mongoose.Schema;
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!')
+    //mongoose.disconnect(); 
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
@@ -26,7 +27,7 @@ const Recipe = mongoose.model('Recipe', recipeSchema);
 
 //Iteration 6
 
-
+//Located on Line 7
 
 
 //Iteration 5

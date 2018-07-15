@@ -9,6 +9,8 @@ mongoose.connect('mongodb://localhost/recipeApp')
     console.error('Error connecting to mongo', err)
   });
 
+//Iteration 1 - Recipe Schema
+
 const recipeSchema = new Schema ({
   title: {type: String, required: true, unique: true},
   level: {type: String, enum:['Easy Peasy','Amateur Chef','UltraPro Chef']},
@@ -23,6 +25,8 @@ const recipeSchema = new Schema ({
 
 const Recipe = mongoose.model ('Recipe', recipeSchema);
 
+//Iteration 2 - Create a recipe
+
 Recipe.create({title: 'Tamales', 
               level: 'UltraPro Chef',
               ingredients: ['1/2 cup rice vinegar', '5 tablespoons honey', '1/3 cup soy sauce (such as Silver Swan®)', '1/4 cup Asian (toasted) sesame oil', '3 tablespoons Asian chili garlic sauce', '3 tablespoons minced garlic', 'salt to taste', '8 skinless, boneless chicken thighs'],
@@ -35,8 +39,10 @@ Recipe.create({title: 'Tamales',
     console.log(Recipe.title);
   })
   .catch((err)=>{
-    console.log(err);
+    console.log(err)
   });
+
+//Iteration 3 - Insert Many recipes
 
 Recipe.insertMany(data).then((data) => {
   for(var i=0;i<data.length;i++){
@@ -44,12 +50,22 @@ Recipe.insertMany(data).then((data) => {
   }
 })
 
+//Iteration 4 - Update recipe.
 .then(() => {
-  Recipe.findOneAndUpdate({title: 'Rigatoni alla Geonvese'}, {duration: 100},{new: true})
-})
-.then(() => {
+  return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100});
   console.log('Success');
 })
-.catch((err) => {
-  console.log(err);
+
+//Iteration 5 - Remove a recipe
+.then(() => {
+  return Recipe.remove({title: 'Carrot Cake'});
+})
+
+//Iteration 6 - Close the Database
+.then(() => {
+  return mongoose.connection.close();
+})
+
+.then(() => {
+  console.log('Connection to moongose is closed');
 });

@@ -22,22 +22,24 @@ const recipeSchema = new Schema({
   created: { type: Date, default: Date.now() },
 });
 
-// console.log(recipeSchema)
+const Recipe = mongoose.model('Recipe', recipeSchema);
 
-const recipe = mongoose.model('recipe', recipeSchema);
-
-recipe.create({ title: 'lo que sea', cousine: 'algo' })
-  .then((recipe) => { console.log('funciono ', recipe.title) })
+Recipe.create({ title: 'soy una receta', cousine: 'cocina' })
+  .then((recipe) => { console.log(`create ${recipe.title}` })
   .catch((err) => { console.log('error', err) });
 
-recipe.insertMany(data)
-  .then((recipe) => { console.log('funciono', recipe) })
+Recipe.insertMany(data)
+  .then((recipe) => { 
+    console.log(`insert many ${recipe}`)
+  })
+  .then(() => {
+    return Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+  })
+  .then(() =>{
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+  })
+  .then(() => {
+    return mongoose.connection.close();
+    console.log('close mongoose')
+  })
   .catch((err) => { console.log('error', err) });
-
-recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-  .then((recipe) => { console.log('yey') })
-  .catch((err) => { console.log('error') });
-
-recipe.deleteOne({ title: "Carrot Cake" })
-  .then((recipe) => { console.log('delete') })
-  .catch((err) => { console.log('error') });

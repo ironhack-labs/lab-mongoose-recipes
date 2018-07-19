@@ -41,4 +41,4 @@ recipe.create({ title: 'lo que sea', cousine: 'algo' })
   .then((recipe) => {console.log('delete',recipe)})
   .catch((err) => {console.log('error')})
 
-  .close()
+  .close(); 

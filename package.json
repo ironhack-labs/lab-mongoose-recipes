@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "watch": "nodemon -e js,json,hbs ./recipes.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "mongoose": "^5.0.12"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
   }
 }

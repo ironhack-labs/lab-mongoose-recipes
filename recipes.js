@@ -40,4 +40,27 @@ const newRecipe = new Recipe({
   cusine: "German"
 });
 
-console.log(newRecipe);
+// newRecipe.save();
+// Recipe.insertMany(data)
+
+// Recipe.find({}).then(recipes => {
+//   // console.log(recipes)
+//   recipes.map(el => console.log(el.title))
+// })
+
+// Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+//   .then(result => {
+//     console.log("Changed!", result);
+//   })
+//   .catch(console.error);
+
+// Recipe.remove({title: "Carrot Cake"}).then(result => {
+//   console.log("Done", result)
+// }).catch(console.error)
+
+Recipe.updateOne({ title: "Orange and Milk-Braised Pork Carnitas" }, { level: "Easy Peasy" })
+  .then(result => {
+    console.log("Changed!", result);
+    mongoose.connection.close().then(response => console.log(response));
+  })
+  .catch(console.error);

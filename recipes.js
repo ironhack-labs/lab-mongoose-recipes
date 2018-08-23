@@ -34,3 +34,10 @@ const Recipe = mongoose.model(
     created: { type: Date, default: new Date() }
   })
 );
+
+const newRecipe = new Recipe({
+  title: "Soup",
+  cusine: "German"
+});
+
+console.log(newRecipe);

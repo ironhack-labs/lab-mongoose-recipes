@@ -35,3 +35,7 @@ Recipe.create({ title: 'Poulet Basquaise', cousine: 'Paulo' })
   Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
   .then(console.log("Success"))
   .catch(console.log("Error"));
+
+  Recipe.deleteOne({ title: "Carrot Cake"})
+  .then(console.log("Success"))
+  .catch(console.log("Error"));

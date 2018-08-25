@@ -32,3 +32,6 @@ Recipe.create({ title: 'Poulet Basquaise', cousine: 'Paulo' })
   .then((data) => {data.forEach(function(elt) {console.log(elt.title)})})
   .catch((err) => {console.log('An error happened:', err)})
 
+  Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+  .then(console.log("Success"))
+  .catch(console.log("Error"));

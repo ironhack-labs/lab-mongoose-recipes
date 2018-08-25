@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
 
 const recipeSchema = new Schema({
-  title : { type: String, unique: true },
+  title : { type: String, unique: true, required:true },
   level: { type: String, enum: ["Easy Peasy","Amateur Chef","UltraPro Chef"]},
   ingredients : Array,
   cousine:{ type: String, required: true },
@@ -27,3 +27,8 @@ var Recipe = mongoose.model('Recipe', recipeSchema);
 Recipe.create({ title: 'Poulet Basquaise', cousine: 'Paulo' })
   .then((Recipe) => { console.log('The recipe is saved and its value is: ', Recipe) })
   .catch((err) => { console.log('An error happened:', err) });
+
+  Recipe.insertMany(data)
+  .then((data) => {data.forEach(function(elt) {console.log(elt.title)})})
+  .catch((err) => {console.log('An error happened:', err)})
+

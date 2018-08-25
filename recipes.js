@@ -24,18 +24,24 @@ const recipeSchema = new Schema({
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
 
-Recipe.create({ title: 'Poulet Basquaise', cousine: 'Paulo' })
+  let promise1=Recipe.create({ title: 'Poulet Basquaise', cousine: 'Paulo' })
   .then((Recipe) => { console.log('The recipe is saved and its value is: ', Recipe) })
   .catch((err) => { console.log('An error happened:', err) });
 
-  Recipe.insertMany(data)
+  let promise2=Recipe.insertMany(data)
   .then((data) => {data.forEach(function(elt) {console.log(elt.title)})})
   .catch((err) => {console.log('An error happened:', err)})
 
-  Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+  let promise3=Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
   .then(console.log("Success"))
   .catch(console.log("Error"));
 
-  Recipe.deleteOne({ title: "Carrot Cake"})
+  let promise4=Recipe.deleteOne({ title: "Carrot Cake"})
   .then(console.log("Success"))
   .catch(console.log("Error"));
+
+  Promise.all([promise1, promise2, promise3, promise4])
+  .then(_ => { 
+    mongoose.connection.close();
+  })
+  .catch(err => console.error(err));

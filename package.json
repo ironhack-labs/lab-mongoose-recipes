@@ -2,13 +2,13 @@
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "recipes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.0.12"
+    "mongoose": "^5.2.13"
   }
 }

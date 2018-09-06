@@ -1,14 +1,24 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "![Ironhack logo](https://i.imgur.com/1QgrNNw.png)",
+  "main": "recipes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.0.12"
-  }
+    "express": "^4.16.3",
+    "mongoose": "^5.2.13"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crispinonicky/lab-mongoose-recipes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crispinonicky/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/crispinonicky/lab-mongoose-recipes#readme"
 }

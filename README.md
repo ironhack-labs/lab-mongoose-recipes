@@ -19,7 +19,7 @@ $ git push origin master
 
 Navigate to your repo and create a Pull Request -from your master branch to the original repository master branch.
 
-In the Pull Request name section add your Campus, name, and your last name separated by a dash "-".
+In the Pull Request header section add your Campus, name, and your last name separated by a dash "-".
 
 ## Introduction
 

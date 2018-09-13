@@ -31,6 +31,10 @@ mongoose.connect('mongodb://localhost/recipeApp',{ useNewUrlParser: true })
   })
   .then((update)=>{
     console.log(update)
+    return Recipe.deleteOne({title:"Carrot Cake"})
+  })
+  .then((remove)=>{
+    console.log(remove)
     mongoose.disconnect() 
   })
   .catch(err => {

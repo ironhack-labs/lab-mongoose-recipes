@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const Schema = mongoose.Schema;
-const path = require('path');
 const data = require('./data.js');
 
 
@@ -48,39 +47,33 @@ Recipe.collection.drop();
 
 Recipe.insertMany(data)
 	.then((data) => {
-		return Recipe.findOneAndUpdate({
-				title: 'Rigatoni alla Genovese'
-			}, {
-				duration: 100
-			}, {
-				new: true
-			})
-			.then((recipe) => {
-				return recipe.save();
-			})
-			.then(() => {
-				console.log('Updated duration')
-			})
-			.catch((e) => {
-				console.log('Error', e)
-			});
-
+		return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese'}, { duration: 100}, { new: true })
+			.then((recipe) => { return recipe.save(); })
+			.then(() => { console.log('Updated duration'); })
+			.catch((e) => { console.log('Error', e); });
 	})
 	.then(() => {
 		return Recipe.deleteOne( {title: 'Carrot Cake'})
-		.then(() => {
-			console.log('Deleted Carrot Cake')
-		})
-		.catch((e) => {
-			console.log('Error', e)
-		});
+			.then(() => {
+				console.log('Deleted Carrot Cake'); 
+				mongoose.disconnect();
+			})
+			.catch((e) => {	console.log('Error', e); });
+			
 	})
-	.catch((e) => {
-		console.log('Error', e)
-	});
+	.catch((e) => { console.log('Error', e);});
+
+
+process.on('SIGINT', () => {
+	mongoose.connection.close( () => {
+		console.log('Mongoose connection closed');
+		process.exit(0);
+	} )
+})
 
 
 
 app.listen(3000, () => {
 	console.log('Listening 3000');
 });
+

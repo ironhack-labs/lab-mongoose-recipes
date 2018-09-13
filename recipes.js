@@ -19,12 +19,21 @@ const Recipe = mongoose.model('Recipe', recipesSchema);
 
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
+    console.log('Connected to Mongo!')
     return Recipe.collection.drop();
   })
   .then(() => {
-    Recipe.create({ title : "Arepas ReinaPepiada", cousine : "Venezuelan", level : "Easy Peasy" }) 
-    console.log('Connected to Mongo!')
-  }).then(() => Recipe.insertMany(data, (error, docs) => {}))
+    return Recipe.create({ title: "Arepas ReinaPepiada", cousine: "Venezuelan", level: "Easy Peasy" })
+  })
+  .then(() => Recipe.insertMany(data))
+  .then(() => Recipe.find({}, {title:1, _id:0}))
+  .then(titles => {
+    console.log(titles);
+    return Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {duration:100}, {new:true})})
+  .then((recipe) => console.log("Duration updated" + recipe))
+  .then(() => Recipe.findOneAndRemove({title:"Carrot Cake"}))
+  .then(() => console.log("Carrot Cake removed"))
+  .then(() => mongoose.disconnect())
   .catch(err => {
     console.error('Error connecting to mongo', err)
   });

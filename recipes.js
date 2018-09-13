@@ -48,7 +48,7 @@ Recipe.collection.drop();
 
 Recipe.insertMany(data)
 	.then((data) => {
-		Recipe.findOneAndUpdate({
+		return Recipe.findOneAndUpdate({
 				title: 'Rigatoni alla Genovese'
 			}, {
 				duration: 100
@@ -56,16 +56,24 @@ Recipe.insertMany(data)
 				new: true
 			})
 			.then((recipe) => {
-
 				return recipe.save();
 			})
 			.then(() => {
-				console.log('Success')
+				console.log('Updated duration')
 			})
 			.catch((e) => {
 				console.log('Error', e)
 			});
 
+	})
+	.then(() => {
+		return Recipe.deleteOne( {title: 'Carrot Cake'})
+		.then(() => {
+			console.log('Deleted Carrot Cake')
+		})
+		.catch((e) => {
+			console.log('Error', e)
+		});
 	})
 	.catch((e) => {
 		console.log('Error', e)

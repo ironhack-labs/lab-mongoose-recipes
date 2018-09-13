@@ -16,9 +16,9 @@ mongoose.connect('mongodb://localhost/recipeApp')
 const recipeSchema = new Schema({
 	title: String,
 	level: { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
-	ingredients: Array,
-	cousine: { type: String, enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other'] },
-	dishType: String,
+	ingredients: [String],
+	cousine: { type: String},
+	dishType: {type:String, enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other'] },
 	image: { type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg'},
 	duration: { type: Number, min:0 },
 	creator: String,
@@ -27,9 +27,11 @@ const recipeSchema = new Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-Recipe.create( {title: 'Francis'})
-.then( (recipe) => { console.log('Recipe:', recipe)} )
-.catch( (e) => { console.log('Error', e) });
+Recipe.collection.drop();
+
+Recipe.insertMany(data)
+	.then( (data) => {console.log('Inserted Array', data)})
+	.catch( (e) => { console.log('Error', e) });
 
 app.listen(3000, () => {
 	console.log('Listening 3000');

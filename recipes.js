@@ -18,13 +18,14 @@ const recipesSchema = new Schema({
 const Recipe = mongoose.model('Recipe', recipesSchema);
 
 mongoose.connect('mongodb://localhost/recipeApp')
-  .then( () => {
+  .then(() => {
     return Recipe.collection.drop();
   })
   .then(() => {
     Recipe.create({ title : "Arepas ReinaPepiada", cousine : "Venezuelan", level : "Easy Peasy" }) 
     console.log('Connected to Mongo!')
-  }).catch(err => {
+  }).then(() => Recipe.insertMany(data, (error, docs) => {}))
+  .catch(err => {
     console.error('Error connecting to mongo', err)
   });
 

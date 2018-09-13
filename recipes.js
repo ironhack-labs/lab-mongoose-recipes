@@ -16,10 +16,21 @@ let recipe1 =  {
 mongoose.connect('mongodb://localhost/recipeApp',{ useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!')
+    Recipe.collection.drop()
+    return Recipe.create(recipe1)
+  })
+  .then((recipe)=>{
+    console.log(`Una ${recipe.title}`)
     return Recipe.insertMany(data)
   })
   .then((res)=>{
     res.forEach(recipe=>console.log(recipe.title))
+  })
+  .then(()=>{
+    return Recipe.updateOne({title:"Rigatoni alla Genovese"},{duration:100})
+  })
+  .then((update)=>{
+    console.log(update)
     mongoose.disconnect() 
   })
   .catch(err => {

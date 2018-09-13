@@ -4,7 +4,8 @@
   "description": "![Ironhack logo](https://i.imgur.com/1QgrNNw.png)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon recipes.js"
   },
   "author": "",
   "license": "ISC",

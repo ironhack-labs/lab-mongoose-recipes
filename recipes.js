@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const path = require('path');
 const Schema = mongoose.Schema;
+const path = require('path');
 const data = require('./data.js');
 
 
@@ -13,18 +13,23 @@ mongoose.connect('mongodb://localhost/recipeApp')
 		console.error('Error connecting to mongo', err)
 	});
 
-const Recipe = new Schema({
+const recipeSchema = new Schema({
 	title: String,
-	level: { type:String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
+	level: { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
 	ingredients: Array,
 	cousine: { type: String, enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other'] },
 	dishType: String,
 	image: { type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg'},
-	duration: {type: Number, min:0 },
+	duration: { type: Number, min:0 },
 	creator: String,
-	created: {type: Date, default: Date.now }
+	created: { type: Date, default: Date.now }
 });
 
+const Recipe = mongoose.model('Recipe', recipeSchema);
+
+Recipe.create( {title: 'Francis'})
+.then( (recipe) => { console.log('Recipe:', recipe)} )
+.catch( (e) => { console.log('Error', e) });
 
 app.listen(3000, () => {
 	console.log('Listening 3000');

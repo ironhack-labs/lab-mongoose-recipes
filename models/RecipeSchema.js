@@ -7,7 +7,8 @@ const Schema = mongoose.Schema;
 const recipeSchema = new Schema({
   title: {
     type: String,
-    required: unique
+    required: true,
+    unique: true
   },
   level: {
     type: String,

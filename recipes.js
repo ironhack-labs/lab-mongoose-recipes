@@ -67,8 +67,8 @@ function closeConection(){
     mongoose.connection.close();
 }
 
-//create();
-//saveAllRecipes();
+create();
+saveAllRecipes();
 updateOneRecipe();
 deleteOneRecipe();
 closeConection();

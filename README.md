@@ -19,13 +19,13 @@ $ git push origin master
 
 Navigate to your repo and create a Pull Request -from your master branch to the original repository master branch.
 
-In the Pull Request name, add your Campus, name, and the last name separated by a dash "-".
+In the Pull Request header section add your Campus, name, and your last name separated by a dash "-".
 
 ## Introduction
 
 ![thai_style_chicken_noodle_soup_pieces_recipe_web](https://user-images.githubusercontent.com/23629340/38369283-ac1bda62-38e7-11e8-9c9b-d9df623f1bc3.jpg)
 
-We learned how to use Mongoose to create Schemas and then interact with our MongoDB database. In the following exercise, we will practice how to implement this, creating awesome recipes.
+We learned how to use Mongoose to create Schemas and then interact with our MongoDB database. In the following exercise, we will practice how to implement this by creating awesome recipes.
 
 ## Deliverables
 
@@ -36,7 +36,7 @@ The `recipes.js` file already connects to the **recipesApp** database. Now we ne
 - **title**. Type `String`. It should be required and unique.
 - **level**. Type `String`. Only can be one of the following values: *Easy Peasy* - *Amateur Chef* - *UltraPro Chef* (remember the ENUM :wink:)
 - **ingredients**. Type `Array`.
-- **cousine**. Type `String`. Should be required.
+- **cuisine**. Type `String`. Should be required.
 - **dishType**. Type `String`. Possible values: *Breakfast* - *Dish* - *Snack* - *Drink* - *Dessert* - *Other*.
 - **image**. Type `String`. Default value: *https://images.media-allrecipes.com/images/75131.jpg*.
 - **duration**. Type `Number`. Min value should be 0.
@@ -47,7 +47,7 @@ The `recipes.js` file already connects to the **recipesApp** database. Now we ne
 
 Using the `Model.create` method, you should pass the info to create a new recipe. After the creation, you can use MongoDB Compass to check everything goes ok. After inserting the recipe, you should `console.log` the `title` of the recipe.
 
-:::info
+:::info>
 To run your code remember you should use `$ node recipes.js`.
 :::
 

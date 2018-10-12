@@ -39,16 +39,32 @@ Recipe.insertMany(data)
     result.forEach(recipe => {
       console.log(recipe.title)
     })
-    // console.log(result);
-  }) 
-  .catch((error) => {
-    console.log('error', error);
+
+    Recipe.updateMany({title: 'Rigatoni alla Genovese'}, {duration: 100})
+    .then((recipe) => {
+      console.log('Receta modificada correctamente', recipe)
+      
+      Recipe.deleteMany({title: 'Carrot Cake'})
+        .then((recipe) => {
+        console.log('Receta eliminada correctamente', recipe)
+
+        mongoose.connection.close();  
+
+        }) 
+        .catch((error) => {
+        console.log('error', error);
+        })
+    })
+    .catch((error) => {
+      console.log('error', error);
+    })
+    
   })
 
-Recipe.updateMany({title: 'Rigatoni alla Genovese'}, {duration: 100})
-  .then((recipe) => {
-    console.log('Receta modificada correctamente', recipe)
-  })
-  .catch((error) => {
-    console.log('error', error);
-  })
+.catch((error) => {
+  console.log('error', error);
+})
+  
+
+
+  

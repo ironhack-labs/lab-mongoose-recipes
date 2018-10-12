@@ -8,3 +8,47 @@ mongoose.connect('mongodb://localhost/recipeApp')
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
+
+  
+const RecipesSchema = new Schema ({
+  title: String,
+  level: {
+    type: String,
+    enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
+  } ,
+  ingredients: Array,
+  cuisine: String,
+  dishType: {
+    type: String,
+    enum: ['Breakfast', 'Dish', 'Snak', 'Drink', 'Dessert', 'Other']
+  } ,
+  image: String,
+  duration: Number,
+  creator: String,
+  created: Date,
+
+})
+
+const Recipe = mongoose.model ('Recipe', RecipesSchema);
+
+const recipe1 = new Recipe({title: 'Macarrones con queso'});
+console.log('recipe1');
+
+Recipe.insertMany(data)
+  .then((result) => {
+    result.forEach(recipe => {
+      console.log(recipe.title)
+    })
+    // console.log(result);
+  }) 
+  .catch((error) => {
+    console.log('error', error);
+  })
+
+Recipe.updateMany({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  .then((recipe) => {
+    console.log('Receta modificada correctamente', recipe)
+  })
+  .catch((error) => {
+    console.log('error', error);
+  })

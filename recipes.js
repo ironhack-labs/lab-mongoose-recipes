@@ -16,24 +16,25 @@ const recipeSchema = new Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-/* Recipe.create({title: "Chorizo con Nocilla", level: "Easy Peasy"})
+let p1 = Recipe.create({title: "Chorizo con Nocilla", level: "Easy Peasy"})
 .then(result => {
   console.log(result.title)
-  Recipe.insertMany(data)
-  .then(resultado => {
-    resultado.forEach(elem =>{
-      console.log(elem.title)
-    })
-  })
-  .catch(error => {
-    console.log("la cagaste: ", error)
+})
+.catch(error => {
+  console.log("la cagaste: ", error)
+})
+
+let p4 =  Recipe.insertMany(data)
+.then(resultado => {
+  resultado.forEach(elem =>{
+    console.log(elem.title)
   })
 })
 .catch(error => {
   console.log("la cagaste: ", error)
-}) */
+})
 
-Recipe.update({title: {$eq: "Rigatoni alla Genovese"}}, {duration: 100})
+let p2 = Recipe.findOneAndUpdate({title: {$eq: "Rigatoni alla Genovese"}}, {duration: 100})
 .then(result => {
   console.log(result.duration);
 })
@@ -41,15 +42,26 @@ Recipe.update({title: {$eq: "Rigatoni alla Genovese"}}, {duration: 100})
     console.log(error);
 })
 
-/* Recipe.remove({title: "Carrot Cake"})
+let p3 = Recipe.remove({title: "Carrot Cake"})
 .then(result => {
   console.log("Hemos borrado");
 })
 .catch(error => {
     console.log(error);
-}) */ 
+})
 
-
+Promise.all([p1, p4, p2, p3])
+.then((result) => {
+  mongoose.disconnect('mongodb://localhost/recipeApp')
+  .then(() => {
+    console.log('Disconnected of Mongo!');
+  }).catch(err => {
+    console.error('Error disconnecting to mongo', err);
+  });
+})
+.catch(error => {
+  console.log(error);
+})
 
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {

@@ -34,35 +34,37 @@ Recipe.remove()
   .then(()=>{
       console.log("remove");
   })
-// Recipe.create(arepa)
-//   .then((result) => {
-//     console.log('result', result)
-//   })
-//   .catch((error) => {
-//     console.log('error', error)
-//   });
 
-  Recipe.insertMany(recipeArray)
-  .then((result) => {
-    console.log('result many', result)
+  Recipe.create(arepa)
+    .then((result) => {
+      console.log('result', result)
+   
+      Recipe.insertMany(recipeArray)
+      .then((result) => {
+        console.log('result many', result)
 
-    Recipe.update({title : "Rigatoni alla Genovese"}, {duration: 100})
-      .then(() => {
-        console.log('Update successful');
-      }).catch(err => {
-        console.error('Error', err);
-    });
-    
-    Recipe.remove({ title: 'Carrot Cake' })
-      .then(() => {
-        console.log('Carrot removed');
-      }).catch(err => {
-        console.error('Error', err);
-    });    
-  })
-  .catch((error) => {
-    console.log('error', error)
-  });
+        Recipe.update({title : "Rigatoni alla Genovese"}, {duration: 100})
+          .then(() => {
+            console.log('Update successful');
+          }).catch(err => {
+            console.error('Error', err);
+        });
+        
+        Recipe.remove({ title: 'Carrot Cake' })
+          .then(() => {
+            console.log('Carrot removed');
+            mongoose.disconnect();
+          }).catch(err => {
+            console.error('Error', err);
+        });    
+      })
+      .catch((error) => {
+        console.log('error', error)
+      });
+    })
+    .catch((error) => {
+      console.log('error', error)
+    });  
   
 
 

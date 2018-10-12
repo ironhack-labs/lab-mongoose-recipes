@@ -16,7 +16,7 @@ const recipeSchema = new Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-Recipe.create({title: "Chorizo con Nocilla", level: "Easy Peasy"})
+/* Recipe.create({title: "Chorizo con Nocilla", level: "Easy Peasy"})
 .then(result => {
   console.log(result.title)
   Recipe.insertMany(data)
@@ -31,9 +31,9 @@ Recipe.create({title: "Chorizo con Nocilla", level: "Easy Peasy"})
 })
 .catch(error => {
   console.log("la cagaste: ", error)
-})
+}) */
 
-Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+Recipe.update({title: {$eq: "Rigatoni alla Genovese"}}, {duration: 100})
 .then(result => {
   console.log(result.duration);
 })
@@ -41,13 +41,13 @@ Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
     console.log(error);
 })
 
-//Recipe.remove({title: "Carrot Cake"})
-//.then(result => {
-  //console.log("Hemos borrado");
-//})
-//.catch(error => {
-  //  console.log(error);
-//})
+/* Recipe.remove({title: "Carrot Cake"})
+.then(result => {
+  console.log("Hemos borrado");
+})
+.catch(error => {
+    console.log(error);
+}) */ 
 
 
 

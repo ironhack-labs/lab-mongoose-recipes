@@ -1,25 +1,6 @@
-![Ironhack logo](https://i.imgur.com/1QgrNNw.png)
+![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
 
-# DE | Mongoose Recipes
-
-## Requirements
-
-- [Fork this repo](https://guides.github.com/activities/forking/).
-- Clone your fork into your `~/code/labs` folder.
-
-## Submission
-
-Upon completion, run the following commands:
-
-```bash
-$ git add .
-$ git commit -m"done"
-$ git push origin master
-```
-
-Navigate to your repo and create a Pull Request -from your master branch to the original repository master branch.
-
-In the Pull Request header section add your Campus, name, and your last name separated by a dash "-".
+# Mongoose Recipes
 
 ## Introduction
 
@@ -27,7 +8,25 @@ In the Pull Request header section add your Campus, name, and your last name sep
 
 We learned how to use Mongoose to create Schemas and then interact with our MongoDB database. In the following exercise, we will practice how to implement this by creating awesome recipes.
 
-## Deliverables
+## Requirements
+
+- Fork this repo
+- Clone this repo
+
+## Submission
+
+- Upon completion, run the following commands:
+
+  ```
+  git add .
+  git commit -m "done"
+  git push origin master
+  ```
+
+- Create Pull Request so your TAs can check up your work.
+
+
+## Instructions
 
 ### Iteration 1 - Recipe Schema
 
@@ -66,3 +65,6 @@ Oh oh! The `Carrot Cake` is no longer available, so we need to remove it from th
 ### Iteration 6 - Close the Database
 
 After doing all the task you should close the database. Otherwise, the connection will keep open. Be careful about the asynchrony of all process; you should close it after everything is done! :wink:
+
+
+Happy coding! :heart:

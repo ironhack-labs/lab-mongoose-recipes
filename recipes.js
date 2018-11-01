@@ -26,27 +26,28 @@ mongoose.connect('mongodb://localhost/recipeApp')
   const Recipe = mongoose.model('Recipe', recipeSchema);
 
 
+// Commenting this so that we don't get duplicate-related errors
 
-  Recipe.create({
-    title : "orangen saft",
-    level: "Easy Peasy",
-    ingredients: ['apples', 'sugar', 'flour', 'butter'],
-    cuisine: "British",
-    dishType: 'Dessert',
-    image: "https://cdn.donnahaycdn.com.au/images/content-images/classic_applecrumble.jpg",
-    duration: 60,
-    creator: "Samanta",
-    // created: 01/11/
+//   Recipe.create({
+//     title : "orangen saft",
+//     level: "Easy Peasy",
+//     ingredients: ['apples', 'sugar', 'flour', 'butter'],
+//     cuisine: "British",
+//     dishType: 'Dessert',
+//     image: "https://cdn.donnahaycdn.com.au/images/content-images/classic_applecrumble.jpg",
+//     duration: 60,
+//     creator: "Samanta",
+//     // created: 01/11/
   
-  })
-  .then((recipe) => { console.log('Recipe title ', recipe.title) })
-  .catch((err) => { console.log('An error happened when creating your recipe:', err) });
+//   })
+//   .then((recipe) => { console.log('Recipe title ', recipe.title) })
+//   .catch((err) => { console.log('An error happened when creating your recipe:', err) });
 
- Recipe.insertMany(
-   data
-  ).then((res) => {
-    console.log('Recipe title is', res.title)
-  }).catch ((err) => {console.log ("An error happened when insertingMany from data.js")})
+//  Recipe.insertMany(
+//    data
+//   ).then((res) => {
+//     console.log('Recipe title is', res.title)
+//   }).catch ((err) => {console.log ("An error happened when insertingMany from data.js")})
 
 
 Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })

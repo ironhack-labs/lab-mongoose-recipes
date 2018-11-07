@@ -8,3 +8,16 @@ mongoose.connect('mongodb://localhost/recipeApp')
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
+
+  const Schema = mongoose.Schema;
+
+  const recipe = new Schema({
+    title: String,
+    level: String,
+    ingredients: Array,
+    cuisine: String,
+    dishType: String,
+    image: String,
+    duration: Number,
+    creator: String,
+    created: { type: Date, default: }

@@ -1,7 +1,7 @@
 module.exports =
     [
       {
-        title: 'Asian Glazed Chicken Thighs',
+        title: 'Asians Glazed Chicken Thighs',
         level: 'Amateur Chef',
         ingredients: ['1/2 cup rice vinegar', '5 tablespoons honey', '1/3 cup soy sauce (such as Silver Swan®)', '1/4 cup Asian (toasted) sesame oil', '3 tablespoons Asian chili garlic sauce', '3 tablespoons minced garlic', 'salt to taste', '8 skinless, boneless chicken thighs'],
         cuisine: 'Asian',

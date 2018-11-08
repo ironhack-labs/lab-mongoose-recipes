@@ -1,4 +1,4 @@
-module.exports =
+module.exports  =
     [
       {
         title: 'Asian Glazed Chicken Thighs',

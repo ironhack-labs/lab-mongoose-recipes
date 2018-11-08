@@ -55,7 +55,7 @@ const Recipe = mongoose.model("Recipe", recipeSchema);
 
 Recipe.create({title: "eiofrifn", cuisine: "italian"})
 .then(recipeDoc =>  {
-  console.log("OH BOY")
+  console.log("worked", recipeDoc)
 })
 .catch(err => {
   console.log("fuck off", err)
@@ -64,7 +64,7 @@ Recipe.create({title: "eiofrifn", cuisine: "italian"})
 // Insert many recipes 
 Recipe.insertMany(data)
 .then(recipesDoc =>{
-  console.log("did I just made it?")
+  console.log("did I just made it?", recipesDoc)
 })
 .catch(err => {
   console.log("oh ok no I did not", err)
@@ -76,7 +76,7 @@ Recipe.findByIdAndUpdate(
 { $set: {duration: 100}}
 )
 .then(recipeDoc => {
-  console.log("how good you are girl")
+  console.log("how good you are girl", recipeDoc)
 })
 .catch(err => {
   console.log("keep trying", err)
@@ -85,7 +85,7 @@ Recipe.findByIdAndUpdate(
 // remove carrot cake (how dare you?!)
 Recipe.findByIdAndRemove("5be46720a8d5f162e973a35f")
 .then(recipeDoc => {
-  console.log("Carrot cake is life")
+  console.log("Carrot cake is life", recipeDoc)
 })
 .catch(err => {
   console.log("oh nooooo I told you carrot cake was LIFE", err)

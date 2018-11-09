@@ -67,6 +67,7 @@ Recipe.create({
 .catch(err =>{
   console.log("recipeCreate Failure", err)
 });
+newRecipe.save()
 
 let manyRecipe =
 Recipe.insertMany(data)
@@ -80,7 +81,8 @@ Recipe.insertMany(data)
 });
 
 let recipeUpdate =
-Recipe.findByIdAndUpdate("5be464c6ab084b0c399069bc", {$set: {duration: 100}})
+Recipe.findOneAndUpdate({title: { $eq: "Rigatoni alla Genovese" } },
+{ $set: { duration: 100 } })
 .then(recipeDoc =>{
   console.log(`${recipeDoc.duration} update is a sucess`);
 })
@@ -89,7 +91,7 @@ Recipe.findByIdAndUpdate("5be464c6ab084b0c399069bc", {$set: {duration: 100}})
 });
 
 let recipeRemove =
-Recipe.findByIdAndRemove("5be464c6ab084b0c399069bb")
+Recipe.findOneAndRemove({ title: { $eq: "Carrot Cake" } } )
 .then(recipeDoc =>{
   console.log(`${recipeDoc.title} delete is a sucess`);
 })

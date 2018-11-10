@@ -26,9 +26,11 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 
   Recipe.collection.drop();
 
-for(let i = 0;i < data.length;i++){
-  Recipe.create({title: data[i].title, level: data[i].level,ingredients: data[i].ingredients, cuisine:data[i].cuisine,dishType:data[i].dishType,image:data[i].image,duration:data[i].duration,creator:data[i].creator})
-  .then((recipe) => { console.log('The user is saved and its value is: ', recipe) })
-  .catch((err) => { console.log('An error happened:', err) });
-}
+// for(let i = 0;i < data.length;i++){
+//   Recipe.create({title: data[i].title, level: data[i].level,ingredients: data[i].ingredients, cuisine:data[i].cuisine,dishType:data[i].dishType,image:data[i].image,duration:data[i].duration,creator:data[i].creator})
+//   .then((recipe) => { console.log('The user is saved and its value is: ', recipe) })
+//   .catch((err) => { console.log('An error happened:', err) });
+// }
+
+Recipe.insertMany(data,function(error,docs){});
 

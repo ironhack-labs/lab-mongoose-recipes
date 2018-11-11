@@ -45,7 +45,7 @@ recipe
     creator: "Aaron"
   })
   .then(recipe => console.log(recipe.title))
-  .catch(error => console(error));
+  .catch(error => console.log(error));
 
 recipe
   .insertMany(data)
@@ -61,4 +61,4 @@ recipe
       .then(() => console.log("Delete succes!"));
   })
   .then(() => mongoose.connection.close())
-  .catch(err => console.error(err));
+  .catch(err => console.log(err));

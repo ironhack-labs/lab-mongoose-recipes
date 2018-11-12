@@ -36,39 +36,38 @@ const createRecipe = (datObj, num) => {
     duration: datObj.duration,
     creator: datObj.creator
   });
-  return recipe
+  recipe
     .then(doc => console.log(`Created independent recipe -> ${doc.title}`))
     .catch(err => console.log(`Create failed`, err));
+  return recipe;
 };
 
 createRecipe(myRecipe);
 
 
-      //when i use this method the promise doesn't work correctly, updateRecipe and removeRecipe works perfectly, but showAllRecipes doesn't
-const manyRecipes = (datArr) => {
-  let proms = [];
-  for (let i = 0; i < datArr.length; i++) {
-    proms.push(createRecipe(datArr[i], i + 1));
+      //updateRecipe and removeRecipe works ok, but showAllRecipes doesn't display the recipes ordered
+//const manyRecipes = (datArr) => {
+  //let proms = [];
+  //for (let i = 0; i < datArr.length; i++) {
+    //proms.push(createRecipe(datArr[i], i + 1));
     //if we are using this method we must include the i num in the title of the recipe in the following methods (update and remove)
     //i only included i num to check the promises and see the order in which the recipes display
-  }
+  //}
   //console.log(proms);
-  return proms;
-};
+  //return proms;
+//};
 
-      //if i use this method, the promises work wrong, showAllRecipes is executed first, updateRecipe isn't working
-      //and removeRecipe works (but only in compass app), when i show the data through console, it's display wrongly
-// const manyRecipes = (datArr) => {
-//   let consoles = [];
-//   const recipes = Recipe.create(datArr); //if use the insertMany method, the other functions (update, remove) aren't working
-//   recipes
-//     .then(rec => {
-//       rec.forEach((e, i) => {
-//         consoles.push(console.log(`Created recipe ${i+1} -> ${e.title}`));
-//       })
-//     }).catch(err => console.log("Many recipes failed", err));
-//   return consoles;
-// };
+
+const manyRecipes = (datArr) => {
+  const recipes = Recipe.insertMany(datArr);
+  recipes
+    .then(rec => {
+      rec.forEach((e, i) => {
+        console.log(`Created recipe ${i+1} -> ${e.title}`);
+      })
+    }).catch(err => console.log("Many recipes failed", err));
+  return [recipes];
+};
 
 const updateRecipe = (query, change) => {
   return Recipe.updateOne(query, change)
@@ -83,63 +82,25 @@ const removeRecipe = (query) => {
 };
 
 const showAllRecipes = () => {
-  return Recipe.find().then(recs => {
-    console.log('HERE ARE ALL THE RECIPES -->');
-    recs.forEach(rec => {
-      console.log("Show recipe: ", rec.title);
+  return Recipe.find()
+    .then(recs => {
+      console.log('HERE ARE ALL THE RECIPES -->');
+      recs.forEach(rec => {
+        console.log("Show recipe: ", rec.title);
+      });
     });
-  });
 };
 
 
 Recipe.collection.drop();
 
-// const actions = () => {
-  //   manyRecipes(data);
-  //   updateRecipe({title: "4 Rigatoni alla Genovese"}, {duration: 100});
-  //   removeRecipe({title: "3 Carrot Cake"});
-  // };
-  // const pr = actions();
-
 const pr = manyRecipes(data);
+
 Promise.all(pr).then(() => {
-  //remove the title nums when using the second manyRecipes method
-  updateRecipe({title: "4 Rigatoni alla Genovese"}, {duration: 100});
-  removeRecipe({title: "3 Carrot Cake"});
+//manyRecipes(data).then(() => {
+  //remove the title nums (4/3) when using the second manyRecipes method
+  updateRecipe({title: "Rigatoni alla Genovese"}, {duration: 100});
+  removeRecipe({title: "Carrot Cake"});
   console.log("UPDATED");
   showAllRecipes().then(() => mongoose.disconnect());
 });
-
-
-
-
-
-
-
-
-
-//TESTING NOT VALID---------------------------------------
-// const manyRecipes = (datArr) => {
-//   let proms = [];
-//   for (let i = 0; i < datArr.length; i++) {
-//     proms.push(createRecipe(datArr[i], i + 1));
-//   }
-//   console.log(proms);
-//   return Recipe.insertMany(proms)
-//     .then(results => {
-//       const {recipes} = results;
-//       return recipes.map(rec => `Created recipe -> ${rec}`)})
-//     .catch(err => {console.log("Many recipes failed", err)});
-// };
-
-// const manyRecipes = (datArr) => {
-//   const recipes = Recipe.insertMany(datArr);
-//   return recipes
-//     .then(rec => {
-//       rec.forEach((e, i) => {
-//         console.log(`Created recipe ${i} -> ${e.title}`);
-//       });
-//     })
-//     .catch(err => console.log("Many recipes failed", err));
-// };
-//---------------------------------------------------------

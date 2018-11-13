@@ -1,4 +1,4 @@
-module.exports =
+const data = 
     [
       {
         title: 'Asian Glazed Chicken Thighs',
@@ -51,3 +51,4 @@ module.exports =
         creator: 'Chef Jennifer'
       }
     ];
+    module.exports = data;

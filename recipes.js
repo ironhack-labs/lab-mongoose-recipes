@@ -19,7 +19,7 @@ title:{type:String, required: true},
 
 const recipe = mongoose.model('recipe', RecipeSchema);
 
-let newRecipe = { title: 'Chicken', level: 'Easy Peasy',cousine:"Peruvian",duration:3};
+let newRecipe = { title: 'Bandeja-Paisa', level: 'Easy Peasy',cousine:"Colombian",duration:3};
 data.push(newRecipe);
 
 mongoose.connect('mongodb://localhost/recipeApp',{ useNewUrlParser: true })

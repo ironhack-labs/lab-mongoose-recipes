@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 const data = require('./data.js');
 
 //Importamos nuestro esquema, indicando la ruta

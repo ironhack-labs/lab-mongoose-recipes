@@ -48,26 +48,37 @@ var recipeSchema = new mongoose.Schema({
 })
 var Recipe = mongoose.model("Recipe", recipeSchema);
 
-Recipe.create({
-   title : 'Pizza', 
-   level : 'Easy Peasy', 
-   ingredients : ['bread' , 'cheese' , 'ham'],
-   cuisine : 'Italian',
-   dishType: 'Dish' ,
-   image : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg',
-   duration : 20 ,
-   creator: 'Eduardo Ravioli ',
-   created: 11/14/2018,
+// Recipe.create({
+//    title : 'Pizza', 
+//    level : 'Easy Peasy', 
+//    ingredients : ['bread' , 'cheese' , 'ham'],
+//    cuisine : 'Italian',
+//    dishType: 'Dish' ,
+//    image : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg',
+//    duration : 20 ,
+//    creator: 'Eduardo Ravioli ',
+//    created: 11/14/2018,
 
-  },
-   function (err, Recipe) {
-  if (err) {
-      console.log('Error has occured ... This is the Error : ', err);
-  } else {
-      console.log('You just saved a new Recipe to the database .... ', Recipe);
-  }
+//   },
+//    function (err, Recipe) {
+//   if (err) {
+//       console.log('Error has occured ... This is the Error : ', err);
+//   } else {
+//       console.log('You just saved a new Recipe to the database .... ', Recipe);
+//   }
+// });
+
+
+// Recipe.insertMany(data).then(() => {
+//   console.log("you imported data");
+// })
+
+
+Recipe.updateOne({ name: "Rigatoni alla Genovese"}, { duration: 100 }).then(() => {
+  console.log('you just updated that shit like a boss');
+}).catch(() => {
+  console.log('youdonefuckedup');
 });
-
 
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {

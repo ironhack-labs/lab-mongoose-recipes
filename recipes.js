@@ -18,20 +18,26 @@ const Recipe = mongoose.model("Recipe", recipesSchemas)
 module.exports = Recipe;
 
 mongoose.connect('mongodb://localhost/recipeApp')
-  .then(() => {
-    Recipe.create({
-      title:"Beef Strogonoff",
-      level:"Amateur Chef",
-      ingredients:["beef", "onion", "bacon", "rice","wine"],
-      cuisine:"Russian",
-      dishType:"Dish",
-      image:"Strogonoff",
-      duration:60,
-      creator:"Sofia",
-      created:"14-11-2018"
+.then(() => {
+  console.log('Connected to Mongo!');
+  return Recipe.collection.drop()
+  })
+  .then(()=>{
+
+    return Recipe.create({
+      title: "Beef Strogonoff",
+      ingredients: ["beef", "onion", "bacon", "rice", "wine"],
+      cuisine: "Russian",
+      dishType: ["Dish"],
+      image: "Strogonoff",
+      duration: 120,
+      creator: 'Chef Sofi',
+      level: "Amateur Chef",
     })
+  }) 
+  .then(()=>{
     Recipe.insertMany(data)
-    console.log('Connected to Mongo!');
-  }).catch(err => {
+  })
+  .catch(err => {
     console.error('Error connecting to mongo', err);
   });

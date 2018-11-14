@@ -44,8 +44,14 @@ mongoose
     console.log("Connected to Mongo!");
   })
   .then(() => recipes.insertMany(data))
-  .then(() => console.log("ok"))
-  .then(() => recipes.updateOne({title: "Rigatoni alla Genovese"},{ duration: 100})
+  .then(() => recipes.updateOne({title: "Rigatoni alla Genovese"},{ duration: 100}))
+  .then(() => recipes.deleteOne({title: "Carrot Cake"}))
+  .then(() => {
+    mongoose.connection.close()
+    console.log("ok")
+  })
+  
+  
 
   .catch(err => {
     console.error("Error connecting to mongo", err);

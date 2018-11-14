@@ -9,21 +9,21 @@ mongoose.connect('mongodb://localhost/recipeApp')
     console.error('Error connecting to mongo', err);
   });
 
-// Recipe.create([{
-//     title: "tacos",
-//     level: "Easy Peasy",
-//     ingredients: ["meat", "cheese", "onion", "tomato"],
-//     cuisine: "Mexican",
-//     dishType: "Dish",
-//     duration: 20,
-//     creator: "Rachel"
-//     }])
-//         .then((Recipe)=>{
-//             console.log(Recipe);
-//         })
-//         .catch((err)=>{
-//             console.log(err);
-//         })
+Recipe.create([{
+    title: "tacos",
+    level: "Easy Peasy",
+    ingredients: ["meat", "cheese", "onion", "tomato"],
+    cuisine: "Mexican",
+    dishType: "Dish",
+    duration: 20,
+    creator: "Rachel"
+    }])
+        .then((Recipe)=>{
+            console.log(Recipe);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
 
 
 

@@ -21,3 +21,10 @@ const recipe = new Schema({
     Creator: { type: String },
     created: { type: Date, default: Date.now }
 });
+
+const Recipe = mongoose.model('Recipe', recipe);
+module.exports = Recipe;
+
+Recipe.create({ title: 'lasagne', level: 'Easy Peasy', Ingredients: 'carne,tomate', Cuisine: 'Street food', dishType: 'Dish', Image: 'https://images.media-allrecipes.com/images/75131.jpg', Duration: 30, Creator: 'Italia' })
+    .then(recipe => { console.log('The user is saved and its value is: ', recipe) })
+    .catch(err => { console.log('An error happened:', err) })

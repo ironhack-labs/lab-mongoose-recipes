@@ -46,9 +46,7 @@ mongoose
     created: 17 / 17 / 2000
   }))
   .then(() => recipe.insertMany(data))
-  .then(() =>
-    recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-  )
+  .then(() => recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }))
   .then(() => console.log("update duration succesfully"))
   .then(() => recipe.deleteOne({title: "Carrot Cake"}))
   .then(()=> console.log("deleted succesfully"))
@@ -56,3 +54,9 @@ mongoose
   .catch(err => {
     console.error("Error connecting to mongo", err);
   });
+  process.on('SIGINT', () => {  
+    mongoose.connection.close(() => { 
+      console.log('Mongoose default connection disconnected through app termination'); 
+      process.exit(0); 
+    }); 
+  }); 

@@ -12,13 +12,19 @@ mongoose.connect('mongodb://localhost/recipeApp')
     console.error('Error connecting to mongo', err);
   });
 
-
-//Primera insercion a la BBDD, si la BBDD no esta creada la crea.
-Recipe.create({title: 'Recipe 1', level: 'Easy Peasy', ingredients: ['Tomatoe','Fish'], cuisine: 'Spanish'
-, dishType : 'Dish',duration: 120, creator: 'Sandra' })
-  .catch(err => { console.log('An error happened:', err) })
+Recipe.collection.drop()
   
 
-//Añadimos varias recetas a la vez del archivo data.js
-
-Recipe.insertMany(data);
+Recipe.create({
+  title: 'Recipe 1', level: 'Easy Peasy', ingredients: ['Tomatoe', 'Fish'], cuisine: 'Spanish'
+  , dishType: 'Dish', duration: 120, creator: 'Sandra'
+})
+  .then(() => Recipe.insertMany(data))
+  .then(() => Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }))
+  .then(()=> Recipe.deleteOne({ title: "Carrot Cake" }))
+  .then(()=> console.log('OK Giorgio'))
+  .then(()=> {
+    mongoose.connection.close();
+    console.log('connection close');
+  })
+  .catch(err => { console.log('An error happened:') })

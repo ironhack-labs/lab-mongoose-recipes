@@ -16,6 +16,8 @@ mongoose.connect('mongodb://localhost/recipeApp')
       .then(() => Recipe.insertMany(recipeData))
       .then(() => Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 }))
       .then(() => Recipe.deleteOne({ title: "Carrot Cake"}))
+      .then(() => mongoose.connection.close())
+      .then(() => console.log('Mongoose default connection disconnected through app termination'))
     }).catch(err => { console.log('An error happened:', err) });
 
     // Recipe.insertMany(recipeData)

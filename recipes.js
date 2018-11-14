@@ -36,3 +36,19 @@ Recipe.insertMany(data, (err, recipe) => {
     console.log('The user is saved and its value is: ', recipe);
   }
 });
+
+Recipe.updateOne({ title : 'Rigatoni alla Genovese' }, { duration : 100 },  (err) => {
+  if (err) {
+    console.log('An error happened:', err);
+  } else {
+    console.log('Updated');
+  }
+});
+
+Recipe.deleteOne({ title:'Carrot Cake' },   (err) => {
+  if (err) {
+    console.log('An error happened:', err);
+  } else {
+    console.log('Deleted');
+  }
+});

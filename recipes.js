@@ -14,6 +14,15 @@ const recipeSchema = new Schema({
   created: {type: Date, default: Date.now}
 });
 
+
+const Recipe = mongoose.model('Recipe', recipeSchema);
+module.exports = Recipe;
+
+Recipe.create({title: 'Gazpacho', level: 'Easy Peasy', cuisine: 'Española' })
+  .then(recipe => { console.log('The user is saved and its value is: ', recipe.title) })
+  .catch(err => { console.log('An error happened:', err) });
+
+
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!');

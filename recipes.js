@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
     console.error('Error connecting to mongo', err);
   });
 
-const Recipe = new Schema({
+const xRecipe = new Schema({
   title : { type:String, require:true, unique: true},
   level: { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
   ingredients  : Array,
@@ -25,5 +25,10 @@ const Recipe = new Schema({
 
 });
 
-//const Recipe = mongoose.model('Recipe', catSchema);
-//module.exports = Recipe;
+
+const Recipe = mongoose.model('Recipe', xRecipe);
+module.exports = Recipe;
+
+Recipe.create({ title: 'Combullita', level: 'UltraPro Chef', cuisine: 'Carmen' })
+  .then(recipe => { console.log(recipe.title) })
+  .catch(err => { console.log('An error happened:', err) });

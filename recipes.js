@@ -40,13 +40,18 @@ const data = require('./data.js');
   })
   .then(()=>{
     return Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
-    .then(user => {console.log('Everything OK!');})
+    .then(user => console.log('Everything OK!'))
     .catch(err => console.log('An error happened:', err))
   })
   .then(()=>{
-
-  }
-)
+    return Recipe.deleteOne({title: 'Carrot Cake'})
+    .then(user => {console.log('Remove OK!');})
+    .catch(err => console.log('An error happened:', err))
+  })
+  .then(()=>{
+    return mongoose.connection.close();
+  })
+  
 
 
   .catch(err => {

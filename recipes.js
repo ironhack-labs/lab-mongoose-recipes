@@ -50,3 +50,9 @@ mongoose.connect('mongodb://localhost/recipeApp')
     }
   });
 
+//it 4
+Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+  .then(
+    ()=>console.log ('The recipe has been updated')
+  )
+  .catch(()=>console.log('An error happened'));

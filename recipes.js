@@ -19,3 +19,5 @@ Recipe.create({
   duration: 40,
   creator: 'Chef LePapu'
 })
+
+Recipe.insertMany(data)

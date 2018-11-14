@@ -23,6 +23,9 @@ Recipe.create({title: 'Gazpacho', level: 'Easy Peasy', cuisine: 'Española' })
   .catch(err => { console.log('An error happened:', err) });
 
 
+
+Recipe.insertMany(data, function(error, docs) {});
+
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!');

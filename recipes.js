@@ -74,11 +74,19 @@ var Recipe = mongoose.model("Recipe", recipeSchema);
 // })
 
 
-Recipe.updateOne({ name: "Rigatoni alla Genovese"}, { duration: 100 }).then(() => {
-  console.log('you just updated that shit like a boss');
-}).catch(() => {
-  console.log('youdonefuckedup');
-});
+// Recipe.updateOne({ name: "Rigatoni alla Genovese"}, { duration: 100 }).then(() => {
+//   console.log('you just updated that shit like a boss');
+// }).catch(() => {
+//   console.log('youdonefuckedup');
+// });
+
+
+Recipe.deleteOne({ name: "Carrot Cake"})
+  .then(() => {
+    console.log('youve deleted that nasty ass Carrot Cake');
+  }).catch(err => {
+    console.log('Error Removing this nasty plate... fix it .. Error is : ' + err);
+  });
 
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {

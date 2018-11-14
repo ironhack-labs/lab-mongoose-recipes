@@ -37,32 +37,36 @@ mongoose.connect('mongodb://localhost/recipeApp')
   })
   .then(() => {
     return Recipe.insertMany(recipes)
-      .catch((err)=> console.log('An error happened:', err))
-      .then((recps)=> {
+      .catch((err) => console.log('An error happened:', err))
+      .then((recps) => {
         recps.forEach(function (recp) {
           console.log('The recipe is saved and its title is: ', recp.title);
         })
       })
 
-    }
-    )
-  
-    .then(()=>{
+  }
+  )
+
+  .then(() => {
     return Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
       .then(
         () => console.log('The recipe has been updated')
       )
       .catch(() => console.log('An error happened'));
-      })
+  })
 
-      .then(()=>{
-        return Recipe.deleteOne({title:"Carrot Cake"})
-        .then(()=>console.log("The recipe has been deleted"))
-        .catch((err)=>console.log("An error has happened",err))
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+      .then(() => {
+        console.log("The recipe has been deleted");
+        mongoose.disconnect();
       })
-  .catch (err => {
-  console.error('Error connecting to mongo', err);
-});
+      .catch((err) => console.log("An error has happened", err))
+  })
+  .catch(err => {
+    console.error('Error connecting to mongo', err);
+  })
+  ;
 
 
 

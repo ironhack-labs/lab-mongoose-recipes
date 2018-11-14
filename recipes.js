@@ -37,7 +37,7 @@ mongoose
 
 recipe
   .create({
-    title: "chips with eggs",
+    title: "Chipss with eggs",
     level: "UltraPro Chef",
     ingredients: ["eggs", "potatoes", "oil"],
     cuisine: "???",
@@ -48,5 +48,7 @@ recipe
     creator: "Giorgio",
     created: 17 / 17 / 2000
   })
+  .then(()=>recipe.insertMany(data))
   .then(() => console.log("ok"))
   .catch(err => console.log(err));
+

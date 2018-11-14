@@ -47,6 +47,9 @@ mongoose.connect('mongodb://localhost/recipeApp')
     .then(() => console.log("Carrot cake was deleted"))
     .catch(() => console.log("Error"))
   })
+  .then(() =>{
+    mongoose.connection.close();
+  })
   .catch(err => {
     console.error('Error connecting to mongo', err);
   });

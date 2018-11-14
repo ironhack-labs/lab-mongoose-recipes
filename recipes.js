@@ -51,12 +51,8 @@ mongoose
   .then(() => recipe.deleteOne({title: "Carrot Cake"}))
   .then(()=> console.log("deleted succesfully"))
   .then(() => console.log("ok"))
+  .then(() => mongoose.disconnect())
+  .then(()=> console.log("disconnected"))
   .catch(err => {
     console.error("Error connecting to mongo", err);
   });
-  process.on('SIGINT', () => {  
-    mongoose.connection.close(() => { 
-      console.log('Mongoose default connection disconnected through app termination'); 
-      process.exit(0); 
-    }); 
-  }); 

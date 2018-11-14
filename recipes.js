@@ -16,9 +16,9 @@ Recipe.insertMany(data)
 	.catch(err => console.log(`An error happened: `, err))
 
 Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-	.then(recipe => console.log(`Duration of Rigatoni updated`))
+	.then(() => console.log(`Duration of Rigatoni updated`))
 	.catch(err => console.log(`An error has ocurred:`, err))
 
-Recipe.deleteOne({ title: 'Carrot Cake'})
-	.then(recipe => console.log(`Carrot Cake removed`))
+Recipe.deleteOne({ title: 'Carrot Cake' })
+	.then(() => console.log(`Carrot Cake removed`, mongoose.connection.close()))
 	.catch(err => console.log(`An error has ocurred`, err))

@@ -22,7 +22,10 @@ mongoose.connect('mongodb://localhost/recipeApp')
       duration: 40,
       creator: 'Chef LePapu'
     })
-  }).then(() => Recipe.collection.drop())
+  }).then((recipe) => {
+    Recipe.collection.drop()
+    return recipe
+  })
   .then((recipe) => {
     console.log(recipe)
     return Recipe.insertMany(data)
@@ -34,10 +37,10 @@ mongoose.connect('mongodb://localhost/recipeApp')
   })
   .then(() => {
     return Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-  }).then(() => console.log("Rigatoni alla Genovese duration updated tog 100"))
+  }).then(() => {console.log("Rigatoni alla Genovese duration updated tog 100")})
   .then(() => {
     return Recipe.deleteOne({ title: 'Carrot Cake' })
-  }).then(() => console.log("Carrot Cake was deleted"))
+  }).then(() => {console.log("Carrot Cake was deleted")})
 
 
 

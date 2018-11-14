@@ -21,4 +21,14 @@ mongoose.connect('mongodb://localhost/recipeApp')
     creator : {type: String},
     created:  {type: Date, default: Date.now}
   });
-  
+
+  const Recipe = mongoose.model('Recipe', recipeSchema);
+  module.exports = Recipe;
+  Recipe.collection.drop();
+  Recipe.create({ title: 'Fried eggs', level: 'Easy Peasy', cuisine: 'Spanish' }, function (err, recipe) {
+    if (err) {
+        console.log('An error happened:', err);
+    } else {
+        console.log('The recipe is saved and its title is: ', recipe.title);
+    }
+  });

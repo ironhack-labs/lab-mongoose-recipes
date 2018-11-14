@@ -20,5 +20,11 @@ const recipeSchema = new Schema({
   duration : {type: Number, min: 0},
   creator : {type: String},
   created : {type: Date, default: Date.now}
-
 });
+
+const Recipe = mongoose.model("Recipe", recipeSchema);
+module.exports = Recipe;
+
+Recipe.create(data)
+  .then(user => {console.log("The user is saved and its value is: ",user)})
+  .catch(error => {console.log("An error happened: ",error)});

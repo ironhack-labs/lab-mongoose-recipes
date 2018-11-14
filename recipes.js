@@ -23,14 +23,31 @@ const data = require('./data.js');
   mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!');
-    Recipe.create({ title: 'Tallarines', cuisine: "china"}, function (err, user) {
-    if (err) {
-        console.log('An error happened:', err);
-    } else {
-        console.log('The user is saved and its value is: ', user);
-    }
-  });
-  }).catch(err => {
+
+    return Recipe.collection.drop();
+  })
+  .then(()=>{
+
+    return Recipe.create({ title: 'Tallarines', cuisine: "china"})
+    .then(user => {console.log('The user is saved and its value is: ', user);})
+    .catch(err => console.log('An error happened:', err))
+  
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
+    .then(() => console.log("Create"))
+    .catch(err => console.log(err))
+  })
+  .then(()=>{
+    
+  })
+  .then(()=>{
+
+  }
+)
+
+
+  .catch(err => {
     console.error('Error connecting to mongo', err);
   });
 

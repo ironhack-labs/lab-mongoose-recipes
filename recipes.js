@@ -34,10 +34,13 @@ mongoose.connect('mongodb://localhost/recipeApp')
   })
   .then(() => {
     return Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-  }).then(() => console.log("Duration now is 100"))
+  }).then(() => console.log("Rigatoni alla Genovese duration updated to 100"))
+  .then(() => {
+    return Recipe.deleteOne({ title: 'Carrot Cake' })
+  }).then(() => console.log("Carrot Cake was deleted"))
 
 
 
-    .catch(err => {
-      console.error('An error happened', err);
-    });
+  .catch(err => {
+    console.error('An error happened', err);
+  });

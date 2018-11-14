@@ -49,6 +49,8 @@ recipe
     created: 17 / 17 / 2000
   })
   .then(()=>recipe.insertMany(data))
+  .then(()=>recipe.updateOne({title: "Rigatoni alla Genovese"},{duration: 100}))
+  .then(()=>console.log("update duration succesfully"))
   .then(() => console.log("ok"))
   .catch(err => console.log(err));
 

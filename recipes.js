@@ -38,12 +38,6 @@ mongoose.connect('mongodb://localhost/recipeApp')
     return Recipe.updateOne({ title: 'Rigatoni alla Genovese'}, { duration: 100 })
   })
   .then(() => {
-    return Recipe.updateOne({ title: 'Rigatoni alla Genovese'}, { duration: 100 })
-  })
-  .then(() => {
-    return Recipe.updateOne({ title: 'Rigatoni alla Genovese'}, { duration: 100 })
-  })
-  .then(() => {
     console.log('The recipe has been updated!');
     return Recipe.deleteOne({ title: "Carrot Cake"})
   })

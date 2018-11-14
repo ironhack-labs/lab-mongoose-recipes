@@ -18,3 +18,7 @@ Recipe.insertMany(data)
 Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
 	.then(recipe => console.log(`Duration of Rigatoni updated`))
 	.catch(err => console.log(`An error has ocurred:`, err))
+
+Recipe.deleteOne({ title: 'Carrot Cake'})
+	.then(recipe => console.log(`Carrot Cake removed`))
+	.catch(err => console.log(`An error has ocurred`, err))

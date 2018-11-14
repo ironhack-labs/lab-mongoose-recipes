@@ -32,8 +32,12 @@ mongoose.connect('mongodb://localhost/recipeApp')
       console.log(e.title)
     })
   })
+  .then(() => {
+    return Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  }).then(() => console.log("Duration now is 100"))
 
 
-  .catch(err => {
-    console.error('An error happened', err);
-  });
+
+    .catch(err => {
+      console.error('An error happened', err);
+    });

@@ -3,7 +3,7 @@ const Schema   = mongoose.Schema;
 
 const recipeSchema = new Schema({
     title    : { type: String},
-    level : { type: String, enum : [`Easy-Peasy`, `Amateur Chef`, `UltraPro Chef `]},
+    level : { type: String, enum : [`Easy Peasy`, `Amateur Chef`, `UltraPro Chef`]},
     ingredients: { type: []},
     cuisine: {type: String, required: true },
     dishType: {type: String, enum: ["Breakfast", `Dish`, `Snack`, `Drink`, `Dessert`, `Other`]},

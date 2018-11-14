@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
   Recipe.create({ 
     title    : "Strange recipe",
-    level : `Easy-Peasy`,
+    level : `Easy Peasy`,
     ingredients: [`Potatoes`, `Tomato`, `Cheese`, `Apples`],
     cuisine: "Russian",
     dishType:`Other`,
@@ -20,4 +20,8 @@ mongoose.connect('mongodb://localhost/recipeApp')
     creator: `Anna Zhuravleva`
   })
   .then(recipes => console.log(`The recipe's title is: ${recipes.title}`))
+  .catch(err => { console.log('An error happened:', err) });
+
+  Recipe.insertMany(data)
+  .then(recipes => recipes.forEach(recipe => console.log(`The recipe's title is: ${recipe.title}`)))
   .catch(err => { console.log('An error happened:', err) });

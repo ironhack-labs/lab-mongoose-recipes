@@ -5,7 +5,32 @@ const data = require('./data.js');
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!');
-  }).catch(err => {
+
+    return Recipe.collection.drop()
+  })
+  .then(() =>{
+
+    return Recipe.create(
+      {title:"garbanzos", 
+      level: "Easy Peasy", 
+      ingredients: ["garbanzos","tomate","cebolla"], 
+      cuisine:"Spanish",
+      dishType: "Dish",
+      image:null,
+      duration: 39,
+      creator:  "Chef Steven",
+      created:null
+    })
+    .then(recipe => {console.log(recipe.tittle)})
+    .catch(error => {console.log("An error happened: ",error)});
+
+  }).then(()=>{
+    return Recipe.insertMany(data)
+    .then(recipe => {console.log(recipe.title)})
+    .catch(error => {console.log("An error happened: ",error)});
+
+  })
+  .catch(err => {
     console.error('Error connecting to mongo', err);
   });
 
@@ -25,6 +50,5 @@ const recipeSchema = new Schema({
 const Recipe = mongoose.model("Recipe", recipeSchema);
 module.exports = Recipe;
 
-Recipe.create(data)
-  .then(user => {console.log("The user is saved and its value is: ",user)})
-  .catch(error => {console.log("An error happened: ",error)});
+
+

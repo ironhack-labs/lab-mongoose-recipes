@@ -39,7 +39,9 @@ const data = require('./data.js');
     .catch(err => console.log(err))
   })
   .then(()=>{
-    
+    return Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+    .then(user => {console.log('Everything OK!');})
+    .catch(err => console.log('An error happened:', err))
   })
   .then(()=>{
 

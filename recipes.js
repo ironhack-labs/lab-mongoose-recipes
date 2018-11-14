@@ -13,6 +13,11 @@ const recipesSchemas = new Schema({
   creator: { type: String },
   created: { type: Date, default: Date.now }
 })
+const Recipe = mongoose.model("Recipe", recipesSchemas)
+
+module.exports=Recipe;
+
+console.log(recipesSchemas.title)
 
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {

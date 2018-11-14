@@ -29,14 +29,11 @@ mongoose
   .connect("mongodb://localhost/recipeApp")
   .then(() => {
     console.log("Connected to Mongo!");
-    recipe.collection.drop()
   })
-  .catch(err => {
-    console.error("Error connecting to mongo", err);
-  });
-
-recipe
-  .create({
+  .then(()=>{
+    recipe.collection.drop();
+  })
+  .then(() =>  recipe.create({
     title: "Chipss with eggs",
     level: "UltraPro Chef",
     ingredients: ["eggs", "potatoes", "oil"],
@@ -47,10 +44,15 @@ recipe
     duration: 15,
     creator: "Giorgio",
     created: 17 / 17 / 2000
-  })
-  .then(()=>recipe.insertMany(data))
-  .then(()=>recipe.updateOne({title: "Rigatoni alla Genovese"},{duration: 100}))
-  .then(()=>console.log("update duration succesfully"))
+  }))
+  .then(() => recipe.insertMany(data))
+  .then(() =>
+    recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+  )
+  .then(() => console.log("update duration succesfully"))
+  .then(() => recipe.deleteOne({title: "Carrot Cake"}))
+  .then(()=> console.log("deleted succesfully"))
   .then(() => console.log("ok"))
-  .catch(err => console.log(err));
-
+  .catch(err => {
+    console.error("Error connecting to mongo", err);
+  });

@@ -25,6 +25,8 @@ mongoose.connect('mongodb://localhost/recipeApp')
   const Recipe = mongoose.model('Recipe', recipeSchema);
   module.exports = Recipe;
   Recipe.collection.drop();
+
+  //it 2
   Recipe.create({ title: 'Fried eggs', level: 'Easy Peasy', cuisine: 'Spanish' }, function (err, recipe) {
     if (err) {
         console.log('An error happened:', err);
@@ -32,3 +34,19 @@ mongoose.connect('mongodb://localhost/recipeApp')
         console.log('The recipe is saved and its title is: ', recipe.title);
     }
   });
+
+
+  //it 3
+  const recipes = require('./data')
+
+  Recipe.insertMany(recipes, function(err,recps){
+    if (err){
+      console.log('An error happened:', err);
+    }
+    else{
+      recps.forEach(function(recp){
+        console.log('The recipe is saved and its title is: ', recp.title);
+      })
+    }
+  });
+

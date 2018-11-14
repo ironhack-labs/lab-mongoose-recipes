@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
       .then(recipe =>  console.log('The recipe is saved and its value is: ', recipe) )
       .then(() => Recipe.insertMany(recipeData))
       .then(() => Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 }))
+      .then(() => Recipe.deleteOne({ title: "Carrot Cake"}))
     }).catch(err => { console.log('An error happened:', err) });
 
     // Recipe.insertMany(recipeData)

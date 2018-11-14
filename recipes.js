@@ -25,32 +25,32 @@ const recipeSchema = new Schema({
 
 var arr = [...data];
 const Recipe = mongoose.model("Recipe", recipeSchema);
-//module.exports = Recipe;
+module.exports = Recipe;
 
 mongoose.connect("mongodb://localhost/recipeApp")
-  
   .then(() => {
     console.log("Connected to Mongo!");
     return Recipe.collection.drop()
-    .then(() => {
-      return Recipe.insertMany(arr)
-      .then(() => {
-        console.log("Update Succesfull");
-        return Recipe.updateOne({ title: "Rigatoni alla Genovese"},{ duration: 100 })
-        .then(() => {
-          return Recipe.deleteOne({ title:"Carrot Cake"})
-          .then(() => {
-            console.log('Recipe Deleted!!!')
-            mongoose.disconnect();
-            console.log('Disconect');
-          })
-        })
-      })
-      
-    })
-    
-    
+    .catch( err => { console.log('NO EXIST!!', err)})
+    .then(() => {console.log('EXSIST!!!')})
   })
+  .then(() => {
+    return Recipe.insertMany(arr)
+  })
+  .then(() => {
+    console.log("Update Succesfull");
+    return Recipe.updateOne({ title: "Rigatoni alla Genovese"},{ duration: 100 })
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title:"Carrot Cake"})
+  })
+  .then(() => {
+    console.log('Recipe Deleted!!!')
+    return mongoose.disconnect();
+  })
+  .then(() => 
+    console.log('Disconect')
+  )
   .catch(err => {
     console.error("Error connecting to mongo", err);
   });

@@ -1,7 +1,9 @@
+
+//esto se pone siempre:
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-
-const catSchema = new Schema({
+//aquí abajo hago el esquema con este formato.
+const recipeSchema = new Schema({
   title: { type: String, required, unique},
   level : { type: String, enum: ['Easy Peasy', 'Amateur Chef ', 'UltraPro Chef']},
   ingredients: { type: Array},
@@ -12,7 +14,8 @@ const catSchema = new Schema({
   creator: { type: String},
   created:{ type: Date, default: Date.now},
 });
-
-const Cat = mongoose.model('Cat', catSchema);
-module.exports = Cat;
+//aquí abajo exporto el modelo. el nombre de const es el que quieras (Recipe)
+//  y dentro del parentesis lo pongo otra vez, el nombre como he llamado al esquema
+const Recipe = mongoose.model('Recipe', recipeSchema);
+module.exports = Recipe;
 

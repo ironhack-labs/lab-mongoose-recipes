@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 const RecipeSchema = new Schema({
   title: { type: String, required: true, unique: true },
   level: { type: String, enum: [`Easy Peasy`, `Amateur Chef`, `UltraPro Chef`] },
@@ -11,4 +14,4 @@ const RecipeSchema = new Schema({
 })
 
 const Recipe = mongoose.model(`Recipe`, RecipeSchema);
-module.export = Recipe;
+module.exports = Recipe;

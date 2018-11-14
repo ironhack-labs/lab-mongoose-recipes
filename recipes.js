@@ -28,7 +28,22 @@ module.exports = recipes;
 
 mongoose
   .connect("mongodb://localhost/recipeApp")
- 
+  .then(()=> recipes.collection.drop())
+  .then(() => {
+    recipes.create({
+      title: "Pasta",
+      level: ["Amateur Chef"],
+      ingredients: ["1/2 cup pasta", "3 tablespoons salt", "1/3 cup water"],
+      cuisine: "Italian",
+      dishType: ["Dish"],
+      image:
+        "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      duration: 15,
+      creator: "Chef David"
+    });
+    console.log("Connected to Mongo!");
+  })
+  
 
   .catch(err => {
     console.error("Error connecting to mongo", err);

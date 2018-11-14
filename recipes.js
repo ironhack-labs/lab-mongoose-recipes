@@ -29,6 +29,10 @@ mongoose.connect('mongodb://localhost/recipeApp')
     .then(recipe => {console.log(recipe.title)})
     .catch(error => {console.log("An error happened: ",error)});
 
+  }).then(()=>{
+    return Recipe.updateOne({title:'Rigatoni alla Genovese'},{duration: 100})
+    .then(recipe => {console.log("success update!!!")})
+    .catch(error => {console.log("An error happened: ",error)});
   })
   .catch(err => {
     console.error('Error connecting to mongo', err);

@@ -37,6 +37,8 @@ mongoose.connect('mongodb://localhost/recipeApp')
     return Recipe.deleteOne({title:'Carrot Cake'})
     .then(recipe => {console.log("success remove!!!")})
     .catch(error => {console.log("An error happened: ",error)});
+  }).then(()=>{
+    mongoose.connection.close();
   })
   .catch(err => {
     console.error('Error connecting to mongo', err);

@@ -25,4 +25,19 @@ mongoose.connect('mongodb://localhost/recipeApp')
   const Recepie = mongoose.model('Recepie', recepieSchema);
     module.exports = Recepie;
 
-    console.log(Recepie);
+  Recepie.created ({title: 'Spanish omelette'},
+  {level: 'Easy Peasy'},
+  {ingredients: ['eggs','potatoes','onion','oil']},
+  {cuisine: 'Spanish'},
+  {dishType: ['Dish']},
+  {image: 'https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg'},
+  {duration: 60},
+  {creator: 'Chef Antonio'},);
+
+  Recepie.updateOne({ title: 'Rigatoni alla Genovese'}, { duration: 220})
+  .then(successCallback)
+  .catch(errorCallback);
+
+  User.deleteOne({ name: 'Carrot Cake'})
+  .then(successCallback)
+  .catch(errorCallback);

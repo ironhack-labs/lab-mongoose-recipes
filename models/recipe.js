@@ -6,12 +6,12 @@ const Schema   = mongoose.Schema;
 const recipeSchema = new Schema({
   title: { type: String, required:true, unique:true},
   level : { type: String, enum: ['Easy Peasy', 'Amateur Chef ', 'UltraPro Chef']},
-  ingredients: { type: Array},
+  ingredients: { type: Array},//aqui se puede poner ingredients: [],
   cuisine: { type: String, required:true},
   dishType: { type: String, enum: ['Breakfast','Dish','Snack','Drink','Dessert,Other']},
   image: { type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg' },
   duration: { type: Number, min:0},
-  creator: { type: String},
+  creator: { type: String}, //si solo pones el tipo puedes poner String directamente.
   created:{ type: Date, default: Date.now},
 });
 //aquí abajo exporto el modelo. el nombre de const es el que quieras (Recipe)

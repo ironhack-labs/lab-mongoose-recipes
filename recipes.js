@@ -25,13 +25,18 @@ mongoose.connect('mongodb://localhost/recipeApp')
     .then(recipes => recipes.forEach(recipe => console.log(`The recipe's title is: ${recipe.title}`)))
     .catch(err => { console.log('An error happened:', err) });
 
-    /**Update */
+    /**Update one*/
     Recipe.updateOne({title: "Rigatoni alla Genovese" }, {duration: 30} )
     .then(recipes => console.log(`The recipe has been changed`))
     .catch(err => { console.log('An error happened:', err) });
 
-  }).catch(err => {
+    /**Remove */
+    Recipe.deleteOne({title: "Carrot Cake" })
+  .then(recipes => console.log(`The recipe has been removed`))
+  .catch(err => { console.log('An error happened:', err) });
+
+  /** */
+  })
+  .catch(err => {
     console.error('Error connecting to mongo', err);
   });
-
- 

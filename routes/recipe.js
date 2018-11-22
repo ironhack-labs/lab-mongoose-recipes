@@ -6,7 +6,7 @@ const Recipe = require('../models/Recipe')
 router.get('/new',(req,res)=>{
   Recipe.create({
      title:'Ceviche',
-     level:'UltraPro chef',
+     level:'UltraPro Chef',
      ingredients:['pez','limon','lechuga','cebolla','camote'],
      cuisine:'Peruvian',
      dishType:'Dish',
@@ -19,6 +19,19 @@ router.get('/new',(req,res)=>{
     })
     .catch(e=>{
       res.send(e)
+    })
+})
+
+router.get('/many',(req,res)=>{
+  Recipe.insertMany(require('../data'))
+    .then(r=>{
+      console.log(r.title)
+      //res.send(r.title)
+    })
+    .catch(e=>{
+      console.log(e)
+
+      //res.send(e)
     })
 })
 

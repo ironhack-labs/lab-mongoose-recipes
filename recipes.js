@@ -18,3 +18,5 @@ mongoose.connect('mongodb://localhost/recipeApp')
 app.listen(3000,()=>{
   console.log('listen on p 3000')
 })
+
+

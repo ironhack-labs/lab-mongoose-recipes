@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema
 
@@ -10,7 +9,7 @@ var recipeSchema = new Schema({
   },
   level:{
     type: String,
-    enum:['Easy easy', 'Amateur chef','UltraPro chef']
+    enum:['Easy Peasy', 'Amateur Chef','UltraPro Chef']
   },
   ingredients: Array,
   cuisine:{

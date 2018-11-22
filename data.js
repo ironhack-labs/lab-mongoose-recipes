@@ -19,7 +19,8 @@ module.exports =
         image: 'https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg',
         duration: 160,
         creator: 'Chef John'
-      },
+      }
+    ,
       {
         title: 'Carrot Cake',
         level: 'Amateur Chef',
@@ -51,3 +52,4 @@ module.exports =
         creator: 'Chef Jennifer'
       }
     ];
+    

@@ -5,34 +5,34 @@ var recipeSchema = new Schema({
   title:{
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
 
   level:{
     type: String,
-    enum: ['Easy Peasy', 'amateur Chef', 'UltraPro Chef']
+    enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
   },
 
   ingredients: Array,
 
   cuisine:  {
     type: String,
-    require: true,
+    require: true
   },
 
   dishType: {
     type: String,
-    enum: ['breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'other']
+    enum: ['breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other']
   },
 
   image: {
     type: String,
-    default: ''
+    default:'https://images.media-allrecipes.com/images/75131.jpg'
   },
 
   duration:{
     type: Number,
-    min: 0,
+    min: 0
     },
 
     creator: String,

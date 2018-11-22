@@ -15,6 +15,11 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
   app.use("/",recipesRoutes)
 
+  app.get("/close",(req,res)=>{
+    console.log("alv")
+    mongoose.connection.close()
+  })
+
   app.listen(8080,()=>{
     console.log("Si funciono")
   })

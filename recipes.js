@@ -15,6 +15,12 @@ const recipesRoutes = require('./routes/recipe')
 
 app.use('/', recipesRoutes)
 
+app.get('/close', (req,res)=>{
+  console.log('cierra')
+  mongoose.connection.close()
+})
+
+
 app.listen(3000, ()=>{
   console.log('inicializado')
 })

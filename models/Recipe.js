@@ -1,7 +1,8 @@
+
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema
 
-var rRcipe = new Schema({
+var recipeSchema = new Schema({
   title:{
     type: String,
     required: true,
@@ -41,3 +42,6 @@ var rRcipe = new Schema({
   }
 
 })
+
+
+module.exports = mongoose.model('Recipe',recipeSchema)

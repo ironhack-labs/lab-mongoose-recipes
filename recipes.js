@@ -1,3 +1,5 @@
+const express = require('express')
+const app = express()
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 const data = require('./data.js');
@@ -8,3 +10,11 @@ mongoose.connect('mongodb://localhost/recipeApp')
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
+
+
+  const recipesRoutes = require('./routes/recipe')
+  app.use('/',recipesRoutes)
+  
+app.listen(3000,()=>{
+  console.log('listen on p 3000')
+})

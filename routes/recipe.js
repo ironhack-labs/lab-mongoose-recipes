@@ -41,4 +41,12 @@ router.get('/update', (req, res) =>{
         console.log(err)
     })
 })
+router.get('/delete', (req, res) =>{
+    Recipe.deleteOne({title:"Carrot Cake"},)
+    .then( r => {
+        res.send(r)
+    }).catch( err => {
+        console.log(err)
+    })
+})
 module.exports= router

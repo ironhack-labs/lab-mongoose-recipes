@@ -17,10 +17,34 @@ router.get('/new', (req,res)=>{
     console.log(r.title)
     res.send(r.title)
     //res.redirect('/recipes')
-  }).catch(e=>
+  }).catch(err=>
     {
-      console.log(e)
+      console.log(err)
     })
+})
+
+//router.get('/many', (req,res)=>{
+//    Recipe.insertMany(require('../data'))
+//    .then(r=>{
+//      console.log(r.title)
+//      //res.send(r.title)
+//    }).catch(err => {
+//      console.log(err)
+//    })
+//})
+
+
+router.get('/many', (req,res)=>{
+  Recipe.insertMany(require('../data'))
+  .then(r=>{
+    for(var dish of r){
+      console.log(dish.title)
+    }
+    //console.log(r.title)
+    //res.send(r.title)
+  }).catch(err => {
+    console.log(err)
+  })
 })
 
 module.exports = router

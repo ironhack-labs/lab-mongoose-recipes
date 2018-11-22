@@ -25,6 +25,11 @@ mongoose.connect('mongodb://localhost/recipeApp')
 const newrecipes = require('./routes/newrecipes')
 app.use('/',newrecipes)
 
+app.get('/close',(req,res)=>{
+  console.log('bye, me cierro')
+  mongoose.connection.close()
+})
+
 app.listen(3000,()=>{
   console.log('App running on port 3000, now with Mongoose!!')
 })

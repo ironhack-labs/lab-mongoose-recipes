@@ -15,6 +15,7 @@ router.get('/new', (require, response)=>{
     .then(r=>{
         console.log(r)
         //response.send(r.title)
+        //response.redirect('/many')
     })
     .catch(e=>{
         console.log(e)
@@ -26,9 +27,36 @@ router.get('/many', (request, response)=>{
     .then(r=>{
         console.log(r)
         //response.send(r.title)
+        //response.redirect('/update')
+
     })
     .catch(e=>{
         console.log(e)
+    })
+})
+
+router.get('/update', (request, response)=>{
+    Recipe.updateOne({title: {$eq:'Rigatoni alla Genovese'}}, {duration:100})
+    .then(update=>{
+        console.log('Duration has been updated')
+        response.send(update)
+        //response.redirect('/remove')
+    })
+    .catch(e=>{
+        response.send(e)
+    })
+})
+
+router.get('/remove', (request, response)=>{
+    Recipe.remove({title: {$eq:'Carrot Cake'}})
+    .then(remove=>{
+        console.log('Carrot Cake has been removed')
+        response.send(remove)
+        //Cierras la bd
+        //reponse.close()
+    })
+    .catch(e=>{
+        response.send(e)
     })
 })
 

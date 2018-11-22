@@ -21,5 +21,6 @@
   "bugs": {
     "url": "https://github.com/Migu8/lab-mongoose-recipes/issues"
   },
-  "homepage": "https://github.com/Migu8/lab-mongoose-recipes#readme"
+  "homepage": "https://github.com/Migu8/lab-mongoose-recipes#readme",
+  "devDependencies": {}
 }

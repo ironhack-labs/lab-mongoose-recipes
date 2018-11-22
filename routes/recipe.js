@@ -36,5 +36,14 @@ router.get('/many', (req,res)=>{
     })
 })
 
+router.get('/update', (req,res)=>{
+    Recipe.updateOne({title: "Rigatoni alla Genovese"},{duration:100})
+    .then(r=>{
+        res.send(r)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
 
 module.exports = router

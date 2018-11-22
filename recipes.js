@@ -15,8 +15,18 @@ mongoose.connect('mongodb://localhost/recipeApp')
   const recipesRoutes = require('./routes/recipe')
   app.use('/',recipesRoutes)
   
+
+
+app.get('/close',(req,res)=>{
+  console.log('bye')
+  mongoose.connection.close()
+})
+
+
+
 app.listen(3000,()=>{
   console.log('listen on p 3000')
 })
+
 
 

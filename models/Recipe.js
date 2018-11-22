@@ -1,7 +1,7 @@
 var mongoose = require("mongoose")
 var Schema = mongoose.Schema
 
-var Recipe = new Schema({
+var recipeSchema = new Schema({
     title: {
         type:String,
         require:true,
@@ -41,3 +41,5 @@ var Recipe = new Schema({
         updatedAt: "updated_at"
     }
  })
+
+ module.exports= mongoose.model("Recipe",recipeSchema)

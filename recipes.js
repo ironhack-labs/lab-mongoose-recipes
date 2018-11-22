@@ -15,6 +15,11 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
   app.use('/', recipesRoutes)
 
+  app.get('/close',(req,res)=>{
+    console.log('cierra alv')
+    mongoose.connection.close()
+  })
+
   app.listen(3000, () =>{
     console.log('algo')
   })

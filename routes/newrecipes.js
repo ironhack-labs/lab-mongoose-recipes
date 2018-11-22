@@ -21,4 +21,18 @@ router.get('/new',(req,res)=>{
       })
 })
 
+router.get('/many',(req,res)=>{
+  Recipe.insertMany(require('../data'))
+      .then(r=>{
+        for(var dish of r){
+          console.log(dish.title)
+        }
+        // console.log(r)
+        // res.send(r.title)
+        // res.redirect('/recipes')
+      }).catch(e=>{
+        res.send(e)
+      })
+})
+
 module.exports = router

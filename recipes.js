@@ -15,6 +15,11 @@ const recipesRoutes = require('./routes/recipe')
 
 app.use('/', recipesRoutes)
 
+app.get('/close', (req,res)=>{
+  console.log('cierrate sesamo')
+  mongoose.connection.close()
+ })
+
 app.listen(3001, () =>{
       console.log('server live')
 })

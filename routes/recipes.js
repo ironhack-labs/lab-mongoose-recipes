@@ -44,10 +44,23 @@ router.get('/newrecipes',(req, res, next) => {
 })
 
 router.get('/updaterecipe',(req, res , next)=>{
-    Recipe.findByIdAndUpdate(id, { $set: { size: 'large' }}, { new: true }, function (err, tank) {
-        if (err) return handleError(err);
-        res.send(tank);
-    });
+    Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+        .then(() => {
+            console.log('done!');
+        })
+        .catch(e => next(e))
 })
 
+router.get('/detele',(req, res , next)=>{
+    Recipe.deleteOne({title: "Carrot Cake" })
+        .then(() => {
+            console.log("deleted!");
+            mongoose.connection.close()
+        })
+        .catch(err => console.log(err));
+})
+
+router.get('/close',(req, res , next)=> {
+    mongoose.connection.close()
+})
 module.exports = router;

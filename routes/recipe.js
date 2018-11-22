@@ -47,4 +47,25 @@ router.get('/many', (req,res)=>{
   })
 })
 
+router.get('/update', (req,res)=>{
+  Recipe.updateOne({title:'Asian Glazed Chicken Thighs'},{duration:100})
+  .then(r=>{
+    res.send(r)
+  }).catch(err => {
+    console.log(err)
+  })
+})
+
+router.get('/delete', (req,res)=>{
+  Recipe.deleteOne({title:'Asian Glazed Chicken Thighs'})
+  .then(r=>{
+    res.send(r)
+  }).catch(err => {
+    console.log(err)
+  })
+})
+
+
+
+
 module.exports = router

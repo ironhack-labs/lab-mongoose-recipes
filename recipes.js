@@ -23,12 +23,18 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
   const Recipe = mongoose.model('Recipe', recipesSchema);
 
-  Recipe.create({ title: "Pizza", level:"Easy Peasy", ingredients: ['tomatoes, cheese, pizza base'], cuisine : "mettre la pizza au four et attendre", disType : "Dish", duration : 30, creator : "Justine"}, function (err, recipe) {
-    if (err) {
-        console.log('An error happened:', err);
-    } else {
-        console.log(recipe.title);
-    }
-  });
-
+  Recipe.create({ title: "Pizza", 
+                  level: "Easy Peasy",
+                  ingredients: ['tomatoes, cheese, pizza base'],
+                  cuisine: "mettre la pizza au four et attendre",
+                  disType: "Dish",
+                  duration: 30,
+                  creator: "Justine"})
+    .then(recipe => { console.log('The recipe is saved and its title is: ', recipe.title) })
+    .catch(err => { console.log('An error happened:', err) });
+ 
   Recipe.insertMany(data) 
+  .then(recipes => {
+    recipes.forEach(function(recipe, index) {console.log('The recipe title is: ', recipe.title)  }) 
+  })
+  .catch(err => { console.log('An error happened:', err) });

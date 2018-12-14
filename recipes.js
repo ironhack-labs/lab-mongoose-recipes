@@ -50,7 +50,12 @@ Recipe.remove().then(() => {
         { title: "Rigatoni alla Genovese" },
         { duration: 100 }
       ).then(console.log("DURATION CHANGED!"));
-    });
+    })
+    .then(() => {
+      Recipe.remove({ title: "Carrot Cake" }).then(
+        console.log("CARROT DELETED!")
+      );
+    })
 });
 
 // Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }).then(

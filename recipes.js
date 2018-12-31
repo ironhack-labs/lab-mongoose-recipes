@@ -42,3 +42,8 @@ mongoose.connect('mongodb://localhost/recipeApp')
   Recipe.update({ title: "Rigatoni alla Genovese" }, { $set : { duration: 100}},  { new: true })
   .then(recipe => { console.log('recipe duration has been updated')})
   .catch(err => {console.log('An error happened:', err)});
+
+  //TODO: remove the carrot cake from the DB
+  Recipe.findOneAndRemove({ title: "Carrot cake"})
+  .then(recipe => {console.log('recipe has been deleted')})
+  .catch(err => {console.log('An error happened:', err)});

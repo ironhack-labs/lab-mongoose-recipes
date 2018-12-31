@@ -30,11 +30,15 @@ mongoose.connect('mongodb://localhost/recipeApp')
                   disType: "Dish",
                   duration: 30,
                   creator: "Justine"})
-    .then(recipe => { console.log('The recipe is saved and its title is: ', recipe.title) })
+    .then(recipe => { console.log('The recipe title is: ', recipe.title)})
     .catch(err => { console.log('An error happened:', err) });
  
   Recipe.insertMany(data) 
   .then(recipes => {
-    recipes.forEach(function(recipe, index) {console.log('The recipe title is: ', recipe.title)  }) 
+    recipes.forEach(function(recipe, index) {console.log('The recipe title is: ', recipe.title)}) 
   })
-  .catch(err => { console.log('An error happened:', err) });
+  .catch(err => { console.log('An error happened:', err)});
+
+  Recipe.update({ title: "Rigatoni alla Genovese" }, { $set : { duration: 100}},  { new: true })
+  .then(recipe => { console.log('recipe duration has been updated')})
+  .catch(err => {console.log('An error happened:', err)});

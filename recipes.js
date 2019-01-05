@@ -48,29 +48,34 @@ let objectRecipe = {
   creator: 'Chef LePapu'
 }
 
-Recipe.create(objectRecipe, (err) => {
+/*Recipe.create(objectRecipe, (err) => {
   if (err) { throw (err) }
   console.log(objectRecipe.title)
-});
+});*/
+Recipe.create(objectRecipe).then(()=> {
+  console.log(objectRecipe.title)
+}).catch(err => console.log(err))
 
 //Insert Many recipes
-Recipe.insertMany(data,(err) => {
+/*Recipe.insertMany(data,(err) => {
   if (err) { throw (err) }
   data.forEach(e => {
     console.log(e.title)   
   })
-})
+})*/
+Recipe.insertMany(data).then(() => {
+  data.forEach(e => {
+    console.log(e.title)
+  })
+}).catch(err => console.log(err))
 
 //Update recipe
-Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }, (err, raw) => {
-  if (err) { throw (err) }
-  console.log("se actualizo", raw)
-})
+Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+.then(res => console.log('yei',res)).catch(err => console.log(err))
 
 //Remove a recipe
-Recipe.deleteOne({ title: "Carrot Cake"},(err) => {
-  if (err) { throw (err) }
-  console.log("success");
-  //Close the Database
-  mongoose.connection.close()
-})
+Recipe.deleteOne({ title: "Carrot Cake"})
+  .then(() => {
+    console.log('success')
+    mongoose.connection.close()
+  }).catch(err => console.log(err))

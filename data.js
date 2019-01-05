@@ -1,4 +1,5 @@
-module.exports =
+
+module.exports = 
     [
       {
         title: 'Asian Glazed Chicken Thighs',
@@ -51,3 +52,5 @@ module.exports =
         creator: 'Chef Jennifer'
       }
     ];
+
+

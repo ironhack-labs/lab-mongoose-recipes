@@ -62,13 +62,13 @@ Recipe.insertMany(data,(err) => {
 })
 
 //Update recipe
-Recipe.update({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { multi: true }, (err, raw) => {
+Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }, (err, raw) => {
   if (err) { throw (err) }
   console.log("se actualizo", raw)
 })
 
 //Remove a recipe
-Recipe.remove({ title: "Carrot Cake"},(err) => {
+Recipe.deleteOne({ title: "Carrot Cake"},(err) => {
   if (err) { throw (err) }
   console.log("success");
   //Close the Database

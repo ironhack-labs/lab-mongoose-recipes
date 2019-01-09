@@ -11,6 +11,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
   });
 
 
+
 Receipe.create({
   title: 'Carrot Cake',
   level: 'Amateur Chef',
@@ -23,3 +24,7 @@ Receipe.create({
 })
 .then(receipe => {console.log("The title is: ", receipe.title)})
 .catch(err => {console.log("An error happened", err)})
+
+
+Receipe.insertMany(data)
+.then(recipe => console.log("Recipe created: ", recipe.title))

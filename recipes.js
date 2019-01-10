@@ -13,18 +13,30 @@ mongoose.connect('mongodb://localhost/recipeApp')
 
 
 Receipe.create({
-  title: 'Carrot Cake',
-  level: 'Amateur Chef',
-  ingredients: ['6 cups grated carrots', '1 cup brown sugar', '1 cup raisins', '4 eggs', '1 1/2 cups white sugar', '1 cup vegetable oil', '2 teaspoons vanilla extract', '1 cup crushed pineapple, drained', '3 cups all-purpose flour', '1 1/2 teaspoons baking soda', '1 teaspoon salt', '4 teaspoons ground cinnamon'],
-  cuisine: 'International',
-  dishType: ['Dessert'],
-  image: 'https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg',
-  duration: 130,
-  creator: 'Chef Nadia'
+  title: 'Rigatoni alla Genovese',
+        level: 'Easy Peasy',
+        ingredients: ['2 pounds red onions, sliced salt to taste', '2 (16 ounce) boxes uncooked rigatoni', '1 tablespoon chopped fresh marjoram leaves', '1 pinch cayenne pepper', '2 tablespoons freshly grated Parmigiano-Reggiano cheese'],
+        cuisine: 'Italian',
+        dishType: ['Dish'],
+        image: 'https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg',
+        duration: 220,
+        creator: 'Chef Luigi'
 })
 .then(receipe => {console.log("The title is: ", receipe.title)})
 .catch(err => {console.log("An error happened", err)})
 
 
 Receipe.insertMany(data)
-.then(recipe => console.log("Recipe created: ", recipe.title))
+.then(recipe => console.log("Recipe created: ", recipe[0].title))
+.catch(err => console.log(err))
+
+Receipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+.then(success => console.log("changed the duration of one recipe"))
+.catch(err => console.log(err))
+
+Receipe.deleteOne({title: "Carrot Cake"})
+.then(deleted => console.log("Carrot cake is no longer available"))
+.catch(err => console.log(err))
+
+//no estoy seguro si la linea de abajo sea la manera correcta de cerrar la conexion :(
+//mongoose.connection.close(() =>console.log("Mongoose default connection is disconnected due to application termination"))

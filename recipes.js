@@ -8,3 +8,37 @@ mongoose.connect('mongodb://localhost/recipeApp')
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
+
+const Recipe = require('./models/recipes.model');
+
+Recipe.create({
+  title: "Gazpacho",
+  level: "Easy Peasy",
+  ingredients: ["tomate", "ajo", "pimiento","agua","pepino"],
+  cuisine: "Española",
+  dishType: "Dish",
+  image: "https://estaticos.miarevista.es/uploads/images/recipe/59257de35cafe855f63c9869/gazpachoandaluz_0.jpg",
+  duration: 30,
+  creator: "roberto",
+})
+.then(recipe => { console.log('The recipe is saved: ', recipe.title);})
+.catch(err => { console.log('An error happened:', err);});
+
+Recipe.insertMany(data)
+  .then(rec => { console.log('The recipes are saved and they are: ', rec);})
+  .catch(err => { console.log('An error happened:', err);});
+
+Recipe.updateOne({ name: "Rigatoni alla Genovese"}, { duration: 100 })
+.then(console.log('The recipe is updated: ', rec))
+.catch(err => { console.log('An error happened:', err);});
+
+Recipe.deleteOne({ name: "Carrot Cake"})
+  .then(console.log('The recipe is deleted: ', rec))
+  .catch(err => { console.log('An error happened:', err);});
+
+  process.on('SIGINT', function() {  
+    mongoose.connection.close(function () { 
+      console.log('Mongoose default connection disconnected through app termination'); 
+      process.exit(0); 
+    }); 
+  }); 

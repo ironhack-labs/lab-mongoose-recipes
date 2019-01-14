@@ -25,20 +25,22 @@ Recipe.create({
 .catch(err => { console.log('An error happened:', err);});
 
 Recipe.insertMany(data)
-  .then(rec => { console.log('The recipes are saved and they are: ', rec);})
+  .then(rec => { console.log('The recipes are saved!');
+  return data;})
+  .then(rec => { rec.forEach(rec => console.log(rec.title))})
   .catch(err => { console.log('An error happened:', err);});
-
+  
 Recipe.updateOne({ name: "Rigatoni alla Genovese"}, { duration: 100 })
-.then(console.log('The recipe is updated: ', rec))
+.then(console.log('The recipe is updated!'))
 .catch(err => { console.log('An error happened:', err);});
 
 Recipe.deleteOne({ name: "Carrot Cake"})
-  .then(console.log('The recipe is deleted: ', rec))
+  .then(console.log('The recipe is deleted!'))
   .catch(err => { console.log('An error happened:', err);});
 
-  process.on('SIGINT', function() {  
-    mongoose.connection.close(function () { 
-      console.log('Mongoose default connection disconnected through app termination'); 
-      process.exit(0); 
-    }); 
+process.on('SIGINT', function() {  
+  mongoose.connection.close(function () { 
+    console.log('Mongoose default connection disconnected through app termination'); 
+    process.exit(0); 
   }); 
+}); 

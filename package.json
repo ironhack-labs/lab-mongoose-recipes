@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node recipes.js",
+    "dev": "nodemon recipes.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "mongoose": "^5.2.14"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

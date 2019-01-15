@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
   });
 
 
-const recepieSchema = new Schema ({
+const recipeSchema = new Schema ({
 
     title: {
       type: String
@@ -55,10 +55,10 @@ const recepieSchema = new Schema ({
     });
 
 
-const recepie = mongoose.model('recepie', recepieSchema);
-module.exports = recepie;
+const recipe = mongoose.model('recipe', recipeSchema);
+module.exports = recipe;
 
-recepie.create({ 
+Recipe.create({ 
   title: 'Thai green chicken curry',
   level: 'Amateur Chef',
   ingredients: [ '1 tbsp vegetable oil', ' 2 tbsp ready-made Thai green curry paste', '6 chicken thighs, skin and bones removed, meat cut into strips', '400ml tin coconut milk', '2 lime leaves (optional)', '2 tbsp Thai fish sauce', '1 tbsp caster sugar', 'handful green beans, trimmed', 'handful asparagus spears', 'salt and freshly ground black pepper'],
@@ -68,8 +68,13 @@ recepie.create({
   duration: 50,   
   creator: 'Someone',
   }) 
-    .then(recepie => { console.log('The recepie is saved and its value is: ', recepie) })
+    .then(recipe => { console.log('The recipe is saved and its value is: ', recipe) })
     .catch(err => { console.log('An error happened:', err) });
 
   
-    
+Recipe.insertMany(data)
+    .then(recipe => {
+      recipe.forEach(recipe => console.log(`The recipe ${recipe.title} is now created:`));
+    })
+    .catch(err => console.log("An error happened:", err));
+

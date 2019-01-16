@@ -21,19 +21,19 @@ Recipe.create({
   duration: 50,
   creator: "Carlos",
 })
-  .then(recipe => { console.log('The recipe is saved and is: ', recipe.title) })
+  .then(recipe => { console.log('The recipe has been saved and is: ', recipe.title) })
   .catch(err => { console.log('An error happened:', err) });
 
 Recipe.insertMany(data)
-.then(recipe => { console.log('The recipes has been saved') })
+.then(recipe => { console.log('The recipes have been saved!') })
 .catch(err => { console.log('An error happened:', err) });
 
 Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
-.then(recipe => { console.log('The recipe update and is: Rigatoni alla Genovese') })
+.then(recipe => { console.log('The recipe has been update and is: Rigatoni alla Genovese') })
 .catch(err => { console.log('An error happened:', err) });
 
 Recipe.deleteOne({ title: "Carrot Cake"})
-.then(recipe => { console.log('The recipe remove') })
+.then(recipe => { console.log('The recipe has been remove with success!') })
 .catch(err => { console.log('An error happened:', err) });
 
 

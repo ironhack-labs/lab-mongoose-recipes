@@ -78,7 +78,18 @@ Recipe.insertMany(data)
     })
     .catch(err => console.log("An error happened:", err));
 
-User.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
     .then(recipe => console.log(`The recipe ${recipe.title} has been update`))
     .catch(err => { console.log('An error happened:', err) });
   
+
+Recipe.find({title: "Carrot Cake"}).remove
+    .then (recipe => console.info (`The recipe ${recipe.title} has been deleted`))
+    .catch (err => console.log (`An error happened: `, err) );
+
+
+process.on('SIGINT', () => {  
+   mongoose.connection.close(() => { 
+      console.log('Mongoose default connection disconnected through app termination'); 
+      process.exit(0); 
+    });

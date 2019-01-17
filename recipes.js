@@ -24,15 +24,17 @@ Recipe.create({
   .catch(err => { console.error(`Error ocurred: ${err}`)});
 
 Recipe.insertMany(data)
-  .then(recipe => { console.log(`This recipe has been saved as: ${recipe.title}`)})
-  .catch(err => { console.error(`Error ocurred: ${err}`)});
+  .then(recipe => { 
+      console.log(`The recipes have been saved`)
+    })
+  .catch(err => { console.error(`Error ocurred saving the recipes: ${err}`)});
 
 Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
-  .then(recipe => { console.log(`This recipe has been updated with a duration of: ${recipe.duration}`)})
+  .then(recipe => { console.log(`This recipe has been updated with a duration of 100 minutes`)})
   .catch(err => { console.error(`Error ocurred while updating: ${err}`)});
 
 Recipe.deleteOne({title: 'Carrot Cake'})
-  .then(recipe => { console.log(`This recipe has been removed: ${recipe.title}`)})
+  .then(recipe => { console.log(`Carrot Cake has been removed.`)})
   .catch(err => { console.error(`Error ocurred while removing: ${err}`)});
 
   process.on('SIGINT', () => {  
@@ -40,5 +42,5 @@ Recipe.deleteOne({title: 'Carrot Cake'})
 	    console.log('Mongoose default connection disconnected through app termination'); 
 	    process.exit(0); 
 	  }); 
-	}); 
+	});   
 

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
 const data = require('./data.js');
 const Recipe = require('./models/recipes.model');
 
@@ -25,15 +24,15 @@ Recipe.create({
   .catch(err => { console.log('An error happened:', err) });
 
 Recipe.insertMany(data)
-.then(recipe => { data.forEach((recipe) => { console.log('The recipes are ', recipe.title)})})                
+.then(recipe => { data.forEach((recipe) => { console.log('The recipes inserted is ', recipe.title)})})                
 .catch(err => { console.log('An error happened:', err) });
 
 Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
-.then(recipe => { console.log('The recipe update and is:', recipe.title) })
+.then(() => { console.log('The recipe update')})
 .catch(err => { console.log('An error happened:', err) });
 
 Recipe.deleteOne({ title: "Carrot Cake"})
-.then(recipe => { console.log('The recipe remove') })
+.then(()=> { console.log('The recipe remove') })
 .catch(err => { console.log('An error happened:', err) });
 
 

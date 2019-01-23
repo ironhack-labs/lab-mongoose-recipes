@@ -24,7 +24,7 @@ const recipeSchema = new Schema ({
 
 //Iteration#2 Use the Model.create method to pass the info to create a new recipe
 const Recipe = mongoose.model('Recipes', recipeSchema);
-module.exports = Recipe;
+
 
 Recipe.create({
   title   : 'Homemade Beef Stroganoff',
@@ -37,3 +37,18 @@ Recipe.create({
 })
   .then(recipe => { console.log('The new recipe is: ', recipe.title)})
   .catch(err => { console.log('An error happened: ', err)})
+
+//Iteration#3 Use Model.insertMany method to add the entire array to the database
+Recipe.insertMany(data)
+    .then((recipes) => { console.log('The added recipes are: ', data.title)})
+    .catch((error) => { console.log('An error happenend when adding the existing recipes: ', error)})
+
+//Iteration#4 Use the updateOne method to odify the duration property of one document
+Recipe.updateOne({title : 'Rigatoni alla Genovese' }, {duration : 100})
+  .then(recipe => { console.log( 'The duration of Rigatoni alla Genovese has been updated successfully: ', data.duration)})
+  .catch(err => { console.log( 'An error has happened while updating one document: ', err)})
+
+//Iteration#5 Use the Model.remove method to delete one document from database
+Recipe.deleteOne({title: 'Carrot Cake'})
+  .then(recipe => { console.log( 'The recipe "Carrot Cake" has been deleted successfully: ', data.title)})
+  .catch(err => { console.log( 'An error has happened while updating one document: ', err)})

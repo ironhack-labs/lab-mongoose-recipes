@@ -3,6 +3,13 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 const data = require('./data.js');
 
+mongoose.connect('mongodb://localhost/recipeApp')
+  .then(() => {
+    console.log('Connected to Mongo!');
+  }).catch(err => {
+    console.error('Error connecting to mongo', err);
+  });
+
 // based on that Schema we create a blueprint for our students collection
 const recipeSchema = new Schema ({
   title:{
@@ -11,7 +18,7 @@ const recipeSchema = new Schema ({
   },
   level: { 
     type: String,
-     // values: Easy Peasy - Amateur Chef - UltraPro Chef (ENUM?) 
+     enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"] 
   },
   ingredients: { type: Array },
   cuisine: { 
@@ -20,12 +27,14 @@ const recipeSchema = new Schema ({
   },
   dishType: {
     type: String, 
-    // values: Breakfast - Dish - Snack - Drink - Dessert - Other
+    enum: ["Breakfast", "Dish", "Snack", "Drink", "Dessert", "Other"]
   },
-  image: { type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg.'},
+  image: { type: String, 
+    default: 'https://images.media-allrecipes.com/images/75131.jpg.'
+  },
   duration: { 
     type: Number,
-    // minValue: 0 
+    min: 0 
   },
   creator: { type: String },
   created: {
@@ -40,9 +49,4 @@ const Recipe = mongoose.model("Recipe", recipeSchema);
 // we export the model to make it accessible in other files
 module.exports = Recipe;
 
-mongoose.connect('mongodb://localhost/recipeApp')
-  .then(() => {
-    console.log('Connected to Mongo!');
-  }).catch(err => {
-    console.error('Error connecting to mongo', err);
-  });
+

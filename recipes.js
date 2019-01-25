@@ -49,4 +49,33 @@ const Recipe = mongoose.model("Recipe", recipeSchema);
 // we export the model to make it accessible in other files
 module.exports = Recipe;
 
+// ITERATION 2 - CREATE A RECIPE
+
+Recipe.create({
+  title: "Gallo Pinto",
+  level: "Easy Peasy",
+  ingredients: ['1 (16-ounce) bag dried small red or black beans', 'Salt', '7 garlic cloves, peeled', '1/4 cup vegetable oil, divided', '1 medium yellow onion, finely chopped (about 1 cup), divided', '1 1/2 cups long-grain white rice', '3 cups water or low-sodium chicken broth', '1/2 green bell pepper, cored and seeded'],
+  cuisine: 'Nicaraguan',
+  dishType: 'Breakfast',
+  image: 'https://www.seriouseats.com/recipes/images/2012/05/20120521-127677-LatAmCuisine-Gallopinto-PRIMARY.jpg',
+  duration: 45,
+  creator: 'William Fiallos'
+  // created: Date.now
+})
+.then( (newRecipe) => { 
+  console.log('Recipe title: ', recipe.title)
+})
+.catch( (err) => {
+  console.log('Error ocurred when creating recipe: ', err)
+})
+
+// ITERATION 3 - INSERT MANY RECIPES
+
+Recipe.insertMany( data ) 
+.then( (newRecipe) => {
+  console.log('Recipe title is: ', data.title)
+})
+.catch ( (err) => {
+  console.log('Error ocurred when inserting many recipe: ', err)
+})
 

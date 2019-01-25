@@ -79,3 +79,22 @@ Recipe.insertMany( data )
   console.log('Error ocurred when inserting many recipe: ', err)
 })
 
+// ITERATION 4 - UPDATAE RECIPE
+
+Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+.then( (recipe) => {
+  console.log('Duration has been updated successfully: ', data.duration)
+})
+.catch( (err) => {
+  console.log('Error ocurres updating recipe: ', err)
+})
+
+//ITERATION 5 - DELETE A RECIPE
+
+Recipe.findByIdAndRemove('Carrot Cake')
+.then( (recipe) => {
+  console.log('Recipe has been removed from DB.')
+})
+.catch( (err) => {
+  console.log('Error ocurred removing recipe from DB.', err)
+})

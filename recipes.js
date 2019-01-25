@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
+//Import model from data file to have it available
 const data     = require('./data.js');
 
-mongoose.connect('mongodb://localhost/recipeApp')
+//Create connection to the DB
+mongoose.connect('mongodb://localhost/myRecipeApp')
   .then(() => {
     console.log('Connected to Mongo!');
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
 
-//Iteration#1 create new Schema
+// //Iteration#1 create new Schema
 const recipeSchema = new Schema ({
   title       : {type : String, required : true, unique : true},
   level       : {type : String, enum : ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']},
@@ -22,33 +24,47 @@ const recipeSchema = new Schema ({
   created     : {type : Date, default : Date.now}
 })
 
-//Iteration#2 Use the Model.create method to pass the info to create a new recipe
+//Link the Schema with the mongoose model
 const Recipe = mongoose.model('Recipes', recipeSchema);
 
+//Iteration#2 Use the Model.create method to pass the info to create a new recipe
+// let iteration2 = Recipe.create({
+//   title   : 'Homemade Beef Stroganoff',
+//   level   : 'Amateur Chef',
+//   ingredients : ['2 Pounds Beef Round Steak', 'Salt & Pepper', '4 Tablespoons Butter', '2 Cups Sliced Mushrooms', 'Onion'],
+//   cuisine     : 'American',
+//   dishType    : ['Dish'],
+//   duration    : 30,
+//   creator     : 'Chef Pepin'
+// })
 
-Recipe.create({
-  title   : 'Homemade Beef Stroganoff',
-  level   : 'Amateur Chef',
-  ingredients : ['2 Pounds Beef Round Steak', 'Salt & Pepper', '4 Tablespoons Butter', '2 Cups Sliced Mushrooms', 'Onion'],
-  cuisine     : 'American',
-  dishType    : ['Dish'],
-  duration    : 30,
-  creator     : 'Chef Pepin'
-})
-  .then(recipe => { console.log('The new recipe is: ', recipe.title)})
-  .catch(err => { console.log('An error happened: ', err)})
 
-//Iteration#3 Use Model.insertMany method to add the entire array to the database
-Recipe.insertMany(data)
-    .then((recipes) => { console.log('The added recipes are: ', data.title)})
-    .catch((error) => { console.log('An error happenend when adding the existing recipes: ', error)})
+// Iteration#3 Use Model.insertMany method to add the entire array to the database
+function createDB(){
+  Recipe.create({
+    title   : 'Homemade Beef Stroganoff',
+    level   : 'Amateur Chef',
+    ingredients : ['2 Pounds Beef Round Steak', 'Salt & Pepper', '4 Tablespoons Butter', '2 Cups Sliced Mushrooms', 'Onion'],
+    cuisine     : 'American',
+    dishType    : ['Dish'],
+    duration    : 30,
+    creator     : 'Chef Pepin'
+  })
+  Recipe.insertMany(data)
+} 
 
 //Iteration#4 Use the updateOne method to odify the duration property of one document
-Recipe.updateOne({title : 'Rigatoni alla Genovese' }, {duration : 100})
-  .then(recipe => { console.log( 'The duration of Rigatoni alla Genovese has been updated successfully: ', data.duration)})
-  .catch(err => { console.log( 'An error has happened while updating one document: ', err)})
-
+function updateDB(){
+  Recipe.updateOne({title : 'Rigatoni alla Genovese' }, {duration : 100})
+  Recipe.deleteOne({title: 'Carrot Cake'})
+  mongoose.connection.close();
+}
+// let iteration4 = Recipe.updateOne({title : 'Rigatoni alla Genovese' }, {duration : 100})
+  
 //Iteration#5 Use the Model.remove method to delete one document from database
-Recipe.deleteOne({title: 'Carrot Cake'})
-  .then(recipe => { console.log( 'The recipe "Carrot Cake" has been deleted successfully: ', data.title)})
-  .catch(err => { console.log( 'An error has happened while updating one document: ', err)})
+// let iteration5 = Recipe.deleteOne({title: 'Carrot Cake'})
+
+createDB();
+//Iteration#6 Close the database when finish
+
+setTimeout(updateDB, 1500)

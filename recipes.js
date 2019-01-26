@@ -37,7 +37,13 @@ let iteration5 = Recipe.deleteOne({ name: "Carrot Cake" });
 
 Promise.all([iteration2, iteration3])
   .then(values => {
-    Recipe.find({}).then(success => {
+    Recipe.find({created:
+      {     
+        $gte:   new Date(new Date().setHours(00,00,00)) ,     
+        $lt :  new Date(new Date().setHours(23,59,59)) 
+   }
+      
+    }).then(success => {
       success.forEach(recipes => {
         console.log(
           `${recipes.title} have been added to the Recipes collection.`

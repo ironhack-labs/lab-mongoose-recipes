@@ -79,6 +79,18 @@ module.exports = Recipe;
 //   console.log('Error ocurred when inserting many recipes: ', err)
 // })
 
+// OR to show titles forEach:
+
+// Recipe.insertMany(data)
+// .then( newRecipe => {
+//   console.log(`Recipe has been added to DB: ${newRecipe}`);
+//   newRecipeforEach(({title})=>console.log(`Title is ${title}`));
+// })
+// .catch(error => {
+//   console.log("Error adding all recipes to DB: ", error);
+// })
+
+
 // ITERATION 4 - UPDATE RECIPE
 
 // Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
@@ -98,3 +110,12 @@ module.exports = Recipe;
 // .catch( (err) => {
 //   console.log('Error ocurred removing recipe from DB.', err)
 // })
+
+// ITERATION 6 - CLOSE THE DATABASE
+
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});

@@ -9,6 +9,8 @@ mongoose.connect('mongodb://localhost/recipeApp')
     console.error('Error connecting to mongo', err);
   });
 
+  //Iteration 1
+
   const recipeSchema = new Schema ({
     title:{type: String, required: true, unique:true},
     level:{type: String, enum: ['Easy Peasy','Amateur Chef','UltraPro Chef' ]},

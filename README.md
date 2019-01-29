@@ -46,9 +46,7 @@ The `recipes.js` file already connects to the **recipesApp** database. Now we ne
 
 Using the `Model.create` method, you should pass the info to create a new recipe. After the creation, you can use MongoDB Compass to check everything goes ok. After inserting the recipe, you should `console.log` the `title` of the recipe.
 
-:::info>
-To run your code remember you should use `$ node recipes.js`.
-:::
+**To run your code, remember you should use `$ node recipes.js`.**
 
 ### Iteration 3 - Insert Many recipes
 

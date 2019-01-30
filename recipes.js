@@ -59,7 +59,12 @@ mongoose
       .catch(err => console.log(err));
   })
   .then(() => {
-    console.log("all ok");
+    mongoose.connection.close(() => {
+      console.log(
+        "Mongoose default connection disconnected through app termination"
+      );
+      process.exit(0);
+    });
   })
   .catch(err => {
     console.error("Error connecting to mongo", err);

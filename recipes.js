@@ -8,10 +8,10 @@ mongoose.connect(host)
     .then(() => {
     console.log('Connected to Mongo!');
     App.singleImport()
-    //App.manyImport()
-    /* App.updateRecipe()
+    App.manyImport()
+    App.updateRecipe()
     App.removeRecipe("Carrot Cake")
-    mongoose.disconnect(host) */
+    mongoose.disconnect(host)
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });

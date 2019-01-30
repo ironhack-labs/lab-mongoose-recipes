@@ -6,8 +6,12 @@ var host = `mongodb://localhost/${db}`
 
 mongoose.connect(host)
     .then(() => {
-      App.import()
     console.log('Connected to Mongo!');
+    App.singleImport()
+    //App.manyImport()
+    /* App.updateRecipe()
+    App.removeRecipe("Carrot Cake")
+    mongoose.disconnect(host) */
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
@@ -16,10 +20,31 @@ const App = {
   init: () => {
 
   },
-  import: () => {
+  singleImport: () => {
     Recipes.create({ title: 'Patatas fritas con huevo', level:"Easy Peasy", cuisine: 'Old School', dishType: "Dish", duration: 10, creator: "Alfonso" })
-      .then(title => { console.log('The recipe was saved in their title is: ', title) })
-      .catch(err => { console.log('An error happened:', err) }); 
-  }
+      .then(recipe => console.log(`The recipe was saved and their title is: ${recipe.title}`))
+      .catch(err => console.log('An error happened:', err)); 
+  },
+  manyImport: () => {
+    Recipes.insertMany(data)
+    .then(recipe => getTittle(recipe))
+    .catch(err => console.log("An error happened: ", err))
+  },
+  updateRecipe: () => {
+    Recipes.updateOne({title: "Rigatoni alla Genovese"}, { duration: 100})
+  .then(() => console.log("You updated: "))
+  .catch(err => console.log("An error happened: ", err));
+  },
+  removeRecipe: (recipeTitle) => {
+    Recipes.deleteOne({title: recipeTitle})
+    .then(() => console.log("Remove sucessful"))
+    .catch(err => console.log("An error happpened: ", err))
+  },
+
 }
 
+function getTittle(arr) {
+  arr.forEach((arr) => {
+    console.log("The recipe was saved and their title is: " + arr.title)
+  })
+}

@@ -23,14 +23,14 @@ const recipeSchema = new Schema({
   created: { type: Date, default: Date.now }
 });
 
-var dataArr = [...data];
-
 const Recipe = mongoose.model("Recipe", recipeSchema);
+
+var dataArr = [...data];
 
 mongoose
   .connect("mongodb://localhost/recipeApp")
   .then(() => {
-    Recipe.create({
+    return Recipe.create({
       title: "Cuban Rice",
       level: "Easy Peasy",
       ingredients: ["Rice", "pepper", "bacon", "onion", "vinegar", "tomato"],
@@ -41,15 +41,23 @@ mongoose
       duration: 110,
       creator: "Pepe Almondigo"
     })
-      .then(response => {
-        console.log(response);
+      .then(() => {
+        return Recipe.insertMany(dataArr);
+        console.log({ title: 1, _id: 0 });
       })
-      .catch(err => {
-        console.error("Error connecting to mongo", err);
-      });
+      .then(() => {
+        return Recipe.updateOne(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 }
+        ).then(console.log);
+      })
+      .then(() => {
+        return Recipe.deleteOne({ title: "Carrot Cake" }).then(
+          console.log("Deleted")
+        );
+      })
+      .catch(err => console.log(err));
   })
   .catch(err => {
     console.error("Error connecting to mongo", err);
   });
-
-//module.exports = "Recipe";

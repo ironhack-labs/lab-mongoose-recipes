@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Recipes = require("./models/recipesSchema.js")
 var db = `recipeApp`
 var host = `mongodb://localhost/${db}`
-
+// Fixing my account
 mongoose.connect(host)
     .then(() => {
     console.log('Connected to Mongo!');

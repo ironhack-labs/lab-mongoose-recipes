@@ -43,3 +43,20 @@ Recipe.create ({
   .then((data) => {
     console.log(data.title); 
   });
+
+Recipe.insertMany (data)
+  .then((data) => {
+    console.log(data.title); 
+  });
+
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then((data) => {
+    console.log('The recipe has been updated with success!');
+  });
+
+Recipe.deleteOne({ title: 'Carrot Cake' })
+  .then((data) => {
+    console.log('The recipe has been deleted');
+  });
+
+mongoose.connection.close();

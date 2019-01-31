@@ -9,7 +9,7 @@ module.exports =
         image: 'https://images.media-allrecipes.com/userphotos/720x405/815964.jpg',
         duration: 40,
         creator: 'Chef LePapu'
-      },
+      },  
       {
         title: 'Orange and Milk-Braised Pork Carnitas',
         level: 'UltraPro Chef',

@@ -40,23 +40,31 @@ Recipe.create ({
   duration: 160,
   creator: 'Chef John'
 })
-  .then((data) => {
+  .then(() => {
     console.log(data.title); 
+  }).catch((err) => {
+    console.error('Error creating recipe', err);
   });
 
 Recipe.insertMany (data)
-  .then((data) => {
+  .then(() => {
     console.log(data.title); 
+  }).catch((err) => {
+    console.error('Error inserting all data', err);
   });
 
 Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-  .then((data) => {
+  .then(() => {
     console.log('The recipe has been updated with success!');
+  }).catch((err) => {
+    console.error('Error updating recipe', err);
   });
 
 Recipe.deleteOne({ title: 'Carrot Cake' })
-  .then((data) => {
+  .then(() => {
     console.log('The recipe has been deleted');
+  }).catch((err) => {
+    console.error('Error deleting recipe', err);
   });
 
 mongoose.connection.close();

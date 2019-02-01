@@ -14,6 +14,14 @@ mongoose
     console.error("Error connecting to mongo", err);
   });
 
+Recipe.create({ title: "Bolognaise", level: "Easy Peasy", cuisine: "Italian" })
+  .then(newRecipe => {
+    console.log(`New Recipe CREATED`, newRecipe);
+  })
+  .catch(err => {
+    console.log("New Recipe FAILURE", err);
+  });
+
 data.forEach(oneTitle => {
   Recipe.create(oneTitle)
     .then(recipeResult => {
@@ -41,7 +49,7 @@ Recipe.updateMany(
   { $set: { duration: 100 } }
 )
   .then(recipeSelected => {
-    console.log(`Duration updated SUCCESS ${recipeSelected.duration}`);
+    console.log(`Duration updated SUCCESS`, recipeSelected);
 
     Recipe.findOne({ title: { $eq: "Rigatoni alla Genovese" } })
       .then(recipeSelected => {

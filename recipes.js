@@ -29,7 +29,7 @@ const recipeSchema = new Schema({
   },
   duration: { type: Number, min: 0 },
   creator: { type: String },
-  created: { type: Date, default: Date("2019-02-01") }
+  created: { type: Date, default: Date.now }
 });
 
 // the variable "Dog" is our Mongoose model class

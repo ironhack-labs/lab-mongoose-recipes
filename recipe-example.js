@@ -39,14 +39,11 @@ Recipe.create({ title: "Dombre", cuisine: "Caribbean" })
     console.log("Dombré CREATE failure!", err);
   });
 
-Recipe.updateMany(
-  {
-    title: { $eq: "Rigatoni alla Genovese" }
-  },
-  { $set: { duration: 100 } }
-)
+Recipe.findByIdAndUpdate("5c544ab4d7e0191331a68e58", {
+  $set: { duration: 100 }
+})
   .then(recipe => {
-    console.log(`recipe $set WORKED ${recipe.title}`);
+    console.log(`recipe $set WORKED ${recipe._id}`);
   })
   .catch(err => {
     console.log("Recipe $set FAILURE!!", err);

@@ -1,0 +1,19 @@
+<h1>Most used recipes</h1>
+<hr>
+<div class="row">
+	{{#each recipeArray}}
+	<div class="col-md-5 bg-light m-1 p-1 border border-muted shadow-sm text-center">
+		<h3>{{this.title}}</h3>
+		<img src="{{this.image}}" alt="{{this.title}} recipe" class="img-responsive mx-auto d-block" width="100px">
+
+		<p class="text-muted"><small>Duration: {{this.duration}}mn</small></p>
+		{{#if this.ingredients.length}}
+		<ul style="list-style-type: none">
+			{{#each this.ingredients}}
+			<li>{{this}}</li>
+			{{/each}}
+		</ul>
+		{{/if}}
+	</div>
+	{{/each}}
+</div>

@@ -1,15 +1,17 @@
-const router = require('express').Router()
-let recipe = require('../models/recipe')
-const mongoose = require('mongoose')
+const router = require('express').Router();
+let Recipe = require('../models/Recipe');
+// const mongoose = require('mongoose');
+const data = require('../data');
+
 
 router.get ('/', (req, res)=>{
-	recipe.find()
+	Recipe.find()
 			.then(recipes=>res.json(recipes))
 			.catch(e=>res.send(e))
 });
 
 router.get ('/log', (req, res)=>{
-	recipe.create({
+	Recipe.create({
 		title: "Globadorporpop",
 		level: "Easy Peasy",
 		ingredients: ['Globadorporp', 'Fleeb Juice', 'Grumbo'],
@@ -19,18 +21,34 @@ router.get ('/log', (req, res)=>{
 		duration: 420,
 		creator: "Rick Sánchez",
 	})
-			.then(recipe=>{
-				res.send(`Recipe ${recipe.title} Created`)
+			.then(Recipe=>{
+				res.send(`Recipe ${Recipe.title} Created`)
 			})
 			.catch(e=>res.send(e))
 });
 
 router.get ('/import', (req, res)=>{
-	recipe.insertMany(data)
-			.then(recipe=>{
-				res.send(`Recipe of ${recipe.title} added successfully`)
+	Recipe.insertMany(data)
+			.then(()=>{
+				res.send(`Recipes imported successfully`)
 			})
 			.catch(e=>res.send(`Nothing worked.`))
 });
 
-module.exports = router
+router.get ('/update', (req, res)=>{
+	Recipe.updateOne({name:'Rigatoni alla Genovese'},{duration: 100})
+		.then(()=>{
+			res.send(`Recipe Rigatoni alla Genovese updated correctly`)
+		})
+		.catch(e=>res.send(e))
+});
+
+router.get ('/remove', (req, res)=>{
+	Recipe.deleteOne({name:'Carrot Cake'})
+			.then(()=>{
+				res.send(`Recipe Carrot Cake deleted correctly`)
+			})
+			.catch(e=>res.send(e))
+});
+
+module.exports = router;

@@ -19,11 +19,12 @@ let recipeSchema = new Schema({
     },
     dishType: {
         type: String,
-        enum:["Breakfast", "Dish", "Snack", "Drink", "Dessert", "Other"],
-        image:{
-          type: String,
-          default: "https://images.media-allrecipes.com/images/75131.jpg"
-        },
+        enum: ["Breakfast", "Dish", "Snack", "Drink", "Dessert", "Other"],
+        image: {
+            type: String,
+            default: "https://images.media-allrecipes.com/images/75131.jpg"
+        }
+    },
         duration: {
             type: Number,
             min: 0,
@@ -31,12 +32,9 @@ let recipeSchema = new Schema({
         creator: String,
         created:{
             type: Date,
-            default: new Date(),
+            default: Date.now(),
         },
-
-
-    }
-});
+}, {timestamps:true});
 
 
 module.exports = mongoose.model('Recipe', recipeSchema);

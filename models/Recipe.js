@@ -24,7 +24,10 @@ let recipeSchema =  new Schema({
     type: String,
     default: 'https://images.media-allrecipes.com/images/75131.jpg'
   },
-  duration: Number,
+  duration: {
+    type: Number,
+    min: 0
+  },
   creator: String,
   created: {
     type: Date,

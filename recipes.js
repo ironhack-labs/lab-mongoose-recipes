@@ -9,7 +9,7 @@ let express = require("express");
 let app = express();
 
 mongoose
-  .connect("mongodb://localhost:27017/recipeApp2", { useNewUrlParser: true })
+  .connect("mongodb://localhost:27017/recipeApp", { useNewUrlParser: true })
   .then(() => {
     console.log("Connected to Mongo!");
   })
@@ -18,7 +18,7 @@ mongoose
   });
 //the routes
 
-//Recipe.insertMany(data);
+// Recipe.insertMany(data);
 
 /*
 mongoose.connection.close(() => {

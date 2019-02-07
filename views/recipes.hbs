@@ -1,0 +1,24 @@
+<h1>Recetas Ironhack</h1>
+<section>
+  {{#each recipes}}
+<div class="recipe">
+  <img src="{{image}}" alt="{{title}}"/>
+  <div>
+  <h4>{{title}}</h4>
+  <p>{{description}}</p>
+  <strong>Food pairing</strong>
+  {{#each ingredients}}
+  <ul>
+  <li>{{this}}</li>
+  </ul>
+  {{/each}}
+  <ul>
+    <li><strong> Cuisine:</strong> {{cuisine}}</li>
+    <li><strong> Duration:</strong> {{duration}}mins</li>
+    <li><strong> Chef:</strong> {{creator}}</li>
+    <li><strong> Dish type:</strong> {{dishType}}mins</li>
+  </ul>
+</div>
+</div>
+{{/each}}
+</section>

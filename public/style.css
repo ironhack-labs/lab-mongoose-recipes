@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+h1  {
+  text-align: center;
+}
+section {
+  margin: 0 auto; 
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recipe {
+  width: 50%;
+}
+
+.recipe img {
+  width: 300px;
+}

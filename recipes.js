@@ -56,7 +56,10 @@ const conn = mongoose.connect('mongodb://localhost/recipeApp')
       console.log("BoomShackalaka");
     })
 
-    mongoose.connection.close(() => console.log('connection closed'));
+    setTimeout(() => {
+      mongoose.connection.close();
+      console.log("connection closed");
+    }, 3000);
 
   }).catch(err => {
     console.error('Error connecting to mongo', err);

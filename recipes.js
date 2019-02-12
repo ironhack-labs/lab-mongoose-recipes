@@ -21,6 +21,10 @@ const recipeSchema = new Schema({
     enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
   },
   ingredients: [String],
+  cuisine: {
+    type: String,
+    required: true
+  },
   dishType: {
     type: String,
     enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other']
@@ -55,6 +59,7 @@ let myRecipe = new Recipe({
     '500 grams dark chocolate',
     '3 eggs'
   ],
+  cuisine: 'American',
   dishType: 'Dessert',
   image: 'https://images.media-allrecipes.com/userphotos/250x250/3850414.jpg',
   duration: 90,

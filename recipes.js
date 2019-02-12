@@ -21,7 +21,7 @@ const recipeSchema = new Schema({
   date: {type: Date, default: Date.now}
 });
 
-const Recipe  = mongoose.model('Recipe', recipeSchema);
+const Recipe  = mongoose.model('recipe', recipeSchema);
 
 
 Recipe.create({
@@ -35,3 +35,35 @@ title: "French Onion",
 creator: "Gordon Childs",
 // created: ''
           })
+
+// many recipes
+Recipe.insertMany(data)
+  .then(recipes => {
+    recipes.forEach(recipe => {
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+//update
+  Recipe.findByIdAndUpdate('5c6333731b6cb635508985e3', {duration: 100})
+  .then("Changed")
+  .catch("Change failed")
+//delete
+  Recipe.deleteOne({title: "Carrot Cake"})
+  .then("Item deleted")
+  .catch("Delete Failed")
+
+//remove
+
+  // If the Node process ends, close the Mongoose connection
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });
+  // When the connection is disconnected
+  mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose default connection disconnected');
+  });

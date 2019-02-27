@@ -1,14 +1,22 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Dan+Balta",
   "license": "ISC",
   "dependencies": {
     "mongoose": "^5.2.14"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanMihaiGrigoriciuc/lab-mongoose-recipes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DanMihaiGrigoriciuc/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/DanMihaiGrigoriciuc/lab-mongoose-recipes#readme"
 }

@@ -34,6 +34,8 @@ async function exercise() {
     duration: 60,
     creator: 'John Doe',
   })
+  const recipes = await Recipe.insertMany(data);
+  recipes.forEach((recipe) => console.log(recipe.title));
 }
 
 exercise().catch(err => {

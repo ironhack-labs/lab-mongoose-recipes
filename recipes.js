@@ -36,8 +36,12 @@ async function exercise() {
   })
   const recipes = await Recipe.insertMany(data);
   recipes.forEach((recipe) => console.log(recipe.title));
-}
 
+  await Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'},
+    { $set: { duration: 100 } }
+  );
+  console.log('Recipe Rigatoni alla Genovese, succesfully updated')
+}
 exercise().catch(err => {
   console.error('Error', err);
 });

@@ -40,7 +40,10 @@ async function exercise() {
   await Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'},
     { $set: { duration: 100 } }
   );
-  console.log('Recipe Rigatoni alla Genovese, succesfully updated')
+  console.log('Rigatoni alla Genovese, succesfully updated')
+
+  const recipe2 = await Recipe.remove({ title: 'Carrot Cake' })
+  console.log('Carrot Cake, succesfully removed')
 }
 exercise().catch(err => {
   console.error('Error', err);

@@ -52,12 +52,13 @@ Recipe.insertMany(data, function(err, data) {
 
 
 //modify  Rigatoni alla Genovese, for first match change duration to 100
-Recipe.updateOne({ name: ' Rigatoni alla Genovese ' }, { duration: 100 })
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
   .then(() =>  console.log('Successfully updated'))
   .catch(err =>  console.error('Error updating  mongo', err))
 
 
 // removing from database Carrot Cake
-Recipe.deleteOne({ name: 'Carrot Cake'})
-.then((recipe) =>  console.log('Successfully DELETED'), recipe)
+Recipe.deleteOne({ title: 'Carrot Cake'})
+.then(doc=>  console.log('Successfully DELETED' ))
 .catch(err =>  console.error('Error DELETING  document', err))
+

@@ -58,6 +58,18 @@ Recipe.insertMany(data)
       .forEach(title => {
         console.log(`Receta ingresada: ${title}`);
       });
+    // updating one recipe just after it were inserted, otherwise
+    // the update may run before the insertions have finished
+    Recipe.updateOne(
+      { title: "Rigatoni alla Genovese" },
+      { $set: { duration: 100 } }
+    )
+      .then(recipe => {
+        console.log(`Receta actualizada`);
+      })
+      .catch(err => {
+        console.log(`Error al actualizar receta ${err}`);
+      });
   })
   .catch(err => {
     console.log(`Èrror al ingresar las recetas de data.js`);

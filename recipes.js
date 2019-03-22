@@ -12,6 +12,15 @@ mongoose
     console.error("Error connecting to mongo", err);
   });
 
+// deletes all collection, for test purposes
+Recipe.deleteMany()
+  .then(recipes => {
+    console.log(`Coleccion eliminada`);
+  })
+  .catch(err => {
+    console.log(`Error al eliminar coleccion completa`);
+  });
+
 // create a simple recipe
 Recipe.create({
   title: "Lasagna de pavo",
@@ -38,4 +47,18 @@ Recipe.create({
   })
   .catch(err => {
     console.log(`Error al ingresar receta: ${err}`);
+  });
+
+// populate database with array
+Recipe.insertMany(data)
+  .then(recipes => {
+    console.log(`Se han terminado de cargas las recetas de data.js`);
+    recipes
+      .map(recipe => recipe.title)
+      .forEach(title => {
+        console.log(`Receta ingresada: ${title}`);
+      });
+  })
+  .catch(err => {
+    console.log(`Èrror al ingresar las recetas de data.js`);
   });

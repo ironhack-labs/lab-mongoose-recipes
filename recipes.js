@@ -52,6 +52,7 @@ Recipe.create({
 // populate database with array
 Recipe.insertMany(data)
   .then(recipes => {
+    let promises = [];
     console.log(`Se han terminado de cargas las recetas de data.js`);
     recipes
       .map(recipe => recipe.title)
@@ -60,7 +61,7 @@ Recipe.insertMany(data)
       });
     // updating one recipe just after it were inserted, otherwise
     // the update may run before the insertions have finished
-    Recipe.updateOne(
+    let promise1 = Recipe.updateOne(
       { title: "Rigatoni alla Genovese" },
       { $set: { duration: 100 } }
     )
@@ -70,15 +71,29 @@ Recipe.insertMany(data)
       .catch(err => {
         console.log(`Error al actualizar receta ${err}`);
       });
-
+    promises.push(promise1);
     // removing one recipe
-    Recipe.remove({ title: "Carrot Cake" })
+    let promise2 = Recipe.remove({ title: "Carrot Cake" })
       .then(resp => {
         console.log(`Receta Carrot Cake eliminada`);
       })
       .catch(err => {
         console.log(`Error al eliminar receta Carrot Cake: ${err}`);
       });
+    promises.push(promise2);
+
+    // Only after both previous promises have been fulfilled, close connection
+    Promise.all(promises).then(resp => {
+      console.log(`Comenzando cierre de conexion a mongodb`);
+      mongoose
+        .disconnect()
+        .then(resp => {
+          console.log(`Cierre de conexion finalizado`);
+        })
+        .catch(err => {
+          console.log(`Error al cerrar la conexion a mongodb`);
+        });
+    });
   })
   .catch(err => {
     console.log(`Èrror al ingresar las recetas de data.js`);

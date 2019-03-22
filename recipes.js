@@ -64,11 +64,20 @@ Recipe.insertMany(data)
       { title: "Rigatoni alla Genovese" },
       { $set: { duration: 100 } }
     )
-      .then(recipe => {
+      .then(resp => {
         console.log(`Receta actualizada`);
       })
       .catch(err => {
         console.log(`Error al actualizar receta ${err}`);
+      });
+
+    // removing one recipe
+    Recipe.remove({ title: "Carrot Cake" })
+      .then(resp => {
+        console.log(`Receta Carrot Cake eliminada`);
+      })
+      .catch(err => {
+        console.log(`Error al eliminar receta Carrot Cake: ${err}`);
       });
   })
   .catch(err => {

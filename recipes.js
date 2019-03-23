@@ -85,13 +85,22 @@ Recipe.insertMany(data)
     // Only after both previous promises have been fulfilled, close connection
     Promise.all(promises).then(resp => {
       console.log(`Comenzando cierre de conexion a mongodb`);
-      mongoose
-        .disconnect()
+      mongoose.connection
+        .close()
         .then(resp => {
           console.log(`Cierre de conexion finalizado`);
+          console.log(`Iniciando desconexion a la base de datos`);
+          mongoose
+            .disconnect()
+            .then(resp => {
+              console.log(`Desconexion finalizada`);
+            })
+            .catch(err => {
+              console.log(`Error al desconectarse de mongodb`);
+            });
         })
         .catch(err => {
-          console.log(`Error al cerrar la conexion a mongodb`);
+          console.log(`Error al cerrar la conexion a la base de datos`);
         });
     });
   })

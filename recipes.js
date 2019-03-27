@@ -1,4 +1,4 @@
-//Hola
+//H
 const mongoose = require('mongoose');
 const Recipe = require('./Recipe.js');
 	const data = require('./data.js');

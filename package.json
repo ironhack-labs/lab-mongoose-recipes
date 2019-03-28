@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "node recipes",
+    "dev": "nodemon recipes"
   },
   "author": "",
   "license": "ISC",

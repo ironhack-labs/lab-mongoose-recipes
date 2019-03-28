@@ -8,3 +8,5 @@ mongoose.connect('mongodb://localhost/recipeApp')
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
+
+//hola que tal

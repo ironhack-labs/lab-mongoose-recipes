@@ -6,20 +6,20 @@ const data = require('./data.js');
 require('./configs/db.config');
 
 let receta = {
-  title: 'Asian Glazed Chicken Thighs',
+  title: 'Mojo Picon',
   level: 'Amateur Chef',
-  ingredients: ['1/2 cup rice vinegar', '5 tablespoons honey', '1/3 cup soy sauce (such as Silver Swan®)', '1/4 cup Asian (toasted) sesame oil', '3 tablespoons Asian chili garlic sauce', '3 tablespoons minced garlic', 'salt to taste', '8 skinless, boneless chicken thighs'],
-  cuisine: 'Asian',
+  ingredients: ['Cilantro', 'Pimienta Palmera', '30 gr aceite', '1 cucharadita de sal'],
+  cuisine: 'Canaria',
   dishType: ['Dish'],
-  image: 'https://images.media-allrecipes.com/userphotos/720x405/815964.jpg',
-  duration: 40,
-  creator: 'Chef LePapu'
+  image: 'https://fotos00.laopinion.es/2014/10/15/646x260/mojo.jpg',
+  duration: 10,
+  creator: 'Chicote'
   }
 
 Recipe.create(receta)
 .then (recipe => console.info(recipe))
 .catch(error => console.error(error))
-
+console.log(receta.title);
 
 
 

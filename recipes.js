@@ -9,10 +9,18 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
   .catch(err => console.error(`An error ocurred trying to connect to the database ${MONGODB_URI}`, err));
 
 Recipe.create(data[0])
-  .then(recipe => console.log(recipe))
+  .then(recipe => console.log("Success"))
   .catch(error => console.log(error))
 
 Recipe.insertMany([, ...data])
-  .then(recipe => console.log(recipe))
+  .then(recipe => console.log("Success"))
+  .then( () => {
+    return Recipe.find({}, {title:1, _id: 0})
+      .then(recipe => console.log(recipe))
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set: {duration: 100}})
+      .then(recipe => console.log(recipe))
+  })
   .catch(error => console.log(error))
 

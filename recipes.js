@@ -18,9 +18,14 @@ Recipe.insertMany([, ...data])
     return Recipe.find({}, {title:1, _id: 0})
       .then(recipe => console.log(recipe))
   })
-  .then(() => {
+  .then( () => {
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set: {duration: 100}})
-      .then(recipe => console.log(recipe))
+      .then(recipe => console.log("Success"))
   })
+  .then( () => {
+    return Recipe.remove({title: "Carrot Cake"})
+      .then(recipe=> console.log("success"))
+  })
+  .then(() => mongoose.connection.close())
   .catch(error => console.log(error))
 

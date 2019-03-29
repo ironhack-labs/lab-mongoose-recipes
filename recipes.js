@@ -1,6 +1,6 @@
 const Recipe = require('./models/recipes.model');
 const data = require('./data.js');
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Init mongodb connection
 require('./configs/db.config');
@@ -18,18 +18,28 @@ let receta = {
 
 Recipe.create(receta)
 Recipe.create(data)
-.then (() => {
-  return Recipe.updateOne ({title:'Rigatoni alla Genovese'}, {duration:100})
-    .then (() => console.info(`Updated :)`))
-    .catch (() => console.error(`NOT UPDATED :(`))
-})
-.then (() => {
-  console.info(`Created Recipe: ${receta.title}`);
-  return data.forEach (recipe => {
-    console.info(`Created Recipe: ${recipe.title}`);
-    }) 
-})
-.catch(error => console.error(error))
+  .then (() => {
+    return Recipe.updateOne ({title:'Rigatoni alla Genovese'}, {duration:100})
+      .then (() => console.info(`Updated :)`))
+      .catch (() => console.error(`NOT UPDATED :(`))
+  })
+  .then (()=> {
+    return Recipe.deleteOne ({title: 'Carrot Cake'})
+      .then (() => console.info('Succeed deleted!'))
+  })
+  .then (() => {
+    console.info(`Created Recipe: ${receta.title}`);
+      return data.forEach (recipe => {
+        console.info(`Created Recipe: ${recipe.title}`);
+      }) 
+  })
+  .catch(error => console.error(error))
+  .then (() => {
+    console.info('Loging Out')
+    return mongoose.disconnect()
+  })
+  .then (() => console.info('-Disconnected-'))
+
 
 
 

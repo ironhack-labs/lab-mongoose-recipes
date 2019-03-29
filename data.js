@@ -1,4 +1,4 @@
-module.exports =
+let recipes =
     [
       {
         title: 'Asian Glazed Chicken Thighs',
@@ -51,3 +51,4 @@ module.exports =
         creator: 'Chef Jennifer'
       }
     ];
+

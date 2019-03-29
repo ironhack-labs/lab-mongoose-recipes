@@ -17,9 +17,21 @@ let receta = {
   }
 
 Recipe.create(receta)
-.then (recipe => console.info(recipe))
+Recipe.create(data)
+.then (() => {
+  return Recipe.updateOne ({title:'Rigatoni alla Genovese'}, {duration:100})
+    .then (() => console.info(`Updated :)`))
+    .catch (() => console.error(`NOT UPDATED :(`))
+})
+.then (() => {
+  console.info(`Created Recipe: ${receta.title}`);
+  return data.forEach (recipe => {
+    console.info(`Created Recipe: ${recipe.title}`);
+    }) 
+})
 .catch(error => console.error(error))
-console.log(receta.title);
+
+
 
 
 

@@ -1,10 +1,23 @@
-const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const Reciepe = require('./models/recipe.model');
 const data = require('./data.js');
+const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/recipeApp')
+// Init mongodb connection
+require('./configs/db.config');
+
+
+
+
+
+
+
+
+
+
+/*mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {
     console.log('Connected to Mongo!');
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
+*/

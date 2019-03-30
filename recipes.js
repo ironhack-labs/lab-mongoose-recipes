@@ -20,23 +20,23 @@ const removeRecipe = 'Carrot Cake';
 
 
 Recipe.create(recipes)
-  .then(recipes => console.info(recipes))
-  .then(() => {
+  .then((newRecipe) => {
     console.info('============')
-    console.info('Creating new recipe', newRecipe)
-    return Recipe.insertMany({ newRecipe })
+    console.info('Creating new recipe', newRecipe.title)
+    return Recipe.insertMany({ recipes })
     .save()
-    .then(recipes => console.info(recipes))
+      .then(newRecipe => console.info('Recipe Successfully Created', newRecipe.title))
+
   })
   .then(() => {
     console.info('Updating recipe', updateDuration)
-    return Recipe.findOneAndUpdate({ duration: updateDuration }, { $inc: {title: 'Rigatoni alla Genovese'}}, { new: true }) 
-      .then(recipes => console.info(recipes))
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' },{ $set: {duration: 100 }}, { new: true })
+      .then(recipe => { console.info(`${recipe.title} Successfully Updated`)})
   })
   .then(() => {
     console.info('Removing recipe', removeRecipe)
     return Recipe.remove({ title: removeRecipe})
-      .then(recipes => console.info(recipes))
+    .then(recipe => { console.info(`${recipe.title} Successfully Updated`)})  
   })
   .catch(error => console.error(error))
   

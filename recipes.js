@@ -19,33 +19,32 @@ const updateDuration = 100;
 const removeRecipe = 'Carrot Cake';
 
 
-Recipe.create(recipes)
+Recipe.create(newRecipe)
   .then((newRecipe) => {
     console.info('============')
     console.info('Creating new recipe', newRecipe.title)
-    return Recipe.insertMany({ recipes })
-    .save()
-      .then(newRecipe => console.info('Recipe Successfully Created', newRecipe.title))
+    return Recipe.insertMany(recipes)
+      .then(newRecipe => console.info('Successfully Created'))
 
   })
   .then(() => {
-    console.info('Updating recipe', updateDuration)
+    console.info('Updating recipe')
     return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' },{ $set: {duration: 100 }}, { new: true })
       .then(recipe => { console.info(`${recipe.title} Successfully Updated`)})
   })
   .then(() => {
-    console.info('Removing recipe', removeRecipe)
-    return Recipe.remove({ title: removeRecipe})
-    .then(recipe => { console.info(`${recipe.title} Successfully Updated`)})  
+    console.info('Removing Recipe:', removeRecipe)
+    return Recipe.findOneAndRemove({ title: removeRecipe})
+    .then(recipe => { console.info(`${recipe.title} Successfully Removed`)})  
   })
   .catch(error => console.error(error))
   
   .then(() => {
-    console.info('Dropping database!')
+    console.info('Disconnecting database...')
     return mongoose.connection.dropDatabase()
   })
   .then(() => {
-    console.info('Disconnecting...')
-    return mongoose.disconnect()
+    console.info('Closing database')
+    return mongoose.connection.close()
   })
-  .then(() => console.info('Successfully disconnected, bye!'))
+  .catch(error => console.error (error));

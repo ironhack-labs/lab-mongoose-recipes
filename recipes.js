@@ -52,7 +52,14 @@ Recipe.create(recipe)
   })
   .then((recipe) => {
     console.info('Updated Rigatoni recipe duration');
-    console.info(`${recipe.title} successfully updated!`);
+    console.info(`${recipe.title} updated`);
+    return Recipe.findOneAndRemove({
+      title: 'Carrot Cake'
+    })
+  })
+  .then((recipe) => {
+    console.info('Removed Carrot cake from databse recipes');
+    console.info(`${recipe.title} removed`);
   })
   .catch(error => console.error(`Ha habido un error con las recetas`, error))
   //para limpiar la base de datos

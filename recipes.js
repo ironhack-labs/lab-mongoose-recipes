@@ -6,13 +6,7 @@ const recipes = require('./data.js');
 //conectdos a la bbdd
 require('./configs/db.config');
 
-//Crear una receta
-//const example = {
-  //isHuman: false,
-  //printIntroduction: function () {
-    //console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
-  //}
-//};
+//Crear una receta como objeto:
 const recipe = {
   title: 'Flan de huevo',
   level: 'Amateur Chef',
@@ -27,8 +21,16 @@ const recipe = {
     '1 taza de entusiasmo', 
     '3 tazas de aroma de vainilla'],
   cuisine: 'Española',
-  dishType: ['Postre'],
+  dishType: ['Drink'],
   image: 'https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg',
   duration: 53,
   creator: 'Chef Patri'
 }
+
+//Creamos nuestra receta
+Recipe.create(recipe)
+  .then((recipe) => {
+    console.info('- Created recipe', recipe.title);
+  })
+  .catch(error => console.error(`Ha habido un error con las recetas`, error))
+ 

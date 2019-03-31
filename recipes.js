@@ -38,11 +38,26 @@ Recipe.create(recipe)
     for (let recipe of recipes) {
       console.info('- Created recipe', recipe.title);
     }
+    return Recipe.findOneAndUpdate({
+      title: 'Rigatoni alla Genovese'
+    },
+    { 
+      $set: { 
+        duration: 100 
+      } 
+    }, 
+    { 
+      new: true 
+    })
+  })
+  .then((recipe) => {
+    console.info('Updated Rigatoni recipe duration');
+    console.info(`${recipe.title} successfully updated!`);
   })
   .catch(error => console.error(`Ha habido un error con las recetas`, error))
   //para limpiar la base de datos
   //.then(() => {
-    //console.info(Limpiar base de datos');
+    //console.info('Limpiar base de datos');
     //return mongoose.connection.dropDatabase();
   //})
   //.catch(error => console.error(`Ha habido un error con las recetas`, error))

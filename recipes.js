@@ -31,6 +31,18 @@ const recipe = {
 Recipe.create(recipe)
   .then((recipe) => {
     console.info('- Created recipe', recipe.title);
+    return Recipe.insertMany(recipes); //un insertMany va seguido de una promesa que devuelve
+  })
+  .then((recipes) => {
+    console.info('Insert many iteration');
+    for (let recipe of recipes) {
+      console.info('- Created recipe', recipe.title);
+    }
   })
   .catch(error => console.error(`Ha habido un error con las recetas`, error))
- 
+  //para limpiar la base de datos
+  //.then(() => {
+    //console.info(Limpiar base de datos');
+    //return mongoose.connection.dropDatabase();
+  //})
+  //.catch(error => console.error(`Ha habido un error con las recetas`, error))

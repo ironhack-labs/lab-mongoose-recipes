@@ -30,7 +30,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true})
     .then(recipe => {console.log(recipe.title)})
     .catch(error => {console.log(error)})
 
-  Recipe.updateOne(findOneAndUpdate({title: 'Rigatoni alla Genovese'},{ $set:{ duration: 100 }}))
+  Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'},{ $set:{ duration: 100 }})
     .then(() => console.log('Recipe Rigatoni alla Genovese has been updated'))
     .catch(error => console.error(error));
 

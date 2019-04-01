@@ -1,10 +1,39 @@
+require('./configs/db.config.js');
+
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
 const data = require('./data.js');
 
-mongoose.connect('mongodb://localhost/recipeApp')
+const Recipe = require('./models/recipe.model')
+
+Recipe.create(data[0])
+  .then(data => console.info(data))
+  .catch(error => console.error(error))
+
+Recipe.insertMany([, ...data])
+  .then(data => console.log("Success"))
+  .then( () => {
+    return Recipe.find({}, {title:1, _id: 0})
+      .then(data => console.log(data))
+  })
   .then(() => {
-    console.log('Connected to Mongo!');
-  }).catch(err => {
-    console.error('Error connecting to mongo', err);
-  });
+    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{$set: {duration:100}})
+    .then(data => console.log('Perfect'))
+  })
+  .then (() => {
+    return Recipe.remove({title:'Carrot Cake'})
+    .then(data => console.log('Perfect'))
+  })
+  .catch(error => console.error(error))
+  .then (() => {
+    mongoose.connection.dropDatabase()
+  })
+  .then(() => {
+    mongoose.connection.close()
+  })
+  .catch(error => console.error(error))
+
+
+
+
+
+  

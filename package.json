@@ -2,7 +2,7 @@
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "recipes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "mongoose": "^5.2.14"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }

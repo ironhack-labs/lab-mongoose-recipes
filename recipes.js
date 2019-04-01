@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Recipe = require('./models/recipes.models');
+const Recipe = require('./models/models');
 const Schema   = mongoose.Schema;
-const data = require('./data.js');
+const data = require('./data');
 const MONGODB_URI = 'mongodb://localhost:27017/recipeApp';
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true})
@@ -23,7 +23,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true})
   }
   
   Recipe.create(newRecipe)
-    .then(() => console.log("New recipe on the game:", newRecipe.title))
+    .then((newRecipe) => console.log("New recipe on the game:", newRecipe.title))
     .catch(error => console.error(error));
 
   Recipe.insertMany(data)

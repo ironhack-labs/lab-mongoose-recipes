@@ -1,14 +1,27 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.2.14"
+    "mongoose": "^5.4.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/portiaove/lab-mongoose-recipes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/portiaove/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/portiaove/lab-mongoose-recipes#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }

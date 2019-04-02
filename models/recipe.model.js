@@ -8,7 +8,7 @@ const recipeSchema = new mongoose.Schema({
   },
   level: {
     type: String,
-    enum: ['Easy Peasy', 'Amateur Chef', 'Ultra Chef']
+    enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
   },
   ingredients: [String],
   cuisine: {
@@ -24,7 +24,7 @@ const recipeSchema = new mongoose.Schema({
     default: 'https://images.media-allrecipes.com/images/75131.jpg'
   },
   duration: {
-    type: number,
+    type: Number,
     min: 0,
   },
   creator: String,

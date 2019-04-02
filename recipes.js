@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
-const data = require('./data.js');
+const Schema   =  mongoose.Schema({
+const data = require('./data/data.js');
+
+
 
 mongoose.connect('mongodb://localhost/recipeApp')
   .then(() => {

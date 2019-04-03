@@ -2,15 +2,6 @@ const mongoose = require('mongoose');
 //const Schema   =  mongoose.Schema({
 //const data = require('./data/data.js');
 
-
-
-mongoose.connect('mongodb://localhost/recipeApp')
-  .then(() => {
-    console.log('Connected to Mongo!');
-  }).catch(err => {
-    console.error('Error connecting to mongo', err);
-  });
-
 const Recipe = require('./models/recipe.model');
 const recipes = require('./data/data');
 
@@ -37,12 +28,33 @@ const recipe = {
 Recipe.create(recipe)
   .then((recipe) => {
     console.info('- Created recipe', recipe.title);
+    //tercera iteración
     return Recipe.insertMany(recipes);
   })
   .then((recipes) => {
     console.info('Insert many recipes');
     for (let recipe of recipes) {
-      console.info('- Created recipe', recipe.tittle)
+      console.info('- Created recipe', recipe.title)
     }
+  //  //cuarta iteración 
+  //   return Recipe.findOneAndUpdate({
+  //     title: 'Rigatoni alla Genovese'
+  //   },
+  //   { $set: { 
+  //       duration: 100} 
+  //   }, 
+  //   { new: true})
+  // })
+  // .then((recipe) => {
+  //   console.info('Updated Rigatoni');
+  //   console.info(`${recipe.title} updated!`);
+  //quinta iteración
+  //   return Recipe.findOneAndRemove({
+  //     title: 'Carrot Cake'
+  //   })
+  // })
+  // .then((recipe) => {
+  //   console.info('Removed Carrot cake');
+  //   console.info(`${recipe.title} removed`);
   })
   .catch(error => console.error ('Ha habido un error', error))

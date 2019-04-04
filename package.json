@@ -4,7 +4,9 @@
   "description": "",
   "main": "recipes.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node recipes.js",
+    "dev": "nodemon recipes.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-const data = require('./data.js');
+const Recipe = require ('.models/recipe.model.js')
+const recipes = require('./data.js');
 const PORT= 3000;
 
 mongoose.connect('mongodb://localhost/recipeApp')

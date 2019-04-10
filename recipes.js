@@ -25,7 +25,7 @@ mongoose.connect('mongodb://localhost/recipeApp')
 const RecipeOne = mongoose.model('RecipeOne', recipeSchema);
 module.exports = RecipeOne;
 
-
+/*
 
 RecipeOne.create({ title: 'Ensalada', level:"Easy Peasy", ingredients: ['lechuga','tomate','aceitunas'], cuisine: 'mediterranea', dishType: 'Dish',duration: 5, creator: "Fernando" })
   .then(RecipeOne => {
@@ -52,4 +52,8 @@ RecipeOne.findByIdAndRemove("5cae050df483ad65ef3a1ddd")
 .catch(err => {
   console.log('Algo ha fallado', err);
 }) 
+*/
 
+mongoose.connection.close('disconnected', () => {  
+  console.log('Mongoose default connection disconnected'); 
+});

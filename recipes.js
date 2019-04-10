@@ -23,6 +23,22 @@ mongoose.connect('mongodb://localhost/recipeApp')
   
   const Recipe = mongoose.model("recipe", recipeModel);
 
-  Recipe.create(data[0])
-  .then(newRecipe => { console.log('The user is saved and its value is: ', newRecipe) })
-  .catch(err => { console.log('An error happened:', err) });
+// Insert the first
+// Recipe.create(data[0])
+// .then(newRecipe => { console.log('The user is saved and its value is: ', newRecipe) })
+// .catch(err => { console.log('An error happened:', err) });
+
+// Insert ALL
+// Recipe.insertMany(data)
+// .then(recipe => console.log(recipe.title))
+// .catch(err => console.log(err));
+
+// Update One
+Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  .then(() => console.log("Duration changed"))
+  .catch((err) => console.log(err));
+
+// Delete ALL
+// Recipe.deleteMany({})
+// .then(() => console.log('deleted all'))
+// .catch((err) => console.log(err));

@@ -43,11 +43,17 @@ Recipe.insertMany(data, function(error, docs) {
 
       for(let doc of docs){
         console.log(doc.title);
-
       }
+
+      Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { $set:{duration: 100}}).then( modifiedDoc => {console.log('SUCCESS!! ',modifiedDoc);
+  
+  
+  }).catch( err => {console.log('ERR '+err);});
+
     }
     
 });
+
 
 
   

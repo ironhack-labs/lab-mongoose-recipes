@@ -26,7 +26,7 @@ const recipeSchema = new Schema({
   },
   duration: {
     type: Number,
-    min: o
+    min: 0
   },
   Creator: String,
   Created: {

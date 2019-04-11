@@ -33,29 +33,22 @@ Recipe.create({title : "Cocido" ,
         });
 
     }
-  });
+});
 
-/*
-  Recipe.findOne({ title : "Cocido" }, function (err, recipe) {
-    if (err) {
-        console.log('An error happened:', err);
-    } else {
-      let mireceta=recipe;
-        console.log('The recipe is saved and its TITLE is: '+recipe.);
+
+Recipe.insertMany(data, function(error, docs) {
+    if(error){
+      console.log(error);
+    }else{
+
+      for(let doc of docs){
+        console.log(doc.title);
+
+      }
     }
-  });*/
+    
+});
 
-
-  // Find all users and execute the callback
- /* Recipe.findOne({title:"Cocido"}, (err, receta) => {
-    if (err) {
-      console.log('An error happened:', err);
-  } else {
-   // let mireceta=JSON.stringify(receta);
-    console.log('mireceta'+receta)
-  }
-   });
-  */
 
   
   // If the Node process ends, close the Mongoose connection 

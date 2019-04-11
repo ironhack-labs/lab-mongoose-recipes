@@ -12,51 +12,70 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 
 /******MONGOOSE CRUD*******/
 
-
-Recipe.create({title : "Cocido" ,
-  level: "UltraPro Chef",
-  ingredients  :["garbanzos", "patata", "zanahoria","carne","chorizo"],
-  cuisine : "Spanish",
-  dishType : 'Dish',
-  duration : 600,
-  creator : "Madre de Sandra Lerma"}, function (err, recipe) {
+Recipe.create(
+  {
+    title : "Cocido" ,
+    level: "UltraPro Chef",
+    ingredients  :["garbanzos", "patata", "zanahoria","carne","chorizo"],
+    cuisine : "Spanish",
+    dishType : 'Dish',
+    duration : 600,
+    creator : "Madre de Sandra Lerma"
+  },  
+  function (err, recipe) {
     if (err) {
         console.log('An error happened:', err);
-    } else {
-        console.log('The recipe is saved and its value is: ', recipe);
-        Recipe.findOne({title: 'Cocido'}, function(err,obj) {
-          if(err){
+    } 
+    else 
+    {
+      console.log('The recipe is saved and its value is: ', recipe);
+      
+      Recipe.findOne({title: 'Cocido'}, function(err,obj) {
+          
+        if(err){
+
             console.log(err);
-          }else{
-            console.log(obj.title); }
-        
-        });
-
+          }
+          else
+          {
+            console.log(obj.title); 
+          }   
+      });
     }
-});
-
+  }
+);
 
 Recipe.insertMany(data, function(error, docs) {
     if(error){
-      console.log(error);
-    }else{
-
+    console.log(error);
+    }
+    else
+    {
       for(let doc of docs){
         console.log(doc.title);
       }
 
-      Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { $set:{duration: 100}}).then( modifiedDoc => {console.log('SUCCESS!! ',modifiedDoc);
-  
-  
-  }).catch( err => {console.log('ERR '+err);});
-
+      Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { $set:{duration: 100}})
+      .then( modifiedDoc => {
+        
+        console.log('MOD ',modifiedDoc); 
+        
+        Recipe.deleteOne({ title: "Carrot Cake"})
+        .then( deleteDoc => {
+                console.log('DELETED',deleteDoc); 
+                
+                mongoose.connection.close(() => { 
+                  console.log('Mongoose default connection disconnected through app termination'); 
+                  process.exit(0); 
+                }); 
+        })
+        .catch( err => {console.log('ERR '+err);});
+      })
+      .catch( err => {console.log('ERR '+err);});
+        
     }
-    
-});
+  });
 
-
-
-  
   // If the Node process ends, close the Mongoose connection 
   process.on('SIGINT', () => {  
     mongoose.connection.close(() => { 

@@ -29,3 +29,12 @@ Recipe.create({
 }).catch(err => {
   console.log(err, " Error");
 })
+
+
+//Insert Many recipes
+Recipe.insertMany(data)
+  .then(recipesData => {
+    console.log("title of each recipe");
+  }).catch(err => {
+    console.log(err, " error");
+  })

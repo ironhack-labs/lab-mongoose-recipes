@@ -10,7 +10,6 @@ const app = express();
 
 app.use(express.static('public'));
 app.use(bodyParser());
-// Create module
 
 // Connection to the database "recipeApp"
 mongoose
@@ -22,11 +21,32 @@ mongoose
     console.error('Error connecting to mongo', err);
   });
 
-const carbonara = new Recipe({ title: 'Carbonara' });
-carbonara.save(err => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log('mama mia pizzeria');
+function createRecipe(rec) {
+  const recipe = new Recipe({ rec });
+  recipe.save(err => {
+    err ? console.error() : console.log('asdm');
+  });
+}
+createRecipe(data[0]);
+
+function createRecipes(arr) {
+  Recipe.insertMany(arr, err => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('nuova');
+    }
+  });
+}
+createRecipes(data);
+Recipe.updateOne(
+  { title: 'Rigatoni alla Genovese' },
+  { duration: 100 },
+  err => {
+    err ? console.error(err) : console.log('update');
   }
+);
+
+Recipe.deleteOne({ title: 'Carrot Cake' }, err => {
+  err ? console.error(err) : console.log('removed');
 });

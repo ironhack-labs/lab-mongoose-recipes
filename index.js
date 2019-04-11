@@ -10,3 +10,58 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+/******MONGOOSE CRUD*******/
+
+
+Recipe.create({title : "Cocido" ,
+  level: "UltraPro Chef",
+  ingredients  :["garbanzos", "patata", "zanahoria","carne","chorizo"],
+  cuisine : "Spanish",
+  dishType : 'Dish',
+  duration : 600,
+  creator : "Madre de Sandra Lerma"}, function (err, recipe) {
+    if (err) {
+        console.log('An error happened:', err);
+    } else {
+        console.log('The recipe is saved and its value is: ', recipe);
+        Recipe.findOne({title: 'Cocido'}, function(err,obj) {
+          if(err){
+            console.log(err);
+          }else{
+            console.log(obj.title); }
+        
+        });
+
+    }
+  });
+
+/*
+  Recipe.findOne({ title : "Cocido" }, function (err, recipe) {
+    if (err) {
+        console.log('An error happened:', err);
+    } else {
+      let mireceta=recipe;
+        console.log('The recipe is saved and its TITLE is: '+recipe.);
+    }
+  });*/
+
+
+  // Find all users and execute the callback
+ /* Recipe.findOne({title:"Cocido"}, (err, receta) => {
+    if (err) {
+      console.log('An error happened:', err);
+  } else {
+   // let mireceta=JSON.stringify(receta);
+    console.log('mireceta'+receta)
+  }
+   });
+  */
+
+  
+  // If the Node process ends, close the Mongoose connection 
+  process.on('SIGINT', () => {  
+    mongoose.connection.close(() => { 
+      console.log('Mongoose default connection disconnected through app termination'); 
+      process.exit(0); 
+    }); 
+  }); 

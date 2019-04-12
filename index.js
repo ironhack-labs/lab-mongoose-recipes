@@ -14,27 +14,41 @@ mongoose.connect('mongodb://localhost/recipeApp', {
 
 
 //Model Creation
-Recipe.create({
-  title: "Pollo a la Brasa",
-  level: "Amateur Chef",
-  ingredients: ["pollo", "aceite", "patatas", "ensalada", "aliño"],
-  cuisine: "peruvian",
-  dishType: "Dish",
-  image: "",
-  duration: 60,
-  creator: "Daniel",
-  created: ""
+// Recipe.create({
+//   title: "Pollo a la Brasa",
+//   level: "Amateur Chef",
+//   ingredients: ["pollo", "aceite", "patatas", "ensalada", "aliño"],
+//   cuisine: "peruvian",
+//   dishType: "Dish",
+//   image: "",
+//   duration: 60,
+//   creator: "Daniel",
+//   created: ""
+// }).then(recipeData => {
+//   console.log("my recipe is in data base", recipeData);
+// }).catch(err => {
+//   console.log(err, " Error");
+// })
+
+
+// //Insert Many recipes
+// Recipe.insertMany(data)
+//   .then(recipesData => {
+//     console.log(recipe.title);
+//   }).catch(err => {
+//     console.log(err, " error");
+//   })
+
+
+//Find and Update recipe
+Recipe.findOneAndUpdate({
+  title: "Rigatoni alla Genovese"
+}, {
+  $set: {
+    duration: 100
+  }
 }).then(recipeData => {
-  console.log("my recipe is in data base", recipeData);
+  console.log("Great! The data are saved well");
 }).catch(err => {
-  console.log(err, " Error");
+  console.log(err, " error");
 })
-
-
-//Insert Many recipes
-Recipe.insertMany(data)
-  .then(recipesData => {
-    console.log("title of each recipe");
-  }).catch(err => {
-    console.log(err, " error");
-  })

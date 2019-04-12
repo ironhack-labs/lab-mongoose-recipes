@@ -41,14 +41,24 @@ mongoose.connect('mongodb://localhost/recipeApp', {
 
 
 //Find and Update recipe
-Recipe.findOneAndUpdate({
-  title: "Rigatoni alla Genovese"
-}, {
-  $set: {
-    duration: 100
-  }
-}).then(recipeData => {
-  console.log("Great! The data are saved well");
-}).catch(err => {
-  console.log(err, " error");
-})
+// Recipe.findOneAndUpdate({
+//   title: "Rigatoni alla Genovese"
+// }, {
+//   $set: {
+//     duration: 100
+//   }
+// }).then(recipeData => {
+//   console.log("Great! The data are saved well");
+// }).catch(err => {
+//   console.log(err, " error");
+// })
+
+//Iteration 5 - Remove a recipe
+Recipe.deleteOne({
+    title: "Carrot Cake"
+  })
+  .then(recipeData => {
+    console.log("Great! The data are removed!");
+  }).catch(err => {
+    console.log(err, " error");
+  })

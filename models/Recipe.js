@@ -7,10 +7,10 @@ const recipeSchema = new Schema({
   ingredients: [],
   cuisine: String,
   dishType: String,
-  image: {String, default: 'https://images.media-allrecipes.com/images/75131.jpg'},
+  image: {type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg'},
   duration: Number,
   creator: String,
-  created: {Date, default: today}
+  created: {type: Date, default: Date.now}
 
   
 });

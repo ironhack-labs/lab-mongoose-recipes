@@ -32,7 +32,7 @@ Recipe.create(
   }
 );
 
-// Recipe.insertMany(data);
+Recipe.insertMany(data);
 
 Recipe.findByIdAndUpdate("5cc31f0380109c0c651f38da", { duration: 100 })
   .then(console.log("Recipe updated!"))

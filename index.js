@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe'); // Import of the model Recipe from './models/Recipe'
 const data = require('./data.js'); // Import of the data from './data.js'
-console.log(data)
 // Connection to the database "recipeApp"
 mongoose.connect('mongodb://localhost/recipeApp', {
     useNewUrlParser: true
@@ -25,6 +24,14 @@ mongoose.connect('mongodb://localhost/recipeApp', {
   .then(recipe => console.log(recipe.title))
   .catch(err => console.log('An error happened', err)) */
 
-Recipe.insertMany(data)
+/* Recipe.insertMany(data)
   .then(recipe => console.log(recipe.title))
+  .catch(err => console.log('An error happened', err)) */
+
+Recipe.updateOne({
+    title: "Rigatoni alla Genovese"
+  }, {
+    duration: 100
+  })
+  .then(recipe => console.log("Receta actualizada!"))
   .catch(err => console.log('An error happened', err))

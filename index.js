@@ -22,12 +22,12 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 
 
 
-Recipe.create({
+/* Recipe.create({
   title: "Tortilla de patatas Mejorada", level: "Easy Peasy", ingredients: ["huevos", "patatas", "aceite", "sal"], cuisine: "mediterranea", dishType: "Dish", image: undefined, duration: 60, creator: "Cris y Lu", created: undefined
 })
   .then(recipe => { console.log(recipe.title) })
   .catch(err => { console.log('An error happened:', err) });
-
+ */
 
 const manyRecipes = () => {
   Recipe.insertMany(data)
@@ -37,4 +37,15 @@ const manyRecipes = () => {
 }
 
 
+
+const updateRecipe = () => {
+  Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+    .then(() => { console.log("se ha actualizado correctamente yujujuuu!") })
+    .catch(err => { console.log('An error happened:', err) });
+
+}
+
+
 //manyRecipes()
+updateRecipe()
+

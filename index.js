@@ -9,21 +9,35 @@ mongoose.connect('mongodb://localhost/recipeApp', {
   .then(() => {
     console.log('Connected to Mongo!');
     //Crear una receta 
-    Recipe.collection.drop().then(
-      () => {
-        addRep('Pepe to bueno', 'UltraPro Chef', ['pepes'], 'mas pepes')
-      }
-    )
+    // Recipe.collection.drop().then(
+    //   () => {
+    //     addRep('Pepe to bueno', 'UltraPro Chef', ['pepes'], 'mas pepes')
+    //   }
+    // )
     //Insertar la tabla de datos
-    Recipe.insertMany(data)
+    // Recipe.insertMany(data)
     // data.forEach(recipe => {
     //   // addRep(recipe.title, recipe.level,recipe.image...)
     // })
 
     // Update.. Jorge hasta aqui
+    Recipe.updateOne({
+        title: "Rigatoni alla Genovese"
+      }, {
+        duration: 100
+      })
+      .then(() => {
+        console.log('OK')
+        //Delete One 
 
-
-
+        Recipe.deleteOne({
+          title: "Carrot Cake"
+        }).then(() => {
+          console.log('Remove done!')
+          // End 
+          mongoose.connection.close().then(() => console.log('Adios'))
+        })
+      }) // Se necesita then.
 
 
   }).catch(err => {

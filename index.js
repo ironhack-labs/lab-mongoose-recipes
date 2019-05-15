@@ -10,3 +10,13 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+const addNewRecipe = (titleRecipe, levelRecipe, ingrRecipe, cuisineRecipe, dishRecipe, imageRecipe, durationRecipe, creatorRecipe, createdRecipe) => {
+
+  const recipe = new Recipe({ title: titleRecipe, level: levelRecipe, ingredients: ingrRecipe, cuisine: cuisineRecipe, dishType: dishRecipe, image: imageRecipe, duration: durationRecipe, creator: creatorRecipe, created: createdRecipe })
+
+  recipe.save()
+    .then(title => console.log('receta guardada', title))
+    .catch(err => console.log('Error', err))
+}
+
+addNewRecipe("Tortilla de patatas", "Easy Peasy", ["huevos", "patatas", "aceite", "sal"], "mediterranea", "Dish", undefined, 60, "Cris y Lu")

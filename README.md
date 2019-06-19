@@ -46,6 +46,7 @@ Create a `Recipe` model inside the file `/models/Recipe.js`. The schema should h
 
 In `index.js`, using the [`Model.create`](https://mongoosejs.com/docs/api.html#model_Model.create) method, you should pass the info to create a new recipe. After the creation, you can use MongoDB Compass to check everything goes ok. After inserting the recipe, you should `console.log` the `title` of the recipe.
 
+
 **To run your code, remember you should use `$ node index.js`.**
 
 ### Iteration 3 - Insert Many recipes

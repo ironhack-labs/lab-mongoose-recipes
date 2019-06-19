@@ -13,67 +13,52 @@ mongoose
   });
 
 function firstRecipe() {
-  Recipe.create({
-    title: "Pesto",
-    level: "Easy Peasy",
-    ingredients: ["basilic", "ail", "olive oil", "parmesan"],
-    cuisine: "Italian",
-    dishtype: "Other",
-    image: null,
-    duration: 15,
-    creator: "Virbee"
-  })
+  Recipe.deleteMany()
+    .then(() =>
+      Recipe.create({
+        title: "Pesto",
+        level: "Easy Peasy",
+        ingredients: ["basilic", "ail", "olive oil", "parmesan"],
+        cuisine: "Italian",
+        dishtype: "Other",
+        image: null,
+        duration: 15,
+        creator: "Virbee"
+      })
+    )
     .then(recipe => {
-      console.log("My recipe is called");
-      manyRecipes();
+      console.log("My recipe is called", recipe.title);
+      return Recipe.insertMany(data); //renvoie une promesse dans laquelle il y a un array des recettes insérées
+    })
+    .then(manyRecipes => {
+      manyRecipes.forEach(recipe => {
+        console.log("There is a recipe called", recipe.title); //print on the console the title of each recipe
+      });
+      return Recipe.updateOne(
+        { title: "Rigatoni alla Genovese" },
+        { duration: 100 }
+      ); //renvoie une promesse qui contient un objet avec nb trouvé, nb modifé et nb ok (?)
+    })
+    .then(() => {
+      console.log("Recipe updated");
+      return Recipe.deleteOne({ title: "Carrot Cake" }); //renvoie une promesse qui contient un objet avec un nb trouvé, nb modifié et le nbr supprimé
+    })
+    .then(() => {
+      console.log("Recipe deleted");
+      return Recipe.find();
+    })
+    .then(recipes => {
+      recipes.forEach(recipe => {
+        console.log(recipe.title);
+      });
+      return mongoose.disconnect();
+    })
+    .then(() => {
+      console.log("Disconnected from mongo");
     })
     .catch(err => {
       console.log("Error: ", err);
     });
 }
 
-//Insert many recipes
-function manyRecipes() {
-  Recipe.insertMany(data)
-    .then(
-      data.forEach(recipe => {
-        console.log("There is a recipe called", recipe.title); //print on the console the title of each recipe
-      })
-    )
-    .then(updateRecipe())
-    .catch(err => {
-      console.log("Error : ", err);
-    });
-}
-
-// update Rigatoni alla Genovese's duration
-function updateRecipe() {
-  Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-    .then(res => {
-      console.log("Recipe updated");
-      deleteRecipe();
-    })
-    .catch(err => {
-      console.error(err);
-    });
-}
-
-//remove the Carrot Cake
-function deleteRecipe() {
-  Recipe.deleteOne({ title: "Carrot Cake" })
-    .then(res => {
-      console.log("Recipe deleted");
-      disconnection();
-    })
-    .catch(err => {
-      console.error(err);
-    });
-}
-
-function disconnection() {
-  console.log("Mongoose Disconnected");
-  mongoose.disconnect();
-}
-
-//After doing all the task you should close the database.
 firstRecipe();

@@ -16,6 +16,7 @@ const connectMongoose = mongoose.connect(url + "/recipeApp", {useNewUrlParser: t
 const Receta = require("./Model/Receta");
 
 export default {
+   CollectionReceta:'receta',
    connect: connectPromise,
    connectMongoose,
    Receta,

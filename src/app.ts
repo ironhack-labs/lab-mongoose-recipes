@@ -1,39 +1,85 @@
 import DBRecetas from "./DBRecetas";
 import {EnumLevel, Receta} from "./Model/Receta";
 import GetListaRecetas from "./GetListaRecetas";
+import FactoryReceta from "./Model/FactoryReceta";
 
-
-
-
-const mongoose = require('mongoose');
-const Recipe = require('./models/Recipe'); // Import of the model Recipe from './models/Recipe'
-const data = require('./data.js');  // Import of the data from './data.js'
 
 const listaRecetas = GetListaRecetas();
 
 
+const collName = DBRecetas.CollectionReceta;
 
-DBRecetas.connect
-    .then((client) => {
+let exe = async () => {
 
-       console.log('Connected to Mongo!');
+   //Preparar coleccion --------------
+   await DBRecetas.connect
+       .then((client) => {
+          console.log('Base - Cx to Mongo ok!');
 
-       /*crear una receta*/
-       let r1 = new Receta();
-       r1.level = EnumLevel.AMATEUR;
-       r1.title = "xxx";
+          //eliminar toda la coleccion
+          return client.db('recipeApp').collection(collName).deleteMany({});
 
-       return client.db('recipeApp').collection("receta").insertOne(r1);
+       })
+       .then((result) => {
+          console.log(`Base - coleccion eliminada: ${collName}`);
 
-    })
-    .then(newRecord => {
+       })
+       .catch((err) => {
+          console.error('Error connecting to mongo', err);
+       })
+   ;
 
-       console.log('new registro creado');
+
+   //Iteration 2 - Create a recipe -----
+
+   await DBRecetas.connect
+       .then((client) => {
+
+          console.log('Iteration 2- Cx to Mongo ok!');
+
+          let receta = FactoryReceta.Dummy();
+
+          return client.db('recipeApp').collection(collName).insertOne(receta);
+
+       })
+       .then((result) => {
+          console.log('iteration 2- create a recipe ok');
+
+       })
+       .catch((err) => {
+          console.error('Error create a recipe', err);
+       })
+   ;
 
 
-    })
-    .catch((err) => {
-       console.error('Error connecting to mongo', err);
-    })
-;
+   //Iteration 3 - Insert Manu recipes
+
+   await DBRecetas.connect
+       .then((client) => {
+
+          console.log('Iteracion 3- Cx to Mongo ok!');
+
+
+          let listaInsertModel = listaRecetas.map<Receta>(item => {
+             return FactoryReceta.FromObject(item);
+          });
+
+
+          return client.db('recipeApp').collection(collName).insertMany(listaInsertModel);
+
+       })
+       .then((result) => {
+          console.log('iteration 3- Many recipes ok');
+
+       })
+       .catch((err) => {
+          console.error('Error create a recipe', err);
+       })
+   ;
+
+
+};
+
+
+exe();
 

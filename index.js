@@ -10,3 +10,26 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+Recipe.deleteMany()
+.then(()=> {
+  console.log("delete")
+  Recipe.create({
+    title: "Pizza",
+    level:'Easy Peasy',
+  })
+  .then(value => {
+    console.log(value);
+    Recipe.insertMany(data)
+    .then(value => {
+      console.log(value)
+      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+      .then(value => {
+        console.log(value)
+        Recipe.deleteOne({title: "Carrot Cake"})
+        .then(data => {
+          console.log(data)
+        })
+    })
+  })
+})
+})

@@ -12,7 +12,7 @@ const recipeSchema = new Schema({
     type: String,
     enum: ["Easy Peasy","Amateur Chef","UltraPro Chef"]
   },
-  ingredientes: Array,
+  ingredientes: Array, //Not working in MongoDb
   cuisine: { type: String, required: true },
   dishTipe: {
     type: String,

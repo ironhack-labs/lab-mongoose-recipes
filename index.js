@@ -39,17 +39,15 @@ Recipe.deleteMany({}).then(() => {
 
           Recipe.deleteOne({ title: "Carrot Cake" })
             .then(res => {
-              console.log(`The Carrot Cake was deleted `)
+              console.log(`The Carrot Cake was deleted `);
               //this is why everything is nested. After creating everythin, the connection is closed
               mongoose.connection.close();
             })
             .catch("Err there was an error");
         })
-
         .catch(err => console.log("Err there was an error"));
     });
   });
 });
 
 //Close the connection to the database
-

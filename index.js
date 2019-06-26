@@ -5,7 +5,7 @@ const data = require("./data.js"); // Import of the data from './data.js'
 // Connection to the database "recipeApp"
 const arr = [];
 mongoose
-  .connect("mongodb://localhost/recipeApp", { useNewUrlParser: true })
+  .connect("mongodb://localhost/recipeApp3", { useNewUrlParser: true })
   .then(() => {
     console.log("Connected to Mongo!");
   })

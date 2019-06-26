@@ -21,8 +21,16 @@ Recipe
         duration: 45,
         creator: 'Arguiñano'
     }).then(data => {
-        console.log(data.title)
+        console.log("receta spanish omelette: " + data.title)
     })
     .catch(err => {
         console.log(err)
     });
+
+let promise1 = Recipe.insertMany(data)
+Promise.all([promise1])
+    .then(recipes => {
+        console.log(recipes.title);
+        // mongoose.connection.close();
+    })
+    .catch(err => console.log(err))

@@ -24,21 +24,32 @@ Recipe.deleteMany({}).then(() => {
     creator: "Sonia"
   }).then(createdRecipe => {
     console.log("The title of the recipe is " + createdRecipe.title);
+
+    //Check maxance's code, it is a bit different
+    Recipe.create(data).then(recipes => {
+      console.log("recipes", recipes.map(recipe => recipe.title));
+
+      Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+        .then(res => {
+          console.log(
+            `The update was succesful and updated ${res.nModified} recipe`,
+            res
+          );
+          //res or whatever we name it logs an object that is the result of the update
+
+          Recipe.deleteOne({ title: "Carrot Cake" })
+            .then(res => {
+              console.log(`The Carrot Cake was deleted `)
+              //this is why everything is nested. After creating everythin, the connection is closed
+              mongoose.connection.close();
+            })
+            .catch("Err there was an error");
+        })
+
+        .catch(err => console.log("Err there was an error"));
+    });
   });
-
-  Recipe.insertMany(data).then(recipes => {
-    console.log("recipes", recipes.map(recipe => recipe.title));
-
-    Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-      .then(res => {
-        console.log("Rigatoni updated", res)
-        //I think res is what logs the modifications 
-      })
-      .catch(err => console.log("Err there was an error"));
-  
-    Recipe.deleteOne({ title: "carrot Cake" })
-      .then(console.log("succesfully erased"))
-      .catch("Err there was an error");
-  });
-
 });
+
+//Close the connection to the database
+

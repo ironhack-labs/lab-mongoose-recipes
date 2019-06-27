@@ -49,4 +49,4 @@ class Receta {
 
 }
 
-export {Receta, EnumLevel};
+export {Receta, EnumLevel, EnumDishType};

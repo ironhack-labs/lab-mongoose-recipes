@@ -4,12 +4,12 @@ import GetListaRecetas from "./GetListaRecetas";
 import FactoryReceta from "./Model/FactoryReceta";
 
 
-const listaRecetas = GetListaRecetas();
+const listaObjectFromData = GetListaRecetas();
 
 
 const collName = DBRecetas.CollectionReceta;
 
-let exe = async () => {
+const exe = async ()=> {
 
    //Preparar coleccion --------------
    await DBRecetas.connect
@@ -52,7 +52,7 @@ let exe = async () => {
    ;
 
 
-   //Iteration 3 - Insert Manu recipes
+   //Iteration 3 - Insert Many recipes
 
    await DBRecetas.connect
        .then((client) => {
@@ -60,12 +60,12 @@ let exe = async () => {
           console.log('Iteracion 3- Cx to Mongo ok!');
 
 
-          let listaInsertModel = listaRecetas.map<Receta>(item => {
+          let listaModel = listaObjectFromData.map<Receta>(item => {
              return FactoryReceta.FromObject(item);
           });
 
 
-          return client.db('recipeApp').collection(collName).insertMany(listaInsertModel);
+          return client.db('recipeApp').collection(collName).insertMany(listaModel);
 
        })
        .then((result) => {
@@ -77,8 +77,59 @@ let exe = async () => {
        })
    ;
 
+   //Iteration 4 - Update recipe
 
+   await DBRecetas.connect
+       .then((client) => {
+
+          console.log('Iteracion 4 - Update Recibe');
+
+          let filter = {'title': {'$eq': 'Rigatoni alla Genovese'}};
+
+          let dataUpdate: object = {
+             duration: 100
+          };
+
+          return client.db('recipeApp').collection(collName).updateOne(filter, {"$set": dataUpdate});
+
+       })
+       .then((model) => {
+          console.log('OK updated');
+
+       })
+       .catch((err) => {
+          console.error('Error en paso 4 - uypdate recipe', err);
+       })
+   ;
+
+   //Iteration 5 - remove recipe
+
+   await DBRecetas.connect
+       .then((client) => {
+
+          console.log('Iteracion 5 - remove Recipe');
+
+          let filter = {'title': {'$eq': 'Carrot Cake'}};
+
+
+          return client.db('recipeApp').collection(collName).deleteOne(filter);
+
+       })
+       .then((model) => {
+          console.log('OK deleted');
+
+       })
+       .catch((err) => {
+          console.error('Error en paso 5 - uypdate recipe', err);
+       })
+   ;
+
+
+   console.log('\n ********** fin *******************');
 };
+
+
+
 
 
 exe();

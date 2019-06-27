@@ -1,23 +1,40 @@
-import {EnumLevel, Receta} from "./Receta";
+import {EnumDishType, EnumLevel, Receta} from "./Receta";
 
 const FactoryReceta = {
-
    Dummy(): Receta {
 
       /*crear una receta*/
       let model = new Receta();
+      model.title = "receta dummy";
       model.level = EnumLevel.AMATEUR;
-      model.title = "xxx";
+      model.ingredients = ['manzana', 'zanahoria'];
+      model.cuisine = "callejera";
+      model.dishType = EnumDishType.OTHER;
+      model.duration = 3.1416;
 
 
       return model;
    },
-   FromObject(o:object): Receta {
+   FromObject(o: any): Receta {
       let model = new Receta();
 
-      return  model;
+      model.title = o.title;
+      model.level = o.level;
+      model.ingredients = o.ingredients;
+      model.cuisine = o.cuisine;
+      model.dishType = o.dishType;
+
+      if (o.image) {
+         model.image = o.image;
+      }
+
+      model.duration = o.duration;
+      model.creator = o.creator;
+
+
+      return model;
    }
 
 };
 
-export  default FactoryReceta;
+export default FactoryReceta;

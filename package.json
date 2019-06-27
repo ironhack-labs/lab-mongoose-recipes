@@ -5,7 +5,9 @@
    "main": "src/app.js",
    "scripts": {
       "rebuild": "tsc",
-      "main": "node src/app.js",
+      "main_solo_mongo": "node src/app.js",
+      "main_con_moongose": "node src/app_conMongoose.js",
+
       "test": "echo \"Error: no test specified\" && exit 1"
    },
    "author": "",

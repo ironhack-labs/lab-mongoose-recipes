@@ -50,6 +50,6 @@ export const RecetaSchema: Schema = new Schema(
     })
 ;
 
-export  const Receta = mongoose.model<IReceta>('receta', RecetaSchema);
+export  const ModelReceta = mongoose.model<IReceta>('receta', RecetaSchema);
 
 

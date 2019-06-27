@@ -13,7 +13,7 @@ mongoose.set('useCreateIndex', true);
 
 const cx = mongoose.connect(url + "/recipeApp", {useNewUrlParser: true});
 
-const Receta = require("./ModelMongoose/Receta");
+const Receta = require("./ModelMongoose/ModelReceta");
 
 export default {
    CollectionReceta: 'receta',

@@ -124,7 +124,7 @@ const exe = async ()=> {
 
        })
        .catch((err) => {
-          console.error('Error en paso 5 - uypdate recipe', err);
+          console.error('Error en paso 5 - delete recipe', err);
        })
    ;
 

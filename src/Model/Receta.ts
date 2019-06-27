@@ -1,6 +1,3 @@
-import {prop, Typegoose, ModelType, InstanceType} from 'typegoose';
-import {strict} from "assert";
-
 
 enum EnumLevel {
    EASY = 'Easy Peasy',
@@ -20,33 +17,23 @@ enum EnumDishType {
 }
 
 class Receta {
-   @prop({required: true, unique: true})
+
    title?: string;
-
-   @prop({enum: EnumLevel})
    level?: EnumLevel;
-
-   @prop({})
    ingredients ?: string[];
-
-   @prop({required: true})
    cuisine?: string;
-
-   @prop({enum: EnumDishType})
    dishType?: EnumDishType;
 
-   @prop({default: ' https://images.media-allrecipes.com/images/75131.jpg'})
    image?: string;
 
-   @prop({min:0})
-   duration?:number;
+   duration?: number;
+   creator?: string;
+   created?: Date;
 
-   @prop({})
-   creator?:string;
-
-   @prop({default:Date.now()})
-   created?:Date;
-
+   constructor() {
+      this.image = 'https://images.media-allrecipes.com/images/75131.jpg';
+      this.created = new Date();
+   }
 }
 
 export {Receta, EnumLevel, EnumDishType};

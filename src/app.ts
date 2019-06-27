@@ -1,5 +1,5 @@
 import DBRecetas from "./DBRecetas";
-import {EnumLevel, Receta} from "./Model/Receta";
+import {Receta} from "./Model/Receta";
 import GetListaRecetas from "./GetListaRecetas";
 import FactoryReceta from "./Model/FactoryReceta";
 
@@ -9,9 +9,12 @@ const listaObjectFromData = GetListaRecetas();
 
 const collName = DBRecetas.CollectionReceta;
 
+console.log('Mongo WAY ****************************************************\n\n');
+
+
 const exe = async ()=> {
 
-   //Preparar coleccion --------------
+   //Preparar coleccion clean  --------------
    await DBRecetas.connect
        .then((client) => {
           console.log('Base - Cx to Mongo ok!');
@@ -38,6 +41,7 @@ const exe = async ()=> {
           console.log('Iteration 2- Cx to Mongo ok!');
 
           let receta = FactoryReceta.Dummy();
+
 
           return client.db('recipeApp').collection(collName).insertOne(receta);
 
@@ -124,6 +128,8 @@ const exe = async ()=> {
        })
    ;
 
+
+   DBRecetas.close();
 
    console.log('\n ********** fin *******************');
 };

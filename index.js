@@ -34,3 +34,7 @@ Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
 Recipe.deleteOne({title: 'Carrot Cake' })
 .then(user => { console.log(`The Carrot Cake was modified succesfully`)})
 .catch(err => { console.log('An error happened:', err) });
+
+mongoose.connection.close( () =>{
+console.log("The connection is closed");
+});

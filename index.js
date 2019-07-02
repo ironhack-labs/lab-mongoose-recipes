@@ -22,3 +22,8 @@ Recipe.create({
 })
 .then(user => { console.log(`The Recipe ${Recipe.title} was created succesfully`)})
 .catch(err => { console.log('An error happened:', err) });
+
+Recipe.insertMany(data)
+.then(user => { console.log("The Recipes were included succesfully")})
+.catch(err => { console.log('An error happened:', err) });
+

@@ -20,14 +20,17 @@ Recipe.create({
         duration: 60,
         creator: 'Horace Lee'
 })
-.then(user => { console.log(`The Recipe ${Recipe.title} was created succesfully`)})
+.then(user => { console.log(`The Recipe was created succesfully`)})
 .catch(err => { console.log('An error happened:', err) });
 
 Recipe.insertMany(data)
 .then(user => { console.log("The Recipes were included succesfully")})
 .catch(err => { console.log('An error happened:', err) });
 
-Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
 .then(user => { console.log("The Recipe was modified succesfully")})
 .catch(err => { console.log('An error happened:', err) });
 
+Recipe.deleteOne({title: 'Carrot Cake' })
+.then(user => { console.log(`The Carrot Cake was modified succesfully`)})
+.catch(err => { console.log('An error happened:', err) });

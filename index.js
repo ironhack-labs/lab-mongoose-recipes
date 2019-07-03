@@ -10,3 +10,18 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+
+
+  Recipe.create({ 
+    title: "Chicken Parmasian",
+    level: "Easy Peasy",
+    ingredients: ["Chicken", "Parmasian Cheese", "Spaghetti", "Sauce"],
+    cuisine: "Italian",
+    dishType: "Dinner",
+    image: "",
+    duration: 40,
+    creator: "Chef Larrubia",
+    created: Date('2020-12-25'),})
+    .then(user => { console.log('The user is saved and its value is: ', user) })
+    .catch(err => { console.log('An error happened:', err) });
+

@@ -10,3 +10,49 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+
+  // const firstRecipe = new Recipe({
+  //   title: "Kimchi Grilled Cheese",
+  //   level: "Amateur Chef",
+  //   Ingredients: ["Sourdough bread", "butter", "salt", "kimchi", "korean chili paste", "cheddar cheese", "gruyere cheese"],
+  //   cuisine: "Asian Fusion", 
+  //   dishType: "Dish", 
+  //   duration: 25,
+  //   creator: "Victoria Kimcheesious", 
+  // })
+
+  // firstRecipe.save()
+  // .then(()=>{
+  //   console.log('yay it worked');
+  // })
+  // .catch(()=>{
+  //   console.log('sorry, didnt work cant save the cat');
+  // })
+
+
+  // Recipe.insertMany(data)
+  // .then(()=>{
+  //   console.log('yay it worked');
+  //   console.log(data);
+  // })
+  // .catch(()=>{
+  //   console.log('sorry, didnt work cant save the cat');
+  // })
+
+
+  // Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+  // .then(()=>{
+  //   console.log('yay it worked');
+  // })
+  // .catch(()=>{
+  //   console.log('sorry, didnt work cant save the cat');
+  // })
+
+
+  Recipe.deleteOne({title: 'Carrot Cake'})
+    .then(()=>{
+    console.log('yay it worked');
+  })
+  .catch(()=>{
+    console.log('sorry, didnt work cant save the cat');
+  })

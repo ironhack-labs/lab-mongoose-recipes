@@ -7,27 +7,27 @@ mongoose
 	.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 	.then(() => {
 		console.log('Connected to Mongo!');
-		// Recipe.create(data[0]).then((recipe) => {
-		// 	console.log(recipe);
-		// });
+		Recipe.create(data[0]).then((recipe) => {
+			console.log(recipe);
+		});
 
-		// Recipe.insertMany(data).then((recipes) => {
-		// 	recipes.forEach((recipe) => {
-		// 		console.log(recipe.title);
-		// 	});
-		// });
+		Recipe.insertMany(data).then((recipes) => {
+			recipes.forEach((recipe) => {
+				console.log(recipe.title);
+			});
+		});
 
-		// Recipe.findOneAndUpdate(
-		// 	{ title: 'Rigatoni alla Genovese' },
-		// 	{ duration: 100 },
-		// 	{ new: true },
-		// ).then((recipe) => {
-		// 	console.log(recipe);
-		// });
+		Recipe.findOneAndUpdate(
+			{ title: 'Rigatoni alla Genovese' },
+			{ duration: 100 },
+			{ new: true },
+		).then((recipe) => {
+			console.log(recipe);
+		});
 
-		// Recipe.deleteOne({ title: 'Carrot Cake' }).then((recipe) => {
-		// 	console.log(recipe);
-		// });
+		Recipe.deleteOne({ title: 'Carrot Cake' }).then((recipe) => {
+			console.log(recipe);
+		});
 
 		mongoose.connection.close();
 	})

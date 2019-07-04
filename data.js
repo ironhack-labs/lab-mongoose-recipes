@@ -1,4 +1,7 @@
-module.exports =
+ const mongoose = require('mongoose')
+ const Recipes = require('./models/Recipe');
+
+const data =
     [
       {
         title: 'Asian Glazed Chicken Thighs',
@@ -51,3 +54,16 @@ module.exports =
         creator: 'Chef Jennifer'
       }
     ];
+
+    // mongoose
+    // .connect("mongodb://localhost/recipesdb", { useNewUrlParser: true})
+    // .then(x =>{
+    //   console.log(`Conected to Mongo! Database name: "${x.connections[0].name}"`;
+    // })
+    // .catch(err =>{
+    //   console.error("Error connecting to mongo", err);
+    // });
+
+
+
+    module.exports = data;

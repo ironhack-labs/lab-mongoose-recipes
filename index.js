@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   });
 
 
-
+/* -------- Create! -------- */
   // Recipe.create({
 //   title:"Dumplings",
 //   level: "Easy Peasy",
@@ -24,12 +24,27 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 //   console.log("There was a problem");
 // })
 
+/* -------- Insert Many! -------- */
+
 // Recipe.insertMany(recipesList);
 
-Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
-.then((theRecipe)=>{
-  console.log("Successfully updated!");
-})
-.catch(()=> {
-  console.log("An error has occured!");
-});
+/* -------- Update One! -------- */
+
+// Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 100 })
+// .then((theRecipe)=>{
+//   console.log("Successfully updated!");
+// })
+// .catch(()=> {
+//   console.log("An error has occured!");
+// });
+
+/* -------- Delete One! -------- */
+
+
+Recipe.deleteOne({ title: "Carrot Cake"})
+  .then((theRecipe)=>{
+    console.log(`${theRecipe.title} has been deleted!`);
+  })
+  .catch(()=>{
+    console.log("An error has occured!");
+  });

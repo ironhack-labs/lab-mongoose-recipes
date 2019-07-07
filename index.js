@@ -36,8 +36,13 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     //   //console.error('Error connecting to mongo', err);
     // });
 
-    Recipe.findByIdAndUpdate('5d220342972ef047883bc9ad', {duration: 100})
-    .then(console.log("Field Updated"))
-    .catch(console.log("Error"));
+    // Recipe.findByIdAndUpdate('5d220342972ef047883bc9ad', {duration: 100})
+    // .then(console.log("Field Updated"))
+    // .catch(console.log("Error updating recipe"));
+
+
+    // Recipe.deleteOne({title: "Carrot Cake"})
+    // .then(console.log("Recipe Removed"))
+    // .catch(console.log("Error removing Recipe"));
 
 

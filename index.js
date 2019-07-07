@@ -46,3 +46,12 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     // .catch(console.log("Error removing Recipe"));
 
 
+    // Not sure if this is how to close a connection
+    // process.on('SIGINT', () => {
+    //   mongoose.connection.close(() => {
+    //     console.log('Mongoose default connection disconnected through app termination');
+    //     process.exit(0);
+    //   });
+    // });
+    
+

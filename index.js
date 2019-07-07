@@ -26,12 +26,18 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   //   .catch(err => { console.log('An error happened:', err) });
 
 
-    Recipe.insertMany(data)
-    .then((rcp) => {
-      console.log("Added to the DB")
-      data.forEach((rcp, index) =>{
-        console.log(rcp[index].title);
-      })
-    }).catch(err => {
-      //console.error('Error connecting to mongo', err);
-    });
+    // Recipe.insertMany(data)
+    // .then((rcp) => {
+    //   console.log("Added to the DB")
+    //   data.forEach((rcp, index) =>{
+    //     console.log(rcp[index].title);
+    //   })
+    // }).catch(err => {
+    //   //console.error('Error connecting to mongo', err);
+    // });
+
+    Recipe.findByIdAndUpdate('5d220342972ef047883bc9ad', {duration: 100})
+    .then(console.log("Field Updated"))
+    .catch(console.log("Error"));
+
+

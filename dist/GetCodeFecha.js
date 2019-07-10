@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var GetCodeGecha = function () {
-    var fecha = new Date();
-    var codeFecha = fecha.getFullYear().toString();
-    var m = fecha.getMonth() + 1;
+let GetCodeGecha = () => {
+    let fecha = new Date();
+    let codeFecha = fecha.getFullYear().toString();
+    let m = fecha.getMonth() + 1;
     codeFecha += (m < 10 ? "0" : "") + m.toString();
     m = fecha.getDate();
     codeFecha += (m < 10 ? "0" : "") + m.toString();

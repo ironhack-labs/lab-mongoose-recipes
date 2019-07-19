@@ -1,0 +1,163 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  background-color: #F7F9F9;
+  margin: 0;
+}
+
+h1 {
+  margin-left: 10px;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin: 15px 0 5px 0 ;
+}
+
+h3 {
+  font-size: 1.4em;
+  margin: 5px 0 5px 0 ;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #2081C3;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+nav ul li a:hover {
+  background-color: #0A2C42;
+}
+
+footer {
+  background-color: #0A2C42;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  height: 30px;
+  line-height: 30px;
+  font-size: 1.2em;
+  padding-left: 10px;
+}
+
+.main-container {
+  margin: 20px;
+}
+
+.tiles-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 100px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 40px;
+  width: 350px;
+}
+
+.tile p {
+  font-size: 1.4em; 
+}
+
+.tile ul li {
+  font-size: 1.4em; 
+  margin: 0;
+  line-height: 0.6;
+}
+
+.img-recipe {
+  height: 250px;
+  align-self: center;
+}
+
+/* .index-container {
+  margin-top: 75px;
+}
+
+#img-home-beer {
+  height: 350px;
+  display:block;
+  margin:auto;
+}
+
+.btn-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.btn-home{
+  background-color: #2081C3;
+  color: white;
+  width: 180px;
+  height: 50px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.beer-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 100px;
+}
+
+.beer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 40px;
+  width: 350px;
+}
+
+.beer-container p {
+  font-size: 1.4em; 
+}
+
+.beer-container ul li {
+  font-size: 1.4em; 
+  margin: 0;
+  line-height: 0.6;
+}
+
+.img-beer {
+  height: 250px;
+  align-self: center;
+}
+
+.img-random-beer {
+  margin: 55px;
+  height: 250px;
+  vertical-align: top;
+}
+
+.beer-container aside {
+  color: rgba(145, 145, 145, 0.481);
+  font-size: 1.8em;
+}
+
+
+.random-beer-container{
+  display: flex;
+  margin: 20px 100px;
+} */

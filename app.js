@@ -32,8 +32,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const index = require('./routes/index');
 app.use('/', index);
 
-// const recipes = require('./routes/recipes');
-// app.use('/recipes', recipes);
+const recipeList = require('./routes/recipe-list');
+app.use('/', recipeList);
 
 // Export (needed in www.js)
 module.exports = app;

@@ -9,7 +9,7 @@ const hbs          = require('hbs');
 const path         = require('path');
 
 // Connect to database
-mongoose.connect('mongodb://localhost/recipes', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/kitchen', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!');
   }).catch(err => {
@@ -22,7 +22,7 @@ const app = express();
 // Define views and static folder
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-hbs.registerPartials(__dirname + '/views/partials')
+hbs.registerPartials(__dirname + '/views/partials');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Add other middleware

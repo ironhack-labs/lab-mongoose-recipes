@@ -10,3 +10,12 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+  const newRecipe = new Recipe({title : "Ratatouille", level : "Easy", ingredients : ["tomatoes", "eggplants", "zucchini", "onions"], cuisine : "French", dishType : "Maindish", image : "#", duration : 10, creator : "Lison", created : "2019-07-19"})
+
+  Recipe.create(newRecipe)
+    .then(recipe1 => {
+      console.log(recipe1.title)
+    })
+    .catch(err => {
+      console.log(err)
+    })

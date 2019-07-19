@@ -1,6 +1,22 @@
 <div class="tile">
   <img class="img-recipe" src="{{image}}" alt="{{title}}">
   <h2>{{title}}</h2>
-  <aside>{{level}}</aside>
-  <p>{{cuisine}}</p>
+  <h3>{{cuisine}}</h3> 
+  <h3>{{dishType}}</h3>
+  <h3>{{level}}</h3>
+  <h3>{{duration}} mins</h3>
+
+  <h3>Ingredients:</h3>
+  <ul>
+    {{#each ingredients}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+
+  <h3>{{creator}}</h3>
+  <h3>{{created}}</h3>
+
+  <button>Edit</button>
+  <button>Remove</button>
+
 </div>

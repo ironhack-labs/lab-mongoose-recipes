@@ -64,7 +64,7 @@ footer {
 .tiles-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 100px;
+  margin: 10px 100px;
 }
 
 .tile {
@@ -77,87 +77,29 @@ footer {
 
 .tile p {
   font-size: 1.4em; 
+  margin: 5px 0;
+}
+
+.tile button {
+  width: 80px; 
+  margin: 5px 0;
+}
+
+.tile button:hover {
+  cursor: pointer;
+}
+
+.tile ul {
+  margin: 5px 0 10px 0;
+  padding-left: 15px;
 }
 
 .tile ul li {
   font-size: 1.4em; 
-  margin: 0;
-  line-height: 0.6;
+  line-height: 1.2;
 }
 
 .img-recipe {
-  height: 250px;
+  height: 180px;
   align-self: center;
 }
-
-/* .index-container {
-  margin-top: 75px;
-}
-
-#img-home-beer {
-  height: 350px;
-  display:block;
-  margin:auto;
-}
-
-.btn-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.btn-home{
-  background-color: #2081C3;
-  color: white;
-  width: 180px;
-  height: 50px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-.beer-list-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 100px;
-}
-
-.beer-container {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  margin: 40px;
-  width: 350px;
-}
-
-.beer-container p {
-  font-size: 1.4em; 
-}
-
-.beer-container ul li {
-  font-size: 1.4em; 
-  margin: 0;
-  line-height: 0.6;
-}
-
-.img-beer {
-  height: 250px;
-  align-self: center;
-}
-
-.img-random-beer {
-  margin: 55px;
-  height: 250px;
-  vertical-align: top;
-}
-
-.beer-container aside {
-  color: rgba(145, 145, 145, 0.481);
-  font-size: 1.8em;
-}
-
-
-.random-beer-container{
-  display: flex;
-  margin: 20px 100px;
-} */

@@ -37,6 +37,9 @@ app.use('/', index);
 const recipeList = require('./routes/recipe-list');
 app.use('/', recipeList);
 
+const recipeDetail = require('./routes/recipe-detail');
+app.use('/', recipeDetail)
+
 const recipeRemove = require('./routes/recipe-remove');
 app.use('/', recipeRemove);
 

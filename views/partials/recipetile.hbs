@@ -2,9 +2,10 @@
   <img class="img-recipe" src="{{image}}" alt="{{title}}">
   <h2>{{title}}</h2>
   <h3>{{cuisine}}</h3> 
-  <h3>{{dishType}}</h3>
-  <h3>{{level}}</h3>
   <h3>{{duration}} mins</h3>
+
+  {{!-- <h3>{{dishType}}</h3>
+  <h3>{{level}}</h3>
 
   <h3>Ingredients:</h3>
   <ul>
@@ -13,15 +14,18 @@
     {{/each}}
   </ul>
 
-  <h3>{{creator}}</h3>
-  <h3>{{created}}</h3>
+  <h3>{{creator}}</h3> --}}
 
-  <form action="/recipe-edit/{{_id}}">
+  <form method="get" action="/recipe-detail/{{_id}}">
+    <input type="submit" value="See details"/>
+  </form>
+
+  <form method="get" action="/recipe-edit/{{_id}}">
     <input type="submit" value="Edit"/>
   </form>
 
   <form method="post" action="/recipe-remove/{{_id}}">
-    <input type="submit" value="Remove"/>
+    <input type="submit" value="Remove">
   </form>
 
 

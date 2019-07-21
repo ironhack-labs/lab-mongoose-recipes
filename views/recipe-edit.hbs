@@ -1,10 +1,43 @@
 <div class="main-container">
-  <h1>Recipe list</h1>
+  <h1>Recipe to edit</h1>
 
-  <div class="tiles-container">
-    {{#each recipes}}
-      {{>recipetile}}
-    {{/each}}
-  </div>
-  
+  <form method="post" action="/recipe-edit/{{recipe._id}}">
+
+    <label>Title: 
+      <input type="text" name="title" value="{{recipe.title}}">
+    </label>
+
+    <label>
+      Level: <input type="text" name="level" value="{{recipe.level}}">
+    </label>
+
+    <label>
+      Ingredients: <input type="text" name="ingredients" value="{{recipe.ingredients}}">
+    </label>
+
+    <label>
+      Cuisine: <input type="text" name="cuisine" value="{{recipe.cuisine}}">
+    </label>
+    
+    <label>
+      Dish type: <input type="text" name="dishType" value="{{recipe.dishType}}">
+    </label>
+
+    <label>
+      Image URL: <input type="text" name="image" value="{{recipe.image}}">
+    </label>
+
+    <label>
+      Durations (mins): <input type="number" name="duration" value="{{recipe.duration}}">
+    </label>
+
+    <label>
+      Creator: <input type="text" name="creator" value="{{recipe.creator}}">
+    </label>
+
+    <input method="post" class="btn-submit" type="submit" value="Update">
+
+  </form>  
+
 </div>
+

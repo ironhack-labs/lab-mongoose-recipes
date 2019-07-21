@@ -1,0 +1,33 @@
+<div class="main-container">
+  <h1>Recipe details</h1>
+
+  <div class="tile">
+    <img class="img-recipe" src="{{recipe.image}}" alt="{{recipe.title}}">
+    <h2>{{recipe.title}}</h2>
+    <h3>{{recipe.cuisine}}</h3> 
+    <h3>{{recipe.dishType}}</h3>
+    <h3>{{recipe.level}}</h3>
+    <h3>{{recipe.duration}} mins</h3>
+
+    <h3>Ingredients:</h3>
+    <ul>
+      {{#each recipe.ingredients}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+
+    <h3>{{recipe.creator}}</h3>
+    <h3>{{recipe.created}}</h3>
+
+    <form action="/recipe-edit/{{recipe._id}}">
+      <input type="submit" value="Edit"/>
+    </form>
+
+    <form method="post" action="/recipe-remove/{{recipe._id}}">
+      <input type="submit" value="Remove">
+    </form>
+
+
+  </div>
+
+</div>

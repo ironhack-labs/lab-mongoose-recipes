@@ -2,21 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/Recipe');
 
-router.get('/recipe-edit/:id', (req, res, next) => {
-  let id = req.params.id;
-  Recipe.findById(id)  
-    .then((recipe) => {
-        res.render('recipe-edit', {recipe});
-    })
-    .catch((error)=> {
-      next();
-    })
-});
+router.get('/recipe-create', (req, res, next) => {
+  res.render('recipe-create');
+  })
+;
 
-router.post('/recipe-edit/:id', (req, res, next) => {
-  let id = req.params.id;
+router.post('/recipe-create', (req, res, next) => {
 
-  let updatedRecipe = {
+  let newRecipe = {
     title: req.body.title,
     level: req.body.level,
     ingredients: req.body.ingredients,
@@ -27,9 +20,9 @@ router.post('/recipe-edit/:id', (req, res, next) => {
     creator: req.body.creator
   }
 
-  Recipe.findByIdAndUpdate(id, updatedRecipe, {new:true})  
+  Recipe.create(newRecipe)  
     .then((recipe) => {
-        res.redirect(`/recipe-detail/${req.params.id}`);
+        res.redirect(`/recipe-detail/${recipe._id}`);
     })
     .catch((error)=> {
       next();

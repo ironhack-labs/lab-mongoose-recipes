@@ -46,5 +46,9 @@ app.use('/', recipeRemove);
 const recipeEdit = require('./routes/recipe-edit');
 app.use('/', recipeEdit);
 
+const recipeCreate = require('./routes/recipe-create');
+app.use('/', recipeCreate);
+
+
 // Export (needed in www.js)
 module.exports = app;

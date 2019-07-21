@@ -2,10 +2,11 @@
 require('dotenv').config();
 
 // Get dependencies
-const express = require('express');
-const mongoose = require('mongoose');
+const express      = require('express');
+const mongoose     = require('mongoose');
 const bodyParser   = require('body-parser');
 const hbs          = require('hbs');
+const hbsutils     = require('hbs-utils')(hbs);
 const path         = require('path');
 
 // Connect to database
@@ -23,6 +24,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
+hbsutils.registerWatchedPartials(__dirname + '/views/partials');  // Register uncompiled partials with hbs for nodemon to track
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Add other middleware
@@ -34,6 +36,12 @@ app.use('/', index);
 
 const recipeList = require('./routes/recipe-list');
 app.use('/', recipeList);
+
+const recipeRemove = require('./routes/recipe-remove');
+app.use('/', recipeRemove);
+
+const recipeEdit = require('./routes/recipe-edit');
+app.use('/', recipeEdit);
 
 // Export (needed in www.js)
 module.exports = app;

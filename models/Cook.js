@@ -5,6 +5,6 @@ const cookSchema = new Schema({
     name : String,
   });
   
-const Cook = mongoose.model('Cook', cookSchema);
+const Cook = mongoose.model('cooks', cookSchema);
 module.exports = Cook;
 

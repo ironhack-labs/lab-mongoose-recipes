@@ -27,11 +27,10 @@
   <input type="date" name="created" value="{{recipe.created}}"><br>
 
   <label for="">Cook</label>
-   <select name="cook" selected="{{recipe.cook}}">
-    <option value="volvo">Volvo XC90</option>
-    <option value="saab">Saab 95</option>
-    <option value="mercedes">Mercedes SLK</option>
-    <option value="audi">Audi TT</option>
+  <select name="cook">
+    {{#each cooks}}
+      <option value="{{_id}}">{{name}}</option>
+    {{/each}}
   </select><br>
 
   <button type="submit">EDIT</button>

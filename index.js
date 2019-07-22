@@ -21,50 +21,59 @@ app.get('/', function (req, res) {
 res.render('homepage')
 })
   
-  // SHOW ALL RECIPES 
-  app.get('/recipes', (req, res) => {
-    Recipe.find({})
-    .populate("cook")
-    .then((recipes) => {
-      res.render('recipes', {recipes})
-    })
-    .catch(err => {
-      console.log(err)
-    })
+// SHOW ALL RECIPES 
+app.get('/recipes', (req, res) => {
+  Recipe.find({})
+  .populate("cook")
+  .then((recipes) => {
+    res.render('recipes', {recipes})
   })
-  
-  // ADD A NEW RECIPE 
-  app.get('/add-recipe', (req, res) => {
-    res.render('add-recipe');
+  .catch(err => {
+    console.log(err)
   })
+})
   
-  app.post('/recipe/add', (req, res) => {
-    const { title, level, ingredients, cuisine, dishType, image, duration, creator, created } = req.body;
-    const newRecipe = new Recipe({title, level, ingredients, cuisine, dishType, image, duration, creator, created})
-    newRecipe.save()
-    .then((recipe) => {
-      res.redirect('/recipes');
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  });
+// ADD A NEW RECIPE 
+app.get('/add-recipe', (req, res) => {
+  Cook.find({})
+  .then((cooks) => {
+    res.render("add-recipe", {cooks});
+  })
+  .catch((err)=> {
+    console.log(err);
+  })
+})
+  
+app.post('/recipe/add', (req, res) => {
+  let { title, level, ingredients, cuisine, dishType, image, duration, creator, created, cook } = req.body;
+  const newRecipe = new Recipe({title, level, ingredients, cuisine, dishType, image, duration, creator, created, cook : mongoose.Types.ObjectId(cook) })
+  newRecipe.save()
+  .then((recipe) => {
+    res.redirect('/recipes');
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+});
   
 // EDIT A RECIPE 
 app.get('/edit-recipe/:id', (req, res) => {
   Recipe.findOne({_id : req.params.id})
   .populate("cook")
   .then((recipe) => {
-     res.render('edit-recipe', {recipe});
+    Cook.find({})
+    .then((cooks) => {
+      res.render("edit-recipe", {recipe, cooks});
+    })
   })
   .catch((error) => {
      console.log(error)
   })
 });
-  
+
 app.post('/recipe/edit/:id', (req, res) => {
-  const { title, level, ingredients, cuisine, dishType, image, duration, creator, created } = req.body;
-  Recipe.updateOne({_id : req.params.id}, {$set: {title, level, ingredients, cuisine, dishType, image, duration, creator, created}})
+  let { title, level, ingredients, cuisine, dishType, image, duration, creator, created, cook } = req.body;
+  Recipe.updateOne({_id : req.params.id}, {$set: {title, level, ingredients, cuisine, dishType, image, duration, creator, created, cook : mongoose.Types.ObjectId(req.body.cook)}})
     .then(recipe => {
     res.redirect('/recipes'); 
   })
@@ -122,5 +131,6 @@ app.get('/cook/delete/:id', (req, res) => {
       console.log(error)
     })
   })
+
 
 app.listen(3000)

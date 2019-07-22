@@ -28,10 +28,9 @@
 
   <label for="">Cook</label>
   <select name="cook">
-    <option value="volvo">Volvo XC90</option>
-    <option value="saab">Saab 95</option>
-    <option value="mercedes">Mercedes SLK</option>
-    <option value="audi">Audi TT</option>
+    {{#each cooks}}
+      <option value="{{_id}}">{{name}}</option>
+    {{/each}}
   </select><br>
 
   <button type="submit">ADD</button>

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const recipeSchema = new Schema({
   title : String, required: true,
@@ -10,7 +11,8 @@ const recipeSchema = new Schema({
   image : String,
   duration : Number,
   creator : String, 
-  created : {type : Date, default : Date.now}
+  created : {type : Date, default : Date.now},
+  cook : {type: ObjectId, ref:"cooks"} 
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

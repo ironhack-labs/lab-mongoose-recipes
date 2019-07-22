@@ -14,6 +14,7 @@ const bodyParser   = require('body-parser');
 const hbs          = require('hbs');
 const hbsutils     = require('hbs-utils')(hbs);
 const path         = require('path');
+const cookieParser = require('cookie-parser');
 
 // --------------------------------------------------------------------------------
 // Connect to database
@@ -43,24 +44,44 @@ hbsutils.registerWatchedPartials(__dirname + '/views/partials');  // Register un
 app.use(express.static(path.join(__dirname, 'public')));
 
 // --------------------------------------------------------------------------------
+// Configure express session
+// --------------------------------------------------------------------------------
+
+const session = require('express-session');
+
+app.use(session({
+  secret: 'secret for recipes login',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// --------------------------------------------------------------------------------
 // Add other middleware
 // --------------------------------------------------------------------------------
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // --------------------------------------------------------------------------------
 // Set up routing
 // --------------------------------------------------------------------------------
 
-// Home and signup/login --------------------------------------
+// Index --------------------------------------
 const index = require('./routes/index');
 app.use('/', index);
 
-const signup = require('./routes/signup');
+// User --------------------------------------
+const signup = require('./routes/user/signup');
 app.use('/', signup);
 
-const login = require('./routes/login');
+const login = require('./routes/user/login');
 app.use('/', login);
+
+const account = require('./routes/user/account');
+app.use('/', account);
+
+const logout = require('./routes/user/logout');
+app.use('/', logout);
 
 // Recipe --------------------------------------
 const recipeList = require('./routes/recipe/list');

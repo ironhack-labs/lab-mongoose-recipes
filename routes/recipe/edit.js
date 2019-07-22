@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Recipe = require('../../models/Recipe');
 const Cook = require('../../models/Cook');
+const mongoose = require('mongoose');
 
 router.get('/recipe/edit/:id', (req, res, next) => {
   let id = req.params.id;
@@ -19,9 +20,7 @@ router.get('/recipe/edit/:id', (req, res, next) => {
 });
 
 router.post('/recipe/edit/:id', (req, res, next) => {
-  debugger
   let id = req.params.id;
-  debugger
 
   let updatedRecipe = {
     title: req.body.title,
@@ -31,17 +30,14 @@ router.post('/recipe/edit/:id', (req, res, next) => {
     dishType: req.body.dishType,
     image: req.body.image,
     duration: req.body.duration,
-    cook: req.body.cook
+    cook: mongoose.Types.ObjectId(req.body.cook)
   }
-  debugger
 
   Recipe.findByIdAndUpdate(id, updatedRecipe, {new:true})  
     .then(() => {
-      debugger
       res.redirect(`/recipe/detail/${req.params.id}`);
     })
     .catch((err)=> {
-      console.log(err);
       next();
     })
   });

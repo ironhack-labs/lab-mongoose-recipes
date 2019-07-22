@@ -18,11 +18,11 @@
       {{/each}}
     </ul>
 
-    <form action="/recipe-edit/{{recipe._id}}">
+    <form action="/recipe/edit/{{recipe._id}}">
       <input type="submit" value="Edit"/>
     </form>
 
-    <form method="post" action="/recipe-remove/{{recipe._id}}">
+    <form method="post" action="/recipe/remove/{{recipe._id}}">
       <input type="submit" value="Remove">
     </form>
 

@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Recipe = require('../models/Recipe');
-const Cook = require('../models/Cook');
+const Recipe = require('../../models/Recipe');
+const Cook = require('../../models/Cook');
 
-router.get('/recipe-create', (req, res, next) => {
+router.get('/recipe/create', (req, res, next) => {
   Cook.find({})
     .then((cooks) => {
-      res.render('recipe-create', {cooks});
+      res.render('recipe/create', {cooks});
     })
     .catch((err)=> {
       next();
   });
 });
 
-router.post('/recipe-create', (req, res, next) => {
+router.post('/recipe/create', (req, res, next) => {
 
   let newRecipe = {
     title: req.body.title,
@@ -28,7 +28,7 @@ router.post('/recipe-create', (req, res, next) => {
 
   Recipe.create(newRecipe)  
     .then((recipe) => {
-        res.redirect(`/recipe-detail/${recipe._id}`);
+        res.redirect(`/recipe/detail/${recipe._id}`);
     })
     .catch((err)=> {
       next();

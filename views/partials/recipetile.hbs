@@ -15,15 +15,15 @@
     {{/each}}
   </ul> --}}
 
-  <form method="get" action="/recipe-detail/{{_id}}">
+  <form method="get" action="/recipe/detail/{{_id}}">
     <input type="submit" value="See details"/>
   </form>
 
-  <form method="get" action="/recipe-edit/{{_id}}">
+  <form method="get" action="/recipe/edit/{{_id}}">
     <input type="submit" value="Edit"/>
   </form>
 
-  <form method="post" action="/recipe-remove/{{_id}}">
+  <form method="post" action="/recipe/remove/{{_id}}">
     <input type="submit" value="Remove">
   </form>
 

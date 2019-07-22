@@ -3,7 +3,7 @@
   <h2>{{title}}</h2>
   <h3>{{cuisine}}</h3> 
   <h3>{{duration}} mins</h3>
-  <h3>Cook: {{cook}}</h3>
+  <h3>Cook: {{cook.fullName}}</h3>
 
   {{!-- <h3>{{dishType}}</h3>
   <h3>{{level}}</h3>
@@ -13,7 +13,7 @@
     {{#each ingredients}}
     <li>{{this}}</li>
     {{/each}}
-  </ul>
+  </ul> --}}
 
   <form method="get" action="/recipe-detail/{{_id}}">
     <input type="submit" value="See details"/>

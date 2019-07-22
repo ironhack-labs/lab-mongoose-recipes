@@ -31,8 +31,13 @@
       Durations (mins): <input type="number" name="duration" value="{{recipe.duration}}">
     </label>
 
-    <label>
-      Cook: <input type="text" name="cook" value="{{recipe.cook}}">
+    <label>Cook: 
+      <select name="cook"> 
+          <option selected value="{{cook._id}}">{{recipe.cook.fullName}} - {{recipe.cook.nationality}}</option>
+          {{#each cooks}}
+              <option value="{{_id}}">{{fullName}} - {{nationality}}</option>
+          {{/each}}
+      </select>
     </label>
 
     <input method="post" class="btn-submit" type="submit" value="Update">

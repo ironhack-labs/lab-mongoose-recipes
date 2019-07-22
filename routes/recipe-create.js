@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/Recipe');
+const Cook = require('../models/Cook');
 
 router.get('/recipe-create', (req, res, next) => {
-  res.render('recipe-create');
-  })
-;
+  Cook.find({})
+    .then((cooks) => {
+      res.render('recipe-create', {cooks});
+    })
+    .catch((err)=> {
+      next();
+  });
+});
 
 router.post('/recipe-create', (req, res, next) => {
 
@@ -16,14 +22,15 @@ router.post('/recipe-create', (req, res, next) => {
     cuisine: req.body.cuisine,
     dishType: req.body.dishType,
     image: req.body.image,
-    duration: req.body.duration
+    duration: req.body.duration,
+    cook: req.body.cook
   }
 
   Recipe.create(newRecipe)  
     .then((recipe) => {
         res.redirect(`/recipe-detail/${recipe._id}`);
     })
-    .catch((error)=> {
+    .catch((err)=> {
       next();
     })
   });

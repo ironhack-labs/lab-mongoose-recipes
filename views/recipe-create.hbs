@@ -31,8 +31,12 @@
       Durations (mins): <input type="number" name="duration">
     </label>
 
-    <label>
-      Cook: <input type="text" name="cook">
+    <label>Cook: 
+      <select name="cook">
+          {{#each cooks}}
+              <option value="{{_id}}">{{fullName}} - {{nationality}}</option>
+          {{/each}}
+      </select>
     </label>
 
     <input method="post" class="btn-submit" type="submit" value="Create">

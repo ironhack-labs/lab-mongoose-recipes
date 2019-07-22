@@ -1,0 +1,38 @@
+<form action="/recipe/edit/{{ recipe.id }}" method="post">
+  <label for="">Title:</label>
+  <input type="text" name="title" value="{{recipe.title}}""><br>
+
+  <label for="">Level:</label>
+  <input type="text" name="level" value="{{recipe.level}}"><br>
+
+  <label for="">Ingredients:</label>
+  <input type="text" name="ingredients" value="{{recipe.ingredients}}"><br>
+
+  <label for="">Cuisine</label>
+  <input type="text" name="cuisine" value="{{recipe.cuisine}}"><br>
+
+  <label for="">Dishtype</label>
+  <input type="text" name="dishType" value="{{recipe.dishType}}"><br>
+  
+  <label for="">Image</label>
+  <input type="text" name="image" value="{{recipe.image}}"><br>
+
+  <label for="">Duration</label>
+  <input type="number" name="duration" value="{{recipe.duration}}"><br>
+
+  <label for="">Creator</label>
+  <input type="text" name="creator" value="{{recipe.creator}}"><br>
+
+  <label for="">Created on</label>
+  <input type="date" name="created" value="{{recipe.created}}"><br>
+
+  <label for="">Cook</label>
+   <select name="cook" selected="{{recipe.cook}}">
+    <option value="volvo">Volvo XC90</option>
+    <option value="saab">Saab 95</option>
+    <option value="mercedes">Mercedes SLK</option>
+    <option value="audi">Audi TT</option>
+  </select><br>
+
+  <button type="submit">EDIT</button>
+</form>

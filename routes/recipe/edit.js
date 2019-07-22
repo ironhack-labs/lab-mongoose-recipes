@@ -19,7 +19,9 @@ router.get('/recipe/edit/:id', (req, res, next) => {
 });
 
 router.post('/recipe/edit/:id', (req, res, next) => {
+  debugger
   let id = req.params.id;
+  debugger
 
   let updatedRecipe = {
     title: req.body.title,
@@ -31,12 +33,15 @@ router.post('/recipe/edit/:id', (req, res, next) => {
     duration: req.body.duration,
     cook: req.body.cook
   }
+  debugger
 
   Recipe.findByIdAndUpdate(id, updatedRecipe, {new:true})  
     .then(() => {
-        res.redirect(`/recipe/detail/${req.params.id}`);
+      debugger
+      res.redirect(`/recipe/detail/${req.params.id}`);
     })
     .catch((err)=> {
+      console.log(err);
       next();
     })
   });

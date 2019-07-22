@@ -4,13 +4,17 @@ const Recipe = require('../../models/Recipe');
 const Cook = require('../../models/Cook');
 
 router.get('/recipe/create', (req, res, next) => {
-  Cook.find({})
+  if(req.session.user) {
+    Cook.find({})
     .then((cooks) => {
       res.render('recipe/create', {cooks});
     })
     .catch((err)=> {
       next();
-  });
+    });
+  } else {
+   res.redirect("/user/login")
+  }
 });
 
 router.post('/recipe/create', (req, res, next) => {

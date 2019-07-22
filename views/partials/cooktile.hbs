@@ -1,0 +1,14 @@
+<div class="tile">
+
+  <h2>{{fullName}}</h2>
+  <h3>{{nationality}}</h3> 
+
+  <form method="get" action="/cook-edit/{{_id}}">
+    <input type="submit" value="Edit"/>
+  </form>
+
+  <form method="post" action="/cook-remove/{{_id}}">
+    <input type="submit" value="Remove">
+  </form>
+
+</div>

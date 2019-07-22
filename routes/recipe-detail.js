@@ -5,8 +5,8 @@ const Recipe = require('../models/Recipe');
 router.get('/recipe-detail/:id', (req, res) => {
   let id = req.params.id;
   Recipe.findById(id)  
+  .populate("cook")  
   .then((recipe) => {
-      console.log(recipe);
       res.render('recipe-detail', {recipe});
     });
 });

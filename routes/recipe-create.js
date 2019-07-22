@@ -16,8 +16,7 @@ router.post('/recipe-create', (req, res, next) => {
     cuisine: req.body.cuisine,
     dishType: req.body.dishType,
     image: req.body.image,
-    duration: req.body.duration,
-    creator: req.body.creator
+    duration: req.body.duration
   }
 
   Recipe.create(newRecipe)  

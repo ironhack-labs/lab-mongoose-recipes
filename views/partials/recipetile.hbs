@@ -3,6 +3,7 @@
   <h2>{{title}}</h2>
   <h3>{{cuisine}}</h3> 
   <h3>{{duration}} mins</h3>
+  <h3>Cook: {{cook}}</h3>
 
   {{!-- <h3>{{dishType}}</h3>
   <h3>{{level}}</h3>
@@ -13,8 +14,6 @@
     <li>{{this}}</li>
     {{/each}}
   </ul>
-
-  <h3>{{creator}}</h3> --}}
 
   <form method="get" action="/recipe-detail/{{_id}}">
     <input type="submit" value="See details"/>

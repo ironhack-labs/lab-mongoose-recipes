@@ -5,6 +5,7 @@ const Recipe = require('../models/Recipe');
 router.get('/recipe-edit/:id', (req, res, next) => {
   let id = req.params.id;
   Recipe.findById(id)  
+    .populate("cook")  
     .then((recipe) => {
         res.render('recipe-edit', {recipe});
     })
@@ -24,7 +25,7 @@ router.post('/recipe-edit/:id', (req, res, next) => {
     dishType: req.body.dishType,
     image: req.body.image,
     duration: req.body.duration,
-    creator: req.body.creator
+    cook: req.body.cook
   }
 
   Recipe.findByIdAndUpdate(id, updatedRecipe, {new:true})  

@@ -6,10 +6,7 @@ router.post('/recipe-remove/:id', (req, res) => {
   let id = req.params.id;
   Recipe.findOneAndDelete({_id: id})  
   .then(() => {
-    Recipe.find({}) 
-    .then((recipes) => {
-      res.render('recipe-list', {recipes});
-    });
+    res.redirect('/recipe-list');
   });
 });
 

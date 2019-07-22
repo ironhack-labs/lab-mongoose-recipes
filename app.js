@@ -52,9 +52,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Set up routing
 // --------------------------------------------------------------------------------
 
-// Home and login --------------------------------------
+// Home and signup/login --------------------------------------
 const index = require('./routes/index');
 app.use('/', index);
+
+const signup = require('./routes/signup');
+app.use('/', signup);
+
+const login = require('./routes/login');
+app.use('/', login);
 
 // Recipe --------------------------------------
 const recipeList = require('./routes/recipe/list');

@@ -31,13 +31,18 @@ form label {
   font-weight: bold;
 }
 
+nav{
+  display: flex;
+  justify-content: space-between;
+  background-color: #2081C3;
+}
+
 
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #2081C3;
 }
 
 nav ul li {
@@ -119,4 +124,8 @@ footer {
 
 .btn-submit {
   width: 100px;
+}
+
+.img-main{
+  width: 80%;
 }

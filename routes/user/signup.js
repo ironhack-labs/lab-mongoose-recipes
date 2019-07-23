@@ -17,9 +17,10 @@ router.post('/user/signup', (req, res, next) => {
     dob: req.body.dob
   }
 
+
   User.find({username: req.body.username}) // Check username doesn't already exist
     .then((users) => {
-      if(users) {
+      if(users.length > 0) {
         throw new Error("Username already taken")
       } else {
         return User.create(newUser)

@@ -3,49 +3,56 @@ const express = require('express');
 const router  = express.Router();
 const User = require('../models/User')
 var session = require('express-session')
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 // USER SIGN UP 
 router.get('/signup', function(req, res, next) {
     res.render('signup');
   });
   
-  router.post('/users/signup', function(req, res, next) {
-    let newUser = {
-      username: req.body.username, 
-      password: req.body.password
-    }
-    User.create(newUser)
-      .then((user)=> {
-        res.redirect('/login');
-      })
-      .catch(()=> {
-        res.send("error");
-      })
-  }); 
+router.post('/users/signup', function(req, res, next) {
+  const password = req.body.password;
+  const salt = bcrypt.genSaltSync(10);
+  const hashPass = bcrypt.hashSync(password, salt);
   
-  // USER LOGIN
-  router.get('/login', function(req, res, next) {
-    res.render('login');
-  })
+  let newUser = {
+    username: req.body.username, 
+    password: hashPass,
+  }
+  User.create(newUser)
+    .then((user)=> {
+      res.redirect('/login');
+    })
+    .catch(()=> {
+      res.send("error");
+    })
+}); 
   
-  router.post('/login', function(req, res, next) {
-    User.findOne({username : req.body.username})
-    .then((user) => {
-      if (user){
-       if(user.password === req.body.password){
-          req.session.user = user;
-          res.redirect('/user/profile');
-        } else {
-            res.send('Invalid credentials');
-        }
-      } else {
+// USER LOGIN
+router.get('/login', function(req, res, next) {
+  res.render('login');
+})
+
+router.post('/login', function(req, res, next) {
+
+  User.findOne({username : req.body.username})
+  .then((user) => {
+    if (user){
+     bcrypt.compare(req.body.password, user.password, function(err, match){
+       if (match) {
+        res.render('user-profile')
+       } 
+       else {
         res.send('Invalid credentials');
-      }
-    })
-    .catch((err) => {
-      res.send(err);
-    })
-  })    
+       }})
+      } else {
+          res.send('Invalid credentials');
+      }})
+  .catch((err) => {
+    res.send(err);
+  })   
+})
   
 // USER PROFILE
 router.get('/user/profile', function (req, res){

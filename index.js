@@ -14,6 +14,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+app.use
 
 // Connection to the database "kitchen"
 mongoose.connect('mongodb://localhost/kitchen', { useNewUrlParser: true })

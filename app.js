@@ -67,50 +67,35 @@ app.use(cookieParser());
 // --------------------------------------------------------------------------------
 
 // Index --------------------------------------
-const index = require('./routes/index');
-app.use('/', index);
+app.use('/', require('./routes/index'));
 
 // User --------------------------------------
-const signup = require('./routes/user/signup');
-app.use('/', signup);
-
-const login = require('./routes/user/login');
-app.use('/', login);
-
-const account = require('./routes/user/account');
-app.use('/', account);
-
-const logout = require('./routes/user/logout');
-app.use('/', logout);
+app.use('/', require('./routes/user/signup'));
+app.use('/', require('./routes/user/login'));
+app.use('/', require('./routes/user/account'));
+app.use('/', require('./routes/user/logout'));
 
 // Recipe --------------------------------------
-const recipeList = require('./routes/recipe/list');
-app.use('/', recipeList);
-
-const recipeDetail = require('./routes/recipe/detail');
-app.use('/', recipeDetail)
-
-const recipeRemove = require('./routes/recipe/remove');
-app.use('/', recipeRemove);
-
-const recipeEdit = require('./routes/recipe/edit');
-app.use('/', recipeEdit);
-
-const recipeCreate = require('./routes/recipe/create');
-app.use('/', recipeCreate);
+app.use('/', require('./routes/recipe/list'));
+app.use('/', require('./routes/recipe/detail'));
+app.use('/', require('./routes/recipe/remove'));
+app.use('/', require('./routes/recipe/edit'));
+app.use('/', require('./routes/recipe/create'));
 
 // Cook --------------------------------------
-const cookList = require('./routes/cook/list');
-app.use('/', cookList)
+app.use('/', require('./routes/cook/list'));
+app.use('/', require('./routes/cook/edit'));
+app.use('/', require('./routes/cook/create'));
+app.use('/', require('./routes/cook/remove'));
 
-const cookEdit = require('./routes/cook/edit');
-app.use('/', cookEdit);
+// --------------------------------------------------------------------------------
+// Add error page
+// --------------------------------------------------------------------------------
 
-const cookCreate = require('./routes/cook/create');
-app.use('/', cookCreate);
-
-const cookRemove = require('./routes/cook/remove');
-app.use('/', cookRemove);
+// Not doing this for now
+// app.use(function(req, res){
+//   res.send("ERROR ERROR " + res.locals.error)
+// });
 
 // --------------------------------------------------------------------------------
 // Export (needed in bin/www)

@@ -13,6 +13,7 @@ router.post('/user/login', (req, res) => {
         if(user.password === req.body.password) {
           // Log in
           req.session.user = user; // Start a session
+          console.log(user);
           res.redirect('/user/account');
 
         } else {

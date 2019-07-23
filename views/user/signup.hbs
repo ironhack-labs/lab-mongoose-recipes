@@ -4,12 +4,28 @@
 
   <form method="post" action="/user/signup">
 
-    <label>
-      Username: <input type="text" name="username" placeholder="Type your username">
+    <label class="required">
+      Username: <input type="text" name="username" placeholder="Type your username" required>
+    </label>
+
+    <label class="required">
+      Password: <input type="password" name="password" placeholder="Type your password" required>
     </label>
 
     <label>
-      Password: <input type="password" name="password" placeholder="Type your password">
+      First name: <input type="text" name="first_name">
+    </label>
+
+    <label>
+      Last name: <input type="text" name="last_name">
+    </label>
+
+    <label>
+      Favourite cuisine: <input type="text" name="favourite_cuisine">
+    </label>
+
+    <label>
+      Date of Birth: <input type="date" name="dob">
     </label>
 
     <input class="btn-submit" type="submit" value="Sign up">

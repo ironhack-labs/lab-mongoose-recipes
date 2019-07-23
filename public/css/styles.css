@@ -130,3 +130,8 @@ footer {
 .img-main{
   width: 80%;
 }
+
+.required:after { 
+  color: red;
+  content:" *"; 
+}

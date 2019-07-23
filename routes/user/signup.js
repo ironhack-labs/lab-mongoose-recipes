@@ -8,10 +8,14 @@ router.get('/user/signup', (req, res) => {
 });
 
 router.post('/user/signup', (req, res, next) => {
-  
+
+  debugger
+
   bcrypt.hash(req.body.password, 10, (err, hash) => {
+    debugger
     
     if(err) {throw new Error(err)};
+    debugger
 
     let newUser = {
       username: req.body.username, 
@@ -25,7 +29,8 @@ router.post('/user/signup', (req, res, next) => {
     User.find({username: req.body.username}) // Check username doesn't already exist
       .then((users) => {
         if(users.length > 0) {
-          throw new Error("Username already taken")
+          throw new Error("Username already taken!");
+          next();
         } else {
           return User.create(newUser)
         }
@@ -34,9 +39,7 @@ router.post('/user/signup', (req, res, next) => {
         res.redirect("/user/login")
       })
       .catch((err)=> {
-        res.redirect("/user/signup")
-        // res.locals.error = err;  // Not using separate error page for now
-        // next();
+        res.render('user/signup', {reason: err});
       });
 
   });

@@ -62,19 +62,25 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Attach session data to res.locals to make it available to all views (called after this)
+app.use((req,res,next) => {
+  if(req.session.user) {res.locals.user = req.session.user;}
+  next();
+});
+
 // --------------------------------------------------------------------------------
 // Set up routing
 // --------------------------------------------------------------------------------
 
 // Define route protection --------------------------------------
-
 function protectRoute(req, res, next) {
   if(req.session.user) { return next() };
   res.redirect('/user/login');
 }
 
-// Index --------------------------------------
+// Index and error --------------------------------------
 app.use('/', require('./routes/index'));
+app.use('/', require('./routes/error'));
 
 // User --------------------------------------
 app.use('/', require('./routes/user/signup'));
@@ -94,15 +100,6 @@ app.use('/', protectRoute, require('./routes/cook/list'));
 app.use('/', protectRoute, require('./routes/cook/edit'));
 app.use('/', protectRoute, require('./routes/cook/create'));
 app.use('/', protectRoute, require('./routes/cook/remove'));
-
-// --------------------------------------------------------------------------------
-// Add error page
-// --------------------------------------------------------------------------------
-
-// Not doing this for now
-// app.use(function(req, res){
-//   res.send("ERROR ERROR " + res.locals.error)
-// });
 
 // --------------------------------------------------------------------------------
 // Export (needed in bin/www)

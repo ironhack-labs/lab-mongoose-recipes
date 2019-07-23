@@ -7,16 +7,16 @@ router.get('/user/login', (req, res) => {
   res.render('user/login');
 });
 
-router.post('/user/login', (req, res) => {
+router.post('/user/login', (req, res, next) => {
   User.findOne({username: req.body.username})
     .then((user)=> {
       if(!user) {
-        res.send("Username or password not found");
+        res.render('user/login', {reason: "Username or password not found!"})
       }
      else {
-        bcrypt.compare(req.body.password, user.password, function(err, match) {
+      bcrypt.compare(req.body.password, user.password, function(err, match) {
           if(err) {throw new Error(err)};
-          
+         
           if(match) {
             let sessionUser = {
               id: user._id,
@@ -26,13 +26,13 @@ router.post('/user/login', (req, res) => {
             req.session.user = sessionUser; // Start a session
             res.redirect('/user/account');  
           } else {
-            res.send("Username or password not found");
+            res.render('user/login', {reason: "Username or password not found!"})
           };
         });
       };
     })
-    .catch((err)=> {
-      res.send(err)
+    .catch((err) => {
+      res.send(err);
     });
 });
 

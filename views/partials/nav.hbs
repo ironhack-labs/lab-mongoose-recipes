@@ -1,15 +1,32 @@
 <nav>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/recipe/list">Recipe List</a></li>
-    <li><a href="/recipe/create">Create a Recipe</a></li>
-    <li><a href="/cook/list">Cook List</a></li>
-    <li><a href="/cook/create">Create a Cook</a></li>
-  </ul>
 
-  <ul>
-    <li><a href="/user/account">Account</a></li>
-    <li><a href="/user/signup">Sign Up</a></li>
-    <li><a href="/user/login">Log In</a></li>
-  </ul>
+  {{#if user}}
+    <ul>
+      <li><a href="/">Home</a></li>
+
+      <li><a href="/recipe/list">Recipe List</a></li>
+      <li><a href="/recipe/create">Create a Recipe</a></li>
+      <li><a href="/cook/list">Cook List</a></li>
+      <li><a href="/cook/create">Create a Cook</a></li>
+
+    </ul>
+
+    <ul>
+      <li><a href="/user/account">Account</a></li>
+      {{!-- <li><a href="/user/logout">Log Out</a></li>  Need to make this a POST (form with css styling or JS) --}}
+    </ul>
+  {{else}}
+
+    <ul>
+      <li><a href="/">Home</a></li>
+    </ul>
+
+    <ul>
+      <li><a href="/user/signup">Sign Up</a></li>
+      <li><a href="/user/login">Log In</a></li>
+    </ul>
+
+  {{/if}}
+
+
 </nav>

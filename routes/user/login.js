@@ -12,7 +12,12 @@ router.post('/user/login', (req, res) => {
       if(user) {
         if(user.password === req.body.password) {
           // Log in
-          req.session.user = user; // Start a session
+          let sessionUser = {
+            id: user._id,
+            username: user.username,
+            first_name: user.first_name
+          }
+          req.session.user = sessionUser; // Start a session
           res.redirect('/user/account');
 
         } else {
@@ -22,8 +27,8 @@ router.post('/user/login', (req, res) => {
         res.send("Username or password not found");
       }
     })
-    .catch((error)=> {
-      res.send('error')
+    .catch((err)=> {
+      res.send(err)
     });
 });
 

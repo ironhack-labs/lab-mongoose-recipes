@@ -3,11 +3,7 @@ const router = express.Router();
 const Cook = require('../../models/Cook');
 
 router.get('/cook/create', (req, res, next) => {
-  if(req.session.user) {
-    res.render('cook/create');
-   } else {
-     res.redirect("/user/login")
-   }
+  res.render('cook/create');
 });
 
 router.post('/cook/create', (req, res, next) => {

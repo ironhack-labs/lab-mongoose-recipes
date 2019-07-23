@@ -66,27 +66,34 @@ app.use(cookieParser());
 // Set up routing
 // --------------------------------------------------------------------------------
 
+// Define route protection --------------------------------------
+
+function protectRoute(req, res, next) {
+  if(req.session.user) { return next() };
+  res.redirect('/user/login');
+}
+
 // Index --------------------------------------
 app.use('/', require('./routes/index'));
 
 // User --------------------------------------
 app.use('/', require('./routes/user/signup'));
 app.use('/', require('./routes/user/login'));
-app.use('/', require('./routes/user/account'));
+app.use('/', protectRoute, require('./routes/user/account'));
 app.use('/', require('./routes/user/logout'));
 
 // Recipe --------------------------------------
-app.use('/', require('./routes/recipe/list'));
-app.use('/', require('./routes/recipe/detail'));
-app.use('/', require('./routes/recipe/remove'));
-app.use('/', require('./routes/recipe/edit'));
-app.use('/', require('./routes/recipe/create'));
+app.use('/', protectRoute, require('./routes/recipe/list'));
+app.use('/', protectRoute, require('./routes/recipe/detail'));
+app.use('/', protectRoute, require('./routes/recipe/remove'));
+app.use('/', protectRoute, require('./routes/recipe/edit'));
+app.use('/', protectRoute, require('./routes/recipe/create'));
 
 // Cook --------------------------------------
-app.use('/', require('./routes/cook/list'));
-app.use('/', require('./routes/cook/edit'));
-app.use('/', require('./routes/cook/create'));
-app.use('/', require('./routes/cook/remove'));
+app.use('/', protectRoute, require('./routes/cook/list'));
+app.use('/', protectRoute, require('./routes/cook/edit'));
+app.use('/', protectRoute, require('./routes/cook/create'));
+app.use('/', protectRoute, require('./routes/cook/remove'));
 
 // --------------------------------------------------------------------------------
 // Add error page

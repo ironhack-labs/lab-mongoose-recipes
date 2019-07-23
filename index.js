@@ -5,10 +5,17 @@ app.set('view engine', 'hbs');
 var bodyParser = require('body-parser');
 const Recipe = require('./models/Recipe');
 const Cook = require('./models/Cook');
+const User = require('./models/User')
+var session = require('express-session')
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
-// Connection to the database "recipeApp"
+// Connection to the database "kitchen"
 mongoose.connect('mongodb://localhost/kitchen', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!');
@@ -132,5 +139,58 @@ app.get('/cook/delete/:id', (req, res) => {
     })
   })
 
+// USER SIGN UP 
+app.get('/signup', function(req, res, next) {
+  res.render('signup');
+});
+
+app.post('/users/signup', function(req, res, next) {
+  let newUser = {
+    username: req.body.username, 
+    password: req.body.password
+  }
+  User.create(newUser)
+    .then((user)=> {
+      res.redirect('/login');
+    })
+    .catch(()=> {
+      res.send("error");
+    })
+});
+
+// USER LOGIN
+app.get('/login', function(req, res, next) {
+  res.render('login');
+})
+
+app.post('/login', function(req, res, next) {
+  User.findOne({username : req.body.username})
+  .then((user) => {
+    if (user){
+     if(user.password === req.body.password){
+        req.session.user = user;
+        res.redirect('/user/profile');
+      } else {
+          res.send('Invalid credentials');
+      }
+    } else {
+      res.send('Invalid credentials');
+    }
+  })
+  .catch((err) => {
+    res.send(err);
+  })
+})
+
+// USER PROFILE
+app.get('/user/profile', function (req, res){
+  res.render("user-profile")
+})
+
+// USER LOGOUT
+app.get('/user/logout', function (req, res){
+  req.session.destroy;
+  res.redirect('/')
+})
 
 app.listen(3000)

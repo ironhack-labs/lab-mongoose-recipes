@@ -85,8 +85,8 @@ app.use('/', require('./routes/error'));
 // User --------------------------------------
 app.use('/', require('./routes/user/signup'));
 app.use('/', require('./routes/user/login'));
-app.use('/', protectRoute, require('./routes/user/account'));
 app.use('/', require('./routes/user/logout'));
+app.use('/', protectRoute, require('./routes/user/account'));
 
 // Recipe --------------------------------------
 app.use('/', protectRoute, require('./routes/recipe/list'));

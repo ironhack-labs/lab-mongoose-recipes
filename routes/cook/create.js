@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Cook = require('../../models/Cook');
 
-router.get('/cook/create', (req, res, next) => {
+router.get('/create', (req, res, next) => {
   res.render('cook/create');
 });
 
-router.post('/cook/create', (req, res, next) => {
+router.post('/create', (req, res, next) => {
 
   let newCook = {
     fullName: req.body.fullName,

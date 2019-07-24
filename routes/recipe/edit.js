@@ -4,7 +4,7 @@ const Recipe = require('../../models/Recipe');
 const Cook = require('../../models/Cook');
 const mongoose = require('mongoose');
 
-router.get('/recipe/edit/:id', (req, res, next) => {
+router.get('/edit/:id', (req, res, next) => {
   let id = req.params.id;
   Recipe.findById(id)  
     .populate("cook")  
@@ -19,7 +19,7 @@ router.get('/recipe/edit/:id', (req, res, next) => {
     })
 });
 
-router.post('/recipe/edit/:id', (req, res, next) => {
+router.post('/edit/:id', (req, res, next) => {
   let id = req.params.id;
 
   let updatedRecipe = {

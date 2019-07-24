@@ -78,28 +78,33 @@ function protectRoute(req, res, next) {
   res.redirect('/user/login');
 }
 
-// Index and error --------------------------------------
+// Index --------------------------------------
 app.use('/', require('./routes/index'));
-app.use('/', require('./routes/error'));
 
 // User --------------------------------------
-app.use('/', require('./routes/user/signup'));
-app.use('/', require('./routes/user/login'));
-app.use('/', require('./routes/user/logout'));
-app.use('/', protectRoute, require('./routes/user/account'));
+app.use('/user', require('./routes/user/signup'));
+app.use('/user', require('./routes/user/login'));
+app.use('/user', require('./routes/user/logout'));
+app.use('/user', protectRoute, require('./routes/user/account'));
 
 // Recipe --------------------------------------
-app.use('/', protectRoute, require('./routes/recipe/list'));
-app.use('/', protectRoute, require('./routes/recipe/detail'));
-app.use('/', protectRoute, require('./routes/recipe/remove'));
-app.use('/', protectRoute, require('./routes/recipe/edit'));
-app.use('/', protectRoute, require('./routes/recipe/create'));
+app.use('/recipe', protectRoute, require('./routes/recipe/list'));
+app.use('/recipe', protectRoute, require('./routes/recipe/detail'));
+app.use('/recipe', protectRoute, require('./routes/recipe/remove'));
+app.use('/recipe', protectRoute, require('./routes/recipe/edit'));
+app.use('/recipe', protectRoute, require('./routes/recipe/create'));
 
 // Cook --------------------------------------
-app.use('/', protectRoute, require('./routes/cook/list'));
-app.use('/', protectRoute, require('./routes/cook/edit'));
-app.use('/', protectRoute, require('./routes/cook/create'));
-app.use('/', protectRoute, require('./routes/cook/remove'));
+app.use('/cook', protectRoute, require('./routes/cook/list'));
+app.use('/cook', protectRoute, require('./routes/cook/edit'));
+app.use('/cook', protectRoute, require('./routes/cook/create'));
+app.use('/cook', protectRoute, require('./routes/cook/remove'));
+
+// Error --------------------------------------
+app.use((req, res) => {
+  res.status(404);
+  res.render('error', {error: "404 - page not found"})
+});
 
 // --------------------------------------------------------------------------------
 // Export (needed in bin/www)

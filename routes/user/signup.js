@@ -3,19 +3,15 @@ const router = express.Router();
 const User = require("../../models/User")
 const bcrypt = require('bcrypt');
 
-router.get('/user/signup', (req, res) => {
+router.get('/signup', (req, res) => {
   res.render('user/signup');
 });
 
-router.post('/user/signup', (req, res, next) => {
-
-  debugger
+router.post('/signup', (req, res, next) => {
 
   bcrypt.hash(req.body.password, 10, (err, hash) => {
-    debugger
     
     if(err) {throw new Error(err)};
-    debugger
 
     let newUser = {
       username: req.body.username, 

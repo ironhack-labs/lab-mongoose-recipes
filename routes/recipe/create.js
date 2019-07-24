@@ -3,7 +3,7 @@ const router = express.Router();
 const Recipe = require('../../models/Recipe');
 const Cook = require('../../models/Cook');
 
-router.get('/recipe/create', (req, res, next) => {
+router.get('/create', (req, res, next) => {
   Cook.find({})
   .then((cooks) => {
     res.render('recipe/create', {cooks});
@@ -13,7 +13,7 @@ router.get('/recipe/create', (req, res, next) => {
   });
 });
 
-router.post('/recipe/create', (req, res, next) => {
+router.post('/create', (req, res, next) => {
 
   let newRecipe = {
     title: req.body.title,

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Cook = require('../../models/Cook');
 
-router.get('/cook/edit/:id', (req, res, next) => {
+router.get('/edit/:id', (req, res, next) => {
   let id = req.params.id;
   Cook.findById(id)  
     .then((cook) => {
@@ -13,7 +13,7 @@ router.get('/cook/edit/:id', (req, res, next) => {
     })
 });
 
-router.post('/cook/edit/:id', (req, res, next) => {
+router.post('/edit/:id', (req, res, next) => {
   let id = req.params.id;
 
   let updatedCook = {

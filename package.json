@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Rebeca, Luis, Carlos Kruger",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.5.0"
+    "hbs": "^4.0.4",
+    "mongoose": "^5.6.6"
   }
 }

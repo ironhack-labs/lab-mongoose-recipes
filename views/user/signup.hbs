@@ -5,7 +5,10 @@
   <form method="post" action="/user/signup">
 
     <label class="required">
-      Username: <input type="text" name="username" placeholder="Type your username" required>
+      Username: <input type="text" id="input-signup-username" name="username" placeholder="Type your username" required
+                        pattern="[a-z]{1,15}"
+                        {{!-- title="Username should only contain lowercase letters" Handled in JS --}}
+                        >
     </label>
 
     <label class="required">
@@ -37,4 +40,4 @@
 
 </div>
 
-
+  <script src="/js/script.js"></script>

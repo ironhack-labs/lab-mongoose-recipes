@@ -7,8 +7,9 @@ router.get('/account', (req,res)=> {
       .then((user) => {
         res.render('user/account', {user})
       })
-      .catch((err) => {
-        res.send(err);
+      .catch((err)=> {
+        console.log(err);
+        res.send("Error");
       })
 });
 

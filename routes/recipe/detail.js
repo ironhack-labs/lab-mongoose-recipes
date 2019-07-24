@@ -8,7 +8,11 @@ router.get('/detail/:id', (req, res) => {
   .populate("cook")  
   .then((recipe) => {
       res.render('recipe/detail', {recipe});
+    })
+    .catch((err)=> {
+      console.log(err);
+      res.send("Error");
     });
-});
+  });
 
 module.exports = router;

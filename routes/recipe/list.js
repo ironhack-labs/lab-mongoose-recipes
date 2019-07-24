@@ -7,6 +7,10 @@ router.get('/list', (req, res) => {
   .populate("cook")  
   .then((recipes) => {
       res.render('recipe/list', {recipes});
+    })
+    .catch((err)=> {
+      console.log(err);
+      res.send("Error");
     });
 });
 

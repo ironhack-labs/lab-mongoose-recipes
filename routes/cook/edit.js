@@ -8,8 +8,9 @@ router.get('/edit/:id', (req, res, next) => {
     .then((cook) => {
         res.render('cook/edit', {cook});
     })
-    .catch((error)=> {
-      next();
+    .catch((err)=> {
+      console.log(err);
+      res.send("Error");
     })
 });
 
@@ -25,8 +26,9 @@ router.post('/edit/:id', (req, res, next) => {
     .then((cook) => {
         res.redirect(`/cook/list`);
     })
-    .catch((error)=> {
-      next();
+    .catch((err)=> {
+      console.log(err);
+      res.send("Error");
     })
   });
 

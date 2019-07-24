@@ -14,11 +14,12 @@ router.post('/create', (req, res, next) => {
   }
 
   Cook.create(newCook)  
-    .then((cook) => {
+    .then(() => {
         res.redirect(`/cook/list`);
     })
-    .catch((error)=> {
-      next();
+    .catch((err)=> {
+      console.log(err);
+      res.send("Error");
     })
   });
 

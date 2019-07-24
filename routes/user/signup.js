@@ -26,7 +26,6 @@ router.post('/signup', (req, res, next) => {
       .then((users) => {
         if(users.length > 0) {
           throw new Error("Username already taken!");
-          next();
         } else {
           return User.create(newUser)
         }

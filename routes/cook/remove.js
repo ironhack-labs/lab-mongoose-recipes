@@ -7,6 +7,10 @@ router.post('/remove/:id', (req, res) => {
   Cook.findOneAndDelete({_id: id})  
   .then(() => {
       res.redirect('/cook/list');
+  })
+  .catch((err)=> {
+    console.log(err);
+    res.send("Error");
   });
 });
 

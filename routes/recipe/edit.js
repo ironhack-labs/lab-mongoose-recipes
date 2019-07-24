@@ -15,8 +15,9 @@ router.get('/edit/:id', (req, res, next) => {
         })
     })
     .catch((err)=> {
-      next();
-    })
+      console.log(err);
+      res.send("Error");
+    });
 });
 
 router.post('/edit/:id', (req, res, next) => {
@@ -38,7 +39,8 @@ router.post('/edit/:id', (req, res, next) => {
       res.redirect(`/recipe/detail/${req.params.id}`);
     })
     .catch((err)=> {
-      next();
+      console.log(err);
+      res.send("Error");
     })
   });
 

@@ -31,7 +31,8 @@ router.post('/create', (req, res, next) => {
         res.redirect(`/recipe/detail/${recipe._id}`);
     })
     .catch((err)=> {
-      next();
+      console.log(err);
+      res.send("Error");
     })
   });
 

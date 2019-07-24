@@ -7,6 +7,10 @@ router.post('/remove/:id', (req, res) => {
   Recipe.findOneAndDelete({_id: id})  
   .then(() => {
     res.redirect('/recipe/list');
+  })
+  .catch((err)=> {
+    console.log(err);
+    res.send("Error");
   });
 });
 

@@ -1,0 +1,15 @@
+{{#if user}}
+Welcome {{user.username}}<br>
+<a href="/add-recipe">Add a recipe</a><br>
+<a href="/recipes">View all the recipes</a><br>
+<br>
+<a href="/add-cook">Add a Cook</a><br>
+<a href="/cooks">View all the cooks</a><br>
+<br>
+<a href="/user/logout">Log out</a><br>
+<br>
+{{else}}
+<a href="/signup">Sign up</a><br>
+<a href="/login">Login</a>
+{{/if}}
+<br>

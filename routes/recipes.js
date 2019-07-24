@@ -55,11 +55,12 @@ router.get('/edit-recipe/:id', (req, res) => {
 });
 
 // EDIT THE RECIPE
+
 router.post('/recipe/edit/:id', (req, res) => {
   let { title, level, ingredients, cuisine, dishType, image, duration, creator, created, cook } = req.body;
   Recipe.updateOne({_id : req.params.id}, {$set: {title, level, ingredients, cuisine, dishType, image, duration, creator, created, cook : mongoose.Types.ObjectId(req.body.cook)}})
     .then(recipe => {
-    res.redirect('recipes'); 
+    res.redirect('/recipes'); 
   })
   .catch(err => {
      console.log(err)

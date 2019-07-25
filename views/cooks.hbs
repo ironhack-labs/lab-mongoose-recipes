@@ -1,0 +1,14 @@
+<div class="cooks">
+
+    <div class="allCooks">
+        {{#each cooks}}
+            {{> cookPartial}}
+        {{/each}}
+    </div>
+
+    {{#if user }}
+        <a href="/cooks/add">Add cook</a>
+    {{/if}}
+    
+
+</div>

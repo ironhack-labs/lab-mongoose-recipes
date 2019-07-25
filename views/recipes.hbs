@@ -1,0 +1,14 @@
+<div class="recipes">
+
+    <div class="allRecipes">
+        {{#each recipes}}
+            {{> recipePartial }}            
+        {{/each}}
+    </div>
+
+    {{#if user }}
+        <a href="/recipes/add">Add recipe</a>
+    {{/if}}
+
+</div>
+

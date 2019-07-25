@@ -1,0 +1,51 @@
+<form action="/recipes/edit" method="post">
+
+<input type="hidden" name="recipeId" value="{{recipe._id}}">
+
+  <label for="">Title:</label>
+  <input type="text" name="title" value="{{recipe.title}}">
+
+  <label for="">Level:</label>
+  <select name="level">
+    <option value="{{recipe.level}}" selected disabled>{{recipe.level}}</option>
+    <option value="Easy Peasy">Easy Peasy</option>
+    <option value="Amateur Chef">Amateur Chef</option>
+    <option value="UltraPro Chef">UltraPro Chef</option>
+  </select>
+
+  <label for="">Ingredients:</label>
+  <input type="text" name="ingredients" value="{{recipe.ingredients}}">
+
+  <label for="">Cuisine:</label>
+  <input type="text" name="cuisine" value="{{recipe.cuisine}}">
+
+  <label for="">Dish type:</label>
+  <select name="dishType">
+    <option value="{{recipe.dishType}}" selected disabled>{{recipe.dishType}}</option>
+    <option value="Breakfast">Breakfast</option>
+    <option value="Dish">Dish</option>
+    <option value="Snack">Snack</option>
+    <option value="Drink">Drink</option>
+    <option value="Dessert">Dessert</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <label for="">Image:</label>
+  <input type="text" name="image" value="{{recipe.image}}">
+
+  <label for="">Duration:</label>
+  <input type="number" name="duration" value="{{recipe.duration}}">
+
+  <label for="">Cook:</label>
+  <select name="cook">
+        <option value="{{recipe.cook._id}}" selected disabled>{{recipe.cook.name}}</option>
+    {{#each cooks}}
+        <option value="{{this._id}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+
+  <button type="submit">EDIT</button>
+
+  <a href="/recipes/delete?id={{recipe._id}}">Delete recipe</a>
+
+</form>

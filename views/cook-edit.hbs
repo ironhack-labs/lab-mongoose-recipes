@@ -1,0 +1,13 @@
+<form action="/cooks/edit" method="post">
+
+<input type="hidden" name="cookId" value="{{cook._id}}">
+
+  <label for="">Cook name:</label>
+  <input type="text" name="name" value="{{cook.name}}">
+
+  <button type="submit">EDIT</button>
+
+    <a href="/cooks/delete?id={{cook._id}}">Delete cook</a>
+
+</form>
+

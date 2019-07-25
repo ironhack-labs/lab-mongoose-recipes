@@ -1,0 +1,19 @@
+<div class="recipeDetails">
+
+    <div class="recipeInfo">
+    <h1>{{recipe.title}}</h1>
+    <img src="{{recipe.image}}" alt="{{recipe.title}}" width="100%";>
+    <ul>
+        <li>Level: {{recipe.level}}</li>
+        <li>Ingredients: {{recipe.ingredients}}</li>
+        <li>Cuisine: {{recipe.cuisine}}</li>
+        <li>Duration: {{recipe.duration}}min</li>
+        <li>Cook: {{recipe.cook.name}}</li>
+    </ul>
+
+    {{#if user }}
+        <a href="/recipes/edit?id={{recipe._id}}">Edit recipe</a>
+    {{/if}}
+
+    </div>
+</div>

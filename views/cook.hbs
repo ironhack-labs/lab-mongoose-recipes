@@ -1,0 +1,11 @@
+<div class="cookDetails">
+
+    <div class="cookInfo">
+    <h1>Chef {{cook.name}}</h1>
+
+    {{#if user }}
+        <a href="/cooks/edit?id={{cook._id}}">Edit cook</a>
+    {{/if}}
+
+    </div>
+</div>

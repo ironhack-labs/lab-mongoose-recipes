@@ -1,5 +1,81 @@
 body{
+    margin: 0;
+    min-height: 100vh;
+}
+
+.home, .signup, .login, .recipes, .cooks, form{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.nav{
+    background-color: rgb(70, 70, 70);
+    padding: 10px;
+}
+
+ul{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    padding: 10px;
+    margin: 10px;
+    color: blue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 25px;
+}
+
+.allRecipes, .allCooks{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.recipePartial, .cookPartial{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width:40%;
+    background-color: #eee;
+    flex-direction: column;
+    margin: 10px;
+}
+.cookPartial{
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.recipeDetails, .cookDetails{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+    min-height: 100vh;
+}
+
+.recipeInfo, .cookInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+    flex-direction: column;
+    margin: 10px;
+    padding:10px;
+}
+
+.recipeInfo ul, .recipeInfo li{
+    display: flex;
+    flex-direction: column;
+    padding:10px;
 }

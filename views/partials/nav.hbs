@@ -1,0 +1,14 @@
+<div class="nav">
+
+    <ul>
+            <li><a href="/">Home</a></li> 
+        {{#if user }}
+            <li><a href="/users/logout">Log out</a></li>
+            <li><a>Welcome {{user.username}}</a></li>
+        {{else}}
+            <li><a href="/users/signup">Sign up</a></li>
+            <li><a href="/users/login">Login</a></li>
+        {{/if}}
+    </ul>
+
+</div>

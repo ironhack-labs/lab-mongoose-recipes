@@ -1,0 +1,42 @@
+<form action="/recipes/add" method="post">
+  <label for="">Title:</label>
+  <input type="text" name="title">
+
+  <label for="">Level:</label>
+  <select name="level">
+    <option value="Easy Peasy">Easy Peasy</option>
+    <option value="Amateur Chef">Amateur Chef</option>
+    <option value="UltraPro Chef">UltraPro Chef</option>
+  </select>
+
+  <label for="">Ingredients:</label>
+  <input type="text" name="ingredients">
+
+  <label for="">Cuisine:</label>
+  <input type="text" name="cuisine">
+
+  <label for="">Dish type:</label>
+  <select name="dishType">
+    <option value="Breakfast">Breakfast</option>
+    <option value="Dish">Dish</option>
+    <option value="Snack">Snack</option>
+    <option value="Drink">Drink</option>
+    <option value="Dessert">Dessert</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <label for="">Image:</label>
+  <input type="text" name="image" value="https://images.media-allrecipes.com/images/75131.jpg">
+
+  <label for="">Duration:</label>
+  <input type="number" name="duration" value=30>
+
+  <label for="">Cook:</label>
+  <select name="cook">
+    {{#each cooks}}
+      <option value="{{this._id}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+
+  <button type="submit">ADD</button>
+</form>

@@ -46,29 +46,42 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-let createRecipe = (loopIndex) => {
-  Cook.findOne({name: recipeData[loopIndex].cook}, (err, cookResult) => {
-    if (err) console.log(err)
-    else{
-      recipeData[loopIndex].cook = cookResult._id;
-      Recipe.create(recipeData[loopIndex])
-    }
-  })
-}
-
 // Connection to the database "recipeApp"
 mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(() => { // Reset db and insert all recipes
     console.log('Connected to Mongo!');
-    Recipe.collection.deleteMany({});
-    Cook.collection.deleteMany({});
-    return Cook.insertMany(cookData)
-  })
-  .then((cooks)=>{ // Insert all cooks
-    console.log(`${cooks} successfully added`)
-    for(i =0; i<recipeData.length; i++){
-      createRecipe(i)
-    }
+    let clearCollectionsArray = [
+      Recipe.collection.deleteMany({}),
+      Cook.collection.deleteMany({})
+    ]
+    return Promise.all(clearCollectionsArray)
+    .then(() => { // Insert all cooks
+      console.log("MongoDB reset")
+      let insertCooksArray = [Cook.insertMany(cookData)]
+      return Promise.all(insertCooksArray) 
+    })
+    .then(() => { // Insert all recipes
+      console.log("All cooks added")
+      let recipesArray = [] //to store the promises with the findOne method
+      for(let i = 0; i < recipeData.length; i++){
+        recipesArray.push(Cook.findOne({name: recipeData[i].cook})
+          .then(cookResult => {
+            recipeData[i].cook = cookResult._id;
+            return Recipe.create(recipeData[i])
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        )
+      }
+      return Promise.all(recipesArray) //now we execute findOne and create methods
+    })
+    .then(() => {
+      console.log("All recipes added")
+    })
+    .catch(err => {
+      console.error(err);
+    });
   })
   .catch(err => {
     console.error(err);
@@ -103,6 +116,6 @@ app.use('/users', usersRoute);
 app.use('/main', protectRoute, mainRoute);
 app.use('/private', protectRoute, privateRoute);
 
-app.listen(3000, () => console.log("Connected"))
+app.listen(3000, () => console.log("Listening on port 3000"))
 
 module.exports = app;

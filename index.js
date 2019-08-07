@@ -12,24 +12,24 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 
 
 // ITERATION 2
-// Recipe.create({
-//   title: "Cevice",
-//   level: "UltraPro Chef",
-//   ingredients: ["Fish", "Ginger", "Lime", "Aji Limo"],
-//   cuisine: "Peruvian",
-//   dishType: "Dish",
-//   duration: "20",
-//   creator: "Fabricio",
-// })
-//   .then(cev => console.log(`this ${cev} is fire!!!`))
-//   .catch(err => console.log(err))
+Recipe.create({
+  title: "Cevice",
+  level: "UltraPro Chef",
+  ingredients: ["Fish", "Ginger", "Lime", "Aji Limo"],
+  cuisine: "Peruvian",
+  dishType: "Dish",
+  duration: "20",
+  creator: "Fabricio",
+})
+  .then(cev => console.log(`this ${cev} is fire!!!`))
+  .catch(err => console.log(err))
 
 
-// const Recipe = mongoose.model("Recipe", Recipe)
+const Recipe = mongoose.model("Recipe", Recipe)
 
 
 // ITERATION 3:
-// Recipe.insertMany(data)
+Recipe.insertMany(data)
 
 // ITERATION 4:
 

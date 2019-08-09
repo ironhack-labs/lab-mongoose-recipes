@@ -13,19 +13,20 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   });
 
 // TODO Iteration 2: Create new recipe following schema
-Recipe.create({
+Recipe.create(
+  {
 
-  title: 'Flurry Fluff',
-  level: "Easy Peasy",
-  ingredients: [`Flurry`, `fluff`, `love`, `Pint of Salt`],
-  cuisine: `Lean`,
-  dishType: `Snack`,
-  image: '',
-  duration: 20,
-  creator: `Alex El Sweet`,
-  created: ``
+    title: 'Flurry Fluff',
+    level: "Easy Peasy",
+    ingredients: [`Flurry`, `fluff`, `love`, `Pint of Salt`],
+    cuisine: `Lean`,
+    dishType: `Snack`,
+    image: '',
+    duration: 20,
+    creator: `Alex El Sweet`,
+    created: ``
 
-})   //If recipie created successfully then ->
+  })   //If recipie created successfully then ->
   .then((newRecipe) => {
     // tell user the recipe was created and added safely
     console.log(`New reicpie: ${newRecipe.title} added!`)
@@ -43,11 +44,27 @@ Recipe.create({
         // for the recipe found with name Rigatoni alla, chamge duration to 100
         Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
           .then((updatedDocument) => {
+
             console.log(`Successfully updated`, updatedDocument);
 
-            Recipe.find({title: "Rigatoni alla Genovese" })
-            .then((foundDoc) => console.log(`-------------------------`, foundDoc))
-            
+            Recipe.find({ title: "Rigatoni alla Genovese" })
+              .then((foundDoc) => {
+
+                console.log(`-------------------------`, foundDoc);
+
+                // TODO Iteration 5: Update duration of The Rigatoni alla Genovese 
+                Recipe.deleteOne({ title: "Carrot Cake" })
+                  .then(() => {
+                    console.log(`Document successfully deleted!`);
+                  })
+                  .catch((err) => {
+                    console.log(`Error Deleting document`);
+                  })
+
+              })
+
+              .catch((err) => { console.log(`Error getting document that was updated`, err); });
+
           })
 
           .catch((err) => { console.log(`Error updating document`, err); });
@@ -56,11 +73,7 @@ Recipe.create({
 
       .catch((err) => { console.log(`Sorry chef, there was an error adding the list of recipies`, err); })
 
-  }
-
-  )
-  .catch((err) => { console.log(`Error adding new recipie: `, err) });
-
+    }).catch((err) => { console.log(`Error adding new recipie: `, err) });
 
 
 const deleteAllRecipies = () => {

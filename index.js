@@ -25,5 +25,9 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(newRecipe => {console.log("Here is your new Recipe"), newRecipe.title} )
   .catch(err => {console.log("An error happened: The recipe was not added to the db"), err});
 
+  Recipe.insertMany(data)
+  .then(newRecipes => {console.log(newRecipes.title), newRecipes})
+  .catch(err => {console.log("An error happened: The recipes were not added to the db", err), err})
+
   
 

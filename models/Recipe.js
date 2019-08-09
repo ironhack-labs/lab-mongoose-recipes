@@ -5,6 +5,7 @@ const recipeSchema = new Schema({
   
   // TODO: write the schema
   title: { type: String, required: true },
+  
   // must be one of the 3 vaues in enum
   level: { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
   ingredients: { type: [] },

@@ -39,8 +39,9 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
           .then((recipes) => {
             console.log(`Added the list of new recipes!`, recipes)
 
-            // TODO Iteration 4: Update duration of The Rigatoni alla Genovese 
-            // for the recipe found with name Rigatoni alla, chamge duration to 100
+            // TODO Iteration 4: Update duration for the recipe found with name Rigatoni alla, change duration to 100
+           
+            // Update one did not return the updated value so I used findoneandupdate
             Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
               .then((updatedDocument) => {
 

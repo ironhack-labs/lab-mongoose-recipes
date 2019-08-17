@@ -7,6 +7,41 @@ const date = new Date();
 mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!');
+// const newRecipe = { 
+//   title: 'Luan',
+//   level: 'Easy Peasy',
+//   ingredients: 'eggs',
+//   cuisine: '1',
+//   dishType: 'Snack',
+//   duration: 5,
+//   creator: 'Vovo',
+// }
+
+// Recipe.create(newRecipe)
+//   .then((newRecipe) => {console.log(`Recipe created ${newRecipe}`)})
+//   .catch((err) => {
+//     console.log('ERROR =>', err);
+//   });
+
+  // Recipe.insertMany(data)
+  // .then((response) => {
+  //   console.log(response)
+  // })
+  // .catch();
+
+  // Recipe.updateMany({title: 'Rigatoni alla Genovese'}, {duration: '100'})
+  //   .then()
+  //   .catch();
+
+  // Recipe.deleteMany({title: 'Carrot Cake'})
+  //   .then()
+  //   .catch();
+
+  mongoose.disconnect()
+    .then(() => {
+      console.log('Disconnect MongoDB')
+    })
+    .catch();    
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });

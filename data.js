@@ -1,4 +1,4 @@
-module.exports =
+module.exports = 
     [
       {
         title: 'Asian Glazed Chicken Thighs',
@@ -8,7 +8,7 @@ module.exports =
         dishType: 'Dish',
         image: 'https://images.media-allrecipes.com/userphotos/720x405/815964.jpg',
         duration: 40,
-        creator: 'Chef LePapu'
+        creator: 'Chef LePapu',
       },
       {
         title: 'Orange and Milk-Braised Pork Carnitas',
@@ -18,7 +18,7 @@ module.exports =
         dishType: 'Dish',
         image: 'https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg',
         duration: 160,
-        creator: 'Chef John'
+        creator: 'Chef John',
       },
       {
         title: 'Carrot Cake',
@@ -28,7 +28,7 @@ module.exports =
         dishType: 'Dessert',
         image: 'https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg',
         duration: 130,
-        creator: 'Chef Nadia'
+        creator: 'Chef Nadia',
       },
       {
         title: 'Rigatoni alla Genovese',
@@ -38,7 +38,7 @@ module.exports =
         dishType: 'Dish',
         image: 'https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg',
         duration: 220,
-        creator: 'Chef Luigi'
+        creator: 'Chef Luigi',
       },
       {
         title: 'Chocolate Chip Cookies',
@@ -48,6 +48,6 @@ module.exports =
         dishType: 'Dish',
         image: 'https://images.media-allrecipes.com/userphotos/720x405/815964.jpg',
         duration: 30,
-        creator: 'Chef Jennifer'
-      }
+        creator: 'Chef Jennifer',
+      },
     ];

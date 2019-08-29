@@ -23,21 +23,16 @@ let promise3 = Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration:
 let promise4 = Recipe.deleteOne({ title: 'Carrot Cake' })
 
 
-//Close the database after all tasks are executed
-Promise.all([promise1, promise2])
-.then(() => {
-  Recipe.find({}, 'title')
-.then(value => {
+// Run all tasks and close the connection
+let runAllTasks = async () => {  
+  await Recipe.deleteMany({}).exec()
+  await Promise.all([promise1, promise2])
+  let value = await Recipe.find({}, 'title')
   console.log(value)
-  Promise.all([promise3, promise4])
-})
-.then(() => {
-    console.log('Duration for Rigatoni alla Genovese has been updated')
-    console.log('Carrot cake recipe has been deleted')
-  })
-  .catch(err => console.log('Error', err))
-  })
- 
+  await Promise.all([promise3, promise4])
+  console.log('Duration for Rigatoni alla Genovese has been updated')
+  console.log('Carrot cake recipe has been deleted')
+  await mongoose.connection.close()
+}
 
-
-
+runAllTasks()

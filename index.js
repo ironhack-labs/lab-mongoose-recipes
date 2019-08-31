@@ -13,27 +13,23 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   });
 
 Recipe.deleteMany({}).then(() => {
-
-  Recipe.insertMany(data).then(data => {
-    console.log('recipes saved: ', this.title);
-
-    let promise1 = Recipe.create({ title: 'recipe1', level: 'Easy Peasy', cuisine: 'dont know' })
-      .then(recipe => { console.log('The recipe is saved and its value is: ', recipe) })
-      .catch(err => { console.log('An error happened:', err) });
-
-    let promise2 = Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-      .then(recipe => console.log(recipe + "updated"))
-      .catch(err => console.log(err));
-
-    let promise3 = Recipe.deleteOne({ title: "Carrot Cake" })
-      .then(() => console.log("Carrot Cake deleted"))
-      .catch(err => console.log(err));
-
-    Promise.all([promise1, promise2, promise3]).then(() => {
-
-      mongoose.connection.close()
-    })
-  }).catch(err => { console.log('An error happened:', err) });
+  return Recipe.insertMany(data)
 })
+  .then(() => {
+
+    let updatePromise = Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+
+    let deletePromise = Recipe.deleteOne({ title: "Carrot Cake" })
+
+    return Promise.all([updatePromise, deletePromise])
+  })
+  .then(() => {
+    mongoose.connection.close()
+  })
+  .catch(err => {
+    console.log('An error happened:', err)
+    mongoose.connection.close()
+  });
+
 
 

@@ -1,6 +1,3 @@
-const mongoose = require('mongoose');
-const Recipe = require('./models/Recipe'); // Import of the model Recipe from './models/Recipe'
-const data = require('./data.js');  // Import of the data from './data.js'
 // Recipe.insertMany(data)
 // Connection to the database "recipeApp"
 const mongoose = require('mongoose');
@@ -8,7 +5,7 @@ const Recipe = require('./models/Recipe'); // Import of the model Recipe from '.
 const data = require('./data.js');  // Import of the data from './data.js'
 //Iteration 2 - Create a recipe
 let promise1 = Recipe.create({
-  title: 'Im a new Recipe', level: 'UltraPro Chef', ingredients: 'Love and Air', cuisine: 'French', dishType: 'Snack'
+  title: 'Im a new Recipe', level: 'UltraPro Chef', ingredients: 'Love and Air', cuisine: 'French', dishType: 'Snack',
 })
   .then(recipe => {
     console.log('The new recipe is saved and its value is:', this.title)
@@ -34,21 +31,18 @@ Recipe.insertMany(data)
       );
     //Iteration 5 - Remove a recipe
 
-    let promise3 = Recipe.deleteOne({ title: 'Carrot Cake' })
-      .then(
-        recipe => {
-          console.log('The recipe was deleted:', recipe)
-        }
-      )
-      .catch(
-        err => {
-          console.log('An error happened:', err)
-          //Iteration 6 - Close the Database
-          Promise.all([promise1, promise2, promise3]).then(() => {
-            mongoose.connection.close()
-          })
-        }).catch(err => { console.log('An error happened:', err) });
-  })
+    let promise3 = Recipe.deleteOne({
+      title: 'Carrot Cake'
+    })
+      .then(() => console.log("Carrot Cake deleted"))
+      .catch(err => console.log(err));
+
+    //Iteration 6 - Close the Database
+    Promise.all([promise1, promise2, promise3]).then(() => {
+      mongoose.connection.close()
+    })
+  }).catch(err => { console.log('An error happened:', err) });
+
 // Connection to the database "recipeApp"
 
 mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })

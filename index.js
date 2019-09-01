@@ -10,7 +10,6 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
-
 let promise1 = Recipe.create({
   title: 'Fried Egg by Marcus',
   level: 'UltraPro Chef',

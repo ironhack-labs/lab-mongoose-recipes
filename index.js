@@ -6,18 +6,18 @@ const data = require('./data.js');  // Import of the data from './data.js'
 mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!');
-    iterationTwo();
-    iterationThree();
-    iterationFour();
-    iterationFive();
-    iterationSix();
+    let p2 = iterationTwo();
+    let p3 = Promise.all([p2]).then(() => iterationThree());
+    let p4 = Promise.all([p2, p3]).then(() => iterationFour());
+    let p5 = Promise.all([p2, p3, p4]).then(() => iterationFive());
+    Promise.all([p2, p3, p4, p5]).then(() => iterationSix());
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
     
 // Iteration two: create and verify a new recipe
 function iterationTwo() {
-  Recipe.create({
+  let promise = Recipe.create({
     title: "Iteration Two Stroganoff",
     level: "Amateur Chef",
     ingredients: ["cream", "mushrooms", "beef"],
@@ -34,11 +34,12 @@ function iterationTwo() {
     .catch((err) => {
       console.log(`Recipe was not added to database: ${err}`);
     })
+  return promise;
 }
 
 // Iteration three: add and verify multiple recipes at once
 function iterationThree() {
-  Recipe.insertMany(data)
+  let promise = Recipe.insertMany(data)
     .then((array) => {
       console.log("Many recipes added: ")
       for (let recipe of array) {
@@ -48,11 +49,12 @@ function iterationThree() {
     .catch((err) => {
       console.log(`There was an error in Iteration Three: ${err}`);
     })
+  return promise;
 }
 
 // Iteration four: update and verify an existing recipe
 function iterationFour() {
-  Recipe.findOne({ title: "Rigatoni alla Genovese" })
+  let promise = Recipe.findOne({ title: "Rigatoni alla Genovese" })
     .then((recipe) => {
       console.log(`Recipe retrieved!`);
       recipe.duration = 100;
@@ -67,17 +69,19 @@ function iterationFour() {
     .catch((err) => {
       console.log(`There was an error fetching the recipe: ${err}`)
     })
+  return promise;
 }
 
 // Iteration five: remove a carrot cake recipe
 function iterationFive() {
-  Recipe.deleteOne({ title: "Carrot Cake" })
+  let promise = Recipe.deleteOne({ title: "Carrot Cake" })
     .then(() => {
       console.log(`Recipe deleted.`)
     })
     .catch((err) => {
       console.log(`There was an error deleting the recipe: ${err}`)
     })
+  return promise;
 }
 
 // Iteration six: close the connection

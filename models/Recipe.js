@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const recipeSchema = new Schema({
-  // TODO: write the schema
+const recipeSchema = new mongoose.Schema({
   title: {
     type: String,
     required:true,
@@ -12,7 +10,7 @@ const recipeSchema = new Schema({
     type: String,
     enum: ["Easy Peasy","Amateur Chef","UltraPro Chef"]
   },
-  ingredientes: Array, //Not working in MongoDb
+  ingredients: Array, //Not working in MongoDb
   cuisine: { type: String, required: true },
   dishTipe: {
     type: String,

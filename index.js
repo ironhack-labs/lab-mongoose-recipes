@@ -16,14 +16,14 @@ mongoose.connect('mongodb://localhost/recipeApp', {
 // iteration 2
 Recipe.create({
   title: "cake",
-  level: "easy peasy",
+  level: "Easy Peasy",
   ingreadients: ['carrot'],
   cuisine: "english",
-  dishType: ["Snack"],
+  dishType: "Snack",
   duration: 30,
   creater: 'noriko'
-}).then(() => {
-
+}).then((recipe) => {
+  console.log(recipe.title);
   return Recipe.insertMany(data).then(data => {
     data.forEach(recipe => console.log(recipe.title))
   })
@@ -32,7 +32,6 @@ Recipe.create({
   return Recipe.updateOne({
     title: "Rigatoni alla Genovese"
   }, {
-    title: "Rigatoni alla Genovese",
     duration: 100
   }).then(() => {
     console.log(`updated succsessfully!`)

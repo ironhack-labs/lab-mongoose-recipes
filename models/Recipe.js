@@ -6,8 +6,13 @@ const today = new Date;
 //iteration 1
 
 const recipeSchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true,
+    unique: true
+  },
   level: {
+    type: String,
     enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"]
   },
   ingredients: [],
@@ -16,6 +21,7 @@ const recipeSchema = new Schema({
     required: true
   },
   dishType: {
+    type: String,
     enum: ["Breakfast", "Dish", "Snack", "Drink", "Dessert", "Other"]
   },
   image: {

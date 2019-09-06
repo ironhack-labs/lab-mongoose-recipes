@@ -9,6 +9,7 @@ const recipeSchema = new Schema({
     unique: true
   },
 
+  
   level: {
     type: String,
     enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"]

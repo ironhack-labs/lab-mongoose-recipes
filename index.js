@@ -34,17 +34,17 @@ mongoose.connect('mongodb://localhost/recipeApp', {
 //   });
 
 Recipe.updateOne({
-  duration: 220
+  title: "Rigatoni alla Genovese"
 }, {
   duration: 100
-}).then(data => {
-  console.log(data);
+}).then(() => {
+  console.log("Recipe updated successfully");
 });
 
 Recipe.deleteOne({
   title: "Carrot Cake"
-}).then(data => {
-  console.log(data);
+}).then(() => {
+  console.log("Recipe deleted successfully");
 
 mongoose.connection.close();
 

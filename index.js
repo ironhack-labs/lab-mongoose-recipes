@@ -18,12 +18,35 @@ mongoose.connect('mongodb://localhost/recipeApp', {
     console.error('Error connecting to mongo', err);
   });
 
-Recipe.create({data})
 
-// Recipe.findOne({
-//   title: "Carrot Cake"
-// }).then(data => {
-//   console.log(data)
+// Recipe.create({
+//   title: "Curry",
+//   cuisine: "Indian"
+// }).then(newMenu => {
+//   console.log(newMenu.title)
 // });
 
-Recipe.create({title: "Curry"}, {cuisine: "Indian"})
+// Recipe.insertMany(data)
+//   .then(newMenu => {
+//     newMenu.forEach(value => {
+//       console.log(value.title)
+//     })
+//   });
+
+Recipe.updateOne({
+  duration: 220
+}, {
+  duration: 100
+}).then(data => {
+  console.log(data);
+});
+
+Recipe.deleteOne({
+  title: "Carrot Cake"
+}).then(data => {
+  console.log(data);
+
+mongoose.connection.close();
+
+});
+

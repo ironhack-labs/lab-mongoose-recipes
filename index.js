@@ -58,10 +58,10 @@ Recipe.insertMany(data)
       { duration: 100 }
     )
       .then(data => {
-        console.log(data);
+        console.log("Duration has been changed");
         Recipe.deleteOne({ title: "Carrot Cake" })
           .then(data => {
-            console.log(data);
+            console.log("Carrot Cake has been deleted");
             mongoose.connection.close();
           })
           .catch(err => {

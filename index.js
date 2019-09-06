@@ -16,25 +16,60 @@ mongoose
     console.error("Error connecting to mongo", err);
   });
 
-// Recipe.create({ title: "Picanha", cuisine: "South-American" }).then(data => {
-//   console.log(data.title);
-// });
-
-// Recipe.insertMany(data).then(data => {
-//   const dataSet = data.map(el => el.title);
-//   console.log(dataSet);
-// });
-
-/* Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }).then(
-  () => {
-    console.log("Success!");
-  }
-); */
-
-/* Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {
-  console.log("Sucess with deleting it!");
-  mongoose.connection.close().then(() => {
-    console.log("closed");
+Recipe.create({ title: "Picanha", cuisine: "South-American" })
+  .then(recipe => {
+    console.log(recipe.title);
+    return Recipe.insertMany(data);
+  })
+  .then(recipes => {
+    recipes.forEach(recipe => {
+      console.log(recipe.title);
+    });
+    return Recipe.updateOne(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    )
+      .then(data => data)
+      .catch(err => {
+        console.log("Handling errors for the update: ", err);
+      });
+  })
+  .then(() => {
+    console.log("Recipe Sussecfully updated");
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("Recipe sucessfully deleted");
+    mongoose.connection.close();
   });
+
+/* Recipe.insertMany(data).then(data => {
+  const dataSet = data.map(el => el.title);
+  console.log(dataSet);
+  Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }).then(
+    () => {
+      console.log("Recipe Updated Sucessfuly");
+    })
+  Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {
+      console.log("Sucess with deleting it!");
+    });
+);
 });
+
  */
+// Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }).then(
+//   () => {
+//     console.log("Success!");
+//   }
+//   Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {
+//     console.log("Sucess with deleting it!");
+//   });
+// );
+
+// Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {
+//   console.log("Sucess with deleting it!");
+// });
+
+// mongoose.connection.close().then(() => {
+//   console.log("closed");
+// });

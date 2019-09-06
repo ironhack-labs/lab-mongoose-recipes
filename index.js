@@ -7,10 +7,10 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!');
     let p2 = iterationTwo();
-    let p3 = Promise.all([p2]).then(() => iterationThree());
-    let p4 = Promise.all([p2, p3]).then(() => iterationFour());
-    let p5 = Promise.all([p2, p3, p4]).then(() => iterationFive());
-    Promise.all([p2, p3, p4, p5]).then(() => iterationSix());
+    let p3 = p2.then(() => iterationThree());
+    let p4 = p3.then(() => iterationFour());
+    let p5 = p4.then(() => iterationFive());
+    p5.then(() => iterationSix());
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });

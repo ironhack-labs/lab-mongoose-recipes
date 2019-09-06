@@ -39,8 +39,16 @@ mongoose
               //res or whatever we name it logs an object that is the result of the update
             Recipe.deleteOne({ title: "Carrot Cake" })
             .then(res => {console.log(`The Carrot Cake was deleted `);
-                //this is why everything is nested. After creating everythin, the connection is closed
-                mongoose.connection.close();
+                //this is why everything is nested. After creating everything, the connection is closed
+                // option 1 -- mongoose.connection.close() 
+                // option 2 -- returns a promise 👇🏼
+                mongoose.disconnect()
+                .then(()=>{ 
+                  console.log("Mongo has been disconnected!")
+                })
+                .catch(err => {
+                  console.error("Error disconnecting Mongo", err);
+                });
                 })
             .catch("Err there was an error");
           })

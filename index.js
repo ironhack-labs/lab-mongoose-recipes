@@ -31,7 +31,6 @@ function createRecipe() {
     created: 2019 - 09 - 05
   }).then((recipeNew) => {
     console.log("Recipe was created: ", recipeNew.title)
-    console.log("Recipe was created: ", recipeNew.created)
   }).catch(err => {
     console.log("Error at creation: ", err);
   });

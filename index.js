@@ -26,8 +26,8 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 // Iteration 4: Update recipe
 // Recipe.findOne({ title: "Rigatoni alla Genovese"}) // findOne can be omitted when using updateOne but for readability it's here
 //       .updateOne({duration: 100})
-//       .then(data => console.log(`Successfully updated:`, data))
-//       .catch(err => console.log("Recipes could not be imported", err));
+//       .then(data => console.log(`Recipe successfully updated:`, data))
+//       .catch(err => console.log("Recipe could not be updated", err));
 
 // Iteration 5 - Remove a recipe
 // Recipe.deleteOne({ title: "Carrot Cake"})

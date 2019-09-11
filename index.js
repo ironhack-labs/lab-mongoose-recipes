@@ -10,3 +10,31 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+Recipe.create({
+  title: 'Macarrones con tomate',
+  level: 'Easy Peasy',
+  ingredients: ['macarrones', 'tomate'],
+  cuisine: 'italiana',
+  dishType: 'Dish',
+  image: 'https://www.rebanando.com/media/maxresdefault-jpg-19_crop.jpeg/rh/macarrones-con-salsa-de-tomate-natural-o-sofrito.jpg',
+  duration: 10,
+  creator: 'Marco Polo',
+  created: new Date (1292,1,1)
+}).then(recipeCreated => {
+  console.log(recipeCreated.title)
+  Recipe.insertMany(data)
+  .then(recipesCreated => {
+    recipesCreated.forEach(recipe => {
+      console.log(recipe.title)
+    })
+    Recipe.updateOne({title: {$eq:'Rigatoni alla Genovese'}}, {duration: 100}, {new: true}).then(recipeUpdate => {
+      console.log('The new duration has been modified')
+      Recipe.deleteOne({title: 'Carrot Cake'}).then(recipeDeleted => {
+        console.log(`The recipe has been removed`)
+        mongoose.connection.close()
+      })
+      })
+  })
+})
+
+

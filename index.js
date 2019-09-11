@@ -10,3 +10,14 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+Recipe.create({
+  title: 'Licor café',
+  level: 'UltraPro Chef',
+  ingredients: ['liquor', 'coffee'],
+  cuisine: 'Galician',
+  dishType: 'Drink',
+  image: 'https://t1.uc.ltmcdn.com/images/8/4/6/img_como_hacer_licor_cafe_6648_600.jpg',
+  duration: 120,
+  creator: 'Chef Brais'
+});
+

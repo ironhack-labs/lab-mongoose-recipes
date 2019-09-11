@@ -31,44 +31,38 @@ mongoose
       duration: 40,
       creator: "Chef LePapu"
     })
+
       .then(createdRecipe => {
         console.log(createdRecipe.title);
-      })
-      .then(
         Recipe.insertMany(data)
-          .then(createdRecipes => {
-            createdRecipes.forEach(recipe => {
-              console.log(recipe.title);
-              return recipe;
-            });
-          })
-          .then(
-            Recipe.findOneAndDelete(
-              { name: "Rigatoni alla Genovese" },
-              {
-                duration: 100
-              }
-            )
-              .then(updatedRecipe => {
-                updated: true;
-              })
-              .then(
-                Recipe.deleteOne({ name: "Carrot Cake" }).then(
-                  deletedRecipe => {
-                    deleted: true;
-                    mongoose.connection.close();
-                  }
-                )
-              )
-          )
-      )
-  )
+        .then(createdRecipes => {
+          createdRecipes.forEach(recipe => {
+            console.log(recipe.title);
+            return recipe;
+          });
+          Recipe.updateOne(
+            { title: { $eq: "Rigatoni alla Genovese" } },
+            { duration: 100 },
+            { new: true }
+          ).then(
+            console.log("Updated!"),
+            Recipe.deleteOne({ title: "Carrot Cake" }).then(deletedRecipe => {
+              console.log("Deleted!"),
+              mongoose.connection.close();
+            })
+          );
+        });
+      })
 
-  .catch(err => {
-    console.error("Error connecting to mongo", err);
-  });
+      .catch(err => {
+        console.error("Error connecting to mongo", err);
+      })
+  );
 
-// app.get("/new-recipe", (req, res) => {
+
+  // EXPRESS VERSION
+
+  // app.get("/new-recipe", (req, res) => {
 //   Recipe.create({
 //     title: "Asian Glazed Chicken Thighs",
 //     level: "Amateur Chef",

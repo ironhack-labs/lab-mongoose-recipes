@@ -19,5 +19,10 @@ Recipe.create({
   image: 'https://t1.uc.ltmcdn.com/images/8/4/6/img_como_hacer_licor_cafe_6648_600.jpg',
   duration: 120,
   creator: 'Chef Brais'
-});
+})
+.then(recipeCreated => Recipe.insertMany(data))
+.then(dataAdded => Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {
+  duration: 100
+})
+.then(updatedRecipe => { console.log('Successfully updated recipe!')}));
 

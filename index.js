@@ -24,5 +24,6 @@ Recipe.create({
 .then(dataAdded => Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {
   duration: 100
 })
-.then(updatedRecipe => { console.log('Successfully updated recipe!')}));
+.then(updatedRecipe => { console.log('Successfully updated recipe!'), Recipe.deleteOne({ title: 'Carrot Cake' }).then(deletedRecipe => { console.log('Successfully deleted recipe!'), mongoose.connection.close(); })
+}));
 

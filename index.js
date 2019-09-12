@@ -7,6 +7,9 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!');
 
+    //------------------------------------------------------//
+    //Included in this section b/c I was having issues with Compass
+    //------------------------------------------------------//
     Recipe.findOne({ title: 'Rigatoni alla Genovese' })
       .then(recipe => {
         console.log(recipe)
@@ -14,7 +17,7 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
         recipe.save((err, doc) => {
           console.log('save', err, doc)
         })
-        console.log(`You updated ${recipe.title} to ${recipe.duration}!`);
+        console.log(`Successfully updated ${recipe.title} to ${recipe.duration}!`);
       })
       .catch(function (err) {
         console.log(err)
@@ -42,9 +45,14 @@ Recipe.insertMany(data)
   console.log(err)
 });
 
-Recipe.deleteOne({ name: 'Carrot Cake' }, function (err) {
-  console.log("Removed")
-});
+Recipe.deleteOne({ title: 'Carrot Cake' })
+.then(recipe => {
+    console.log("DA RECIPE ---",recipe)
+    console.log(`===Sucessfully deleted ${recipe.title}`);
+   })
+.catch(function (err) {
+  console.log(err)
+})
 
 // var query = { title: 'Carrot Cake' };
 // var update = { duration: 100000 };

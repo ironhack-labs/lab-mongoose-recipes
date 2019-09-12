@@ -37,7 +37,7 @@ function makeManyRecipes() {
       recipe.duration = 100;
       recipe.save()
       .then(() => {
-        console.log('Recipe successfull y changed!');
+        console.log('Recipe successfully changed!');
       })
       .catch(error => {
         console.log('Error saving recipe!');

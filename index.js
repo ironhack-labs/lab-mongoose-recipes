@@ -40,3 +40,5 @@ Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
 Recipe.deleteOne({ title: "Carrot Cake" })
     .then("successCallback")
     .catch("errorCallback");
+
+mongoose.connection.close()

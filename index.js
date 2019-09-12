@@ -10,3 +10,42 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+  let bananaPancakes = {
+    title: 'Banana Pancakes',
+    ingredients: ['bananas', 'flour', 'sugar', 'eggs']
+  }
+
+// let howToBanana = new Recipe(bananaPancakes)
+
+// howToBanana.save();
+
+// Recipe.create(bananaPancakes).then(console.log(bananaPancakes.title));
+
+// Recipe.insertMany(data).then(data => {
+//   data.forEach(meal => {
+//    console.log(meal.title)
+//  });
+// }).catch(err => {
+//   console.log({err: err});
+//   throw err;
+// })
+
+// let target = {duration: 220};
+
+// Recipe.findOneAndUpdate(target, {duration: 100}).then(console.log('success')).catch(err=> {
+//   console.log({err:err});
+//   throw err;
+// })
+
+// let deleteTarget = {title:'Carrot Cake'};
+
+// Recipe.deleteOne(deleteTarget).then(
+//   console.log(`success`)
+// ).catch(err => {
+//   console.log({err:err});
+//   throw err;
+// })
+
+mongoose.disconnect().then(
+  console.log(`database disconnected`)
+)

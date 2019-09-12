@@ -13,49 +13,68 @@ mongoose
   });
 
 // Iteration 2 - Create a Recipe
+const newRecipe = () => {
 
-let bananaPancakes = {
-  title: "Banana Pancakes",
-  ingredients: ["bananas", "flour", "sugar", "eggs"]
+  let bananaPancakes = {
+    title: "Banana Pancakes",
+    level: "Easy Peasy",
+    ingredients: [
+      "2 ripe bananas, mashed",
+      "1 cup all-purpose flour",
+      "1 tablespoon brown sugar",
+      "1 beaten egg",
+      "1/4 teaspoon Kosher salt",
+      "1 cup milk",
+      "2 tablespoons vegetable oil",
+      "2 teaspoons baking powder"
+    ],
+    cuisine: "Homestyle",
+    dishType: "Breakfast",
+    duration: 15,
+    creator: "Chef Enrique"
+  };
+  let savedRecipe = new Recipe(bananaPancakes);
+  savedRecipe.save().then(console.log(savedRecipe.title));
 };
-
-Recipe.create(bananaPancakes).then(console.log(bananaPancakes.title));
 
 // Iteration 3 - Insert Many Recipes
 
-Recipe.insertMany(data)
-  .then(data => {
-    data.forEach(meal => {
-      console.log(meal.title);
-    });
-  })
-  .catch(err => {
-    console.log({ err: err });
-    throw err;
-  });
+const addManyRecipes = () => {
 
+  Recipe.insertMany(data)
+    .then(console.log(Recipe.find({}).map(x => x.title)))
+    .catch(err => {
+      console.log({ err: err });
+      throw err;
+    });
+};
 // Iteration 4 - Update Recipe
 
-let target = { duration: 220 };
+const updateOne = () => {
 
-Recipe.findOneAndUpdate(target, { duration: 100 })
-  .then(console.log("success"))
-  .catch(err => {
-    console.log({ err: err });
-    throw err;
-  });
-
+  let target = { title: "Rigatoni alla Genovese" };
+  Recipe.findOneAndUpdate(target, { duration: 100 })
+    .then(data => console.log("Successfully updated recipe", data))
+    .catch(err => {
+      console.log({ err: err });
+      throw err;
+    });
+};
 // Iteration 5 - Remove a Recipe
+const deleteOne = () => {
 
-let deleteTarget = { title: "Carrot Cake" };
-
-Recipe.deleteOne(deleteTarget)
-  .then(console.log(`success`))
-  .catch(err => {
-    console.log({ err: err });
-    throw err;
-  });
-
+  let deleteTarget = { title: "Carrot Cake" };
+  Recipe.deleteOne(deleteTarget)
+    .then(data => console.log(`Successfully removed carrot cake recipe`, data))
+    .catch(err => {
+      console.log({ err: err });
+      throw err;
+    });
+};
 // Iteration 6 - Close the Database
-
-mongoose.disconnect().then(console.log(`database disconnected`));
+process.on('SIGINT', () => {
+  mongoose.connection.close(()=>{
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  })
+})

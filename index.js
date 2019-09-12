@@ -26,6 +26,17 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 
 
 
-console.log(Recipe);
+// console.log(Recipe);
 
 // Recipe.insertMany(data);
+
+
+
+Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+    .then('successCallback')
+    .catch('errorCallback');
+
+
+Recipe.deleteOne({ title: "Carrot Cake" })
+    .then("successCallback")
+    .catch("errorCallback");

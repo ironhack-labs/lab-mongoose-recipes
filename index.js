@@ -18,9 +18,11 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 //   let recipe = new Recipe(bannaPancakes)
 //  recipe.save()
 
-//Iteration 4
+// Iteration 4
 //  Recipe.insertMany(data).then(a =>{
-//    console.log(a)
+//     a.forEach(b =>{
+//       console.log(b.title)
+//     })
 //  })
     // Recipe.updateOne({_id: '5d7a62d4754d0715fbaef4d6'}, { duration: 100 }).then(a =>{
     //   console.log(a)
@@ -30,5 +32,5 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 //   console.log(a)
 // });
 
-//Iteration 6
-mongoose.connection.close()
+// //Iteration 6
+// mongoose.connection.close()

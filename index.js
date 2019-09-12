@@ -10,18 +10,22 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
         console.error('Error connecting to mongo', err);
     });
 
-//  Recipe.create({ name: 'Alice', password:"ironhack2018", job: 'Architect' }, function (err, user) {
+
+// let bananaPancakes = {
+//     title: "bananaPancakes",
+//     ingredients: ['bananas', 'pancakes']
+// }
+
+// Recipe.create(bananaPancakes, function(err, recipe) {
 //     if (err) {
 //         console.log('An error happened:', err);
 //     } else {
-//         console.log('The user is saved and its value is: ', user);
+//         console.log('The recipe we created is: ', recipe);
 //     }
-//   });
+// });
 
 
 
-let Recipe = mongoose.model('Recipe', recipeSchema);
+console.log(Recipe);
 
-Recipe.createCollection().then(function(collection) {
-    console.log('Collection is created!');
-});
+// Recipe.insertMany(data);

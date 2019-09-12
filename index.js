@@ -10,44 +10,34 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   });
  
   function newRecipe () {
-    Recipe.create( {
+    let bananaPancakes = {
       title: 'Banana Pancakes',
-      level: 'Amateur Chef',
+      level: 'Easy Peasy',
       ingredients: ['Banana', 'Pancakes'],
-      cuisine: 'Breakfeast',
-      dishType: 'Dish',
+      cuisine: 'flapjack',
+      dishType: 'Breakfast',
       image: 'none',
       duration: 10,
       creator: 'Nick'
-    })
-    .then(recepie => {
-      console.log(`${recepie.title} created`);
-    })
-    .catch(error => {
-      console.log('Error creating recipe');
-    });
-  }
-
-  function insertRecipes() {
-    Recipe.insertMany(data)
-    .then(recipe => {
-      for (let recipes of recipe) {
-      console.log(`${recipes.title} added to the database`);
     }
-    })
-    .catch(error => {
-      console.log('Error adding recipes to the database');
-    });
-  }
+    let recipe = new Recipe(bananaPancakes)
+    recipe.save()
+    console.log(recipe)
+}
+  
+function makeManyRecipes() {
+  Recipe.insertMany(data)
+  console.log(Recipe.find({}).map(r => r.title))
+}
 
   function loadSingleItem() {
-    Recipe.findOne({ title: "Pizza" })
+    Recipe.findOne({ title: "Rigatoni alla Genovese" })
     .then(recipe => {
       console.log(recipe);
       recipe.duration = 100;
       recipe.save()
       .then(() => {
-        console.log('Recipe successfully changed!');
+        console.log('Recipe successfull y changed!');
       })
       .catch(error => {
         console.log('Error saving recipe!');
@@ -68,3 +58,5 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     });
 
   }
+
+  Recipe.deleteMany({}).then(result=>console.log(result)).catch(err=>console.log(err))

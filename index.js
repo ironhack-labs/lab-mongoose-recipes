@@ -10,3 +10,10 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+let bananaPancakes = {
+  title: 'bananaPancakes',
+  ingredients: ['banana', 'pancakes']
+}
+let recipe = new Recipe(bananaPancakes)
+
+recipe.save();

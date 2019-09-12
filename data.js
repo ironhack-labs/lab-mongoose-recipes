@@ -37,7 +37,7 @@ module.exports =
         cuisine: 'Italian',
         dishType: 'Dish',
         image: 'https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg',
-        duration: 220,
+        duration: 100,
         creator: 'Chef Luigi'
       },
       {

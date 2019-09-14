@@ -31,11 +31,19 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
-var query = { name: 'Rigatoni alla Genovese' };
-Recipe.findOneAndUpdate(query, { duration: 100 })
-  .then(() => {
-    console.log('Success in update')
+
+  // Recipe.updateOne({title:"Rigatoni alla Genovese"},{duration:100})
+  // .then(user =>{
+  //   console.log("The recipe was modified succesfully");
+  // })
+  // .catch(err =>{
+  //   console.log("An error happened: ",err);
+  // });
+
+  Recipe.deleteOne({ title: "Carrot Cake" })
+  .then(recipe => {
+    console.log("the recipe was deleted succesfylly");
   })
-  .catch (err => {
-    console.log(err)
+  .catch(err => {
+    console.log("An error happened:", err);
   });

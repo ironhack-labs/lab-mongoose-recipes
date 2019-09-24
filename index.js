@@ -42,6 +42,24 @@ const insertMany = () => {
   .catch(err => { console.log('An error happened:', err) });
 }
 
+// Update
+const updateRigatoni = () => {
+  Recipe.updateOne({title : {$regex : ".*gatoni.*"}}, { duration: 100 })
+  .then(recipe => { console.log(`${recipe.title} has been succesfully updated`) })
+  .catch(err => { console.log('An error happened:', err) });
+}
+
+// Delete
+const deleteCarrotCake = () => {
+  Recipe.deleteOne({ title: "Carrot Cake"})
+    .then(console.log('The delete has been succesfully executed'))
+    .catch(err => { console.log('An error happened: ', err) });
+}
+
 // Execution
 // insertOne();
 // insertMany();
+// updateRigatoni();
+// deleteCarrotCake();
+
+mongoose.connection.close();

@@ -1,0 +1,111 @@
+{
+    "extension": "linecount",
+    "version": "0.1.7",
+    "workspace": "/Users/guilhermedavi/Documents/Grazi/Week4/lab-mongoose-recipes",
+    "linecount": [
+        {
+            "version": "0.1.7",
+            "counttime": "2019-09-26 15:14:35",
+            "filesum": 7,
+            "codesum": 350,
+            "commentsum": 9,
+            "blanksum": 39,
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 5,
+                    "code": 91,
+                    "comment": 0,
+                    "filename": "data.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 31,
+                    "comment": 3,
+                    "filename": "index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "models/Recipe.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 146,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 28,
+                    "code": 40,
+                    "comment": 6,
+                    "filename": "README.md"
+                }
+            ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2019-09-26 15:15:17",
+            "filesum": 7,
+            "codesum": 350,
+            "commentsum": 9,
+            "blanksum": 39,
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 5,
+                    "code": 91,
+                    "comment": 0,
+                    "filename": "data.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 31,
+                    "comment": 3,
+                    "filename": "index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "models/Recipe.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 146,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 28,
+                    "code": 40,
+                    "comment": 6,
+                    "filename": "README.md"
+                }
+            ]
+        }
+    ]
+}

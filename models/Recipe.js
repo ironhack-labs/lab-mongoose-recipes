@@ -8,7 +8,7 @@ const recipeSchema = new Schema(
       type: String,
       enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
     },
-    ingredients: {type: Array},
+    ingredients: {type: Array, unique: true},
     cuisine: {type: String, required: true},
     dishType: {
       type: String,

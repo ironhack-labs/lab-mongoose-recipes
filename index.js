@@ -12,6 +12,22 @@ mongoose
     console.error('Error connecting to mongo', err);
   });
 
+mongoose.connection.collections['recipes'].drop(function(err) {
+  console.log('collection dropped');
+});
+
+Recipe.insertMany(data)
+  .then(recipes => {
+    console.log(recipes);
+    Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+      .then(recipe => console.log('recipe update!', recipe))
+      .catch(err => err);
+    Recipe.deleteOne({title: 'Carrot Cake'})
+      .then(recipe => console.log('recipe delete'))
+      .catch(err => err);
+  })
+  .catch(err => err);
+
 Recipe.create(
   {
     title: 'Cookie vegano',
@@ -19,7 +35,7 @@ Recipe.create(
     ingredients: ['alface', 'amor'],
     cuisine: 'Natural',
     dishType: 'Snack',
-    duration: 10,
+    duration: 60,
     creator: 'Gra & biel, with love'
   },
   function(err, recipe) {
@@ -31,14 +47,4 @@ Recipe.create(
   }
 );
 
-Recipe.insertMany();
-
-let promise = Recipe.insertMany(data);
-
-Promise.all([promise])
-  .then(values => {
-    console.log('Recipes have been inserted');
-    console.log(values);
-    mongoose.connection.close();
-  })
-  .catch(err => console.error(err));
+mongoose.connection.close();

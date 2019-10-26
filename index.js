@@ -10,3 +10,13 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+  Recipe.create(
+    {tittle: 'first',
+    level: 'Easy Peasy',
+    ingredients: ['salt', 'whater', 'butterw'],
+    cuisine: 'French',
+    dishType: 'Breakfast',
+    duration: 30,
+    creator: 'Arguiñano'
+  })
+

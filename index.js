@@ -10,8 +10,8 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
-  Recipe.create(
-    {tittle: 'first',
+  Recipe.create({
+    title: 'second',
     level: 'Easy Peasy',
     ingredients: ['salt', 'whater', 'butterw'],
     cuisine: 'French',
@@ -19,4 +19,23 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     duration: 30,
     creator: 'Arguiñano'
   })
+
+  Recipe.insertMany(data)
+  .then( console.log('Created'))
+  .catch( err => console.log(err))
+
+  Recipe.updateOne({ title: 'Rigatoni alla Genovese'}, {$set: { duration: 100 }})
+  .then(console.log('Updated'))
+  .catch(err => console.log(err))
+
+  Recipe.deleteOne({title: 'Carrot Cake'})
+  .then(console.log('Done'))
+  .catch(err => console.log(err))
+
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });
 

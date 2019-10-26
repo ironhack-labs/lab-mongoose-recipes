@@ -32,10 +32,8 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(console.log('Done'))
   .catch(err => console.log(err))
 
-  process.on('SIGINT', () => {
-    mongoose.connection.close(() => {
+  mongoose.connection.close(() => {
       console.log('Mongoose default connection disconnected through app termination');
       process.exit(0);
-    });
   });
 

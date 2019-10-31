@@ -1,12 +1,39 @@
 const mongoose = require('mongoose');
-const Recipe = require('./models/Recipe'); // Import of the model Recipe from './models/Recipe'
-const data = require('./data.js');  // Import of the data from './data.js'
+const express = require('express');
+const Recipe = require('./models/Recipe');
+const data = require('./data.js');
+const { saveRecipe , saveAllRecipes , deleteOneByTitle , updateByTitle } = require('./controllers')
 
-// Connection to the database "recipeApp"
+const app = express();
+
+
 mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!');
   }).catch(err => {
     console.error('Error connecting to mongo', err);
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const closeConnection = () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+  })
+};
+
+
+setTimeout(closeConnection, 5000)
+
 

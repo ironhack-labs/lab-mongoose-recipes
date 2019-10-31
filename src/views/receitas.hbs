@@ -1,0 +1,7 @@
+{{#each recipes}}
+  <h1>{{this.title}}</h1>
+  <h4>Ingredients</h4>
+  {{#each this.ingredients}}
+    <p>{{this}}</p>
+  {{/each}}
+{{/each}}

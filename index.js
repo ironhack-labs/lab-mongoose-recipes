@@ -10,3 +10,14 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+Recipe.create({
+  title: "Pizza de Guacamole",
+  level: 'Amateur Chef',
+  ingredients: ["Pizza", "Guacamole"],
+  cuisine: "Italiana",
+  dishType: "Dish",
+  duration: 60,
+  creator: "Coe",
+})
+
+Recipe.insertMany(data, function(err, doc) {})

@@ -15,6 +15,15 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 
   Recipe.create({title: 'teste2', level: 'Easy Peasy', ingredients: ['apple', 'orange'], cuisine: 'something', dishType: 'Dish', image: 'https://images.media-allrecipes.com/images/75131.jpg.', duration: 3, creator: 'Jef'})
   .then((recipe) => {
-    console.log(`${recipe}!`);
+    console.log(`${recipe}`);
   })
   .catch(err => {console.log('An error happened:', err)});
+
+
+  Recipe.insertMany(data)
+    .then((recipes) => {
+      for(let i = 0; i < recipes.length; i++){
+        console.log(recipes[i].title);
+      }
+    })
+  .catch(err => {console.log('An error happened:', err)});  

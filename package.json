@@ -1,5 +1,5 @@
 {
-  "name": "lab-mongoose-recipes",
+  "name": "mongoose-recipes",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.5.0"
+    "mongoose": "^5.7.8"
   }
 }

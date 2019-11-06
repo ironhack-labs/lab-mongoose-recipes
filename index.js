@@ -7,29 +7,45 @@ mongoose
   .connect('mongodb://localhost/recipeApp', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-  })
-  .then(() => {
+  }).then(() => {
     console.log('Connected to Mongo!');
+    return Recipe.create({
+      title: 'Tartiflette Veggie',
+      level: 'Easy Peasy',
+      ingredients: ['Potatoes', 'Zucchini', 'Peppers', 'Reblochon', 'Onions'],
+      cuisine: 'French',
+      dishType: 'Dish',
+      image: 'https://www.picard.fr/dw/image/v2/AAHV_PRD/on/demandware.static/-/Sites-catalog-picard/default/dw4f25b129/recettes/plats/R0625.jpg?sw=600&sh=336',
+      duration: 35,
+      creator: 'Camille & Helene chefs',
+    });
+  })
+  .then((createdRecipe) => {
+    console.log(createdRecipe);
+    console.log(createdRecipe.title);
+    return Recipe.insertMany(data);
+
+  }).then(recipes => {
+    recipes.forEach(recipe => console.log(recipe.title));
+
+  }).then(() => {
+    return Recipe
+      .findByIdAndUpdate("5dc2efc85fbc5e736fcadcb9", {
+        duration: 100
+      });
+
+  }).then(() => {
+    console.log("updated reciped");
+    return Recipe.deleteOne({
+      title: "Carrot Cake"
+    });
+  }).then(() => {
+    console.log("Carrot cake deleted !");
+    mongoose.connection.close();
   })
   .catch(err => {
     console.error('Error connecting to mongo', err);
   });
-
-// uncomment Recipe.create otherwise it will create this recipe each time we launch the node index.js (ou npm run server if you write your script in the package.json)
-// Recipe.create({
-//   title: 'Tartiflette Veggie',
-//   level: 'Easy Peasy',
-//   ingredients: ['Potatoes', 'Zucchini', 'Peppers', 'Reblochon', 'Onions'],
-//   cuisine: 'French',
-//   dishType: 'Dish',
-//   image: 'https://www.picard.fr/dw/image/v2/AAHV_PRD/on/demandware.static/-/Sites-catalog-picard/default/dw4f25b129/recettes/plats/R0625.jpg?sw=600&sh=336',
-//   duration: 35,
-//   creator: 'Camille & Helene chefs',
-// }).then(recipe => {
-//   console.log(recipe.title);
-// }).catch(err => {
-//   console.error('Error connecting to mongo', err);
-// });
 
 // Recipe // uncomment to not insertMany each time we run our code...
 // how do the web dev in real life ? they uncomment their code each time ??
@@ -39,22 +55,24 @@ mongoose
 //     console.error('Failed to insert document', err);
 //   });
 
-Recipe
-  .findByIdAndUpdate("5dc2efc85fbc5e736fcadcb9", {
-    duration: 100
-  })
-  .then(console.log("Duration updated !"))
-  .catch(err => {
-    console.error('Failed to updated', err);
-  });
-
-Recipe
-  .deleteOne({
-    title: "Carrot Cake"
-  })
-  .then(console.log("Carrot cake deleted !"))
-  .catch(err => {
-    console.error('Failed to delete', err);
-  });
-
-mongoose.connection.close();
+// asyn way to do it with franck
+// async function doSomethingLaterButHappenWhenIWant(callback) {
+//   try{
+//     const createdRecipe = await Recipe.create({
+//       title: "il ppppppp di la mama",
+//       ingredients: ["Pasta", "Mama", "Bolognaise", "amor"],
+//       cuisine: "hood cuisine",
+//       duration: 180,
+//       creator: "Mama"
+//     });
+//     const allMyRecipes = await Recipe.insertMany(data);
+//     const updatedRecipe = await Recipe.findOneAndUpdate(
+//       { title: "Rigatoni alla Genovese" },
+//       { duration: 100 }
+//     );
+//     await Recipe.findOneAndDelete({ title: "Carrot Cake" });
+//     mongoose.connection.close();
+//   }catch(err){
+//     console.log(err)
+//   }
+// }

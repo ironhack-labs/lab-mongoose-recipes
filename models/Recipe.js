@@ -37,7 +37,7 @@ const recipeSchema = new Schema({
   }
 
 });
-// { timestamps: {
+// { timestamps: { // will be automatically created and updatedby mongoose
 //   createdAt: 'created_at',
 //   updatedAt: 'updated_at'
 // };

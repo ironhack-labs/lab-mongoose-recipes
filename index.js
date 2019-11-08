@@ -49,6 +49,7 @@ Recipe.deleteOne({
   title: "Carrot Cake"
 }).then(response => {
   console.log();
+  mongoose.disconnect();
 }).catch(err => {
   console.log("ERROR", err);
 });

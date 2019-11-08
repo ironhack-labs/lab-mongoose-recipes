@@ -42,23 +42,24 @@ Recipe.deleteOne({
     console.log(err);
   });
 
-Recipe.findOneAndUpdate({
-    title: 'Rigatoni alla Genovese'
-  }, {
-    duration: -3
-  }, {
-    new: true,
-    runValidators: true
-  })
-  .then(request => {
-    console.log(request);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// Recipe.findOneAndUpdate({
+//     title: 'Rigatoni alla Genovese'
+//   }, {
+//     duration: -3
+//   }, {
+//     new: true,
+//     runValidators: true
+//   })
+//   .then(request => {
+//     console.log(request);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+
 
 
 
 mongoose.connection.close(function () {
   console.log('Mongoose default connection closed');
-});
+}, 10000);

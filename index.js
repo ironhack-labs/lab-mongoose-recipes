@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost/recipeApp', {
     console.error('Error connecting to mongo', err);
   });
 
-mongoose.connection.collections[`recipes`].drop(err=>console.log(`collection dropped`));
+mongoose.connection.collections[`recipes`].drop(err => console.log(`collection dropped`));
 
 Recipe.create({
   title: "Lentejas con chorizo",
@@ -23,18 +23,23 @@ Recipe.create({
   image: "mis_lentejas.png",
   duration: 15,
   creator: "Gabriel",
-  
+
 }).then(recipieCreated => {
   console.log(recipieCreated.title);
   return Recipe.insertMany(data);
-}).then(inserted=>{
+}).then(inserted => {
   inserted.forEach(recipie => console.log(recipie.title));
-  return Recipe.updateOne({title:'Rigatoni alla Genovese'}, {duration: 100});
-}).then(()=>{
+  return Recipe.updateOne({
+    title: 'Rigatoni alla Genovese'
+  }, {
+    duration: 100
+  });
+}).then(() => {
   console.log(`Updated recipe`);
-  return Recipe.deleteOne({title:'Carrot Cake'});
-}).then(()=>{
+  return Recipe.deleteOne({
+    title: 'Carrot Cake'
+  });
+}).then(() => {
   console.log(`Deleted recipe`);
-  
-})
-
+  mongoose.connection.close();
+});

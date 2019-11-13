@@ -32,5 +32,9 @@ Recipe.create({
   return Recipe.updateOne({title:'Rigatoni alla Genovese'}, {duration: 100});
 }).then(()=>{
   console.log(`Updated recipe`);
+  return Recipe.deleteOne({title:'Carrot Cake'});
+}).then(()=>{
+  console.log(`Deleted recipe`);
+  
 })
 

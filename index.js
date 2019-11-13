@@ -24,4 +24,11 @@ Recipe.create({
   console.log(recipeCreated.title)
 })
 
-Recipe.insertMany(data).then(recipes => recipes.forEach(recipe => console.log(recipe.title)));
+Recipe.insertMany(data)
+  .then(recipes => recipes.forEach(recipe => console.log(recipe.title)))
+  .then(() => Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true}))
+  .then(() => console.log("Duration modified"))
+  .then(() => Recipe.deleteOne({title: 'Carrot Cake'}))
+  .then(() => console.log('Recipe removed'))
+  .then(() => mongoose.disconnect());
+

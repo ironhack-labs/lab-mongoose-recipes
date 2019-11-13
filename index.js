@@ -27,3 +27,7 @@ Recipe.create({
 }).then(recipieCreated => {
   console.log(recipieCreated.title);
 });
+
+Recipe.insertMany(data,(err,inserted)=>{
+  inserted.forEach(recipie => console.log(recipie.title));
+});

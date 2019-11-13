@@ -41,10 +41,23 @@ mongoose.connect('mongodb://localhost/recipeApp', {
        console.log(recipe.title);
      }
     )
-    .catch(error => console.log("3rd process" ,error))
+    // .catch(error => console.log("3rd process" ,error))
     })
 
   })
 
- 
+ .then(() => {
+
+  return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  .then((recipeUpdated) => console.log("success"))
+// .catch(error => console.log("final process" ,error))
+ })
+
+.then(() => {
+  return Recipe.deleteOne({title: "Carrot Cake"})
+  .then(() => console.log("success"))
+})
+
+
+
 

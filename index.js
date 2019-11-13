@@ -58,6 +58,9 @@ mongoose.connect('mongodb://localhost/recipeApp', {
   .then(() => console.log("success"))
 })
 
+.then(() => {
+  mongoose.connection.close()
+})
 
 
 

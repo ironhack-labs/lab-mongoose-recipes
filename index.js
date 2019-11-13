@@ -28,17 +28,29 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   })
   .then(() => {
     return Recipe.insertMany(data)
-     
+    .then(createdRecipes => {
+      createdRecipes.forEach(recipe => console.log(recipe.title))
+    }) 
+      // .catch(err => console.log(err))
 
-    
-  }) 
 
-  .then(dataInserted => {
-    dataInserted.forEach( recipe => console.log(recipe.title) )
-    return 
+
   })
-  .catch(err => console.log(err))
-  
+
+
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100},{new: true})
+    .then((data)=>console.log(data))
+  })
+  .then(() =>{
+    return Recipe.findOneAndDelete({title: "Carrot Cake"})
+    .then((data)=>console.log(data))
+  })
+
+  .then(() => {
+    return mongoose.disconnect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
+  })
+
 
 
 

@@ -26,8 +26,11 @@ Recipe.create({
   
 }).then(recipieCreated => {
   console.log(recipieCreated.title);
-});
-
-Recipe.insertMany(data,(err,inserted)=>{
+  return Recipe.insertMany(data);
+}).then(inserted=>{
   inserted.forEach(recipie => console.log(recipie.title));
-});
+  return Recipe.updateOne({title:'Rigatoni alla Genovese'}, {duration: 100});
+}).then(()=>{
+  console.log(`Updated recipe`);
+})
+

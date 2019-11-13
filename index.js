@@ -10,3 +10,18 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+Recipe.create({
+  title: 'Pizza Tropical',
+  level: 'Easy Peasy',
+  ingredients: ['Flour', 'Water', 'Tomatoe', 'Cheese', 'Pineapple'],
+  cuisine: 'Italian',
+  dishType: 'Dish',
+  image: 'https://cocina-casera.com/wp-content/uploads/2017/12/pizza-tropical.jpg',
+  duration: 30,
+  creator: 'Chef Franfredo',
+   
+}).then(recipeCreated => {
+  console.log('Recipe Created')
+})
+
+

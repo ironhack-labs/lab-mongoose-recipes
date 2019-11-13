@@ -31,7 +31,7 @@ const recipeSchema = new Schema({
   creator: String,
   created: {
     type: Date,
-    default: new Date().getDate()
+    default: new Date()
   }
 });
 

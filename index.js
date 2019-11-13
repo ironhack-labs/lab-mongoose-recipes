@@ -21,7 +21,7 @@ Recipe.create({
   creator: 'Chef Franfredo',
    
 }).then(recipeCreated => {
-  console.log('Recipe Created')
+  console.log(recipeCreated.title)
 })
 
-
+Recipe.insertMany(data).then(recipes => recipes.forEach(recipe => console.log(recipe.title)));

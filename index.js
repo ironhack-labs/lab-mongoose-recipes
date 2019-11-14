@@ -10,3 +10,14 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+  //⁄ Recipe.create({title:'trhoa', cuisine:'lol' })
+  
+  
+  Recipe.insertMany(data, { useNewUrlParser: true }
+  .then(title => { console.log('The user is saved and its value is: ', title) })
+  .catch(err => { console.log('An error happened:', err) })
+  )
+
+  Recipe.deleteOne({ title:'Carrot Cake'},
+  .then(title => { console.log('The user is deleted ', title) })
+  .catch(err => { console.log('An error happened:', err) }))

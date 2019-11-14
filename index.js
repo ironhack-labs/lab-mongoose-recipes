@@ -23,21 +23,40 @@ let recipe1 = {
   creator: 'Chef Damien',
 };
 
-Recipe.create(recipe1)
-  .then((result) => console.log('Inserted RECIPE1 successful !', result))
-  .catch(err => console.error(err));
+// Recipe.create(recipe1)
+//   .then((result) => console.log('Inserted RECIPE1 successful !', result))
+//   .catch(err => console.error(err));
 
-Recipe.insertMany(data)
-  .then((result) => result.forEach(element => {
-    console.log(element.title)
-  }))
-  .catch(err => console.error(err));
+// Recipe.insertMany(data)
+//   .then((result) => result.forEach(element => {
+//     console.log(element.title)
+//   }))
+//   .catch(err => console.error(err));
 
 
-  Recipe.findOneAndUpdate({ 'title': 'Rigatoni alla Genovese' }, { $set: { 'duration':  100 } })
+Recipe.findOneAndUpdate({
+    'title': 'Rigatoni alla Genovese'
+  }, {
+    $set: {
+      'duration': 100
+    }
+  })
   .then((result) => console.log('Duration successfuly updated', result))
   .catch(err => console.log(err));
 
- Recipe.deleteOne({ 'title':'Carrot Cake'})
-   .then( (result) => console.log('Success deleting document', result))
-   .catch(err => console.log(err));
+Recipe.deleteOne({
+    'title': 'Carrot Cake'
+  })
+  .then((result) => console.log('Success deleting document', result))
+  .catch(err => console.log(err));
+
+
+// When the Node process ends, close the Mongoose connection
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log(
+      'Mongoose default connection disconnected through app termination',
+    );
+    process.exit(0);
+  });
+});

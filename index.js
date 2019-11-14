@@ -15,14 +15,42 @@ mongoose
 let recepte = {
   title: "Tortilla",
   level: "Easy Peasy",
-  ingredients:  "Huevos",
+  ingredients: "Huevos",
   cuisine: "española",
   dishType: "Dish",
   duration: 5,
   creator: "Pep",
 };
 
-Recipe.create(recepte, (err, result) => {
-  if (err) console.log(err);
-  else console.log("Document inserted", result);
-});
+
+// Create a recipe  using the [`Model.create`] method
+// Recipe.create(recepte, (err, result) => {
+//   if (err) console.log(err);
+//   else console.log("Document inserted", result);
+// });
+
+
+
+// Insert Many recipes with insertMany method
+// Recipe.insertMany(data, (err, result) =>{
+//   if (err) console.log(err);
+//   else console.log("Document inserted", result);
+// })
+
+
+// Not working, deprecationWarning
+// Recipe.findOneAndUpdate(
+//   { name: "Rigatoni alla Genovese" },
+//   { $set: { duration: 100 } }
+// )
+//   .then(result => console.log(result))
+//   .catch(err => console.log(err));
+
+// it is working well
+Recipe.deleteOne({title: "Carrot Cake"})
+  .then(result => mongoose.connection.close()
+  .then(console.log("cerrado"))
+  .catch(err => console.log(err)));
+
+
+  

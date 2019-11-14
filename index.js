@@ -18,8 +18,11 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   const mainRoutes = require("./routes");
   app.use("/", mainRoutes);
 
-  mongoose.connection.close(function () {
-    console.log('Mongoose connection disconnected');
+  process.on('SIGINT', function() {
+    mongoose.connection.close(function () {
+      console.log('Disconnect Mongoose');
+      process.exit(0);
+    });
   });
 app.listen(3000, () => console.log("http://localhost:3000"));
 

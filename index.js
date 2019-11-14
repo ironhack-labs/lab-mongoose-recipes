@@ -18,6 +18,8 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .catch(err => { console.log('An error happened:', err) })
   )
 
-  Recipe.deleteOne({ title:'Carrot Cake'},
+  Recipe.updateOne("Rigatoni alla Genovese", { duration: 100 });
+
+  Recipe.deleteOne({ title:'Carrot Cake'})
   .then(title => { console.log('The user is deleted ', title) })
-  .catch(err => { console.log('An error happened:', err) }))
+  .catch(err => { console.log('An error happened:', err) })

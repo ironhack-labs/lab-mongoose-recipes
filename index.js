@@ -10,3 +10,10 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+//Recipe.create(data[0])
+//console.log(data[0].title)
+
+//Recipe.findById("5dcce37608b90ba30ca3f3a4")
+
+
+Recipe.insertMany(data)

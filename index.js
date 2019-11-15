@@ -31,7 +31,7 @@ mongoose.connect('mongodb://localhost:27017/recipeApp', { useNewUrlParser: true,
 
 
    Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { $set: { duration:  100 } })
-      .then((result) => console.log('Field payments successfuly updated', result))
+      .then((result) => console.log('successfuly updated', result))
       .catch(err => console.log(err));
     
     

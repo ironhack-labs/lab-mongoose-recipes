@@ -10,3 +10,34 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+Recipe.create({
+  title:'Chongos Zamoranos',
+  level: 'UltraProChef',
+  ingredients:['leche','canela'],
+  cuisine:'Mexicana',
+  dishType:'Dessert',
+  image:'https://images.media-allrecipes.com/images/75131.jpg',
+  duration:30,
+  creator:'Mary',
+  created:Date.now
+});
+
+Recipe.insertMany(module, function(error, docs) {
+  console.log("Recipe");
+});
+
+const insertManyResult = await Recipe.insertMany(data);
+insertManyResult.forEach(({ title }) => console.log(title));
+
+
+
+Recipe.updateOne(
+  {title:'Rigatoni alla Genovese'},
+  {duration: 100}).then(() => console.log("update"));
+ 
+  Recipe.deleteOne(
+    { name: 'Carrot Cake' }).then(() => console.log("item successfully removed"));
+
+  mongoose.connection.close();
+
+  app.listen(3000, () => console.log("http://localhost:3000"));

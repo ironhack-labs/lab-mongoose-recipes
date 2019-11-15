@@ -13,5 +13,7 @@ const recipeSchema = new Schema({
   created:  {type: Date, default: Date.now },
 });
 
+//The system safe this name:   recipes
 const Recipe = mongoose.model('Recipe', recipeSchema);
+
 module.exports = Recipe;

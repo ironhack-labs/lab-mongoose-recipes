@@ -38,19 +38,17 @@ let recepte = {
 // })
 
 
-// Not working, deprecationWarning
-// Recipe.findOneAndUpdate(
-//   { name: "Rigatoni alla Genovese" },
-//   { $set: { duration: 100 } }
-// )
-//   .then(result => console.log(result))
-//   .catch(err => console.log(err));
+//Not working, deprecationWarning
+Recipe.findOneAndUpdate(
+  { title: "Rigatoni alla Genovese" },
+  { $set: { duration: 100 } }
+)
+  .then(result => console.log(result))
+  .catch(err => console.log(err));
+
 
 // it is working well
-Recipe.deleteOne({title: "Carrot Cake"})
-  .then(result => mongoose.connection.close()
-  .then(console.log("cerrado"))
-  .catch(err => console.log(err)));
-
-
-  
+// Recipe.deleteOne({title: "Carrot Cake"})
+//   .then(result => mongoose.connection.close()
+//   .then(console.log("cerrado"))
+//   .catch(err => console.log(err)));

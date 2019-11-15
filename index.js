@@ -26,7 +26,9 @@ mongoose.connect('mongodb://localhost:27017/recipeApp', { useNewUrlParser: true,
       .catch(err => console.error(err))
     
    Recipe.insertMany(data)
-      .then( (result) => console.log(result.length))
+      .then( (result) => {
+        results.forEach(( resultObj) => console.log(`${resultObj.title}`))
+      })
       .catch(err=> console.log(err))
 
 

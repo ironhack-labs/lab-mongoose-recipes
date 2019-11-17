@@ -1,4 +1,5 @@
 const express = require("express");
+const hbs = require("hbs");
 const mongoose = require("mongoose");
 const Recipe = require("./models/Recipe"); // Import of the model Recipe from './models/Recipe'
 const data = require("./data.js"); // Import of the data from './data.js'
@@ -6,7 +7,9 @@ const index = express();
 // Connection to the database "recipeApp"
 mongoose
   .connect("mongodb://localhost/recipeApp", {
-    useNewUrlParser: true
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   })
   .then(() => {
     console.log("Connected to Mongo!");
@@ -15,30 +18,33 @@ mongoose
     console.error("Error connecting to mongo", err);
   });
 
-Recipe.create(
-  {
-    title: "Birria",
-    level: "Easy Peasy",
-    ingredients: ["Musho shivo"],
-    cuisine: "Mexican",
-    dishType: "Dish",
-    image: "",
-    duration: 180,
-    creator: "Someone",
-    created: ""
-  },
-  function(err, recipe) {
-    if (err) {
-      console.log("An error happened:", err);
-    } else {
-      console.log(Recipe.title);
-    }
-  }
-);
+// our first Route:
+index.get("/", (request, response, next) => {
+  response.send("<h1>Holi</h1>");
+});
 
-Recipe.insertMany(data, function(error, data) {});
+const recipe = new Recipe({
+  title: "Birria",
+  level: "Easy Peasy",
+  ingredients: ["Musho shivo"],
+  cuisine: "Mexican",
+  dishType: "Dish",
+  image:
+    "https://cocina-casera.com/mx/wp-content/uploads/2019/03/birria-cerdo.jpg",
+  duration: 180,
+  creator: "Someone",
+  created: "2019-11-17"
+});
+recipe
+  .save()
+  .then(newRecipe => console.log(`New recipe: ${recipe}`))
+  .catch(err => console.log(`Error:${err}`));
 
-Recipe.updateOne(
+const recetas = Recipe.insertMany(data)
+  .then(newRecipes => console.log(`${recipes}`))
+  .catch(err => console.log(err));
+
+const updaterecipe = Recipe.updateOne(
   {
     title: "Rigatoni alla Genovese"
   },
@@ -49,12 +55,10 @@ Recipe.updateOne(
   .then(() => console.log("successful update"))
   .catch(err => console.log(`something happened: ${err}`));
 
-Recipe.deleteOne({
+const deleterecipe = Recipe.deleteOne({
   name: "Carrot Cake"
 })
   .then(() => console.log("successful update"))
   .catch(err => console.log(`something happened: ${err}`));
-
-mongoose.connection.close();
 
 index.listen(3000, () => console.log("http://localhost:3000"));

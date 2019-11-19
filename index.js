@@ -10,3 +10,31 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+let promise1 = Recipe.create(
+  {
+    title: 'Arroz de Pato',
+    level: 'Easy Peasy',
+    ingredients: ['Pato', 'Arroz'],
+    cuisine: "Portuguese",
+    dishType: 'Snack',
+    image: "https://www.pingodoce.pt/wp-content/uploads/2016/12/arroz-de-pato-516x310.jpg",
+    duration: 30,
+    creator: 'Corona',
+  }).then(result => {
+    console.log(`the recipe was created and the result is ${result}`)
+  })
+
+let promise2 = Recipe.insertMany(data).then(result => {
+  console.log(`Multiple entries added to the database ${result}`)
+})
+
+let promise3 = Recipe.update({ title: 'Rigatoni alla Genovese' }, { duration: 100 }).then(result => {
+  console.log(`Success! Recipe duration was updated: ${result}`)
+});
+
+let promise4 = Recipe.deleteOne({ title: 'Carrot Cake' }).then(result => {
+  console.log(`The Recipe with the name ${result} was deleted`)
+})
+
+Promise.all([promise1, promise2, promise3, promise4])
+  .then();

@@ -11,18 +11,37 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   });
 
 Recipe.create({
-  title: 'Asian Glazed Chicken Thighss',
-  level: 'Amateur Chef',
-  ingredients: ['1/2 cup rice vinegar', '5 tablespoons honey', '1/3 cup soy sauce (such as Silver Swan®)', '1/4 cup Asian (toasted) sesame oil', '3 tablespoons Asian chili garlic sauce', '3 tablespoons minced garlic', 'salt to taste', '8 skinless, boneless chicken thighs'],
-  cuisine: 'Asian',
+  title: 'Tortilla de patata',
+  level: 'UltraPro Chef',
+  ingredients: ['Huevos', 'Patata', "cebolla", "aceite"],
+  cuisine: 'Española',
   dishType: 'Dish',
   image: 'https://images.media-allrecipes.com/userphotos/720x405/815964.jpg',
   duration: 40,
-  creator: 'Chef LePapu'
+  creator: 'La Paca'
 })
+  .then(
+    Recipe.insertMany(data)
+      .then(recipes => recipes.forEach(recipe => {
+        console.log(recipe.title)
+      }))
+      .catch(err => console.log(err))
+  )
+    .then(
+      Recipe.findByIdAndUpdate("5dd5ef062e8ec1482e4a0391", {duration: 100})
+        .then(() => console.log("The recipe was successfully updated!"))
+        .catch(err => console.error(err))
+    )
+      .then(
+        Recipe.deleteOne({title: "Carrot Cake"})
+          .then(() => console.log("The recipe was successfully removed"))
+          .catch(err => console.error(err))
+      )
 
-console.log(Recipe.title)
 
-Recipe.insertMany(data)
-
-Recipe.findByIdAndUpdate("5dcceeb008bfcba5ed4c1bc8", {duration: 100})
+process.on('SIGINT', () => {
+  mongoose.connection.close( () => {
+    console.log('Mongoose disconnected');
+    process.exit(0);
+  });
+});

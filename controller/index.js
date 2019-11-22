@@ -4,6 +4,7 @@ const data = require("../data")
 
 exports.home = async (req, res ) => {
    const recipes = await Recipe.find();
+   mongoose.connection.close();
    res.render("index", {recipes});
 }
 
@@ -18,21 +19,26 @@ exports.createRecipe = (req, res) => {
         duration: 40,
         creator: 'Chef LePapu'
      });
+    mongoose.connection.close();
    res.redirect("/");
  };
 
 exports.createMany = async (req, res) => {
-    console.log(data);
-    await Recipe.insertMany(data, function(error, docs) {});
+    const insertmany = await Recipe.insertMany(data);
+    console.log(insertmany);
+    mongoose.connection.close();
     res.redirect("/");
 }
+    
 
 exports.changeDuration = async (req, res) => {
     await Recipe.findByIdAndUpdate("5dccc0dd895b7d3ccff36dd1", {duration: 100})
+    mongoose.connection.close();
     res.redirect("/");
 }
 
 exports.deleteRecipe = async (req, res) => {
     await Recipe.findByIdAndDelete("5dccc0967f51963c116087f6")
+    mongoose.connection.close();
     res.redirect("/");
 }

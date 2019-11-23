@@ -22,22 +22,18 @@ Recipe.create({
   created:Date.now
 });
 
-Recipe.insertMany(module, function(error, docs) {
-  console.log("Recipe");
+console.log(Recipe.title);
+
+Recipe.insertMany(data, function(error, docs) {
+  console.log(Recipe.title);
 });
 
-const insertManyResult = await Recipe.insertMany(data);
-insertManyResult.forEach(({ title }) => console.log(title));
+Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
 
-
-
-Recipe.updateOne(
-  {title:'Rigatoni alla Genovese'},
-  {duration: 100}).then(() => console.log("update"));
+Recipe.deleteOne({ title: 'Carrot Cake' }, function(err){
+  console.log("item successfully removed")
+});
  
-  Recipe.deleteOne(
-    { name: 'Carrot Cake' }).then(() => console.log("item successfully removed"));
-
   mongoose.connection.close();
 
   app.listen(3000, () => console.log("http://localhost:3000"));

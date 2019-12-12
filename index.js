@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   });
 
 
-Recipe.create({
+/*Recipe.create({
   title: "Karottensuppe",
   level: "Easy Peasy",
   ingredients: ["Karotten", "Zwiebeln", "Ingwer", "Chilli", "Butter", "Currypulver", "Gemüsebrühe", "Kokosmilch", "Salz", "Pfeffer"],
@@ -38,4 +38,12 @@ Recipe.insertMany(data)
 .catch(error => {
   console.log(`Couldn\'t create recipe error: ${error}`)
 });
+*/
 
+Recipe.where({title: "Rigatoni alla Genovese"}).update({duration: 100})
+.then(recipeFromDb => {
+  console.log(`Recipe was updated`)
+})
+.catch(error => {
+  console.log(`Couldn\'t update recipe: ${error}`)
+});

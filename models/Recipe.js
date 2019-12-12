@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const recipeSchema = new Schema({
   title : {
     type : String,
@@ -11,7 +12,7 @@ const recipeSchema = new Schema({
       type : String, 
       enum : ['Easy Peasy' , 'Amateur Chef', 'UltraPro Chef']
     },
-    ingidients : [String],
+    ingredients : [String],
     cuisine : {
       type : String,
       required : true

@@ -10,3 +10,15 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+
+
+Recipe.create({
+  title: 'Marcos recipe',
+        level: 'Amateur Chef',
+        ingredients: ['penne', 'sauce','cheese'],
+        cuisine: 'Italian',
+        dishType: 'Dish',
+        image: 'https://images.media-allrecipes.com/userphotos/720x405/815964.jpg',
+        duration: 20,
+        creator: 'Italian Ironman'
+}).then(recipeFromDB =>{console.log(recipeFromDB.title)}).catch(err => {console.log(err)})

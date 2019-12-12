@@ -14,7 +14,10 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   .then(recipeFromDb => console.log(recipeFromDb.title))
   .catch(error => console.log('hat nicht geklappt: ${error}')); */
 
-Recipe.insertMany(data)
+/* Recipe.insertMany(data)
   .then(recipes => recipes.map(obj => console.log(obj.title)))
-  .catch(err => console.log('Error: ${err}'));
+  .catch(err => console.log('Error: ${err}')); */
 
+Recipe.updateOne( {title: 'Rigatoni alla Genovese'}, {duration: 100} )
+  .then(recipeFromDb => console.log('successfully updated recipegit'))
+  .catch(err => console.log('Error: ${err}'));

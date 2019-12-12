@@ -11,7 +11,8 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   });
 
 
-/*Recipe.create({
+const createRecipe = 
+Recipe.create({
   title: "Karottensuppe",
   level: "Easy Peasy",
   ingredients: ["Karotten", "Zwiebeln", "Ingwer", "Chilli", "Butter", "Currypulver", "Gemüsebrühe", "Kokosmilch", "Salz", "Pfeffer"],
@@ -29,6 +30,7 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 });
 
 
+const manyRecipe = 
 Recipe.insertMany(data)
 .then(recipeFromDb => {
   recipeFromDb.forEach(recipe => {
@@ -38,8 +40,9 @@ Recipe.insertMany(data)
 .catch(error => {
   console.log(`Couldn\'t create recipe error: ${error}`)
 });
-*/
 
+
+const updateRecipe = 
 Recipe.where({title: "Rigatoni alla Genovese"}).update({duration: 100})
 .then(recipeFromDb => {
   console.log(`Recipe was updated`)
@@ -47,3 +50,23 @@ Recipe.where({title: "Rigatoni alla Genovese"}).update({duration: 100})
 .catch(error => {
   console.log(`Couldn\'t update recipe: ${error}`)
 });
+
+
+const deleteRecipe = 
+Recipe.deleteOne({title: "Carrot Cake"})
+.then(recipeFromDb => {
+  console.log(`Recipe was deleted`)
+})
+.catch(error => {
+  console.log(`Couldn\'t delete recipe: ${error}`)
+});
+
+
+/*Promise.all([createRecipe, manyRecipe, updateRecipe, deleteRecipe])
+.then((values) => {
+  //console.log(values);
+}).catch(err => {
+  console.error('Error close connection', err);
+});*/
+
+//mongoose.connection.close()

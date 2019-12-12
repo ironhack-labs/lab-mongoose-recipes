@@ -25,4 +25,10 @@ Recipe.create({
 
 for (i=0; i<data.length; i++){
 Recipe.create(data[i]).then(recipeFromDB =>{console.log(recipeFromDB.title)}).catch(err => {console.log(err)});
-}
+} 
+
+
+Recipe.findOne({title: 'Rigatoni alla Genovese'})
+.then(Recipe.update({duration : 100}))
+.then(recipeFromDB => {console.log(`The duration of "${recipeFromDB.title}" has been updated successfully to "${recipeFromDB.duration}"`)})
+.catch(err => {console.log(`some suspect behavior found: ${err}`)})

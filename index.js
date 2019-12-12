@@ -10,3 +10,7 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+Recipe.create({title: 'Kartoffelsalat', level: 'Amateur Chef', cuisine: 'german'})
+  .then(recipeFromDb => console.log(recipeFromDb.title))
+  .catch(error => console.log('hat nicht geklappt: ${error}'));
+

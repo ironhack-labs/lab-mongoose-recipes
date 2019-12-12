@@ -22,3 +22,7 @@ Recipe.create({
         duration: 20,
         creator: 'Italian Ironman'
 }).then(recipeFromDB =>{console.log(recipeFromDB.title)}).catch(err => {console.log(err)})
+
+for (i=0; i<data.length; i++){
+Recipe.create(data[i]).then(recipeFromDB =>{console.log(recipeFromDB.title)}).catch(err => {console.log(err)});
+}

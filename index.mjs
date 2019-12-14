@@ -24,7 +24,7 @@ async function doTheThing() {
   await createMany()
   await updateOne()
   await deleteOne()
-  // closeDB()
+  await closeDB()
 }
 
 function createOne(){
@@ -51,5 +51,5 @@ function deleteOne() {
 }
 
 function closeDB(){
-  mongoose.connection.close()
+  return mongoose.connection.close()
 }

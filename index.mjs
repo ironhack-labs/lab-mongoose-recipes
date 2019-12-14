@@ -19,16 +19,16 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@da
 
 
 
-function doTheThing() {
-  createOne()
-  createMany()
-  updateOne()
-  deleteOne()
+async function doTheThing() {
+  await createOne()
+  await createMany()
+  await updateOne()
+  await deleteOne()
   // closeDB()
 }
 
-async function createOne(){
-  await Recipe.create({
+function createOne(){
+  return Recipe.create({
     title: 'Buebito con catsun',
     level: 'UltraPro Chef',
     ingredients: ['buebito', 'catsun'],
@@ -40,29 +40,16 @@ async function createOne(){
   })
 }
 
-async function createMany(){
-  try{
-    await Recipe.insertMany(data)
-
-  } catch (error) {
-    console.error(error)
-  }
+function createMany(){
+  return Recipe.insertMany(data)
 }
-async function updateOne(){
-  try{
-    await Recipe.updateOne({title: 'Rigatoni alla Genovese'},{$set: {duration: 100}}).then(elem => {console.log(elem)})
-  } catch (error) {
-    console.error(error)
-  }
+function updateOne(){
+  return Recipe.updateOne({title: 'Rigatoni alla Genovese'},{duration: 100});
 }
-async function deleteOne() {
-  try{
-    await Recipe.deleteOne({title: 'Carrot Cake'})
-  } catch (error) {
-    console.error(error)
-  }
+function deleteOne() {
+  return Recipe.deleteOne({title: 'Carrot Cake'})
 }
 
-async function closeDB(){
-  await mongoose.connection.close()
+function closeDB(){
+  mongoose.connection.close()
 }

@@ -1,5 +1,4 @@
-module.exports =
-    [
+export default [
       {
         title: 'Asian Glazed Chicken Thighs',
         level: 'Amateur Chef',

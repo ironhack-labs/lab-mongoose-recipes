@@ -37,13 +37,25 @@ const addRecipe = data =>{
   
   })
 }
-const editRecipe = (titleReciple, newDuration) =>{
-  Recipe.updateOne({title : titleReciple} , {duration: newDuration})
+const editRecipe = (titleRecipe, newDuration) =>{
+  Recipe.updateOne({title : titleRecipe} , {duration: newDuration})
   .then(recipe => console.log(`Recipe was update sucessfully`))
   .catch(err => console.log(`Error while updating recipe ${err}`));
 }
-//addRecipe(data);
-editRecipe("Rigatoni alla Genovese", 100);
+const deleteRecipe = titleRecipe =>{
+  Recipe.deleteOne({title: titleRecipe})
+  .then(success => console.log(`Recipe was removed successfully`))
+  .catch(err => console.log(`Error while remove recipe ${err}`));
+}
+let promise1 = addRecipe(data);
+let promise2 = editRecipe("Rigatoni alla Genovese", 100);
+let promise3 = deleteRecipe("Carrot Cake");
+Promise.all([promise1, promise2, promise3])
+  .then(sucess =>{
+    console.log("Reces succesfully added, deleted and edited")
+    mongoose.connection.close();
+})
+.catch(err => console.error(err));
  // Connection to the database "recipeApp"
 
 mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })

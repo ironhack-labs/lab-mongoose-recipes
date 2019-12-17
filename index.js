@@ -90,7 +90,17 @@ Recipe.insertMany([{
 //       }
 //         });
 
+//Editar todas las coincidencias del registro
 let query = {creator: 'Le champs'}
+//Recipe.updateOne(query, {duration: 90})   //Edita la primer coincidencia
 Recipe.updateMany(query, {duration: 90})
-.then(dato => { console.log('The data has been UPDATED with next value: ', dato) })
+.then(dato => { console.log('The data has been UPDATED with next results: ', dato) })
 .catch(err => { console.log('An error happened:', err) });
+
+
+//Borrar todas las coincidencias de registro
+let deleteQuery = {creator: 'Chef Ardash'}
+Recipe.deleteMany(deleteQuery)
+.then(dato => { console.log('The data has been DELETED with next results: ', dato) })
+.catch(err => { console.log('An error happened:', err) });
+

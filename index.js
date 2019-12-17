@@ -10,3 +10,15 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+
+Recipe.create(
+  {title: 'Peanut Butter and Jelly Sandwich'},
+  {level: 'Can boil water'},
+  {ingredients: ['1 teaspoon of jelly', '1 teaspoon of peanut butter', '2 pieces of bread']},
+  {cuisine: 'American'},
+  {dishType: 'Sandwich'},
+  {image: 'https://en.wikipedia.org/wiki/Peanut_butter_and_jelly_sandwich#/media/File:Peanut-Butter-Jelly-Sandwich.png'},
+  {duration: 5},
+  {creator: 'Julia Davis Chandler'})
+
+  // Movies.insertMany(arr, function(error, docs) {});

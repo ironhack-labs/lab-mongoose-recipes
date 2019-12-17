@@ -10,7 +10,14 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
-Recipe.create(data[0])
+Recipe.create(
+  {
+    title: 'Lorem ipsum dolor',
+    level: 'Amateur Chef',
+    cuisine: 'Asian',
+    dishType: 'Dish',
+  }
+)
   .then(recipe => console.log(`A new recipe was created: ${recipe.title}`))
   .catch(err => console.log(`An error happend: ${err}`));
 
@@ -21,3 +28,4 @@ Recipe.insertMany(data)
     })
   })
   .catch(err => console.log(`An error happend: ${err}`));
+

@@ -13,3 +13,11 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 Recipe.create(data[0])
   .then(recipe => console.log(`A new recipe was created: ${recipe.title}`))
   .catch(err => console.log(`An error happend: ${err}`));
+
+Recipe.insertMany(data)
+  .then(recipesArr => {
+    recipesArr.forEach(recipe => {
+      console.log(`A new recipe was created: ${recipe.title}`)
+    })
+  })
+  .catch(err => console.log(`An error happend: ${err}`));

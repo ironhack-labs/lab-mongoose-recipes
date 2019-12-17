@@ -88,23 +88,45 @@ it3 = true })
 //         });
 
 //Editar todas las coincidencias del registro
-let query = {creator: 'Le champs'}
+let query = {title: 'Rigatoni alla Genovese'}
 //Recipe.updateOne(query, {duration: 90})   //Edita la primer coincidencia
-Recipe.updateMany(query, {duration: 90})
+Recipe.updateMany(query, {duration: 100})
 .then(dato => { console.log('The data has been UPDATED with next results: ', dato) 
 it4 = true })
 .catch(err => { console.log('An error happened:', err) });
 
 
 //Borrar todas las coincidencias de registro
-let deleteQuery = {creator: 'Chef Ardash'}
+let deleteQuery = {title: 'Carrot Cake'}
 Recipe.deleteMany(deleteQuery)
 .then(dato => { console.log('The data has been DELETED with next results: ', dato) 
 it5 = true })
 .catch(err => { console.log('An error happened:', err) });
 
+//:::ANOTHER WAY TO DO THE SAME WITHOUT MESSAGE TO CONSOLE:::
+// async function doTheThing() {
+//    await createMany()
+//    await updateOne()
+//    await deleteOne()
+//    await closeDB()
+//  }
 
+ 
+// function createMany(){
+//   return Recipe.insertMany(data)
+// }
+// function updateOne(){
+//   return Recipe.updateOne({title: 'Rigatoni alla Genovese'},{duration: 100});
+// }
+// function deleteOne() {
+//   return Recipe.deleteOne({title: 'Carrot Cake'})
+//  }
 
+//  function closeDB(){
+//    mongoose.connection.close()
+//    console.log('DB closed')
+//    return mongoose.connection.close()
+//  } 
 
 
 

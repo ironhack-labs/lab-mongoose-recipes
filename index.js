@@ -37,8 +37,13 @@ const addRecipe = data =>{
   
   })
 }
-
-addRecipe(data);
+const editRecipe = (titleReciple, newDuration) =>{
+  Recipe.updateOne({title : titleReciple} , {duration: newDuration})
+  .then(recipe => console.log(`Recipe was update sucessfully`))
+  .catch(err => console.log(`Error while updating recipe ${err}`));
+}
+//addRecipe(data);
+editRecipe("Rigatoni alla Genovese", 100);
  // Connection to the database "recipeApp"
 
 mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })

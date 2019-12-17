@@ -29,3 +29,8 @@ Recipe.insertMany(data)
   })
   .catch(err => console.log(`An error happend: ${err}`));
 
+  Recipe.updateOne(
+    {title: 'Rigatoni alla Genovese'}, 
+    { duration: 100 })
+  .then(recipe => console.log(`A recipe was updated:`))
+  .catch(err => console.log(`An error happend: ${err}`));

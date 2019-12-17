@@ -15,6 +15,19 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true, socke
     console.error('Error connecting to mongo', err);
   });
 
+  //Close conection when all action finish
+  let off = new Promise((resolve, reject) => {
+    resolve(it2, it3, it4, it5)
+    off.then ((it2, it3, it4, it5) => {
+      mongoose.disconnect()
+      console.log(':::: __ Database Closed ___ ::::')
+      console.log('si: ' + it2,it3,it4,it5)
+    })
+    .catch(err => { console.log('::::: Closing database:', err) 
+      console.log('no: ' + it2,it3,it4,it5)
+    });
+  });
+
 
 // ::::promise Version ::::
 
@@ -32,7 +45,7 @@ it2 = true })
 
 
 Recipe.insertMany(data)
-.then(dato => { console.log('The user is saved with next values: ', dato) 
+.then(dato => { console.log('The recipes have been saved with next values: ', dato) 
 it3 = true })
 .catch(err => { console.log('An error happened:', err) });
  // // :::::promise mix version::::
@@ -93,15 +106,6 @@ it5 = true })
 
 
 
-let off = new Promise((resolve, reject) => {
 
-  off.then (())
-  resolve(it2 == true && it3 == true && it4 == true && it5 == true).then (mongoose.disconnect()) 
-  { 
-    console.log('Database Close')
-    console.log(it2,it3,it4,it5)
-  }
-
-})
 
 

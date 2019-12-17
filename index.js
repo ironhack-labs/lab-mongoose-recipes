@@ -13,22 +13,22 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
   Recipe.insertMany(data)
   .then(recipesArr => {
     recipesArr.forEach(recipe => {
-      console.log(`A new recipe was created: ${recipe.title}`)
+      console.log(`New recipe created: ${recipe.title}`)
     })
   })
-  .catch(err => console.log(`An error happend: ${err}`));
+  .catch(err => console.log(`Error occurred: ${err}`));
 setTimeout(() => {
   Recipe.updateOne(
     {title: 'Rigatoni alla Genovese'}, 
     { duration: 100 })
-  .then(recipe => console.log(`A recipe was updated:`))
-  .catch(err => console.log(`An error happend: ${err}`));
+  .then(recipe => console.log(`Recipe deleted:`))
+  .catch(err => console.log(`Error occurred: ${err}`));
 }, 1500);
   
 setTimeout(() => {
   Recipe.deleteOne({title: 'Carrot Cake'})
-  .then(recipe => console.log(`A recipe was deleted:`))
-  .catch(err => console.log(`An error happend: ${err}`)); 
+  .then(recipe => console.log(`Recipe deleted`))
+  .catch(err => console.log(`Error occurred: ${err}`)); 
 }, 1500);
 
 setTimeout(() => {

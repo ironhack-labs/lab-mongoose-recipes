@@ -43,3 +43,12 @@ setTimeout(() => {
   .then(recipe => console.log(`A recipe was deleted:`))
   .catch(err => console.log(`An error happend: ${err}`));
 }, 1500);
+
+setTimeout(() => {
+mongoose.connection.close()
+  .then(() => {
+    console.log('Mongoose connection disconnected');
+  }).catch(err => {
+    console.error('Error connecting to mongo', err);
+  });
+}, 2000);

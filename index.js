@@ -29,6 +29,10 @@ const newObj = {
 //   .then(e => console.log(e.title))
 //   .catch(error => console.error('Error', error));
 
-Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-  .then((e) => console.log(e.duration))
-  .catch((error) => console.error('Error', error));
+// Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+//   .then((e) => console.log(e.duration))
+//   .catch((error) => console.error('Error', error));
+
+Recipe.deleteOne({ title: 'Carrot Cake' })
+  .then(e => console.log(e))
+  .catch(() => console.error('ERROR'));

@@ -20,6 +20,11 @@ let newObj = {
   creator: 'Unknown',
 };
 
-Recipe.create(newObj)
-  .then(e => console.log(e))
+// Recipe.create(newObj)
+//   .then(e => console.log(e))
+//   .catch(error => console.error('Error', error));
+
+
+Recipe.insertMany(data)
+  .then(e => console.log(e.title))
   .catch(error => console.error('Error', error));

@@ -20,19 +20,26 @@ const newObj = {
   creator: 'Unknown',
 };
 
-// Recipe.create(newObj)
-//   .then(e => console.log(e))
-//   .catch(error => console.error('Error', error));
+const promise1 = Recipe.create(newObj)
+  .then((e) => console.log(e))
+  .catch((error) => console.error('Error', error));
 
+const promise2 = Recipe.insertMany(data)
+  .then((e) => console.log(e.title))
+  .catch((error) => console.error('Error', error));
 
-// Recipe.insertMany(data)
-//   .then(e => console.log(e.title))
-//   .catch(error => console.error('Error', error));
+const promise3 = Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then((e) => console.log(e.duration))
+  .catch((error) => console.error('Error', error));
 
-// Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-//   .then((e) => console.log(e.duration))
-//   .catch((error) => console.error('Error', error));
-
-Recipe.deleteOne({ title: 'Carrot Cake' })
-  .then(e => console.log(e))
+const promise4 = Recipe.deleteOne({ title: 'Carrot Cake' })
+  .then((e) => console.log(e))
   .catch(() => console.error('ERROR'));
+
+Promise.all([promise1, promise2, promise3, promise4])
+  .then((values) => {
+    console.log('all recipes was updated');
+    console.log(recipeApp);
+    mongoose.connection.close();
+  })
+  .catch((err) => console.error(err));

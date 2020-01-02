@@ -37,7 +37,7 @@ let promise3 = Recipe.updateOne({ title: "Rigatoni alla Genovese"}, { duration: 
   .then(successCallback => {console.log('Success!')})
   .catch(errorCallback => {console.log('Failure...')});
 
-let promise4 = Recipe.deleteOne({ name: "Carrot Cake"})
+let promise4 = Recipe.deleteOne({ title: "Carrot Cake"})
   .then(successCallback => {console.log('Success!')})
   .catch(errorCallback => {console.log('Failure...')});
 

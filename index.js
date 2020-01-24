@@ -19,3 +19,8 @@ mongoose.connect('mongodb://localhost/recipeApp', {
   .then(recipe => console.log(recipe))
   .catch(err => console.log(`An error occurred: ${err}`));
 
+  Recipe.insertMany(data)
+  .then(recipe => console.log(recipe))
+  .catch(err => console.log(`An error occured: ${err}`));
+
+

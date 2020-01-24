@@ -11,3 +11,20 @@ mongoose
   .catch(err => {
     console.error('Error connecting to mongo', err);
   });
+
+// Iteration 1 | Recipe Schema - done in Recipe.js
+
+//Iteration 2 | Create a recipe
+Recipe.create({
+  title: 'My first recipe',
+  level: 'Easy Peasy',
+  ingredients: ['Salt', 'onions', 'oil', 'rice', 'water'],
+  cuisine: 'Ash',
+  dishType: 'Breakfast',
+  duration: 5,
+  creator: 'Ashrafzhon',
+})
+  .then(myRecipe => console.log(`Success: ${myRecipe}`))
+  .catch(err => console.log(err.message));
+
+// Iteration 3 | Insert Many recipes

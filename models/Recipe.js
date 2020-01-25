@@ -7,7 +7,7 @@ const recipeSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unqique: true
+    unique: true
   },
   level: {
     type: String,

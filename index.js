@@ -45,13 +45,13 @@ Recipe.create({
   );
 
 
-//ITERTION 3: Insert many recipes
+//ITERATION 3: Insert many recipes
 Recipe.insertMany(data)
   .then(Recipe => console.log(`Title of Recipe: ${Recipe.title}`, Recipe))
   .catch(error => console.log('An error occured while saving your new recipe: ', error))
 
 
-//Iteration 4: Update recipe
+//ITERATION 4: Update recipe
 Recipe.findByIdAndUpdate('5e2c6005af0b8705483814f2', {
     $set: {
       duration: 100
@@ -60,7 +60,7 @@ Recipe.findByIdAndUpdate('5e2c6005af0b8705483814f2', {
   .then(updatedRecipe => console.log('Updated Recipe: ', updatedRecipe))
   .catch(err => console.log('Error while updating the recipe: ', err));
 
-//Iteration 5: Remove a recipe
+//INTERATION 5: Remove a recipe
 Recipe.findByIdAndDelete('5e2c6005af0b8705483814f1')
   .then(deletedRecipe => console.log(`Deleted recipe with id: ${deletedRecipe._id}`))
   .catch(err => console.log('Error while deleting one cat: ', err));

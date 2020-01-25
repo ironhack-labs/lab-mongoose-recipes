@@ -24,8 +24,8 @@ let newRecipe = {
 }
 
 Recipe.create(newRecipe)
-  .then(Recipe => console.log(Recipe.title, 'has been added to the list!')
-  .catch(error => console.log('An error ocurred and the recipe could not be added to the list')));
+  .then(Recipe => console.log(Recipe.title, 'has been added to the list!'))
+  .catch(error => console.log('An error ocurred and the recipe could not be added to the list'));
 
 Recipe.insertMany(data)
   .then(response => data.forEach(recipes => console.log('Recipe title: ', recipes.title)))
@@ -39,9 +39,10 @@ Recipe.deleteMany({title: 'Carrot Cake'})
   .then(response => console.log('Removal successful!'))
   .catch(error => console.log('Removal was not successful.'));
 
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
+setTimeout(() => {
+  mongoose.connection.close()
+  .then(() => {
     console.log('Mongoose default connection disconnected through app termination');
     process.exit(0);
-    });
-});
+  }).catch(err => console.log("the error when closing connection : ", {err})) 
+}, 1000);

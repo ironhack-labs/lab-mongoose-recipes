@@ -10,3 +10,13 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+// Recipe.create({
+//   title: "Pizza",
+//   cuisine: "Fast Food"
+// })
+// .then(newRecipe => console.log(newRecipe.title))
+// .catch(error => console.log(error))
+
+Recipe.insertMany(data)
+.then(someRecipes => console.log(someRecipes))
+.catch(err => console.error(`Failed to insert documents: ${err}`))

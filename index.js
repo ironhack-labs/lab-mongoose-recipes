@@ -10,3 +10,14 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
     console.error('Error connecting to mongo', err);
   });
 
+// ITERATION 2
+
+Recipe.create(Recipe)
+  .then(Recipe => console.log(`The title of this recipe is: ${Recipe.title}`))
+  .catch(error => console.log('Error'));
+
+// ITERATION 3
+
+Recipe.insertMany(Recipe)
+  .then(Recipe => console.log(`The title of this recipe is: ${Recipe.title}`))
+  .catch(error => console.log('Error'));

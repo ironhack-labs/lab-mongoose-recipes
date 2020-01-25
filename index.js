@@ -154,3 +154,4 @@ Recipe.find({})
 //     // handle error
 //     console.log(error);
 //   });
+mongoose.connection.close(() => console.log('Connection closed'));

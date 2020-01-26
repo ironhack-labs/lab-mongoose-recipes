@@ -29,24 +29,32 @@ mongoose.connect('mongodb://localhost/recipeApp', {
   .catch(err => console.log(err));
 
   // Iteration 3 Insert many recipes 
-  Recipe.insertMany(data)
-  .then(recipes => {
-    recipes.forEach(recipe => console.log(recipe.title))
-  })
-  .catch(err => console.log(`An error occured: ${err}`));
+  // Recipe.insertMany(data)
+  // .then(recipes => {
+  //   recipes.forEach(recipe => console.log(recipe.title))
+  // })
+  // .catch(err => console.log(`An error occured: ${err}`));
 
   // Iteration 4 Update recipe
-  Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-  .then(() => console.log(`The duration was successfully updated!`))
-  .catch(err => console.log(`An error occured: ${err}`));
+  // Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  // .then(() => console.log(`The duration was successfully updated!`))
+  // .catch(err => console.log(`An error occured: ${err}`));
 
   // Iteration 5 Remove a recipe
-  Recipe.deleteOne({title: 'Carrot Cake'})
-  .then(recipe => console.log(recipe, 'deleted'))
-  .catch(err => console.log(err));
+  // Recipe.deleteOne({title: 'Carrot Cake'})
+  // .then(recipe => console.log(recipe, 'deleted'))
+  // .catch(err => console.log(err));
 
-  // Iteration 6 Close the database
+  // Iteration 6 Close the connection for database
+mongoose.connection.on('disconnected', () => {
+  console.log(' Connection disconnected!');
+});
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', () => {
   mongoose.connection.close(() => {
-    console.log('Connection closed!');
+    console.log('Connection disconnected through app termination');
+    process.exit(0);
   });
+});
 

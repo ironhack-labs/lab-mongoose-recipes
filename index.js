@@ -17,6 +17,19 @@ mongoose.connect('mongodb://localhost/recipeApp', { useNewUrlParser: true })
 // .then(newRecipe => console.log(newRecipe.title))
 // .catch(error => console.log(error))
 
-Recipe.insertMany(data)
-.then(someRecipes => console.log(someRecipes))
-.catch(err => console.error(`Failed to insert documents: ${err}`))
+// Recipe.insertMany(data)
+// .then(someRecipes => console.log(someRecipes))
+// .catch(err => console.error(`Failed to insert documents: ${err}`))
+
+// Recipe.find({title: 'Carrot Cake'})
+// .then(recipeRigatoni => console.log('The recipe : ', recipeRigatoni))
+// .catch(err => console.log('Error while getting the cats: ', err))
+
+// Recipe.findByIdAndUpdate('5e2e41764b286f504afa065c', { $set: {duration: 100}})
+// .then(() => console.log('The update was success'))
+// .catch(err => console.log('Failed to update'))
+
+Recipe.deleteOne({title: 'Carrot Cake'})
+.then(() => console.log('Remove one Recipe was success'))
+.catch(err => console.log('Failed to remove'))
+

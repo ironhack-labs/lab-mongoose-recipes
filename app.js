@@ -34,6 +34,11 @@ mongoose
     Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100},{new: true})
     .then(response => console.log('Update Success!!'))
     .catch(err=> console.log(err))
+
+    // Iteration 5 - Remove a recipe
+    Recipe.deleteOne({title: 'Carrot Cake'})
+    .then(res => console.log('Success Delete!'))
+    .catch(err => console.log(err))
    })
 
   .catch(err => console.error('Error connecting to mongo', err));

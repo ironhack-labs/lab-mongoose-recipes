@@ -12,7 +12,7 @@ mongoose
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
 
-// Iteration 2
+// Iteration 2 - Create a recipe
 const recipeOne = {
   title: 'Salmorejo',
   level: 'Easy Peasy',
@@ -25,12 +25,17 @@ const recipeOne = {
   created: 01/28/2020
 };
 
-Recipe.create( recipeOne )
-  .then( recipe => console.log('The user is saved and its value is: ', recipe.title) )
-  .catch( err => console.log('An error happened: ', err) );
+//Recipe.create( recipeOne )
+//  .then( recipe => console.log('The user is saved and its value is: ', recipe.title) )
+//  .catch( err => console.log('An error happened: ', err) );
+//
+//
+//// Iteration 3 - Insert multiple recipes
+//Recipe.insertMany( data )
+//    .then( recipes => recipes.map( recipe => console.log( recipe.title )))
+//    .catch( err => console.log('An error happened: ', err) );
 
-
-// Iteration 3
-Recipe.insertMany( data )
-    .then( recipes => recipes.map( recipe => console.log( recipe.title )))
-    .catch( err => console.log('An error happened: ', err) );
+// Iteration 4 - Update recipe
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then( console.log( 'Duration updated'))
+  .catch( err => console.log('An error has ocurred'))

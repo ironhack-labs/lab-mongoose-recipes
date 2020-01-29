@@ -28,8 +28,7 @@ const recipeOne = {
 //Recipe.create( recipeOne )
 //  .then( recipe => console.log('The user is saved and its value is: ', recipe.title) )
 //  .catch( err => console.log('An error happened: ', err) );
-//
-//
+
 //// Iteration 3 - Insert multiple recipes
 //Recipe.insertMany( data )
 //    .then( recipes => recipes.map( recipe => console.log( recipe.title )))
@@ -41,6 +40,15 @@ const recipeOne = {
 //  .catch( err => console.log('An error has ocurred', err))
 
 // Iteration 5 - Remove a recipe
-Recipe.deleteOne({ title: 'Carrot Cake' })
-  .then( console.log('The recipe has been deleted'))
-  .catch( err => console.log('An error has ocurred', err))
+//Recipe.deleteOne({ title: 'Carrot Cake' })
+//  .then( console.log('The recipe has been deleted'))
+//  .catch( err => console.log('An error has ocurred', err))
+
+
+// Iteration 6 - Close the Database
+process.on('SIGINT', function() {
+  mongoose.connection.close( () => {
+    console.log('Mongo Database disconnected through app termination');
+    process.exit(0);
+  });
+});

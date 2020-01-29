@@ -25,24 +25,24 @@ const recipeOne = {
   created: 01/28/2020
 };
 
-//Recipe.create( recipeOne )
-//  .then( recipe => console.log('The user is saved and its value is: ', recipe.title) )
-//  .catch( err => console.log('An error happened: ', err) );
+Recipe.create( recipeOne )
+  .then( recipe => console.log('The user is saved and its value is: ', recipe.title) )
+  .catch( err => console.log('An error happened: ', err) );
 
-//// Iteration 3 - Insert multiple recipes
-//Recipe.insertMany( data )
-//    .then( recipes => recipes.map( recipe => console.log( recipe.title )))
-//    .catch( err => console.log('An error happened: ', err) );
+// Iteration 3 - Insert multiple recipes
+Recipe.insertMany( data )
+    .then( recipes => recipes.map( recipe => console.log( recipe.title )))
+    .catch( err => console.log('An error happened: ', err) );
 
 // Iteration 4 - Update recipe
-//Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-//  .then( console.log( 'Duration updated'))
-//  .catch( err => console.log('An error has ocurred', err))
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then( console.log( 'Duration updated'))
+  .catch( err => console.log('An error has ocurred', err))
 
 // Iteration 5 - Remove a recipe
-//Recipe.deleteOne({ title: 'Carrot Cake' })
-//  .then( console.log('The recipe has been deleted'))
-//  .catch( err => console.log('An error has ocurred', err))
+Recipe.deleteOne({ title: 'Carrot Cake' })
+  .then( console.log('The recipe has been deleted'))
+  .catch( err => console.log('An error has ocurred', err))
 
 
 // Iteration 6 - Close the Database

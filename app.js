@@ -10,7 +10,18 @@ mongoose
     useUnifiedTopology: true
   })
   .then(x => {
-    // Iteration 2
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    // Iteration 2 - Create a recipe
+    Recipe.create({
+      title:'Recipe one',
+      level:'Easy Peasy',
+      ingredients:['cebolla', 'pimiento', 'sal'],
+      cuisine:'cuisine',
+      dishType:'Dish',
+      image:'',
+      duration:'45',
+      creator:'Carlos Dominguez',
+      created:''
+    })
   })
   .catch(err => console.error('Error connecting to mongo', err));

@@ -13,29 +13,43 @@ mongoose
   .catch(err => console.error('Error connecting to mongo', err));
 
 
-let japanCurryRecipe = [
-  {
+let japanCurryRecipe = [{
     title: "Japanese Curry",
     level: "Easy Peasy",
     ingredients: ["Beef", "Water", "Rice", "Curry mix"],
     cuisine: "Japanese",
     dishType: "Dish",
     duration: 30,
-  }
-]
+  }]
 
 
-Recipe.create(japanCurryRecipe, function(error, res){})
-
-Recipe.insertMany(data, function(error, docs){})
-
-Recipe.update({title: "Rigatoni alla Genovese"}, {duration: 100})
-  .then(res => console.log("Success!"))
-  .catch(err => console.log("Failed!"))
 
 
-  Recipe.deleteOne({title: "Carrot Cake"})
-    .then(res => console.log("Carrot Cake deleted!"))
-    .catch(err => console.log("ERROR"))
+Recipe.create(japanCurryRecipe)
+  .then(recipe => {
+    console.log(recipe[0].title)
+    Recipe.insertMany(data)
+      .then(insertedRecipe => {
+        console.log(data.map(element => element.title))
+        Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+          .then(updatedRecipe => {
+            console.log("Success! Duration changed")
+            Recipe.deleteOne({title: "Carrot Cake"})
+              .then(deletedRecipe => {
+                console.log("Carrot Cake deleted!")
+                mongoose.disconnect()
+              })
+              .catch(err => console.log("couldn't delete the recipe"))
+            })
+          .catch(err => console.log("duration failed to change"))
+        })
+      .catch(err => console.log("data not inserted!"))    
+    })
+  .catch(err => console.log("recipe not created!"))
 
-    mongoose.disconnect()
+
+
+
+
+
+

@@ -7,7 +7,8 @@ mongoose
   .connect('mongodb://localhost/recipe-app-dev', {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
@@ -46,7 +47,7 @@ new Promise(function(resolve, reject) {
 
   // Update a specific recipe
   return new Promise((resolve, reject) => {
-    Recipe.update({title : 'Rigatoni alla Genovese'}, { $set: { duration : 100 }})
+    Recipe.updateOne({title : 'Rigatoni alla Genovese'}, { $set: { duration : 100 }})
     .then((recipe) => {
       console.log("Bravo ! Recipe updated successfully !")
       resolve(recipe)

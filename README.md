@@ -27,7 +27,7 @@ We learned how to use Mongoose to create Schemas and then interact with our Mong
 
 ## Instructions
 
-### Iteration 1 - Recipe Schema
+### Iteration 1 - Recipe Schema DONE
 
 Create a `Recipe` model inside the file `/models/Recipe.model.js`. The schema should have the following fields:
 

@@ -11,3 +11,19 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
+
+  const recipeOne = {
+    title: 'Salmorejo',
+    level: 'Easy Peasy',
+    ingredients: ['Tomatoes', 'Bread', 'Garlic', 'Vinegar', 'Olive Oil', 'Salt', 'Eggs', 'Serrano Ham'],
+    cuisine: 'Spanish cuisine',
+    dishType: 'Dish',
+    image: "https://cdn-image.foodandwine.com/sites/default/files/1502722278/salmorejo-XL-RECIPE0917.jpg",
+    duration: 45,
+    creator: 'Erick Sicard',
+    created: 01/28/2020
+  };
+
+  Recipe.create( recipeOne )
+      .then( recipe => console.log('The user is saved and its value is: ', recipe.title) )
+      .catch( err => console.log('An error happened: ', err) );

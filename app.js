@@ -23,5 +23,9 @@ mongoose
       creator:'Carlos Dominguez',
       created:''
     })
-  })
+
+    // Iteration 3 - Insert multiple recipes
+    Recipe.create(data)
+   })
+
   .catch(err => console.error('Error connecting to mongo', err));

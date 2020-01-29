@@ -36,6 +36,11 @@ const recipeOne = {
 //    .catch( err => console.log('An error happened: ', err) );
 
 // Iteration 4 - Update recipe
-Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-  .then( console.log( 'Duration updated'))
-  .catch( err => console.log('An error has ocurred'))
+//Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+//  .then( console.log( 'Duration updated'))
+//  .catch( err => console.log('An error has ocurred', err))
+
+// Iteration 5 - Remove a recipe
+Recipe.deleteOne({ title: 'Carrot Cake' })
+  .then( console.log('The recipe has been deleted'))
+  .catch( err => console.log('An error has ocurred', err))

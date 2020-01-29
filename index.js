@@ -27,7 +27,19 @@ mongoose.connect('mongodb://localhost/recipe-app-dev', {
 
         //Iteration 2
         // Recipe.create(data)
+        //     .then(manyData => manyData.map(recipe => console.log(recipe.title)))
+        //     .catch(err => console.log(err));
+
+        //Iteration 3
+        // Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true })
+        //     .then(manyData => console.log(manyData))
+        //     .catch(err => console.log(err))
+
+        //Iteration 4
+        // Recipe.deleteOne({ tittle: 'Carrot Cake' }, { new: true })
         //     .then(manyData => console.log(manyData))
         //     .catch(err => console.log(err));
     })
     .catch(err => console.error('Error connecting to mongo', err));
+
+mongoose.connection.close();

@@ -30,24 +30,24 @@ mongoose
     
 //iteracion 2
   let create = await Recipe.create(myRecipe)
-  .then(myRecipe => console.log(myRecipe.title))
-  .catch(err => console.log(err))
+  //.then(myRecipe => console.log(myRecipe.title))
+  //.catch(err => console.log(err))
 
 //iteracion 3
   let insert = await Recipe.insertMany(data)
-  Recipe.find({},{title:1})
+  Recipe.find({},{title:1, _id:0})
   .then(recipes => recipes.forEach( recipe => console.log(recipe.title)))
-  .catch(err => console.log(err))
+  //.catch(err => console.log(err))
 
 //iteracion 4
 let update = await Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100}, {new: true})
-.then( response => console.log('Update completed'))
-.catch( err => console.log(err))
+//.then( response => console.log('Update completed'))
+//.catch( err => console.log(err))
 
 //iteracion 5
 let deleted = await Recipe.deleteOne({title: 'Carrot Cake'})
-.then(res => console.log('Carrot cake Deleted'))
-.catch(err => console.log(err))
+//.then(res => console.log('Carrot cake deleted'))
+//.catch(err => console.log(err))
 
 //iteracion 6
 let closed = await mongoose.connection.close()

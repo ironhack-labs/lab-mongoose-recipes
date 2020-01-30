@@ -9,5 +9,33 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
+  .then(async x => {
+
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+
+    const recipe = {
+      title: 'Enchiladas',
+      level: 'Amateur Chef',
+      ingredients: ['chicken', 'tortillas', 'tomatoes', 'onion', 'garlic', 'cheese', 'cream'],
+      cuisine: 'Mexican',
+      dishType: 'Dish',
+      duration: 45,
+      creator: 'Mom'
+    }
+
+    const firstRecipe = await Recipe.create(recipe)
+    console.log(firstRecipe.title)
+
+    const many = await Recipe.create(data)
+    many.forEach(element => console.log(element.title))
+
+    const updateRecipe = await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
+    console.log(updateRecipe, '⬆️ ...RECIPE UPDATED...')
+
+    const deleteRecipe = await Recipe.deleteOne({title: "Carrot Cake"})
+    console.log(deleteRecipe, '⛔️ ...RECIPE DELETED...')
+
+    mongoose.connection.close()
+
+  })
   .catch(err => console.error('Error connecting to mongo', err));

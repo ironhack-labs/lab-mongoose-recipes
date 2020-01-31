@@ -23,24 +23,36 @@ const userSpecs = {
 }
 
 Recipe.create(userSpecs)
-  .then(newUser => console.log('1 - CREATE PROMISE The user is saved and its value is: ', newUser))
+  .then(newUser => {
+    console.log('1 - CREATE PROMISE The user is saved and its value is: ', newUser)
+    Recipe.insertMany(data)
+      .then(savedData => {
+        console.log(' 2 - INSERT PROMISE The user is saved and its value is: ', savedData)
+        Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+          .then(success => {
+            console.log("3 - UPDATE PROMISE we did it")
+            Recipe.deleteOne({ title: "Carrot Cake" })
+              .then(success => {
+                console.log("4 - DELETE PROMISE succes")
+                mongoose.connection.close().then(() => {
+                  console.log(" 5 - CLOSE PROMISE closing db");
+                }).catch(err => console.log("SERVER STILL OPEN"))
+              }
+              )
+              .catch(err => console.log("Couldnt delete for some reason"))
+          })
+          .catch(err => console.log(err)
+          )
+      })
+      .catch(savedData => console.log("Couldnt create user: ", savedData))
+  })
   .catch(newUser => console.log("Couldnt create user: ", newUser))
 
-Recipe.insertMany(data)
-  .then(savedData => console.log(' 2 - INSERT PROMISE The user is saved and its value is: ', savedData))
-  .catch(savedData => console.log("Couldnt create user: ", savedData))
 
 
-Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
-  .then(success => console.log("3 - UPDATE PROMISE we did it"))
-  .catch(err => console.log(err)
-  )
-
-Recipe.deleteOne({ title: "Carrot Cake" })
-  .then(success => console.log("4 - DELETE PROMISE succes"))
-  .catch(err => console.log("Couldnt delete for some reason"))
 
 
-mongoose.connection.close().then(() => {
-  console.log(" 5 - CLOSE PROMISE closing db");
-}).catch(err => console.log("SERVER STILL OPEN"))
+
+
+
+

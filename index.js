@@ -23,28 +23,29 @@ Recipe.create({
   image: "https://images.media-allrecipes.com/images/75131.jpg",
   duration: 30
 })
-  .then(createdRecipe => console.log(createdRecipe))
-  .catch(err => console.log(err));
+  .then(createdRecipe => {
+    console.log(createdRecipe.title);
+    Recipe.insertMany(data)
+      .then(recipes => {
+        console.log(recipes.map(recipe => recipe.title));
 
-Recipe.insertMany(data)
-  .then(recipes => {
-    console.log(recipes.map(recipe => recipe.title));
-
-    Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-      .then(info => {
-        console.log("Updated: ", info);
-
-        Recipe.deleteOne({ title: "Carrot Cake" })
+        Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
           .then(info => {
-            console.log("Deleted: ", info);
-            mongoose.connection.close();
+            console.log("Updated: ", info);
+
+            Recipe.deleteOne({ title: "Carrot Cake" })
+              .then(info => {
+                console.log("Deleted: ", info);
+                mongoose.connection.close();
+              })
+              .catch(err => {
+                console.log(err);
+              });
           })
           .catch(err => {
             console.log(err);
           });
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   })
   .catch(err => console.log(err));

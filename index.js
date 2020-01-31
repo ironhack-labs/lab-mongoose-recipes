@@ -13,39 +13,38 @@ mongoose
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   )
   .catch(err => console.error("Error connecting to mongo", err));
-function db() {
-  Recipe.create({
-    title: "Pizza",
-    level: "Easy Peasy",
-    ingredients: ["flour", "yeast", "tomato sauce", "cheese"],
-    cuisine: "Italian",
-    dishType: "Dish",
-    image: "https://images.media-allrecipes.com/images/75131.jpg",
-    duration: 30
+
+Recipe.create({
+  title: "Pizza",
+  level: "Easy Peasy",
+  ingredients: ["flour", "yeast", "tomato sauce", "cheese"],
+  cuisine: "Italian",
+  dishType: "Dish",
+  image: "https://images.media-allrecipes.com/images/75131.jpg",
+  duration: 30
+})
+  .then(createdRecipe => console.log(createdRecipe))
+  .catch(err => console.log(err));
+
+Recipe.insertMany(data)
+  .then(recipes => {
+    console.log(recipes.map(recipe => recipe.title));
+
+    Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+      .then(info => {
+        console.log("Updated: ", info);
+
+        Recipe.deleteOne({ title: "Carrot Cake" })
+          .then(info => {
+            console.log("Deleted: ", info);
+            mongoose.connection.close();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   })
-    .then(createdRecipe => console.log(createdRecipe))
-    .catch(err => console.log(err));
-
-  Recipe.insertMany(data);
-}
-
-Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-  .then(() => {
-    console.log("Updated!");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-Recipe.deleteOne({ title: "Carrot Cake" })
-  .then(() => {
-    console.log("Deleted!");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-setTimeout(() => {
-  console.log("Closing the connection");
-  mongoose.connection.close();
-}, 5000);
+  .catch(err => console.log(err));

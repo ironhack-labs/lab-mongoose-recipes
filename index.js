@@ -14,38 +14,83 @@ mongoose
   )
   .catch(err => console.error("Error connecting to mongo", err));
 
-Recipe.deleteMany(data)
-  .then(result => {
-    console.log(result + "db closed");
-  })
-  .catch(error => {
-    console.log(error);
-  });
+Recipe.collection.drop(); // drops the collection attached to the `Recipe` model
 
-Recipe.create({ title: "testrecipe", cuisine: "testcuisine" })
-  .then(createdUser => {
-    console.log(createdUser);
+/* Example for Callback Hell */
+// Recipe.create({
+//   title: "Tacos",
+//   level: "Easy Peasy",
+//   cuisine: "Mexican",
+//   dishType: "Snack",
+//   creator: "Johnny"
+// })
+// .then(recipe => {
+//   console.log(recipe.title);
+// });
+// Recipe.insertMany(data)
+//   .then(recipes => {
+//     console.log(recipes.map(recipe => recipe.title));
+
+//     Recipe.updateOne(
+//       { title: "Rigatoni alla Genovese" },
+//       { duration: 100 }
+//     ).then(info => {
+//       console.log("Update was a succes", info);
+//     });
+
+//     Recipe.deleteOne({ title: "Carrot Cake" })
+//       .then(info => {
+//         mongoose.connection.close();
+//         console.log(info, "The delete was a succes");
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//   })
+
+//   .catch(err => {
+//     console.log(err);
+//   })
+
+//   .catch(err => {
+//     console.log(err);
+//   })
+
+//   .catch(err => {
+//     console.log(err);
+//   });
+/* ------------------------ */
+
+Recipe.create({
+  title: "Tacos",
+  level: "Easy Peasy",
+  cuisine: "Mexican",
+  dishType: "Snack",
+  creator: "Johnny"
+})
+  .then(recipe => {
+    console.log(recipe.title);
+    return Recipe.insertMany(data).catch(err => {
+      console.log("Error for insertMany: ", err);
+    });
+  })
+  .then(recipes => {
+    console.log(recipes.map(recipe => recipe.title));
+    return Recipe.updateOne(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    );
+  })
+  .then(info => {
+    console.log("Updated: ", info);
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(info => {
+    console.log("Deleted: ", info);
+    mongoose.connection.close(() => {
+      console.log("Connection closed");
+    });
   })
   .catch(err => {
     console.log(err);
   });
-
-Recipe.insertMany(data, (error, user) => {
-  if (error) {
-    console.log(error);
-    return;
-  }
-  console.log("all good in the hood", data);
-});
-
-Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-  .then(result => {
-    console.log("Update was a succes" + result);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-Recipe.deleteOne({ title: "Carrot Cake" }).then(result => {
-  console.log(result + "The delete was a succes");
-});

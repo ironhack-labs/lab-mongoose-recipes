@@ -51,3 +51,8 @@ module.exports =
         creator: 'Chef Jennifer'
       }
     ];
+
+const Recipe = require('./models/Recipe.model');
+const mongoose = require('mongoose');
+
+

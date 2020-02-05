@@ -10,4 +10,38 @@ mongoose
     useUnifiedTopology: true
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
+return Recipe.deleteMany()
+  .catch(err => console.error('Error connecting to mongo', err))
+
+
+  // Iteration 2
+
+  .then(() => {
+    let recipe1 = {
+      title: 'Prueba',
+      level: 'Easy Peasy',
+      ingredients: '[cocacola, cafe]',
+      cuisine: 'Spanish',
+      dishType: 'Dish',
+      image: '',
+      duration: 20,
+      creator: 'Luciano'
+    }
+    Recipe.create(recipe1)
+      .then((recipeCreated => console.log("Recipe created successfully")))
+      .catch(err => console.log(err))
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: 'Carrot Cake' })
+  })
+  .then(() => {
+    mongoose.connection.close(function () {
+      console.log('Mongoose default connection closed');
+    });
+  })

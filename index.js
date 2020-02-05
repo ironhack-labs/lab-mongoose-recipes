@@ -12,7 +12,7 @@ mongoose
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
 
-Recipe.create({
+return Recipe.create({
   title: 'Fried egg',
   level: 'UltraPro Chef',
   ingredients: ["1 or two eggs", "oil", "A little of magic"],
@@ -25,15 +25,27 @@ Recipe.create({
   console.log(recipeCreated.title);
 }))
 
-Recipe.insertMany(data).then(
-  recipesCreated => recipesCreated.forEach(recipe => console.log(recipe.title)
+.then(()=> {
+
+return Recipe.insertMany(data)
+
+.then(
+ 
+recipesCreated => recipesCreated.forEach(recipe => console.log(recipe.title)
+
 ))
 
-Recipe.findByIdAndUpdate("5e3b0a4d34c7378c459ede1c", {
-  duration: 100}).then(console.log("Your Recipe is updated"))
+})
 
-Recipe.findByIdAndDelete("5e3b0a4d34c7378c459ede1b").then(console.log("OUUUUUH MAMA"))
+.then(() => {
+  return Recipe.findByIdAndUpdate("5e3b0a4d34c7378c459ede1c", {
+    duration: 100}).then(console.log("Your Recipe is updated"))
+}) 
 
+.then(() => {
+  return Recipe.findByIdAndDelete("5e3b0a4d34c7378c459ede1b").then(console.log("OUUUUUH MAMA"))
+
+})  
 
 .then(()=> {
   return mongoose.connection.close()

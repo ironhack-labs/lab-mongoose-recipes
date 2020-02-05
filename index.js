@@ -27,7 +27,6 @@ mongoose
   .then(deleteInfo => console.log('Se ha eliminado con éxito:', deleteInfo))
   .then(x => mongoose.connection.close())
   .catch(error => console.log(`Se produjo un error ${error}`))
-  .catch(err => console.error('Error connecting to mongo', err));
 
 
 

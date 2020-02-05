@@ -9,5 +9,34 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
+
+
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
+Recipe.collection.drop()
+  .then(x => Recipe.create({
+    title: 'Macarrones con tomate',
+    level: "UltraPro Chef",
+    ingredients: ["Macarrones", "Tomate"],
+    cuisine: "Italiana",
+    dishType: "Dish",
+    duration: 20,
+    creator: "GLledo & LAPP",
+
+  }))
+  .then(theNewRecipe => console.log(`La nueva receta es ${theNewRecipe.title}`, theNewRecipe))
+  .then(() => Recipe.insertMany(data))
+  .then(Recipe.find())
+  .then(allRecipes => allRecipes.forEach(elm => console.log(`Los titulos son ${elm.title}`)))
+  .then(() => Recipe.updateOne({
+    title: "Rigatoni alla Genovese"
+  }, {
+    duration: 100
+  }))
+  .then(x => console.log(`Se ha actualizado la duracion`))
+  .then(() => Recipe.deleteOne({
+    title: "Carrot Cake"
+  }))
+  .then(x => console.log(`Se ha borrado`))
+  .then(() => mongoose.connection.close())
+  .then(() => console.log(`Se ha cerrado la conexion`))
+  .catch(error => console.log(`Se produjo un error: ${error}`))

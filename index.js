@@ -34,4 +34,18 @@ Recipe.create(recipeDessert115)
     console.log(err);
   });
   
-  console.log(recipeDessert115);
+Recipe.insertMany(data)
+.then(result => {
+  console.log('Inserted documents', result.length)
+})
+.catch(err => {
+  console.log(err);
+});
+
+Recipe.updateOne({ title: 'Alice' }, { duration: '100' })
+  .then(result => {
+    console.log("The information has been updated.");
+  })
+  .catch(err => {
+    console.log(err);
+  });

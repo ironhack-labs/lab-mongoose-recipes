@@ -14,12 +14,19 @@ mongoose
 
 
 //Insert multiples recipes in the DB
-Recipe.insertMany(data)
-  .then(result => {
-    result.forEach(recipe => {
-      console.log("Recipe created. Title:", recipe.title);
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// Recipe.insertMany(data)
+//   .then(result => {
+//     result.forEach(recipe => {
+//       console.log("Recipe created. Title:", recipe.title);
+//     });
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+
+//Delete Carrot Cake recipe
+let recipeToDelete = "Carrot Cake";
+
+Recipe.deleteOne({title: recipeToDelete})
+  .then(() => console.log("Recipe deleted."))
+  .catch(err => console.log(err));

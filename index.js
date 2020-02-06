@@ -23,9 +23,18 @@ const testRecipe = {
   creator: 'Chef LePapu'
 }
 
+// insert one
 Recipe.create(testRecipe)
 .then((result) => {
   console.log(result.name, " was created")
 }).catch((err) => {
   console.log("Error occured: ", err)
 });
+
+// insert many
+Recipe.insertMany(data)
+.then((result) => {
+  result.forEach((receipe) => console.log(receip.name))
+}).catch((err) => {
+  console.log("Error occured: ", err)
+})

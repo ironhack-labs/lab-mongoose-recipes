@@ -14,28 +14,28 @@ mongoose
 
 
 //Insert multiples recipes in the DB
-// Recipe.insertMany(data)
-//   .then(result => {
-//     result.forEach(recipe => {
-//       console.log("Recipe created. Title:", recipe.title);
-//     });
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
+Recipe.insertMany(data)
+  .then(result => {
+    result.forEach(recipe => {
+      console.log("Recipe created. Title:", recipe.title);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 //Update Rigatoni alla Genovese
-// Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
-//   .then(() => console.log("Recipe updated."))
-//   .catch(err => console.log(err));
+Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+  .then(() => console.log("Recipe updated."))
+  .catch(err => console.log(err));
 
 
 //Delete Carrot Cake recipe
-// let recipeToDelete = "Carrot Cake";
+let recipeToDelete = "Carrot Cake";
 
-// Recipe.deleteOne({title: recipeToDelete})
-//   .then(() => console.log("Recipe deleted."))
-//   .catch(err => console.log(err));
+Recipe.deleteOne({title: recipeToDelete})
+  .then(() => console.log("Recipe deleted."))
+  .catch(err => console.log(err));
 
-
+//Close the connection to the database
 mongoose.connection.close(() => console.log("Connection closed."));

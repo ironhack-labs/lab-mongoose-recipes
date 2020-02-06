@@ -24,17 +24,38 @@ const testRecipe = {
 }
 
 // insert one
-Recipe.create(testRecipe)
-.then((result) => {
-  console.log(result.name, " was created")
-}).catch((err) => {
-  console.log("Error occured: ", err)
-});
+// Recipe.create(testRecipe)
+// .then((result) => {
+//   console.log(result.name, " was created")
+// }).catch((err) => {
+//   console.log("Error occured: ", err)
+// });
 
 // insert many
-Recipe.insertMany(data)
-.then((result) => {
-  result.forEach((receipe) => console.log(receip.name))
-}).catch((err) => {
-  console.log("Error occured: ", err)
-})
+// Recipe.insertMany(data)
+// .then((result) => {
+//   result.forEach((receipe) => console.log(receip.name))
+// }).catch((err) => {
+//   console.log("Error occured: ", err)
+// })
+
+//update  pasta
+
+// const newDuration = 100;
+// const searchTerm = "Rigatoni alla Genovese";
+
+// Recipe.findOneAndUpdate({ title: searchTerm }, { $set: { duration:  newDuration } })
+//   .then((result) => console.log('Success!', result))
+//   .catch(err => console.log(err));
+
+  //delete carottzzz!
+
+  Recipe.deleteOne({ title: "Carrot Cake" })
+  .then((result) => console.log('Success!', result.title, " was deleted"))
+  .catch(err => console.log(err));
+
+  mongoose.connection.close();
+
+
+
+  

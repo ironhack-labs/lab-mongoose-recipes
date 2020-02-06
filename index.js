@@ -60,5 +60,8 @@ Recipe.insertMany(data)
   Recipe.deleteOne({title: 'Carrot Cake'})
     .then((result) =>
       console.log('Recipe successfuly deleted', result.deletedCount))
+      mongoose.connection.close()
     .catch(err =>
       console.log(err));
+
+//close the database

@@ -25,9 +25,9 @@ mongoose
 //   });
 
 //Update Rigatoni alla Genovese
-Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
-  .then(() => console.log("Recipe updated."))
-  .catch(err => console.log(err));
+// Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+//   .then(() => console.log("Recipe updated."))
+//   .catch(err => console.log(err));
 
 
 //Delete Carrot Cake recipe
@@ -36,3 +36,6 @@ Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
 // Recipe.deleteOne({title: recipeToDelete})
 //   .then(() => console.log("Recipe deleted."))
 //   .catch(err => console.log(err));
+
+
+mongoose.connection.close(() => console.log("Connection closed."));

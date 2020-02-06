@@ -42,10 +42,18 @@ Recipe.insertMany(data)
   console.log(err);
 });
 
-Recipe.updateOne({ title: 'Alice' }, { duration: '100' })
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: '100' })
   .then(result => {
     console.log("The information has been updated.");
   })
   .catch(err => {
     console.log(err);
   });
+
+Recipe.deleteOne({ title: 'Carrot Cake'})
+  .then(result => {
+      console.log("The data has been deleted.");
+    })
+    .catch(err => {
+      console.log(err);
+    });

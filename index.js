@@ -24,9 +24,15 @@ mongoose
 //     console.log(err);
 //   });
 
-//Delete Carrot Cake recipe
-let recipeToDelete = "Carrot Cake";
-
-Recipe.deleteOne({title: recipeToDelete})
-  .then(() => console.log("Recipe deleted."))
+//Update Rigatoni alla Genovese
+Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+  .then(() => console.log("Recipe updated."))
   .catch(err => console.log(err));
+
+
+//Delete Carrot Cake recipe
+// let recipeToDelete = "Carrot Cake";
+
+// Recipe.deleteOne({title: recipeToDelete})
+//   .then(() => console.log("Recipe deleted."))
+//   .catch(err => console.log(err));

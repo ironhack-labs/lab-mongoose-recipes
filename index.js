@@ -13,29 +13,42 @@ mongoose
   .catch(err => console.error('Error connecting to mongo', err));
 
 
+//Create one recipe
+const newRecipe = {
+  title: 'Pizza Margarita',
+  level: 'Amateur Chef',
+  ingredients: ['dough pizza', 'tomato sauce', 'mozzarella cheese'],
+  cuisine: 'Italian',
+  dishType: 'Dish',
+  image: 'https://placeralplato.com/files/2015/06/pizza-Margarita.jpg',
+  duration: 30,
+  creator: 'Sara'
+};
+
+Recipe.create(newRecipe)
+  .then(result => {
+    console.log("Recipe created.");
+  })
+  .catch(err => {
+    console.log(err);
+  })
+
 //Insert multiples recipes in the DB
 Recipe.insertMany(data)
-  .then(result => {
-    result.forEach(recipe => {
-      console.log("Recipe created. Title:", recipe.title);
-    });
+  .then(createdRecipesArr => {
+    //Update a recipe
+    const promise = Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100});
+    return promise;
+  })
+  .then((updatedRecipe) => {
+    //Delete a recipe
+    const deletePromise = Recipe.deleteOne({title: "Carrot Cake"});
+    return deletePromise;
+  })
+  .then(deletedRecipe => {
+    //Close the connection to DB
+    mongoose.connection.close(() => console.log("Connection closed."));
   })
   .catch(err => {
     console.log(err);
   });
-
-//Update Rigatoni alla Genovese
-Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
-  .then(() => console.log("Recipe updated."))
-  .catch(err => console.log(err));
-
-
-//Delete Carrot Cake recipe
-let recipeToDelete = "Carrot Cake";
-
-Recipe.deleteOne({title: recipeToDelete})
-  .then(() => console.log("Recipe deleted."))
-  .catch(err => console.log(err));
-
-//Close the connection to the database
-mongoose.connection.close(() => console.log("Connection closed."));

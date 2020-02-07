@@ -34,7 +34,7 @@ let recipe1 = {
 };
 //iteration 2
 
-Recipe.create(recipe1)
+const promise1 = Recipe.create(recipe1)
   .then(result => {
     console.log("New recipe", result.title);
   })
@@ -43,9 +43,11 @@ Recipe.create(recipe1)
   });
 
 //iteration 3
-Recipe.insertMany(data)
+const promise2 = Recipe.insertMany(data)
   .then(result => {
-    console.log("New recipe", result.length);
+    result.forEach(recipe => {
+      console.log(recipe.title);
+    });
   })
   .catch(err => {
     console.log(err);
@@ -53,7 +55,7 @@ Recipe.insertMany(data)
 
 //iteration 4
 
-Recipe.findOneAndUpdate(
+const promise3 = Recipe.findOneAndUpdate(
   { title: "Rigatoni alla Genovese" },
   { $set: { duration: 100 } },
   { new: true } // thanks Uros
@@ -66,7 +68,11 @@ Recipe.findOneAndUpdate(
   });
 
 //iteration 5
-Recipe.deleteOne({ title: `Carrot Cake` }).then(result =>
-  console.log(`Recipe successfuly deleted`, result.deletedCount)
-);
-mongoose.connection.close().catch(err => console.log(err));
+const promise4 = Recipe.deleteOne({ title: `Carrot Cake` })
+  .then(result => {
+    console.log(`Recipe successfuly deleted`, result.deletedCount);
+  })
+  .catch(err => console.log(err));
+
+Promise.all([promise1, promise2, promise3, promise4]);
+mongoose.connection.close();

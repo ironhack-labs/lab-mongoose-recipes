@@ -58,4 +58,4 @@ mongoose
   })
 
 //Close the database connection
-//mongoose.connection.close();
+mongoose.connection.close();

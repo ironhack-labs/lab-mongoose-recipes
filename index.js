@@ -57,3 +57,6 @@ Recipe.deleteOne({ title: 'Carrot Cake'})
     .catch(err => {
       console.log(err);
     });
+
+  // After last .then in the sequence, add mongoose.connection.close();
+  // the last .catch(err => ) etc. still has to be there, on the last line.

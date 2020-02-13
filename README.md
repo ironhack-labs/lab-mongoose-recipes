@@ -31,25 +31,29 @@ We've learned how to use Mongoose to create Schemas and then interact with our M
 
 Create a `Recipe` model inside of the file `/models/Recipe.js`. The schema should have the following fields:
 
-- **title**. Type `String`. It should be required and unique.
-- **level**. Type `String`. Can be one of the following values: _Easy Peasy_ - _Amateur Chef_ - _UltraPro Chef_ (remember the ENUM :wink:)
-- **ingredients**. Type `Array`.
-- **cuisine**. Type `String`. Should be required.
-- **dishType**. Type `String`. Possible values: _Breakfast_ - _Dish_ - _Snack_ - _Drink_ - _Dessert_ - _Other_.
-- **image**. Type `String`. Default value: _"https://images.media-allrecipes.com/images/75131.jpg"_.
-- **duration**. Type `Number`. The minimum value should be 0.
-- **creator**. Type `String`
-- **created**. Type `Date`. By default today.
+- **title** - Type `String`. It should be required and unique.
+- **level** - Type `String`. Can be one of the following values: _Easy Peasy_ - _Amateur Chef_ - _UltraPro Chef_ (remember the `enum` validator :wink:).
+- **ingredients** - Type `Array`.
+- **cuisine** - Type `String`. Should be required.
+- **dishType** - Type `String`. Possible values: _Breakfast_ - _Dish_ - _Snack_ - _Drink_ - _Dessert_ - _Other_.
+- **image** - Type `String`. Default value: _"https://images.media-allrecipes.com/images/75131.jpg"_.
+- **duration** - Type `Number`. The minimum value should be 0.
+- **creator** - Type `String`.
+- **created** - Type `Date`. By default, today.
 
 ### Iteration 2 - Create a recipe
 
-In `index.js`, you should add a new recipe to the database by calling the [`Model.create`](https://mongoosejs.com/docs/api.html#model_Model.create) static, passing it the recipe details as an object. After the creation, you can use MongoDB Compass to double check that everything is working as intended. After inserting the recipe, you should `console.log` the `title` of the recipe.
+In `index.js`, you should add a new recipe to the database by calling the [`Model.create`](https://mongoosejs.com/docs/api.html#model_Model.create) static, passing it the recipe details as an object. After you have created the document, you can use MongoDB Compass to double check that everything is working as intended. After inserting the recipe, you should `console.log` the `title` of the recipe.
 
-**To run your code, remember you should use `$ node index.js`.**
+**To run your code, remember you should use:**
 
-### Iteration 3 - Insert Many recipes
+```shell
+$ node index.js
+```
 
-Form the `data.js` file we are importing an array of recipes. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) static, you should add the entire array to the database. After inserting the elements, print on the console the title of each recipe.
+### Iteration 3 - Insert multiple recipes
+
+We are importing an array of recipes form the `data.json` file. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) static, you should add the entire array to the database. After inserting the documents, print the title of each recipe to the console.
 
 ### Iteration 4 - Update recipe
 
@@ -61,6 +65,6 @@ Oh oh! The `Carrot Cake` is no longer available, so we need to remove it from th
 
 ### Iteration 6 - Close the Database
 
-After completing every task, you should close the database. Otherwise, the connection will stay open until the node.js process dies. Pay attention to the asynchronicity of the operation; you should only close the connection after everything is done! :wink:
+After completing every task, you need to close the database. Otherwise, the connection will stay open until the node.js process dies. Pay attention to the asynchronicity of the operation; you should only close the connection after everything is done! :wink:
 
 Happy coding! 💙

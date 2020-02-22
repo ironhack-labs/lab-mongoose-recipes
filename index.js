@@ -10,8 +10,20 @@ mongoose
     useUnifiedTopology: true
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
+  .then(()=> {
+    //console.log("a")
+    return Recipe.create(data[0])
+  }) 
+  .then((recipe) => {
+    console.log("The recipe is saved and it's value is:", recipe.title)
+  })
+  .then(() => {
+    //console.log("b")
+    return Recipe.insertMany(data)
+  })
+  .then((recipe) => {
+    console.log(recipe)
+    //console.log("c")
+  })
   .catch(err => console.error('Error connecting to mongo', err));
 
-Recipe.create(data[0])
-.then(recipe => console.log("The recipe is saved and it's value is:", recipe.title))
-.catch( error => console.log('An error happened while saving a new user:', error));

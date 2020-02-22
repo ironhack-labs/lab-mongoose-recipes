@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe'); // Import of the model Recipe from './models/Recipe'
+const Chef = require('./models/Chef');
 const data = require('./data.js'); // Import of the data from './data.js'
 
 // Connection to the database "recipeApp"
@@ -12,7 +13,18 @@ mongoose.connect('mongodb://localhost/recipeApp', {
     console.error('Error connecting to mongo', err);
   });
 
-let newRecipe = new Schema({
+let newChef = new Chef({
+  name: 'Michaela',
+  sex: 'female',
+  age: 36
+});
+
+Chef.create(newChef)
+  .then((Chef) => console.log(Chef.name, "has been created."))
+  .catch(console.log("Error, chef couldn't be added to the list."));
+
+
+let newRecipe = new Recipe({
   title: 'Goulash',
   level: 'UltraPro Chef',
   ingredients: ['3 1/2 pounds boneless beef, cut into small pieces', '1 tablespoon freshly ground black pepper', '1 tablespoon kosher salt, or more to taste', '2 tablespoons vegetable oil', '2 teaspoons ground cumin', '1/4 teaspoon cayenne pepper'],

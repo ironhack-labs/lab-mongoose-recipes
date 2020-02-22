@@ -10,7 +10,7 @@ const recipeSchema = new Schema({
   dishType: String,
   image: {type: String, default: "https://images.media-allrecipes.com/images/75131.jpg."},
   duration: Number,
-  creator: Date.now
+  creator: String
 });
 
 

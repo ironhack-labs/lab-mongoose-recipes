@@ -11,3 +11,7 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
+
+Recipe.create(data[0])
+.then(recipe => console.log("The recipe is saved and it's value is:", recipe))
+.catch( error => console.log('An error happened while saving a new user:', error));

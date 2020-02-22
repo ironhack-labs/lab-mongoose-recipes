@@ -11,19 +11,33 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .then(()=> {
-    //console.log("a")
     return Recipe.create(data[0])
   }) 
   .then((recipe) => {
     console.log("The recipe is saved and it's value is:", recipe.title)
   })
   .then(() => {
-    //console.log("b")
     return Recipe.insertMany(data)
   })
-  .then((recipe) => {
-    console.log(recipe)
-    //console.log("c")
+  .then((recipes) => {
+    recipes.forEach( recipe => console.log(recipe.title));
   })
-  .catch(err => console.error('Error connecting to mongo', err));
+  .then(() => {
+    Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration:"100"})
+  })
+  .then(() => {
+    console.log("Duration updated")
+  })
+  .then(() => {
+    Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(() => {
+    console.log("Carrot Cake removed")
+  })
+  .catch(err => {
+    console.error('Error connecting to mongo', err)
+  })
+  .finally(() => {
+    mongoose.connection.close();
+  });
 

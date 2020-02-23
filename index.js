@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
-const Recipe = require("./models/Recipe.model"); // Import of the model Recipe from './models/Recipe.model.js'
-const data = require("./data.js"); // Import of the data from './data.js'
+const Recipe = require("./models/Recipe.model");
+const data = require("./data.js");
+const myReceipt = {
+  title: "Menorquinamente",
+  level: "Amateur Chef",
+  ingredients: ["1/2 sobrassada"],
+  cuisine: "Mediterranean",
+  dishType: "Dish",
+  image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+  duration: 10,
+  creator: "Marc Serra"
+};
 
 mongoose
   .connect("mongodb://localhost/recipe-app-dev", {
@@ -9,43 +19,32 @@ mongoose
     useUnifiedTopology: true
   })
   .then(x => {
-    console.log(
-      `Connected to Mongo! Database name: "${x.connections[0].name}". Inserting one receipt...`
-    );
-    const myReceipt = {
-      title: "Menorquinamente",
-      level: "Amateur Chef",
-      ingredients: ["1/2 sobrassada"],
-      cuisine: "Mediterranean",
-      dishType: "Dish",
-      image:
-        "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-      duration: 10,
-      creator: "Marc Serra"
-    };
+    console.log(`Connected: "${x.connections[0].name}". Inserting one...`);
     return Recipe.create(myReceipt);
   })
   .then(recipe => {
-    console.log(`Insert ${recipe.title} ok. Now inserting bulk data...`);
+    console.log(`Inserted ${recipe.title} recepit. Inserting bulk data...`);
     return Recipe.insertMany(data);
   })
   .then(reciepes => {
-    for (let i = 0; i < reciepes.length; i++) {
-      const reciepe = reciepes[i];
-      console.log(`Inserted ${reciepe.title}`);
-    }
-    console.log("All inserted done. Now updating bad receipt...");
+    reciepes.forEach(r => {
+      console.log(`Inserted ${r.title}`);
+    });
+    console.log(`Inserted bulk. Updating one...`);
     return Recipe.updateOne(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }
     );
   })
-  .then(() => {
-    console.log("Updated done. Now removing one receipt...");
-    return Recipe.deleteOne({ title: "Carrot Cake" }, err => {});
+  .then(res => {
+    console.log(`Updated ${res.nModified} docs. Removing one...`);
+    return Recipe.deleteOne({ title: "Carrot Cake" });
   })
-  .then(() => {
-    console.log("Removing done. Now closing the database...");
-    return mongoose.connection.close();
+  .then(res => {
+    console.log(`Removed ${res.deletedCount} docs.`);
   })
-  .catch(err => console.error("Error: ", err));
+  .catch(err => console.error("Error: ", err))
+  .finally(() => {
+    console.log("Bye");
+    mongoose.connection.close();
+  });

@@ -10,12 +10,31 @@ mongoose
   })
   .then(x => {
     console.log(
-      `Connected to Mongo! Database name: "${x.connections[0].name}". Inserting al data...`
+      `Connected to Mongo! Database name: "${x.connections[0].name}". Inserting one receipt...`
     );
+    const myReceipt = {
+      title: "Menorquinamente",
+      level: "Amateur Chef",
+      ingredients: ["1/2 sobrassada"],
+      cuisine: "Mediterranean",
+      dishType: "Dish",
+      image:
+        "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      duration: 10,
+      creator: "Marc Serra"
+    };
+    return Recipe.create(myReceipt);
+  })
+  .then(recipe => {
+    console.log(`Insert ${recipe.title} ok. Now inserting bulk data...`);
     return Recipe.insertMany(data);
   })
-  .then(() => {
-    console.log("Insert done. Now updating bad receipt...");
+  .then(reciepes => {
+    for (let i = 0; i < reciepes.length; i++) {
+      const reciepe = reciepes[i];
+      console.log(`Inserted ${reciepe.title}`);
+    }
+    console.log("All inserted done. Now updating bad receipt...");
     return Recipe.updateOne(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }

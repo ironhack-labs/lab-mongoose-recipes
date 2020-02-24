@@ -9,5 +9,12 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
+  .then(() => {
+    let recipe1 = new Recipe;
+    recipe1 = data[0];
+    console.log(recipe1);
+    
+   // x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    
+  })
   .catch(err => console.error('Error connecting to mongo', err));

@@ -10,7 +10,7 @@ const myCheesecake = {
   cuisine: 'American',
   dishType: 'Dessert',
   duration: 60,
-  creator: 'Michael',
+  creator: 'Michael Mueller',
 };
 
 // Connection to the database "recipeApp"

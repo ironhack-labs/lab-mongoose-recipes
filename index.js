@@ -34,3 +34,13 @@ Recipe.insertMany(data)
     });
   })
   .catch((error) => console.log('An error happened while saving a new recipe: ', error));
+
+// method 1: success callback returns updated record
+Recipe.findByIdAndUpdate('5e5441472b670a7ad22778d7', { $set: { duration: 100 } })
+  .then((recipe) => console.log(`Updated recipe: ${recipe.title} duration: ${recipe.duration}`))
+  .catch((error) => console.log('An error happened while updating a recipe: ', error));
+
+// method 2: success callback does not return updated record
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { $set: { duration: 100 } })
+  .then((success) => console.log(`Updated recipe. Success message: ${JSON.stringify(success)}`))
+  .catch((error) => console.log('An error happened while updating a recipe: ', error));

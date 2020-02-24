@@ -44,3 +44,7 @@ Recipe.findByIdAndUpdate('5e5441472b670a7ad22778d7', { $set: { duration: 100 } }
 Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { $set: { duration: 100 } })
   .then((success) => console.log(`Updated recipe. Success message: ${JSON.stringify(success)}`))
   .catch((error) => console.log('An error happened while updating a recipe: ', error));
+
+Recipe.deleteOne({ title: 'Carrot Cake' })
+  .then((success) => console.log(`Deleted recipe. Success message: ${JSON.stringify(success)}`))
+  .catch((error) => console.log('An error happened while deleting a recipe: ', error));

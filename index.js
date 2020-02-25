@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
-// Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model'); 
-// Import of the data from './data.js'
 const data = require('./data.js');        
 
-// Connection to the database "recipeApp"
 mongoose
   .connect('mongodb://localhost/recipe-app-dev-02', {
     useCreateIndex: true,
@@ -25,8 +22,6 @@ mongoose
       recipe.created = data[i].created;
       allRecipes.push(recipe);
     }
-    // Iteration 2 and 3
-    // Recipe.insertMany(allRecipes, function(error, docs) {});
     return allRecipes
   })
   .then(title => {
@@ -49,8 +44,8 @@ mongoose
   })
   .then(deleteOne => {
     console.log('delete');
-    return 'close';
   })
-  .finally( 
+  .finally(() => {
+    console.log('Cerrada');
     mongoose.connection.close()
-  )
+  });

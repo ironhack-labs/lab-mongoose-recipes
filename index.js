@@ -21,8 +21,22 @@ mongoose
     useUnifiedTopology: true
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
-  .then(x => {
-    console.log(`Connected: "${x.connections[0].name}". Inserting one...`);
-    return Recipe.create(myReceipt);
+ 
+  .catch(err => console.error('Error connecting to mongo', err))
+  
+  .then(() => {
+    return Recipe.create(recipe1)
+    .then(console.log(`${recipe1.title} has been saved!`))
   })
+
+  .then(() => {
+    return Recipe.insertMany(data)
+   })
+      .then( recipes => {
+        forEach( Recipe => {
+          console.log(Recipe.title);
+        });
+  });
+
+
+  

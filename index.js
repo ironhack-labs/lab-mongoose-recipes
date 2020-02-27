@@ -22,7 +22,6 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
  
-  
   .then(() => {
       return Recipe.create(recipe1)
       .then(console.log(`${recipe1.title} has been saved!`))
@@ -41,11 +40,17 @@ mongoose
       .then( x =>{
         console.log('Recipes are updated');
         return Recipe.deleteOne({title: "Carrot Cake"});
-    })
+        })
       .then( x =>{
-        console.log('A recipe has been deleted')
+         console.log('A recipe has been deleted')
+        
+        })
+      .catch(err => {
+        console.error('Error connecting to mongo', err)
       })
-    
-    .catch(err => console.error('Error connecting to mongo', err));
+      .finally(() =>{
+        mongoose.connection.close();
+      });
+
 
   

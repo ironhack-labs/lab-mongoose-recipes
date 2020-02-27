@@ -2,7 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
-  // TODO: write the schema
+  // TODO: write the schematitle: String, 
+  title: String,
+  level: String,
+  ingredients: Array,
+  cuisine: String,
+  dishType: String,
+  image: {type: String, default: "https://images.media-allrecipes.com/images/75131.jpg."},
+  duration: Number,
+  creator: String,
+  created: String
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

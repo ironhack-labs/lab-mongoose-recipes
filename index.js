@@ -10,10 +10,9 @@ const recipe1 = {
   dishType: 'Dish',
   image: 'https://recetasdecocinafaciles.net/wp-content/uploads/2016/11/Pasta-al-Pesto-1024x599.jpg',
   duration:'15',
-  creator: 'Chef Gerard',
-  crated: 'today'
+  creator: 'Chef Gerard'
 }
-console.log(recipe1);
+
 // Connection to the database "recipeApp"
 mongoose
   .connect('mongodb://localhost/recipe-app-dev', {
@@ -23,3 +22,7 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
+  .then(x => {
+    console.log(`Connected: "${x.connections[0].name}". Inserting one...`);
+    return Recipe.create(myReceipt);
+  })

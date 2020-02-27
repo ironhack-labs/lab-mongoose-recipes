@@ -34,11 +34,24 @@ mongoose
       data.forEach(recipe => console.log('The recipe is saved and its name is: ', recipe.title));
     })
     .catch(error =>
-      console.log('An error happened while saving a new recipe:', error)
+      console.log('An error happened while saving many recipes:', error)
     );
   
-  Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }) 
+  Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 }) 
     .then(() => console.log('A recipe has been updated'))
     .catch(error =>
       console.log('An error happened while updating a recipe:', error)
     );
+  
+  Recipe.deleteOne({ title: 'Carrot Cake' })
+    .then(() => console.log('A recipe has been deleted'))
+    .catch(error =>
+      console.log('An error happened while deleting a recipe:', error)
+    );
+  
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });

@@ -19,14 +19,12 @@ mongoose
     ingredients: ["eggs", "potatoes", "onion"],
     cuisine: "Spanish",
     dishtype: "Dish",
-    image: null,
     duration: 10,
-    creator: "Javi Varela", 
-    created: null
+    creator: "Javi Varela"
   };
   
   Recipe.create(myRecipe)
-    .then(recipe => console.log('The recipe is saved and its name is: ', recipe.name))
+    .then(recipe => console.log('The recipe is saved and its name is: ', recipe.title))
     .catch(error =>
       console.log('An error happened while saving a new user:', error)
     );

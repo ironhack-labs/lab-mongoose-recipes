@@ -13,13 +13,27 @@ mongoose
   .catch(err => console.error('Error connecting to mongo', err));
 
 Recipe.insertMany(data)
-  .then(recipes => {
-    console.log(`Recipes saved !`)
-    console.log(recipes.title)})
+  .then(
+    recipes => {recipes.map(recipe => console.log(recipe.title))})
+  .then(()=> {
+    console.log("Rigatoni's duration is being updated")
+    return Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  })
+  .then(() => {
+    console.log("Bye bye Carrot Cake, we're removing it")
+    return Recipe.deleteOne({ title: 'Carrot Cake' })
+  })
 
-    //recipes.forEach(recipes => console.log(` --> title: ${recipes.name}`))
+  .then(() => {
+    console.log("Closing the database !");
+    mongoose.connection.close();
+  })
+   
+     
+  .catch(error => console.log('An error happened while creating the data:', error)
+);
 
-  .catch(error =>
-    console.log('An error happened while saving a new user:', error)
-  );
+
+
+  //recipes.forEach(recipes => console.log(` --> title: ${recipes.name}`))
 

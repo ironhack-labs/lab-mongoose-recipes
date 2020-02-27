@@ -9,5 +9,45 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
+
+  //iteration 2
+
+  .then(() => {
+    Recipe.create(data[0])
+    .then((NewRecipe => console.log("created", NewRecipe)))
+  })
+
+  //iteration 3
+
+  .then(() => {
+    Recipe.insertMany(data.slice(1))
+    .then((NewRecipe => console.log("inserted", NewRecipe)))
+  })
+
+
+ //iteration 4
+
+  .then(() => {
+    Recipe.updateOne(
+      {title: "Rigatoni alla Genovese"},
+      {duration: 100}
+    .then((NewRecipe => console.log("updated", NewRecipe)
+    )))})
+
+    //iteration 5
+
+    .then(() => {
+      Recipe.deleteOne(
+        {title: "Carrot Cake"})
+      .then((NewRecipe => console.log("deleted", NewRecipe)
+
+      ))})
+
+      .catch(err => {
+        console.error('Error', err)
+      })
+      .finally(() => {
+        mongoose.connection.close();
+        console.log('Closed')
+
+      });

@@ -3,20 +3,18 @@ const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
   title: String,
-  level: String,
+  level: {
+    type: String,
+    enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"]
+  },
   ingredients: [String],
   cuisine: { type: String, required: true },
   dishtype: {
     type: String,
-    validate: {
-      validator: (text) => {
-        return text === "Breakfast" || text === "Dish" || text === "Snack" || text === "Drink" || text === "Dessert" || text === "Other";
-      },
-      message: "Possible values: Breakfast - Dish - Snack - Drink - Dessert - Other"
-    }
+    enum: ["Breakfast", "Dish", "Snack", "Drink", "Dessert", "Other"]
   },
   image: { type: String, default: "https://images.media-allrecipes.com/images/75131.jpg" },
-  duration: {type: String, min: 0},
+  duration: {type: Number, min: 0},
   creator: String, 
   created: {
     type: Date,

@@ -13,46 +13,41 @@ mongoose
   .then(x =>
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   )
+  .then(() => {
+    return Recipe.deleteMany({});
+  })
 
   
 //Iteration 2:
 /*
 .then(()=> {
   Recipe.create(data(0))
-    .then((NewRecipe => console.log("Recipe saved. The title is: ", NewRecipe.title)))
-    .catch(err => console.error("error", err))
-}).catch()
 
 */
 
 //Iteration 3:
 
-.then(()=> {
-  Recipe.insertMany(data)
-    .then((NewRecipe => console.log("Recipes inserted", NewRecipe)))
-    .catch(err => console.error("error", err))
+.then((recipe)=> {
+  //console.log(`The recipe is ${recipe}`)
   return Recipe.insertMany(data)
-}).catch()
+})
                          
 
 
 
 //Iteration 4:
 
-.then(()=> {
-  Recipe.findByIdAndUpdate("5e559a23822c3d456923c4e5", {duration: 100})
-    .then((NewRecipe => console.log("Duration update", NewRecipe)))
-    .catch(err => console.error("error", err))
-}).catch()
-
+.then((recipes)=> {
+  console.log("Recipes inserted", recipes);
+  return Recipe.updateOne({title: 'Rigatoni alla Genovese' },  {duration: 100})
+})
 
 //Iteration 5:
 
-.then(()=> {
-  Recipe.deleteOne({title: "Carrot Cake"})
-    .then((console.log("Carrot Cake was deleted")))
-    .catch(err => console.error("error", err))
-}).catch()
+.then((recipe)=> {
+  console.log("Duration update", recipe)
+  return Recipe.deleteOne({title: "Carrot Cake"})
+})
 
 
 //Iteration 6:

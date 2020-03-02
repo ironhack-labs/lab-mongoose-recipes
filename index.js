@@ -41,3 +41,13 @@ Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
   .catch(error =>
     console.log('An error happened while updating a recipe:', error)
 ); 
+
+Recipe.deleteOne({ title: 'Carrrot Cake' })
+  .then(() => console.log('The recipe has been deleted'))
+  .catch(error =>
+    console.log('An error happened while deleting a recipe:', error)
+); 
+
+mongoose.connection.close(function () {
+  console.log('Mongoose default connection closed');
+});

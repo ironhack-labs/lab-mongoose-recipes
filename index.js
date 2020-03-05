@@ -47,3 +47,6 @@ italianMeal.updateOne(
 Recipe.deleteOne({ title: 'Ratatouille' })
 .then (recipe =>  console.log(recipe.title))
 .catch (error => console.log(error));
+
+mongoose.connection.close();  // like this?
+

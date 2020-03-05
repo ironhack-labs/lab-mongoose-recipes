@@ -9,5 +9,45 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
+  .then(x => {
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
+    Recipe.deleteMany()
+    .then(() => {
+        console.log("Everything is deleted")
+        Recipe.insertMany(data)
+        .then(() => {
+            console.log("All data are inserted")
+            Recipe.find({},{title: 1, _id: 0})
+            .then(recipes => {
+                recipes.forEach(recipe => {
+                  console.log('Recipe Title :'+ recipe.title);
+                })
+                Recipe.updateOne({title: 'Rigatoni alla Genovese'}, { duration: 100})
+                .then(() => {
+                    console.log('Successfully Updated');
+                    Recipe.deleteOne({title: 'Carrot Cake'})
+                    .then(() => {
+                      console.log('Successfully Deleted');
+                      mongoose
+                        .disconnect()
+                        .then(() => {
+                           console.log('Connections closed');
+                        })
+                        .catch(err => console.error('Error in disconnect:', err));
+                    }) 
+                    .catch(err => console.error('Error in deleteOne:', err));
+                })
+                .catch(err => console.error('Error in updateOne :', err));
+            })
+            .catch(err => console.error('Error in find:', err));
+        })
+        .catch(err => console.error('Error in insertMany:', err));
+    })
+    .catch(err => console.error('Error in deleteMany:', err));
+  })
+  .catch(err => console.error('Error in connection:', err));
+
+
+
+
+

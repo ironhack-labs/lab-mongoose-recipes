@@ -28,12 +28,9 @@ Recipe.create(recipe)
 
 Recipe.insertMany(data)
   .then(values => console.log(`The added recipes are: ${values}`))
-  .then(() => Recipe.updateOne({
-    title: 'Rigatoni alla Genovese'}, {duration: 100
-  }))
+  .then(() => Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100}))
   .then(() => console.log(`The recipe is updated`))
-  .then(() => Recipe.deleteOne({
-    title: 'Carrot Cake'}))
+  .then(() => Recipe.deleteOne({title: 'Carrot Cake'}))
   .then(() => console.log(`The recipe is deleted`))
   .then(() => {
     console.log('All database tasks are done');

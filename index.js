@@ -15,12 +15,23 @@ mongoose
 
   //
 
-  const newRecipe = { title: 'Ensalada Malagueña', cuisine: 'Malagueña'};
+//   const newRecipe = { title: 'Ensalada Malagueña', cuisine: 'Malagueña'};
 
-Recipe.create(newRecipe, (error, Recipe) => {
-  if (error) {
-    console.log("An error:", error);
-    return;
-  }
-  console.log("Recipe is created:", Recipe);
-});
+// Recipe.create(newRecipe, (error, Recipe) => {
+//   if (error) {
+//     console.log("An error:", error);
+//     return;
+//   }
+//   console.log("Recipe is created:", Recipe);
+// });
+
+function insertMoreRecipes() {
+Recipe.insertMany(data)
+.then( res =>{
+  console.log("Insert more recipes!")
+})
+.catch( err =>{ console.log("Error!")
+}); 
+} 
+
+insertMoreRecipes()

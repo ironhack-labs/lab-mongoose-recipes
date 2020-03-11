@@ -40,7 +40,12 @@ Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: '100'})
 
   Recipe.deleteOne({ title: 'Carrot Cake'})
     .then(recipe => console.log('Eliminada'))
+    .then(() => {
+      mongoose.connection.close();
+      })
     .catch(err => console.log(err));
 
     //Cerrar la conexion
-    mongoose.connection.close()
+    
+      
+   

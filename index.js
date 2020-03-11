@@ -11,3 +11,22 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
+
+ Recipe.create(data)
+  .then(recipe => console.log('The recipe is saved and its value is: ', recipe))
+  .catch(error =>
+    console.log('An error happened while saving a new recipe:', error)
+  );
+
+  Recipe.insertMany(data)
+  .then(recipe => console.log('The recipes are saved and its value is: ', recipe))
+  .catch(error => 
+    console.log('An error happened while saving new recipes:', error))
+
+   
+  Recipe.updateOne({title: 'Rigatoni alla Genovese'}, { $set: {duration :100}})
+  .then(console.log('recipe changed successfully'))
+  .catch((error => {console.log(`and ${error} was found`)}))
+  
+  Recipe.deleteOne({title:'Carrot Cake'})
+  .then(console.log('Recipe deleted successfully'))

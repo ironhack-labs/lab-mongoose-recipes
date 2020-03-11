@@ -12,7 +12,19 @@ mongoose
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
 
- Recipe.create(data)
+  const unaiRecipe =  {
+    title: 'Pepperoni Pizza',
+    level: 'Easy Peasy',
+    ingredients: ['Pizza dough', " Tomato sauce", 'onion', 'pepperoni', 'mozzarella'],
+    cuisine: 'Italian',
+    dishType: 'Dish',
+    image: 'https://images.media-allrecipes.com/userphotos/600x600/7626533.jpg',
+    duration: 15,
+    creator: 'Unai Gonzalez'
+  }
+
+
+ Recipe.create(unaiRecipe)
   .then(recipe => console.log('The recipe is saved and its value is: ', recipe))
   .catch(error =>
     console.log('An error happened while saving a new recipe:', error)

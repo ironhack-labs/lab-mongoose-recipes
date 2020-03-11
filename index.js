@@ -25,13 +25,27 @@ mongoose
 //   console.log("Recipe is created:", Recipe);
 // });
 
-function insertMoreRecipes() {
-Recipe.insertMany(data)
-.then( res =>{
-  console.log("Insert more recipes!")
-})
-.catch( err =>{ console.log("Error!")
-}); 
-} 
+// function insertMoreRecipes() {
+// Recipe.insertMany(data)
+// .then( res =>{
+//   console.log("Insert more recipes!")
+// })
+// .catch( err =>{ console.log("Error!")
+// }); 
+// } 
 
-insertMoreRecipes()
+// insertMoreRecipes()
+
+// Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: '100' })
+//   .then(res => {
+//     console.log('Updated recipe!')
+//   })
+//   .catch(err => 
+//     {console.log('Error', err)});
+
+Recipe.deleteOne({ title: 'Carrot Cake' })
+.then(res => {
+      console.log('Deleted!')
+    })
+    .catch(err => 
+      {console.log('Error', err)});

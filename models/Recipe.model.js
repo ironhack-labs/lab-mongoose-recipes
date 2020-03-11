@@ -3,6 +3,15 @@ const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
   // TODO: write the schema
+  title: {type: String},
+  level: {type: String},
+  ingredients: {type: Array},
+  cuisine: {type: String},
+  dishType: {type: String},
+  image: {type: String},
+  duration: {type: Number},
+  creator: {type: String},
+  created: {type: Date}
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

@@ -15,7 +15,16 @@ mongoose
 
   //
 
-//   const newRecipe = { title: 'Ensalada Malagueña', cuisine: 'Malagueña'};
+//   let newRecipe = {
+//     title: 'miXto quente',
+//     level: 'Easy Peasy',
+//     ingredients: ['pão francês', 'queijo', 'presunto'],
+//     cuisine: 'Brasileira',
+//     dishType: 'Snack',
+//     image: 'http://culinaria.culturamix.com/blog/wp-content/gallery/misto-quente-3/Misto-Quente-6.jpg',
+//     duration: 5,
+//     creator: 'JOC'
+//   };
 
 // Recipe.create(newRecipe, (error, Recipe) => {
 //   if (error) {
@@ -36,16 +45,17 @@ mongoose
 
 // insertMoreRecipes()
 
-// Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: '100' })
+// Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {ordered: false})
 //   .then(res => {
 //     console.log('Updated recipe!')
 //   })
 //   .catch(err => 
 //     {console.log('Error', err)});
 
+// Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {ordered: false})
+//   .then(console.log('Actualizado corectamente'))
+//   .catch(error => console.log(error));
+
 Recipe.deleteOne({ title: 'Carrot Cake' })
-.then(res => {
-      console.log('Deleted!')
-    })
-    .catch(err => 
-      {console.log('Error', err)});
+.then(console.log('Deleted!'))
+.catch(err => console.log('Error', err));

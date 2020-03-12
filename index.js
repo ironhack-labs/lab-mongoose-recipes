@@ -7,7 +7,31 @@ mongoose
   .connect('mongodb://localhost/recipe-app-dev', {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
+  .then(x =>
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+  )
   .catch(err => console.error('Error connecting to mongo', err));
+// Recipe.create({
+//   title: 'Pasta Puttanesca',
+//   level: 'Easy Peasy',
+//   ingredients: ['Pasta', 'Black olives', 'Capers', 'Tomatoes', 'Anchovies'],
+//   cuisine: 'Italian',
+//   dishType: 'Dish',
+//   image: '',
+//   duration: 45,
+//   creator: 'Frankie',
+//   created: new Date(),
+// })
+//   .then(itemInfo => {
+//     console.log('New recipe created successfully!');
+//   })
+//   .catch(error => {
+//     console.log(
+//       'It looks like there was a problem creating the recipe!',
+//       error
+//     );
+//   });
+
+// Recipe.insertMany(data);

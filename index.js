@@ -24,21 +24,28 @@ mongoose
   }
 
 
- Recipe.create(unaiRecipe)
+ Recipe
+  .create(unaiRecipe)
   .then(recipe => console.log('The recipe is saved and its value is: ', recipe))
   .catch(error =>
     console.log('An error happened while saving a new recipe:', error)
   );
 
-  Recipe.insertMany(data)
-  .then(recipe => console.log('The recipes are saved and its value is: ', recipe))
+  Recipe
+  .insertMany(data)
+  .then(recipe => console.log('The recipes are saved and their values are: ', recipe))
   .catch(error => 
     console.log('An error happened while saving new recipes:', error))
 
    
-  Recipe.updateOne({title: 'Rigatoni alla Genovese'}, { $set: {duration :100}})
+  Recipe
+  .updateOne({title: 'Rigatoni alla Genovese'}, {duration :100})
   .then(console.log('recipe changed successfully'))
-  .catch((error => {console.log(`and ${error} was found`)}))
+  .catch((error => {console.log(`and ${error} was found`)}));
   
-  Recipe.deleteOne({title:'Carrot Cake'})
-  .then(console.log('Recipe deleted successfully'))
+  Recipe
+  .deleteOne({title:'Carrot Cake'})
+  .then(console.log('Recipe deleted successfully'));
+  
+   mongoose
+  .disconnect(() => console.log('disconnected succesfully'))

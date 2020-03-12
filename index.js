@@ -38,3 +38,5 @@ mongoose
   .then(recipe => console.log(recipe))
   .catch(error => console.error(error));
 
+mongoose.disconnect()
+.catch(error => console.error(error));

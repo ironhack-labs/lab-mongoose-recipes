@@ -22,7 +22,7 @@ const recipeSchema = new Schema({
   },
   image_url: {
     type: String,
-    default: 'https://github.com/ElenaPerrone/lab-mongoose-recipes.git'
+    default: 'https://images.media-allrecipes.com/images/75131.jpg'
   },
   duration: Number,
   creator: String,

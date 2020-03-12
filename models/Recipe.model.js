@@ -26,6 +26,8 @@ const recipeSchema = new Schema({
 const Recipe = mongoose.model("Recipe", recipeSchema);
 module.exports = Recipe;
 
+
+///CREATE
 Recipe
 .create({
   title: "Cookies",
@@ -44,6 +46,8 @@ Recipe
   console.log("error: ", error);
 });
 
+
+//IMPORT
 Recipe
   .insertMany(data)
   .then(recipe => {
@@ -53,6 +57,8 @@ Recipe
     console.log("error: ", error);
   });
 
+
+//UPDATE
 Recipe
   .updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
   .then(recipe => {
@@ -62,10 +68,12 @@ Recipe
     console.log("error: ", error);
   });
 
+
+//REMOVE
 Recipe
   .remove({ title: "Carrot Cake" })
   .then(recipe => {
-    console.log("Success! Recipe deleted: ", recipe);
+    console.log("Success! Recipe deleted");
   })
   .catch(error => {
     console.log("error: ", error);

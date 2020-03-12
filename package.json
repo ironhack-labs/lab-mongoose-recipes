@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mongo-express": "^0.54.0",
     "mongoose": "^5.8.9"
   }
 }

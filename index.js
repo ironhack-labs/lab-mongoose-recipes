@@ -11,3 +11,20 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
+
+  Recipe.create(data)
+  .then(recipe=> console.log(recipe))
+  .catch(error=>console.error(error))
+  Recipe.insertMany(data)
+  .then(recipe=> console.log(recipe))
+  .catch(error=>console.error(error))
+  Recipe.update({title:"Rigatoni alla Genovese"},{duration:100})
+  .then(recipe=> console.log(recipe))
+  .catch(error=>console.error(error))
+  Recipe.deleteOne({title:"Carrot Cake"})
+  .then(recipe=> console.log(recipe))
+  .catch(error=>console.error(error))
+  mongoose.connection.close()
+
+ 
+  

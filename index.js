@@ -1,13 +1,27 @@
 const mongoose = require('mongoose');
-const Recipe = require('./models/Recipe.model'); // Import of the model Recipe from './models/Recipe.model.js'
-const data = require('./data.js'); // Import of the data from './data.js'
 
-// Connection to the database "recipeApp"
+// Import of the model Recipe from './models/Recipe.model.js'
+const Recipe = require('./models/Recipe.model');
+// Import of the data from './data.json'
+const data = require('./data');
+
+const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+
+// Connection to the database "recipe-app"
 mongoose
-  .connect('mongodb://localhost/recipe-app-dev', {
+  .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
+  .then(self => {
+    console.log(`Connected to the database: "${self.connection.name}"`);
+    // Before adding any documents to the database, let's delete all previous entries
+    return self.connection.dropDatabase();
+  })
+  .then(() => {
+    // Run your code here, after you have insured that the connection was made
+  })
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+  });

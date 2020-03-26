@@ -13,7 +13,7 @@
       "8 skinless, boneless chicken thighs"
     ],
     "cuisine": "Asian",
-    "dishType": "Dish",
+    "dishType": "others",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
     "duration": 40,
     "creator": "Chef LePapu"
@@ -33,7 +33,7 @@
       "1 orange, juiced and zested"
     ],
     "cuisine": "American",
-    "dishType": "Dish",
+    "dishType": "others",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg",
     "duration": 160,
     "creator": "Chef John"
@@ -72,7 +72,7 @@
       "2 tablespoons freshly grated Parmigiano-Reggiano cheese"
     ],
     "cuisine": "Italian",
-    "dishType": "Dish",
+    "dishType": "others",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg",
     "duration": 220,
     "creator": "Chef Luigi"
@@ -88,7 +88,7 @@
       "2 cups semisweet chocolate chips"
     ],
     "cuisine": "French",
-    "dishType": "Dish",
+    "dishType": "others",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
     "duration": 30,
     "creator": "Chef Jennifer"

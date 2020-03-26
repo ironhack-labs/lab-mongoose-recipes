@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const recipeSchema = new Schema({
   title: {
     type: String,
-    required = true,
-    unique = true
+    required: true,
+    // unique:true
   },
 
   level: {
@@ -19,12 +19,12 @@ const recipeSchema = new Schema({
 
   cuisine: {
     type: String,
-    required = true
+    required: true
   },
 
   dishType: {
     type: String,
-    enum:['breakfast', 'main_course', 'soup', 'drink', 'dessert', 'other']
+    enum:['Breakfast', 'Main_course', 'Soup', 'Drink', 'Dessert', 'other','Dish']
     
   },
 

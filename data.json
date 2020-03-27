@@ -1,5 +1,4 @@
-[
-  {
+[{
     "title": "Asian Glazed Chicken Thighs",
     "level": "Amateur Chef",
     "ingredients": [
@@ -13,7 +12,7 @@
       "8 skinless, boneless chicken thighs"
     ],
     "cuisine": "Asian",
-    "dishType": "Dish",
+    "dishType": "main_course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
     "duration": 40,
     "creator": "Chef LePapu"
@@ -33,7 +32,7 @@
       "1 orange, juiced and zested"
     ],
     "cuisine": "American",
-    "dishType": "Dish",
+    "dishType": "main_course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg",
     "duration": 160,
     "creator": "Chef John"
@@ -56,7 +55,7 @@
       "4 teaspoons ground cinnamon"
     ],
     "cuisine": "International",
-    "dishType": "Dessert",
+    "dishType": "dessert",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg",
     "duration": 130,
     "creator": "Chef Nadia"
@@ -72,7 +71,7 @@
       "2 tablespoons freshly grated Parmigiano-Reggiano cheese"
     ],
     "cuisine": "Italian",
-    "dishType": "Dish",
+    "dishType": "main_course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg",
     "duration": 220,
     "creator": "Chef Luigi"
@@ -88,8 +87,8 @@
       "2 cups semisweet chocolate chips"
     ],
     "cuisine": "French",
-    "dishType": "Dish",
-    "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+    "dishType": "dessert",
+    "image": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F4398987.jpg&w=596&h=399.32000000000005&c=sc&poi=face&q=85",
     "duration": 30,
     "creator": "Chef Jennifer"
   }

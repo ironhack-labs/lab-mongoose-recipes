@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
   // TODO: write the schema
-  title: String,
+  title: { type: String, required: true, unique: true },
   level: {
     type: String,
     enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"]
@@ -28,7 +28,7 @@ const recipeSchema = new Schema({
   },
   duration: { type: Number, min: 0 },
   creator: String,
-  created: { type: Date, default: Date.now }
+  created: { type: Date, default: Date.now() }
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

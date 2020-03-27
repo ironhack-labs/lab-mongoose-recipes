@@ -27,7 +27,7 @@ const insertStrogonoff = () => {
 const deleteRecipe = () => {
   Recipe
     .deleteOne({title: "Carrot Cake"})
-    .then(_ => {
+    .then(() => {
       console.log("Recipe deleted")
       mongoose.disconnect();
     })

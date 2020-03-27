@@ -5,8 +5,8 @@ const recipeSchema = new Schema({
 	// TODO: write the schema
 	title: {
 		type: String,
-		required: true
-		// unique: true
+		required: true,
+		unique: true
 	},
 	level: {
 		type: String,
@@ -23,7 +23,7 @@ const recipeSchema = new Schema({
 	},
 	image: {
 		type: String,
-		defautl: "https://images.media-allrecipes.com/images/75131.jpg"
+		default: "https://images.media-allrecipes.com/images/75131.jpg"
 	},
 	duration: {
 		type: Number,

@@ -33,7 +33,10 @@ mongoose
     Recipe.create(recipe1)
       .then(() => {
         Recipe.insertMany(data)
-          .then(() => {
+          .then(res => {
+            res.forEach((item, idx) => {
+              console.log(`${idx+1})${item.title}`);
+            });
             Recipe.findOneAndUpdate({ title: /gatoni/i }, { duration: 100 })
               .then(() => {
                 console.log("Duration changed!");
@@ -41,10 +44,7 @@ mongoose
                   .then(() => {
                     console.log("Carrot Cake deleted");
                     Recipe.find()
-                      .then(res => {
-                        res.forEach(item => {
-                          console.log(item.title);
-                        });
+                      .then(() => {
                         mongoose.connection.close();
                       })
                       .catch(error => console.log(error));

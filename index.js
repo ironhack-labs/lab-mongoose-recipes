@@ -38,28 +38,34 @@ mongoose
       .insertMany(data)
       .then(response => {
         response.forEach(recipe => console.log(`${recipe.title}`))
-      
-    Recipe
-      .findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100}, {new: true})
-      .then(_ => console.log('Updated!'))
-      .catch(err => console.log(err));
-          
-    Recipe
-      .deleteOne({title: 'Carrot Cake'}, function (err) {})
-      .then(response => {
-        console.log('Deleted!');
-        mongoose
-      .connection
-      .close(function() {console.log('Connection disconnected!')});
-    })
-      .catch(err => console.log(err));
+
+        Recipe
+          .findOneAndUpdate({
+            title: 'Rigatoni alla Genovese'
+          }, {
+            duration: 100
+          }, {
+            new: true
+          })
+          .then(_ => {
+            console.log('Updated!')
+            Recipe
+              .deleteOne({
+                title: 'Carrot Cake'
+              })
+              .then(response => {
+                console.log('Deleted!');
+                mongoose
+                  .connection
+                  .close(function () {
+                    console.log('Connection disconnected!')
+                  });
+              }).catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
       })
-      .catch(err => console.log(err))
-      
-      
-    })
-
-
+      .catch(err => console.log(err));
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

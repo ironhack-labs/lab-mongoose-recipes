@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require('./models/Recipe.model.js');
 // Import of the data from './data.json'
 const data = require('./data');
 
@@ -21,6 +21,38 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: 'Japanese Omelette',
+      level: 'Easy Peasy',
+      ingredients: ['Eggs', 'Mirin', 'Soy Sauce', 'Oil', 'Sugar', 'Dashi'],
+      cuisine: 'Japanese',
+      dishType: 'breakfast',
+      duration: 30,
+      creator: 'Minime'
+    }).then(() => {
+      Recipe.insertMany(data).then((recipesFromDatabase) => {
+        console.log(recipesFromDatabase.map((r) => r.title))
+
+      }).then(() => {
+        Recipe.findOneAndUpdate({
+          title: 'Rigatoni alla Genovese'
+        }, {
+          duration: 100
+        }).then(() => {
+          console.log('Receipe Updated!')
+        }).then(() => {
+          Recipe.findOneAndRemove({
+            title: 'Carrot Cake'
+          }).then(() => {
+            console.log('Sorry, Out of Carrot Cake')
+
+            mongoose.connection.close(() => {
+              console.log('Mongoose database closed!');
+            });
+          }).then(() => {})
+        })
+      })
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

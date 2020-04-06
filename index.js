@@ -20,8 +20,18 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Iteration 2 Create a recipe
+    createRecipe("Shrimp", "Easy Peasy", ["shrimp", "garlic", "butter"], "Mexican", "main_course")
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  // Iteration 2 Create a recipe
+
+function createRecipe(title, level, ingredients, cuisine, dishType, image, duration, creator, created) {
+  Recipe.create({title, level, ingredients, cuisine, dishType, image, duration, creator, created })
+  .then((newRecipe) => console.log(`Recipe title`))
+  .catch((err) => console.error(`Error adding recipe`));
+}
+

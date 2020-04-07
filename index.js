@@ -32,25 +32,27 @@ mongoose
     }).then(() => {
       Recipe.insertMany(data).then((recipesFromDatabase) => {
         console.log(recipesFromDatabase.map((r) => r.title))
-
       }).then(() => {
-        Recipe.findOneAndUpdate({
+
+        let promise1 = Recipe.findOneAndUpdate({
           title: 'Rigatoni alla Genovese'
         }, {
           duration: 100
         }).then(() => {
           console.log('Receipe Updated!')
-        }).then(() => {
-          Recipe.findOneAndRemove({
-            title: 'Carrot Cake'
-          }).then(() => {
-            console.log('Sorry, Out of Carrot Cake')
-
-            mongoose.connection.close(() => {
-              console.log('Mongoose database closed!');
-            });
-          }).then(() => {})
         })
+
+        let promise2 = Recipe.findOneAndRemove({
+          title: 'Carrot Cake'
+        }).then(() => {
+          console.log('Sorry, Out of Carrot Cake')
+        })
+
+        Promise.all([promise1, promise2]).then(() => {
+          mongoose.connection.close()
+          console.log('Mongoose database closed!')
+        })
+
       })
     })
   })

@@ -69,3 +69,17 @@ createRecipe(
 Recipe.insertMany(data, function (error, docs) {
   console.log(docs.title)
 });
+
+Recipe.updateOne({
+    name: "Rigatoni alla Genovese"
+  }, {
+    duration: 100
+  })
+  .then("Document updated")
+  .catch("Something bad happened");
+
+Recipe.deleteOne({
+    name: 'Carrot Cake'
+  })
+  .then("Document deleted")
+  .catch("Something bad happened");

@@ -65,3 +65,7 @@ createRecipe(
   15,
   "Ben Balderas"
 );
+
+Recipe.insertMany(data, function (error, docs) {
+  console.log(docs.title)
+});

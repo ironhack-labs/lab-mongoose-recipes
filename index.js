@@ -37,15 +37,8 @@ mongoose
     //Iteration 3
     Recipe.insertMany(data)
       .then(recipes =>{
-        console.log(`All recipes inserted.`);
-      
-        Recipe.find({}, 'title')
-        .then(titles =>{
-          console.log(`Recipe title: ${titles}`);
-        })
-        .catch(err =>{
-          console.log(`An error has occurred ${err}`);
-        });
+
+        recipes.forEach(recipe => console.log(`Recipe title: ${recipe.title}`));
 
         //Iteration 4
         Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
@@ -73,6 +66,7 @@ mongoose
         .catch(err =>{
           console.log(`An error has occurred: ${err}`);
         });
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

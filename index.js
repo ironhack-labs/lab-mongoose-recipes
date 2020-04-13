@@ -21,6 +21,58 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    // console.log(data);
+
+    // Iteration 2
+    Recipe.create({title: 'Arroz Doce'})
+    .then(recipe =>{
+        console.log(`The recipe was saved ${recipe.title}`);
+    })
+    .catch(error => {
+        console.log(`An error occurred: ${error}`);
+    });
+
+
+    //Iteration 3
+    Recipe.insertMany(data)
+      .then(recipes =>{
+        console.log(`All recipes inserted.`);
+      
+        Recipe.find({}, 'title')
+        .then(titles =>{
+          console.log(`Recipe title: ${titles}`);
+        })
+        .catch(err =>{
+          console.log(`An error has occurred ${err}`);
+        });
+
+        //Iteration 4
+        Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+        .then(recipe => {
+          console.log(`Recipe successfuly updated: ${recipe}`);
+        })
+        .catch(err =>{
+          console.log(`An error has occurred ${err}`);
+        });
+
+        //Iteration 5
+        Recipe.deleteOne({ title: 'Carrot Cake'})
+          .then(recipe =>{
+            console.log(`Recipe deleted!`);
+
+            mongoose.connection.close(() => {
+              console.log('Mongoose default connection disconnected through app termination');
+            });
+          })
+          .catch(err =>{
+            console.log(`An error has occurred: ${err}`);
+          });
+
+        })
+        .catch(err =>{
+          console.log(`An error has occurred: ${err}`);
+        });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

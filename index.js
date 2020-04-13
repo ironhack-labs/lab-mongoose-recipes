@@ -21,7 +21,40 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: 'Brigadeiro for Lazy People',
+      level: 'Easy Peasy',
+      ingredients: ['1 can of condensed milk', '1tbsp unsalted butter', '3tbsp chocolate powder'],
+      cuisine: 'Brazilian',
+      dishType: 'dessert',
+      duration: 25,
+      creator: 'Julia'
+    })
+    .then (recipe => {
+      console.log(`Recipe has been created`)
+      Recipe.insertMany(data)
+      .then(recipes => {
+        recipes.forEach(recipe => {
+        console.log(recipe.title)
+      })
+    })
+    .then(recipe => {
+      Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese', duration: 100})
+      })
+      .then(console.log (`success in updating Rigatoni alla Genovese's duration`))
+    })
+    .then(recipe => {
+      Recipe.deleteOne({title: 'Carrot Cake'})
+      .then(console.log(`success deleting Carrot Cake`))
+      mongoose.connection.close()
+    })
   })
+  // .then(
+  //   mongoose.connection.close(
+  //     console.log('Mongoose default connection disconnected through app terminal')
+  //   )
+  // )
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+

@@ -21,7 +21,24 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: 'Tortilla de patata',
+      level: 'Easy Peasy',
+      ingredients: ['huevos', 'patatas', 'sal', 'aceite', 'cebolla'],
+      cuisine: 'Mediterranean',
+      dishType: 'main_course',
+      duration: 45,
+      creator: 'Dayan & Héctor'
+    })
+
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then(newRecipe => console.log(`Se ha añadido:`, newRecipe))
+  .then(() => Recipe.create(data))
+  .then(manyRecipes => console.log(`Se han añadido las siguientes recetas: ${manyRecipes}`))
+  .then(() => Recipe.findOneAndUpdate({ title: `Rigatoni alla Genovese` }, { duration: 100 }, { new: true }))
+  .then(recipeUpdater => console.log(`La receta actualizada es:${recipeUpdater}`))
+  .then(() => Recipe.deleteOne({ title: `Carrot Cake` }))
+  .then(recipeDeleted => console.log(`Se ha eliminado: ${recipeDeleted}`))
+  .then(() => mongoose.connection.close())
+  .then(() => console.log(`La conexión a la base de datos ha sido cerrada`))
+  .catch(error => console.error('Error connecting to the database', error))

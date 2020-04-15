@@ -20,8 +20,29 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create(
+      {
+        title: 'Pizza',
+        level: 'Amateur Chef',
+        ingredients: ['piña', 'masa para pizza', 'salsa de tomate', 'queso mozzarella', 'jamón york'],
+        cuisine: 'italian',
+        dishType: 'main_course',
+        image: 'https://www.recetin.com/wp-content/uploads/2015/05/pizza_hawaiana.jpg',
+        duration: 30,
+        creator: 'Madalin y Paty',
+        created: new Date(),
+      }
+    )
+      .then(newRecipeCreated => console.log('La nueva receta creada es:', newRecipeCreated, 'y su título es:', newRecipeCreated.title))
+      
+      Recipe.create(data)
+      .then(newRecipeCreated => console.log('La nueva receta creada es:', newRecipeCreated, data.js), newRecipeCreated.forEach(recipe => console.log('Los títulos de las recetas son:', newRecipeCreated.title)) )
+      
+      .catch(err => console.log('Error creando la receta', err))
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  

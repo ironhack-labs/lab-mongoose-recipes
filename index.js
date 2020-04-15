@@ -104,6 +104,7 @@ async function recipeProcesses() {
     const manyRecipes = await insertManyRecipes();
     const updatedToast = await updateRecipe();
     const chips = await deleteRecipe();
+    mongoose.connection.close();
   } catch (err) {
     console.log(err);
   }

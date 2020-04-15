@@ -51,6 +51,14 @@ mongoose
 									.then((dbResponse) => {
 										//console.log(dbResponse);
 										console.log(`**** No more Carrot Cake, sorry...`);
+										mongoose.connection
+											.close()
+											.then((dbResponse) => {
+												console.log('The dataBase is now closed');
+											})
+											.catch((dbErr) => {
+												console.log(dbErr);
+											});
 									})
 									.catch((dbErr) => {
 										console.log(dbErr);
@@ -70,8 +78,4 @@ mongoose
 	})
 	.catch((error) => {
 		console.error('Error connecting to the database', error);
-	})
-	.finally(() => {
-		// ITERATION 6 - CLOSE DATABASE
-		//mongoose.connection.close();
 	});

@@ -56,6 +56,7 @@ Recipe.create({
   })
   .then(deletedInfo => { console.log("4 - The Following Info has been deleted: ", deletedInfo) })
   .then(() => {
+    // Close DB
     mongoose.connection.close(() => {
       console.log('Mongoose default connection disconnected through app termination');
       process.exit(0);

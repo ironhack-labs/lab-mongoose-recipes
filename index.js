@@ -20,6 +20,7 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+    recipeProcesses();
     // Run your code here, after you have insured that the connection was made
   })
   .catch((error) => {
@@ -77,37 +78,31 @@ const manyRecipes = [
 ];
 
 function insertManyRecipes() {
-  return Recipe.insertMany(manyRecipes).then((dbResponse) => {
-    dbResponse.forEach((recipe) => console.log(recipe.title));
-    return dbResponse;
-  });
+  return Recipe.insertMany(manyRecipes).then((dbResponse) => {});
 }
 
 // ITERATION FOUR
 
 function updateRecipe() {
-  return Recipe.findOneAndUpdate({ title: "Toast" }, { duration: 4 }).then(
-    (dbResponse) => dbResponse
-  );
+  return Recipe.findOneAndUpdate({ title: "Toast" }, { duration: 4 });
 }
 
 // ITERATION FIVE
 
 function deleteRecipe() {
-  return Recipe.deleteOne({ title: "Potato Chips" }).then(
-    (dbResponse) => dbResponse
-  );
+  return Recipe.deleteOne({ title: "Potato Chips" });
 }
 
 async function recipeProcesses() {
   try {
     const manyRecipes = await insertManyRecipes();
+    manyRecipes.forEach((recipe) => console.log(recipe.title));
     const updatedToast = await updateRecipe();
+    console.log("Updated the duration.");
     const chips = await deleteRecipe();
+    console.log("I ate the chips.");
     mongoose.connection.close();
   } catch (err) {
     console.log(err);
   }
 }
-
-recipeProcesses();

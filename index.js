@@ -45,10 +45,12 @@ mongoose
 
 		async function doAll() {
 			try {
+				// Add my first recipe
 				await Recipe.create(myRecipe)
 					.then((dbResponse) => console.log(dbResponse.title))
 					.catch((dbError) => console.log(dbError));
 
+				// Add all the data recipies
 				await Recipe.insertMany(data)
 					.then((dbResponse) => {
 						dbResponse.forEach((x) => {
@@ -57,6 +59,7 @@ mongoose
 					})
 					.catch((dbErr) => console.log(dbErr));
 
+				// Update the Rigatoni recipe
 				await Recipe.findOneAndUpdate(
 					{ title: "Rigatoni alla Genovese" },
 					{ duration: 100 },
@@ -67,6 +70,7 @@ mongoose
 					)
 					.catch((dbErr) => console.log(dbErr));
 
+				// Delete the Carrot Cake one
 				await Recipe.deleteOne({ title: "Carrot Cake" })
 					.then((dbResponse) =>
 						console.log("Yay ! We all hate carrot cake no ? Maybe not...")
@@ -81,4 +85,7 @@ mongoose
 	.catch((error) => {
 		console.error("Error connecting to the database", error);
 	})
-	.finally(() => mongoose.close());
+	.finally(() => {
+		// Closing database after everything is done
+		mongoose.close();
+	});

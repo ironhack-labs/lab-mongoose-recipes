@@ -61,11 +61,13 @@ mongoose
               })
               .then((dbResponse) => {
                 console.log('NO MORE CARROT CAKES', dbResponse);
-              })
-
-              .connection.close()
-
-              .catch((dbErr) => {
+                mongoose.connection.close()
+                .then(dbResponse => {
+                  console.log('database closed', dbResponse);
+                }).catch((dbErr)=> {
+                  console.log(dbErr);
+                })
+              }).catch((dbErr) => {
                 console.log(dbErr);
               })
               .catch((dbErr) => {

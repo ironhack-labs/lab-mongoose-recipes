@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
+mongoose.set("useUnifiedTopology", true);
+
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
@@ -22,59 +27,44 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
   })
-  .catch((error) => {
-    console.error("Error connecting to the database", error);
-  });
-
-// for demo reasons
-// let rice = Recipe.create({
-//   title: "Rice",
-//   level: "Easy Peasy",
-//   ingredients: ["Rice"],
-//   cuisine: "Exotic",
-//   dishType: "other",
-// });
-
-let rice = {
-  title: "Rice",
-  level: "Easy Peasy",
-  ingredients: ["Rice"],
-  cuisine: "Exotic",
-  dishType: "other",
-};
-data.push(rice);
-
-let allThoseThangs = Recipe.insertMany(data);
-
-let upda = Recipe.findOneAndUpdate(
-  { name: "Rigatoni alla Genovese" },
-  { duration: 100 }
-)
-  .then((i) => {
-    console.log("updated");
+  .then(() => {
+    return Recipe.create({
+      title: "Rice",
+      level: "Easy Peasy",
+      ingredients: ["Rice"],
+      cuisine: "Exotic",
+      dishType: "other",
+    });
+  })
+  .then((recipe) => {
+    console.log("created tasty dish: " + recipe.title);
+  })
+  .then(() => {
+    return Recipe.create([...data]);
+  })
+  .then((d) => {
+    d.forEach((rec) => console.log(rec.title));
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
+  })
+  .then((rec) => {
+    console.log("updated rec: " + rec);
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((one) => {
+    console.log("deleted " + one);
   })
   .catch((e) => {
     console.log(e);
-  });
-
-let rem = Recipe.deleteOne({ name: "Carrot Cake" })
-  .then((i) => {
-    console.log("deleted");
   })
-  .catch((e) => {
-    console.log(e);
-  });
-
-Promise.all([allThoseThangs, upda, rem])
-  .then((re) => {
-    console.log("Done writing");
-    re.forEach((i) => {
-      i.forEach((j) => console.log(j.title));
-    });
-    mongoose.connection.close(() => {
-      console.log("Mongoose default connection closed");
-    });
-  })
-  .catch((err) => {
-    "error in finishing " + err;
+  .finally(() => {
+    console.log("good night");
+    mongoose.disconnect();
   });

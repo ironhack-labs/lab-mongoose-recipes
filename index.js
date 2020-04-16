@@ -29,6 +29,8 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Challenge: nesting statics in order to ensure code flow, because of asynchronicity
+    // BASIC STRUCTURE: >> Recipe.STATIC({...}).then(console.log(..)).then(() => {>> NEXT Recipe.STATIC...}).catch();
     Recipe.create({
       title: "Philly Cheese Steak Sandwich",
       cuisine: "Shortens lifespan reliably",
@@ -50,8 +52,8 @@ mongoose
               .then(() => {
                 console.log("Updated: duration on 'Rigatoni alla Genovese'.");
               })
+              /*** end findOneAndUpdate ***/
               .then(() => {
-                /*** end findOneAndUpdate ***/
                 Recipe.deleteOne({ title: "Carrot Cake" })
                   .then(() => {
                     console.log("Removed: Carrot Cake.");

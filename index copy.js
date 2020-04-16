@@ -1,30 +1,28 @@
 const mongoose = require("mongoose");
+
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
 const data = require("./data");
 // server URI
 const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
+
+
+
 const run = async () => {
-  await mongoose.connect(MONGODB_URI, {
+  await mongoose.connect("mongodb://localhost:27017/emilioriosvz", {
+    autoReconnect: true,
+    reconnectTries: 1000000,
+    reconnectInterval: 3000,
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  console.log(`Connected to the "${mongoose.connection.name}" database`);
-  mongoose.connection.dropDatabase();
-  await Recipe.create({ "title": "Rigatoni alla Genovese" , "cuisine": "chineese" ,"duration": 100 });
-  console.log(`Created a recipe `);
-  await Recipe.insertMany(data);
-  console.log(`Inserted many recipes `);
-  await Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
-  console.log(`Updated  a recipe `);
-  await Recipe.deleteOne({ title: "Carrot Cake" });
-  console.log(`Deleted  a recipe `);
-  await mongoose.disconnect();
 };
+
 run().catch((error) => console.error(error));
-console.error("hola");
+
+//   .connect(
 // // Connection to the database "recipe-app"
 // mongoose
 //   .connect(MONGODB_URI, {

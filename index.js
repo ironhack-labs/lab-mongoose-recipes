@@ -29,7 +29,7 @@ mongoose
   // ITERATION 2
   // Mongoose allows us to use a callback pattern
   // to handle the completion of the asynchronous operation
-    Recipe.create(recipe, (error, user) => {
+  const promise1 =  Recipe.create(recipe, (error, user) => {
       if (error) {
         console.log('An error happened:', error);
         return;
@@ -40,18 +40,18 @@ mongoose
 
   // ITERATION 3
 
-  // Recipe.insertMany(data,(error, recipes) => {
-  //   if (error) {
-  //     console.log('An error happened:', error);
-  //     return;
-  //   }
-  //   recipes.forEach(element => {
-  //     console.log('The recipe is saved and its name is: ', element.title);
-  //   });
-  // })
+  const promise4 = Recipe.insertMany(data,(error, recipes) => {
+    if (error) {
+      console.log('An error happened:', error);
+      return;
+    }
+    recipes.forEach(element => {
+      console.log('The recipe is saved and its name is: ', element.title);
+    });
+  })
 
   // ITERATION 4
-  Recipe.findOneAndUpdate({title :"Rigatoni alla Genovese"}, {duration : 100},{new: true}, function(error, doc) {
+  const promise2 = Recipe.findOneAndUpdate({title :"Rigatoni alla Genovese"}, {duration : 100},{new: true}, function(error, doc) {
     if (error) {
       console.log('An error happened:', error);
       return;
@@ -61,12 +61,20 @@ mongoose
   
 
   // ITERATION 5
-  Recipe.deleteOne({title :"Carrot Cake"},function(error, doc) {
+  const promise3 =Recipe.deleteOne({title :"Carrot Cake"},function(error, doc) {
     if (error) {
       console.log('An error happened:', error);
       return;
     }
     console.log("This recipe was removed" )
     })
- 
-   
+    
+    // ITERATION 6
+
+    Promise.all([promise1, promise2,promise3,promise4])
+    .then(values => {
+      console.log('everithing is fine');
+      console.log(values);
+      mongoose.connection.close();
+    })
+    .catch(err => console.error(err));

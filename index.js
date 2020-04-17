@@ -44,12 +44,14 @@ mongoose
       creator: "God",
       created: Date.now(),
     });
-  })
+  })s
   .then(() => {
     return Recipe.create([...data]);
   })
   .then((recipe) => {
-    console.log("the recepies has been insterted.", recipe);
+    recipe.forEach((element) => {
+      console.log("The recipe is saved and its name is: ", element.title);
+    });
   })
   .then(() => {
     Recipe.findOneAndUpdate(

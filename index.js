@@ -21,19 +21,19 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.insertMany([{title: 'mapo tofu', cuisine: 'taiwanese'}, {title: 'Nudeln mit Tomatensoße', cuisine: 'deutsch'}, {title: 'Rigatoni alla Genovese', cuisine: 'italian', duration: 20}, {title: 'carrot cake', cuisine: 'lebanese'}])
+    Recipe.insertMany(data)
     .then(recipeFromDB => {
       console.log('title of recipe: ', recipeFromDB)
     })
     .then(() => {
-      const promise1 = Recipe.updateOne({ duration: 20 }, { duration: 100 })
+      const promise1 = Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
       .then(result => {
         console.log('it is updated!', result);
       })
       .catch(err => {
         console.log(err);
       });
-      const promise2 = Recipe.deleteOne({title: 'carrot cake' })
+      const promise2 = Recipe.deleteOne({title: 'Carrot Cake' })
         .then(result => {
           console.log('it is removed!', result);
         });

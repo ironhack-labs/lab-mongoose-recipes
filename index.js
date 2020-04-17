@@ -50,7 +50,7 @@ mongoose
   })
   .then((recipe) => {
     recipe.forEach((element) => {
-      console.log("The recipe is saved and its name is: ", element.title);
+      console.log("The recipe name is: ", element.title);
     });
   })
   .then(() => {

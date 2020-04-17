@@ -6,7 +6,6 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 //mongoose.set("useUnifiedTopology", true);
 
-
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
@@ -33,7 +32,7 @@ mongoose
 
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-  return Recipe.create({
+    return Recipe.create({
       title: "French Creps",
       level: "Amateur Chef",
       ingredients: [
@@ -54,11 +53,38 @@ mongoose
     console.log("one recipe created", recipe.title);
   })
 
+  //Iteration 3 - Insert multiple recipes
+  .then(() => {
+    return Recipe.create([...data]);
+  })
+  .then((recipe) => {
+    recipe.forEach((e) => console.log("recipe created:", e.title));
+  })
 
+  //Iteration 4 - Update recipe
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Asian Glazed Chicken Thighs" },
+      { duration: 300 },
+      { new: true }
+    );
+  })
+  .then((recipe) => {
+    console.log("recipe updated successfully", recipe);
+  })
 
+  //Iteration 5 - Remove a recipe
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((recipe) => {
+    console.log("recipe deleted successfully", recipe);
+  })
+  .catch((error) => {
+    console.error("Error", error);
+  })
 
-
-
-
-
-  
+  //Iteration 6 - Close the Database
+  .finally(() => {
+    mongoose.disconnect();
+  });

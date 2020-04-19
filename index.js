@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
@@ -20,7 +19,47 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Samoussas aux légumes",
+      level: "Easy Peasy",
+      ingredients: ["feuilles de brick", "patates", "carottes", "petits pois", "oignons", "cumin", "curry", "sel", "poivre"],
+      dishType: "main_course",
+      duration: 60,
+    });
+    Recipe.insertMany(data)
+      .then(dbResponse => {
+        const nomsRecette = dbResponse.map(a => a.title)
+        console.log({
+          nomsRecette
+        });
+        Recipe.findOneAndUpdate({
+          title: "Rigatoni alla Genovese"
+        }, {
+          $set: {
+            duration: 100
+          }
+        }, {
+          new: true
+        })
+          .then((dbResponse) => {
+            console.log(dbResponse);
+          })
+          .catch((dbErr) => {
+            console.log(dbErr)
+          });
+        Recipe.deleteOne({
+          title: "Carrot Cake"
+        })
+          .then((dbResponse) => {
+            console.log(dbResponse)
+          })
+          .catch((dbErr) => {
+            console.log(dbErr)
+          });
+        mongoose.connection.close()
+      }).catch(dbErr => {
+        console.log(dbErr);
+      })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -22,14 +22,14 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create(newRecipe)
+    Recipe.create(newRecipe) //create from our object
       .then(dbSuccess => {
         console.log(dbSuccess);
       })
       .catch(dbErr => {
         console.log(dbErr);
       });
-
+    //Change a data from an ID
     Recipe.findByIdAndUpdate(
       "5e970c938ea1b995a5501780",
       {
@@ -43,7 +43,7 @@ mongoose
       .catch(dbErr => {
         console.log(dbErr);
       });
-
+    //Insert some data from database .json
     Recipe.insertMany(data)
       .then(dbSuccess => {
         dbSuccess.forEach(e => {
@@ -53,7 +53,7 @@ mongoose
           .then(dbSuccess => {
             console.log("Carrot has been deleted succesfully");
             mongoose.connection
-              .close()
+              .close() //to close the database
               .then(dbSuccess => {
                 console.log("mongoose closed");
               })

@@ -46,9 +46,10 @@ mongoose
                 console.log(`Recipe ${recipe.title} updated\n `)
               )
               .then(() => {
-                Recipe.deleteOne({ title: "Carrot Cake" }).then(
-                  console.log(`Recipe deleted. \n`)
-                );
+                Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {
+                  console.log(`Recipe deleted. \n`);
+                  mongoose.connection.close();
+                });
               });
           });
       });

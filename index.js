@@ -30,6 +30,11 @@ mongoose
     })
     ireneRecipe.save().then((ireneRecipe) => console.log("Receta guardada"))
   })
+
+Recipe.insertMany(data).then(res => {
+    console.log(req.body.title)
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

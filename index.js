@@ -21,6 +21,19 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "pollo frito",
+      ingredients: ["pollo", "aceite"],
+      cuisine: "para engordar"
+    }) 
+    //no imprime ??? El resto esta correcto segun los requerimientos  
+    Recipe.find()
+    .then(recipesFromDB =>{
+      recipesFromDB.forEach(oneRecipe => console.log(`recipe: ${oneRecipe.title}`))
+    })
+    
+    
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

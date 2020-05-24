@@ -9,19 +9,38 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+	.connect(MONGODB_URI, {
+		useCreateIndex: true,
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then((self) => {
+		console.log(`Connected to the database: "${self.connection.name}"`);
+		// Before adding any documents to the database, let's delete all previous entries
+		return self.connection.dropDatabase();
+	})
+	.then(() => {
+		Recipe.create({
+			title: 'Arroz con bacon',
+			level: 'Easy Peasy',
+			ingredients: [
+				'arroz',
+				'cebolla',
+				'bacon',
+				'ajo',
+				'pimienta negra',
+				'perejil',
+			],
+			cuisine: 'Vitrocerámica o gas',
+			dishType: 'main_course',
+			duration: 30,
+			creator: 'Maria  Jesús Urrutia Jiménez',
+		})
+			.then((rec) => console.log(rec.title))
+			.catch((err) =>
+				console.log('Error ocurrido durante la inserción: ', err)
+			);
+	})
+	.catch((error) => {
+		console.error('Error connecting to the database', error);
+	});

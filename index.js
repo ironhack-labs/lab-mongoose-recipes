@@ -5,7 +5,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -20,7 +20,71 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    
+    //CREAR NUEVO ELEMENTO
+
+      const receta1 = new Recipe({
+        title: "Receta de prueba 1",
+        level: "Easy Peasy",
+        ingredients: ["tomate", "aceite", "pan"],
+        cuisine: "Catalan",
+        dishType: "breakfast",
+        duration: 5,
+        creator: "Natalia"
+
+      });
+
+      receta1
+        .save()
+        .then(newRecipe => console.log("A new recipe is created:", newRecipe.title))
+        .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+
+   
+    //INSERT MANY
+
+    const recipesArr = [
+      {
+        title: "Receta de prueba 2",
+        level: "Easy Peasy",
+        ingredients: ["tomate", "aceite", "pan"],
+        cuisine: "Catalan",
+        dishType: "breakfast",
+        duration: 5,
+        creator: "Natalia"
+
+      },
+      {
+        title: "Receta de prueba 3",
+        level: "Easy Peasy",
+        ingredients: ["tomate", "aceite", "pan"],
+        cuisine: "Catalan",
+        dishType: "breakfast",
+        duration: 5,
+        creator: "Natalia"
+
+      },
+      {
+        title: "Receta de prueba 4",
+        level: "Easy Peasy",
+        ingredients: ["tomate", "aceite", "pan"],
+        cuisine: "Catalan",
+        dishType: "breakfast",
+        duration: 5,
+        creator: "Natalia"
+
+      }
+    ];
+
+    Recipe
+        .insertMany(recipesArr)
+        .then(newRecipes => {
+          newRecipes.forEach(recipe => {
+            console.log("A new recipe is created:", recipe.title);
+          });
+        })
+        .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

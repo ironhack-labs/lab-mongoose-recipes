@@ -55,6 +55,10 @@ mongoose
                     title: 'Carrot Cake'
                   })
                   .then(() => console.log('An item was deleted'))
+                  .then(() => {
+                    console.log(`Closing the mongoose connection. Bye!`)
+                    mongoose.connection.close();
+                  })
                   .catch(err => console.log(`Error while trying to delete the reciepe: ${err}`))
               })
               .catch(err => console.log(`Error while trying to update the recipe: ${err}`))

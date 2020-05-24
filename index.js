@@ -20,23 +20,33 @@ mongoose
 		return self.connection.dropDatabase();
 	})
 	.then(() => {
-		Recipe.create({
-			title: 'Arroz con bacon',
-			level: 'Easy Peasy',
-			ingredients: [
-				'arroz',
-				'cebolla',
-				'bacon',
-				'ajo',
-				'pimienta negra',
-				'perejil',
-			],
-			cuisine: 'Vitrocerámica o gas',
-			dishType: 'main_course',
-			duration: 30,
-			creator: 'Maria  Jesús Urrutia Jiménez',
-		})
-			.then((rec) => console.log(rec.title))
+		//Iteration 2
+		// Recipe.create({
+		// 	title: 'Arroz con bacon',
+		// 	level: 'Easy Peasy',
+		// 	ingredients: [
+		// 		'arroz',
+		// 		'cebolla',
+		// 		'bacon',
+		// 		'ajo',
+		// 		'pimienta negra',
+		// 		'perejil',
+		// 	],
+		// 	cuisine: 'Vitrocerámica o gas',
+		// 	dishType: 'main_course',
+		// 	duration: 30,
+		// 	creator: 'Maria  Jesús Urrutia Jiménez',
+		// })
+		// 	.then((rec) => console.log(rec.title))
+		// 	.catch((err) =>
+		// 		console.log('Error ocurrido durante la inserción: ', err)
+		// 	);
+		//Iteration 3
+
+		Recipe.insertMany(data)
+			.then((recs) =>
+				recs.forEach((rec) => console.log('Recipe Title: ', rec.title))
+			)
 			.catch((err) =>
 				console.log('Error ocurrido durante la inserción: ', err)
 			);

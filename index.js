@@ -29,28 +29,24 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
+    Recipe.deleteMany({});
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Iteration 2
     myRecipe
       .save()
       .then(newRecipe => console.log(`A new recipe was created: ${newRecipe.title}`))
       .catch(err => console.log(`Error while creating a new recipe: ${err}`))
   })
+  // Iteration 3
+  .then(() => {
+    Recipe.insertMany(data)
+      .then(newdata => console.log(`Some new reciepes were added to the database: ${newdata}`))
+      .catch(err => console.log(`Error while importing the reciepes: ${err}`))
+  })
+  // Iteration 4
+
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
-
-// Instance of Cat --> Plain JS object
-/*const kitty = new Cat({
-    name: "Hellborn",
-    age: 0,
-    evilLevel: 1
-});*/
-
-// Persisting the instance to the database
-/*kitty
-    .save()
-    .then(newCat => console.log(`A new cat is created: ${newCat}!`))
-    .catch(err => console.log(`Error while creating a new cat: ${err}`));*/
+  })

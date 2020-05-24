@@ -1,5 +1,4 @@
 
-"use strict"
 
 const mongoose = require('mongoose');
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -24,26 +23,22 @@ mongoose
    return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create(empanadas).then(receta => { //ITERATION 2
-        console.log(`Receta agregada con exito: ${receta.title}`)
-      })
-      .then(Recipe.insertMany(data).then(recetas => { //ITERATION 3
-      [...recetas].forEach(elem => console.log(elem.title));
-      }))
-      .then(() => { //ITERATION 4
-        let query = {title: 'Rigatoni alla Genovese'}
-        Recipe.findOneAndUpdate(query, {duration: 100}, () => console.log(`Receta actualizada con exito`))})
-      .then(() => { //ITERATION 5
-        let query = {title: 'Carrot Cake'}
-        Recipe.deleteOne(query, () => console.log(`Receta eliminada con exito`))
-      })
-      .then(() => mongoose.connection.close()) //ITERATION 6
-      .then(() => console.log('Adios!'))
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+      // Run your code here, after you have insured that the connection was made
+      Recipe.create(empanadas).then(receta => console.log(`Receta agregada con exito: ${receta.title}`))
+        .then(() => {
+          Recipe.insertMany(data).then(recetas => [...recetas].forEach(elem => console.log(elem.title)))
+          .then(() => {
+            Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100}, () => console.log(`Receta actualizada con exito`))
+            .then(() => Recipe.deleteOne({title: 'Carrot Cake'}, () => console.log(`Receta eliminada con exito`)))
+            .then(() => mongoose.connection.close()).then(() => console.log('Adios!'))
+          })
+        })
+    })
+    .catch(error => {
+      console.error('Error connecting to the database', error);
+      mongoose.connection.close();
+    });
+
 
   
 

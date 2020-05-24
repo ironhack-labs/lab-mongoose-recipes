@@ -54,6 +54,12 @@ mongoose
 					.catch((err) =>
 						console.log('Error ocurrido durante la actualización: ', err)
 					);
+				//Iteration 5
+				Recipe.deleteOne({ title: 'Carrot Cake' })
+					.then((rec) => console.log('Receta eliminada!!'))
+					.catch((err) =>
+						console.log('Error ocurrido durante la eliminación: ', err)
+					);
 			})
 			.catch((err) =>
 				console.log('Error ocurrido durante la inserción: ', err)

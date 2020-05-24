@@ -21,6 +21,14 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    const ireneRecipe = new Recipe({
+      title: "Calabacines al estilo de Cerdeña",
+      cuisine: "italian",
+      duration: 50,
+      creator: "mjditifet"
+
+    })
+    ireneRecipe.save().then((ireneRecipe) => console.log("Receta guardada"))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

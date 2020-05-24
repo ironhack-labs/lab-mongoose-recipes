@@ -7,6 +7,18 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+// Recipe
+const myRecipe = new Recipe({
+  title: 'Mascarpone Cheesecake Recipe',
+  level: 'Easy Peasy',
+  ingredients: ['400g mascarpone cheese', '200ml cream', '150g sugar', '3 eggs', '150ml milk', '1 spoon maizena', '150g cookies', '75g butter'],
+  cuisine: 'Italian',
+  dishType: 'dessert',
+  image: 'https://www.pequerecetas.com/wp-content/uploads/2014/09/cheesecake-de-mascarpone.jpg',
+  duration: 30,
+  creator: 'Mamá Cocina'
+});
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -21,7 +33,24 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    myRecipe
+      .save()
+      .then(newRecipe => console.log(`A new recipe was created: ${newRecipe.title}`))
+      .catch(err => console.log(`Error while creating a new recipe: ${err}`))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+// Instance of Cat --> Plain JS object
+/*const kitty = new Cat({
+    name: "Hellborn",
+    age: 0,
+    evilLevel: 1
+});*/
+
+// Persisting the instance to the database
+/*kitty
+    .save()
+    .then(newCat => console.log(`A new cat is created: ${newCat}!`))
+    .catch(err => console.log(`Error while creating a new cat: ${err}`));*/

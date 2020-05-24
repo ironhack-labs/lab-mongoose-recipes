@@ -21,32 +21,40 @@ mongoose
 	})
 	.then(() => {
 		//Iteration 2
-		// Recipe.create({
-		// 	title: 'Arroz con bacon',
-		// 	level: 'Easy Peasy',
-		// 	ingredients: [
-		// 		'arroz',
-		// 		'cebolla',
-		// 		'bacon',
-		// 		'ajo',
-		// 		'pimienta negra',
-		// 		'perejil',
-		// 	],
-		// 	cuisine: 'Vitrocerámica o gas',
-		// 	dishType: 'main_course',
-		// 	duration: 30,
-		// 	creator: 'Maria  Jesús Urrutia Jiménez',
-		// })
-		// 	.then((rec) => console.log(rec.title))
-		// 	.catch((err) =>
-		// 		console.log('Error ocurrido durante la inserción: ', err)
-		// 	);
+		Recipe.create({
+			title: 'Arroz con bacon',
+			level: 'Easy Peasy',
+			ingredients: [
+				'arroz',
+				'cebolla',
+				'bacon',
+				'ajo',
+				'pimienta negra',
+				'perejil',
+			],
+			cuisine: 'Vitrocerámica o gas',
+			dishType: 'main_course',
+			duration: 30,
+			creator: 'Maria  Jesús Urrutia Jiménez',
+		})
+			.then((rec) => console.log(rec.title))
+			.catch((err) =>
+				console.log('Error ocurrido durante la inserción: ', err)
+			);
 		//Iteration 3
-
 		Recipe.insertMany(data)
-			.then((recs) =>
-				recs.forEach((rec) => console.log('Recipe Title: ', rec.title))
-			)
+			.then((recs) => {
+				recs.forEach((rec) => console.log('Recipe Title: ', rec.title));
+				//Iteration 4
+				Recipe.findOneAndUpdate(
+					{ title: 'Rigatoni alla Genovese' },
+					{ duration: 100 }
+				)
+					.then((rec) => console.log('Receta actualizada!!'))
+					.catch((err) =>
+						console.log('Error ocurrido durante la actualización: ', err)
+					);
+			})
 			.catch((err) =>
 				console.log('Error ocurrido durante la inserción: ', err)
 			);

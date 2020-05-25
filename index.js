@@ -36,16 +36,30 @@ mongoose
     myRecipe
       .save()
       .then(newRecipe => console.log(`New recipe created: ${newRecipe.title}`))
-      .catch(err => console.log(`Error creating the recipe: ${err}`))
-  })
-  .then(() => {
-    Recipe.insertMany(data)
-      .then(newdata => {
-        newdata.forEach(element => {
-          console.log(`Some new reciepes were added to the database: ${element.title}`)
-        });
+      .then(() => {
+        Recipe.insertMany(data)
+          .then(newdata => {
+            newdata.forEach(element => {
+              console.log(`New reciepes were added to the database: ${element.title}`)
+            })
+          })
+          .then(() => {
+            Recipe.findOneAndUpdate(
+              { title: "Rigatoni alla Genovese" },
+              { duration: 100 })
+              .then(updatedRecipe => console.log(`Recipe updated: ${updatedRecipe.title}`))
+              .then(() => {
+                Recipe.deleteOne(
+                  { title: "Carrot Cake" }
+                )
+                  .then(() => console.log(`Carrot Cake has been deleted`))
+
+              })
+          })
+
+          .catch(err => console.log(`Error while importing the reciepes: ${err}`))
       })
-      .catch(err => console.log(`Error while importing the reciepes: ${err}`))
+      .catch(err => console.log(`Error creating the recipe: ${err}`))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

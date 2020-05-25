@@ -53,11 +53,13 @@ mongoose
                   { title: "Carrot Cake" }
                 )
                   .then(() => console.log(`Carrot Cake has been deleted`))
-
+                  .then(() => {
+                    mongoose.connection.close();
+                    console.log('Closing Mongoose')
+                  })
               })
           })
-
-          .catch(err => console.log(`Error while importing the reciepes: ${err}`))
+          .catch(err => console.log(`Error while importing the recipes: ${err}`))
       })
       .catch(err => console.log(`Error creating the recipe: ${err}`))
   })

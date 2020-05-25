@@ -38,6 +38,15 @@ mongoose
       .then(newRecipe => console.log(`New recipe created: ${newRecipe.title}`))
       .catch(err => console.log(`Error creating the recipe: ${err}`))
   })
+  .then(() => {
+    Recipe.insertMany(data)
+      .then(newdata => {
+        newdata.forEach(element => {
+          console.log(`Some new reciepes were added to the database: ${element.title}`)
+        });
+      })
+      .catch(err => console.log(`Error while importing the reciepes: ${err}`))
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

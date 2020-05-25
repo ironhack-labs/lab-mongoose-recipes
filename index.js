@@ -49,4 +49,4 @@ mongoose
       console.log("Connection closed")
       process.exit(0)
     })
-  },1500)
+  },2000)

@@ -44,10 +44,18 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     Recipe.create(newRecipe)
       .then((data) =>
-        console.log(
-          "Recipe successfully created! New recipe title:",
-          data.title
-        )
+        console
+          .log("Recipe successfully created! New recipe title:", data.title)
+          .then(() => {
+            Recipe.insertMany(data).then((data) =>
+              data.forEach((recipe) =>
+                console.log(
+                  "Recipe successfully created! New recipe title:",
+                  recipe.title
+                )
+              )
+            );
+          })
       )
       .catch((err) => console.log("Error while creating the Recipe"));
   })

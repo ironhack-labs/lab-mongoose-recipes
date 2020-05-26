@@ -44,19 +44,60 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     Recipe.create(newRecipe)
       .then((data) =>
-        console
-          .log("Recipe successfully created! New recipe title:", data.title)
+        console.log(
+          "Recipe successfully created! New recipe title:",
+          data.title
+        )
+      )
+      .then(() => {
+        Recipe.insertMany(data)
+          .then((data) =>
+            data.forEach((recipe) =>
+              console.log(
+                "Recipe successfully created! New recipe title:",
+                recipe.title
+              )
+            )
+          )
           .then(() => {
-            Recipe.insertMany(data).then((data) =>
-              data.forEach((recipe) =>
+            Recipe.findOneAndUpdate(
+              {
+                title: "Rigatoni alla Genovese",
+              },
+              {
+                duration: 100,
+              },
+              {
+                new: true,
+              }
+            )
+              .then((doc) =>
                 console.log(
-                  "Recipe successfully created! New recipe title:",
-                  recipe.title
+                  `Recipe ${doc.title} successfully modified! New duration:`,
+                  doc.duration
                 )
               )
-            );
+              .then(() => {
+                Recipe.deleteOne({
+                  title: "Carrot Cake",
+                })
+                  .then((doc) => {
+                    console.log(
+                      "Recipes successfully deleted:",
+                      doc.deletedCount
+                    );
+                    mongoose.connection.close();
+                  })
+                  .catch((err) =>
+                    console.log("Error while deleting the Recipe", err)
+                  );
+              })
+              .catch((err) =>
+                console.log("Error while updating the Recipe", err)
+              );
           })
-      )
+          .catch((err) => console.log("Error while creating the Recipes"));
+      })
       .catch((err) => console.log("Error while creating the Recipe"));
   })
   .catch((error) => {

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
@@ -21,7 +20,38 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Iteration 1 - Recipe Schema
+    const newRecipe = new Recipe({
+      title: 'Crème anglaise',
+      level: 'Amateur Chef',
+      ingredients: ['milk', 'sugar', 'yolk', 'vanilla'],
+      cuisine: 'Enlish',
+      dishType: 'dessert',
+      duration: 60,
+      creator: 'Chef Jules',
+    });
+    // Iteration 2 - Create a recipe
+    Recipe.create(newRecipe)
+      .then(recipe => console.log(`New recipe added. Title of the recipe: ${recipe.title}`))
+      .then(() => {
+        // Iteration 3 - Insert multiple recipes
+        Recipe.insertMany(data)
+          .then(recipes => {
+            console.log(`Recipes imported to the DB. Title of the recipes added:`)
+            recipes.forEach(recipe => console.log(`Recipe title ==> ${recipe.title}`))
+          })
+          .then(() => {
+            // Iteration 4 - Update recipe
+            Recipe.findOneAndUpdate({
+                title: 'Rigatoni alla Genovese'
+              }, {
+                duration: 100
+              })
+              .then(amendedRecipe => console.log(`Recipe ${amendedRecipe.title} successfully amended`))
+              .catch(error => console.log(`Error amending the recipe. Error message: ${error}`))
+          })
+          .catch(error => console.log(`Error importing recipes from data.js. Error message: ${error}`))
+      })
+      .catch(error => console.log(`Error creating a new recipe. Error message: ${error}`))
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .catch(error => console.error('Error connecting to the database', error))

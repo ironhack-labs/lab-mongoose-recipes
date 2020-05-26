@@ -73,10 +73,8 @@ Recipe.findOneAndUpdate({
 Recipe.deleteOne({
     title: 'Carrot Cake'
   })
-  .then(() => console.log("recipe deleted"))
+  .then(() => console.log("Receta eliminada"))
   .then(() => mongoose.connection.close())
-
-
 
 
 

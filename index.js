@@ -48,6 +48,14 @@ mongoose
                 duration: 100
               })
               .then(amendedRecipe => console.log(`Recipe ${amendedRecipe.title} successfully amended`))
+              .then(() => {
+                Recipe.deleteOne({
+                    title: 'Carrot Cake'
+                  })
+                  .then(deletedRecipe => console.log(`Success: The recipe has been removed`))
+                  .catch(error => console.log(`Error deleting the recipe. Error message: ${error}`))
+              })
+
               .catch(error => console.log(`Error amending the recipe. Error message: ${error}`))
           })
           .catch(error => console.log(`Error importing recipes from data.js. Error message: ${error}`))

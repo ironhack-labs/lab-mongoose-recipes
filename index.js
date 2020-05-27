@@ -32,7 +32,9 @@ mongoose
     });
     // Iteration 2 - Create a recipe
     Recipe.create(newRecipe)
-      .then(recipe => console.log(`New recipe added. Title of the recipe: ${recipe.title}`))
+      .then(recipe => {
+        console.log(`New recipe added. Title of the recipe: ${recipe.title}`)
+      })
       .then(() => {
         // Iteration 3 - Insert multiple recipes
         Recipe.insertMany(data)
@@ -47,15 +49,24 @@ mongoose
               }, {
                 duration: 100
               })
-              .then(amendedRecipe => console.log(`Recipe ${amendedRecipe.title} successfully amended`))
+              .then(amendedRecipe => {
+                console.log(`Recipe ${amendedRecipe.title} successfully amended`)
+              })
               .then(() => {
                 Recipe.deleteOne({
                     title: 'Carrot Cake'
                   })
-                  .then(deletedRecipe => console.log(`Success: The recipe has been removed`))
+                  .then(() => {
+                    console.log(`Success: The recipe has been removed`)
+                    // Iteration 5 - Closing the Database 
+                    // DB gets closed once all tasks are completed
+                    mongoose.connection.close()
+                    mongoose.connection.on('disconnected', () => {
+                      console.log('Mongoose default connection disconnected')
+                    })
+                  })
                   .catch(error => console.log(`Error deleting the recipe. Error message: ${error}`))
               })
-
               .catch(error => console.log(`Error amending the recipe. Error message: ${error}`))
           })
           .catch(error => console.log(`Error importing recipes from data.js. Error message: ${error}`))

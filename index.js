@@ -53,10 +53,12 @@ mongoose
     //Delete
   .then(() => Recipe.deleteOne({title: "Carrot Cake"}))
     .catch(err => console.log("Error deleting one : ", err))
-
+  
   .then(() => {
-    mongoose.connection.close();
-  });
+      mongoose.connection.close();
+    });
+
+
  
     //         //Update duration of Rigatoni
 

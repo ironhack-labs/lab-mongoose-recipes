@@ -17,7 +17,7 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    // return self.connection.dropDatabase();
   })
   .then(() => {
     Recipe.insertMany(data)
@@ -31,11 +31,16 @@ mongoose
           .then((res) => {
             console.log('Successfully deleted')
           })
+        
+        mongoose.disconnect()
+          .then((res) => {
+            console.log('closed')
+          })
       })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
 
-mongoose.connection.close()
+
   

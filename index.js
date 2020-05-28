@@ -21,7 +21,7 @@ mongoose
   })
   //Iteración 2
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    
     const polloRecipe = new Recipe({
       title: "Pollo frito",
       ingredients: ["pollo", "aceite"],
@@ -31,16 +31,43 @@ mongoose
     .then(recipe => console.log(`The recipe ${recipe.title} has been added correctly`))
   
    .catch(error => {
-      console.error('Error connecting to the database', error);
+      console.error(error);
+    })
   })
-  })
+  .then(() =>{
   //iteracion 3
   Recipe.insertMany(data)
   .then (() => {
     Recipe.find()
     .then(recipes => {
       recipes.forEach(everyRecipe => console.log(`Recipe Name: ${everyRecipe.title}`))
-      .catch(error => {
-        console.error('Error connecting to the database', error);
     })
   })
+})
+  .then(() => {
+ //Iteracion 4 
+  Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration:100})
+  .then ((recipe) => console.log(`Recipe ${recipe.title} updated succesfuly!`))
+ })
+ .then(() => {
+ // iteracion 5
+ Recipe.deleteOne({title: "Carrot Cake"})
+ .then(() => {
+   console.log("Recipe deleted succesfuly")
+ //Iteracion 6
+ mongoose.connection.close()
+ })
+ .catch(error => {
+  console.error(error);
+})
+.catch(error => {
+  console.error(error);
+})
+.catch(error => {
+  console.error(error);
+})
+ 
+})
+
+
+ //DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated

@@ -17,7 +17,7 @@ const newRecipe = new Recipe({
   cuisine: "Asian",
   dishType: "main_course",
   image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-  duration: 40,
+  duration: 140,
   creator: "Alex Chef",
 });
 
@@ -28,38 +28,51 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   })
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    // return self.connection.dropDatabase();
   })
   //Add new recipe
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-
     Recipe.create(newRecipe)
-      .then(rec => console.log("New recipe added: ", rec.title))
+      .then(rec => console.log("New recipe added: ", rec.title));
+  }).catch(error => console.error('Error connecting to the database', error))
+
       //Add many recipes form json here
-      .then(() => {
-        Recipe.insertMany(data, () => data.forEach(el => console.log("Many inserted")));
-            //Update duration of Rigatoni
-            // .then(() => {
-              Recipe.findOneAndUpdate(
-                {title: "Rigatoni alla Genovese"},{duration: 100}, console.log("Success!"))
+  .then(() => Recipe.insertMany(data, () => data.forEach(el => console.log("Inserted: ", el.title))))
+    .catch(err => console.log("Error insert many : ", err))
 
-                //Delete carrot
-                .then(() => {
-                  Recipe.deleteOne({title: "Carrot Cake"});
-                  console.log("Carrot cake deleted ");
-                  mongoose.connection.close(() => console.log("connection closed!"));
-                }
+    //Find and update
+  .then(() => Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100}, console.log("Success!")))
+
+    .catch(err => console.log("Error find and update update : ", err))
+    //Delete
+  .then(() => Recipe.deleteOne({title: "Carrot Cake"}))
+    .catch(err => console.log("Error deleting one : ", err))
+
+  .then(() => {
+    mongoose.connection.close();
+  });
+ 
+    //         //Update duration of Rigatoni
+
+    // 
+    // console.log(Recipe.find({duration: 100} ));
+
+    // //             //Delete carrot
+    // 
+    // console.log("Carrot cake deleted ");
+    // 
+                
                   
-                ).catch((err) => console.log("Error deleting carrot cake: ", err));
-            // }).catch((err) => console.log("Error updating: ", err));
-      }).catch((err) => console.log("Error inserting many: ", err));
-  }).catch(error => console.error('Error connecting to the database', error));
 
- setTimeout(() => Recipe.find(data, () => data.forEach(el => console.log(el.title, el.duration))), 2000
- );
+            // }).catch((err) => console.log("Error updating: ", err));
+      
+
+
+//  setTimeout(() => Recipe.find(data, () => data.forEach(el => console.log(el.title, el.duration))), 2000
+//  );

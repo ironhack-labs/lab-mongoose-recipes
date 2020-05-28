@@ -1,3 +1,8 @@
+
+console.log("working...")
+
+
+
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -12,16 +17,68 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    // useUnifiedTopology: true
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+    // ITERATION 2
+
+    Recipe.create({
+      title: "grilled chicken",
+      level: "Amateur Chef",
+      ingredients: ["chicken", "salt", "pepper", "lemon"],
+      cuisine: "American",
+      dishType: "main_course",
+      duration: 30,
+      creator: "Abdy Guevara",
+
+    });
+
+    console.log("added recipe")
+
+    Recipe.insertMany(data)
+      .then((res) => {
+        console.log('Data added', res)
+
+
+      })
+      .catch(() => {
+        console.log('Error connecting to the database', error);
+      })
+
+
+    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, {$set: {duration: 100} })
+      .then((res) => {
+        console.log('Data updated', res);
+
+      })
+      .catch(() => {
+        console.log('Error connecting to the database', error);
+      })
+
+      
+    Recipe.deleteOne({ title: "Carrot Cake" })
+      .then((res) => {
+        console.log('Deleted Cake', res);
+
+      })
+
+      .catch(() => {
+        console.log('Error connecting to the database', error);
+      })
+
+
+
+
+
+      mongoose.disconnect();
+

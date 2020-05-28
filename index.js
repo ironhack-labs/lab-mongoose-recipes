@@ -33,7 +33,7 @@ mongoose
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    // return self.connection.dropDatabase();
+    return self.connection.dropDatabase();
   })
   //Add new recipe
   .then(() => {
@@ -43,21 +43,22 @@ mongoose
   }).catch(error => console.error('Error connecting to the database', error))
 
       //Add many recipes form json here
-  .then(() => Recipe.insertMany(data, () => data.forEach(el => console.log("Inserted: ", el.title))))
-    .catch(err => console.log("Error insert many : ", err))
+  .then(() => {
+    Recipe.insertMany(data, () => data.forEach(el => console.log("Inserted: ", el.title)));
+  }).catch(err => console.log("Error insert many : ", err))
 
     //Find and update
-  .then(() => Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100}, console.log("Success!")))
-
-    .catch(err => console.log("Error find and update update : ", err))
-    //Delete
-  .then(() => Recipe.deleteOne({title: "Carrot Cake"}))
-    .catch(err => console.log("Error deleting one : ", err))
-  
   .then(() => {
-      mongoose.connection.close();
-    });
-
+      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100})
+      .then(() => console.log("Rigatoni"));
+    }).catch(err => console.log("Error find and update update : ", err))
+    //Delete
+  .then(() => {
+    Recipe.deleteOne({title: "Carrot Cake"})
+    .then(() => console.log("Carrot deleted"));
+    }).catch(err => console.log("Error deleting one : ", err))
+  
+ 
 
  
     //         //Update duration of Rigatoni

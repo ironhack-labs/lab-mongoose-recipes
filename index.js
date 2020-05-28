@@ -19,22 +19,28 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+  //Iteración 2
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create({
-      title: "pollo frito",
+    const polloRecipe = new Recipe({
+      title: "Pollo frito",
       ingredients: ["pollo", "aceite"],
-      cuisine: "para engordar"
-    }) 
-    //no imprime ??? El resto esta correcto segun los requerimientos  
-    Recipe.find()
-    .then(recipesFromDB =>{
-      recipesFromDB.forEach(oneRecipe => console.log(`recipe: ${oneRecipe.title}`))
+      cuisine: "international"
     })
-    
-    
-    
+    Recipe.create(polloRecipe)
+    .then(recipe => console.log(`The recipe ${recipe.title} has been added correctly`))
+  
+   .catch(error => {
+      console.error('Error connecting to the database', error);
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  })
+  //iteracion 3
+  Recipe.insertMany(data)
+  .then (() => {
+    Recipe.find()
+    .then(recipes => {
+      recipes.forEach(everyRecipe => console.log(`Recipe Name: ${everyRecipe.title}`))
+      .catch(error => {
+        console.error('Error connecting to the database', error);
+    })
+  })

@@ -44,18 +44,28 @@ mongoose
 
       //Add many recipes form json here
   .then(() => {
-    Recipe.insertMany(data, () => data.forEach(el => console.log("Inserted: ", el.title)));
+    Recipe.insertMany(data)
+    .then( rec => rec.forEach(el => console.log("Inserted MANY : ", el.title)))
+    .then(() => {
+      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100})
+      .then(result => console.log("Rigatoni updated !! ", result));
+    }).catch(err => console.log("Error find and update update : ", err))
+    //Delete
+  .then(() => {
+    Recipe.deleteOne({title: "Carrot Cake"})
+    .then(result => console.log("Carrot deleted ", result));
+    }).catch(err => console.log("Error deleting one : ", err))
   }).catch(err => console.log("Error insert many : ", err))
 
     //Find and update
   .then(() => {
       Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100})
-      .then(() => console.log("Rigatoni"));
+      .then(result => console.log("Rigatoni updated !! ", result));
     }).catch(err => console.log("Error find and update update : ", err))
     //Delete
   .then(() => {
     Recipe.deleteOne({title: "Carrot Cake"})
-    .then(() => console.log("Carrot deleted"));
+    .then(result => console.log("Carrot deleted ", result));
     }).catch(err => console.log("Error deleting one : ", err))
   
  

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require('./data.json');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -20,8 +20,67 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe
+      .create({
+        title: "Asian Glazed Tofu Thighs",
+        level: "Amateur Chef",
+        ingredients: [
+          "1/2 cup rice vinegar",
+          "5 tablespoons honey",
+          "1/3 cup soy sauce (such as Silver Swan®)",
+          "1/4 cup Asian (toasted) sesame oil",
+          "3 tablespoons Asian chili garlic sauce",
+          "3 tablespoons minced garlic",
+          "salt to taste",
+          "8 firm tofu pieces"
+        ],
+        cuisine: "Asian",
+        dishType: "main_course",
+        duration: 40,
+        creator: "Chef LePapu"
+      })
+      .then(recipe => { console.log('Recipe created: ', recipe.title); })
+
+    Recipe
+      .insertMany(data)
+      .then((newRecipes)=> {
+        newRecipes.forEach(function(recipe) {
+          console.log(`New recipe added: ${recipe.title}`);
+        })
+      })
+      .then(() => {
+        return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100})
+      })
+      .then((updatedRecipe) => {
+        console.log(`Recipe updated: ${updatedRecipe.title}`);
+      })
+      .then(() => {
+        return Recipe.findOneAndDelete({title: "Carrot Cake"})
+      })
+      .then((recipeDeleted) => {
+        console.log(`Deleted ${recipeDeleted.title}`);
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   })
+
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+

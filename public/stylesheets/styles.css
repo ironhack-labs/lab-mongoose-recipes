@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f9f9;
+    position: relative;
+    min-height: 100vh;
+    text-align: center;
+}
+
+img {
+    height: 14rem;
+    width: 300px;
+}

@@ -1,4 +1,16 @@
 const mongoose = require('mongoose');
+const express = require('express');
+const hbs = require('hbs');
+const path = require('path');
+
+
+const app = express();
+
+app.set('view engine', 'hbs');
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
+
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
@@ -20,6 +32,7 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+  
     Recipe
       .create({
         title: "Asian Glazed Tofu Thighs",
@@ -59,28 +72,20 @@ mongoose
       })
       .then((recipeDeleted) => {
         console.log(`Deleted ${recipeDeleted.title}`);
-      })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      });
   })
-
-
 
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
 
-
+app.get('/', (req, res) => {
+  Recipe
+  .find({})
+  .then(recipes => {
+    res.render('index',{recipes: recipes});
+  });
+})
+  
+app.listen(3000, () => console.log('🏃‍ on port 3000'));

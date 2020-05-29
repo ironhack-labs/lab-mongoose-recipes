@@ -52,6 +52,25 @@ mongoose
       }))
       .catch(error => console.log("Error al ingresar las recetas", error))
   })
+  .then(() => {
+    Recipe.findOneAndUpdate({
+        title: "Rigatoni alla Genovese"
+      }, {
+        duration: 100
+      })
+      .then(recipe => console.log(`Receta de ${recipe.title} actualizada`))
+  })
+  .then(() => {
+    Recipe.deleteOne({
+        title: "Carrot Cake"
+      })
+      .then(() => console.log("Receta eliminada"))
+      .catch(error => console.log("Error al eliminar la receta", error))
+  })
+  .then(() => {
+    mongoose.connection.close()
+    console.log("Cerrando Mongoose")
+  })
   .catch(error => {
     console.log(error('Error connecting to the database', error));
   });

@@ -22,20 +22,33 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   })
-  .then(()=>{
+  .then(() => {
     Recipe
-      .create({ title: "Nardo" })
-      .then((recipe) => {
-        console.log('This is the recipe you were looking for', recipe.title)
+      .create({
+        title: "Limoncello",
+        level: "Amateur Chef",
+        ingredients: [
+          "1 cup sugar",
+          "10 lemons",
+          "1l pure alcohol"
+        ],
+        cuisine: "Italian",
+        dishType: "breakfast",
+        image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+        duration: 30,
+        creator: "Nardo Kraaijeveld"
       })
-      .catch((error) => {
-        console.log('error', error)
+      .then(recipe => {
+        console.log("You're recipe got added", recipe)
+      })
+      .catch(error => {
+        console.log("Error you're recipe did not got added", error)
       })
   })
-  .then(()=>{
+  .then(() => {
     Recipe
       .insertMany(data)
-      .then((recipe) => {
+      .then(recipe => {
         return Recipe.find()
           .select('title')
           .then((theResponse) => {
@@ -45,80 +58,28 @@ mongoose
       .catch((error) => {
         console.log('error', error)
       })
+      .then(() => {
+        Recipe
+          .findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, {new: true})
+          .then(recipe => {
+            console.log('The duration of the recipe got adjusted', recipe)
+          })
+          .catch(error => {
+            console.log('The update did not succeeded', error)
+          })
+      })
+      .then(() => {
+        Recipe
+          .deleteOne({ title: "Carrot Cake" })
+          .then(recipe => {
+            console.log('The recipe got deleted', recipe)
+          })
+          .catch(error => {
+            console.log('The recipe did not got deleted', error)
+          })
+          .then(() => {
+            mongoose.connection.close()
+            console.log("SERVER CONNECTION CLOSED");
+          })
+      })
   })
-  .then(()=>{
-    Recipe
-      .findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-      .then((recipe) => {
-        console.log('You updated it succesfully', recipe)
-      })
-      .catch((error) => {
-        console.log('An error with updating', error)
-      })
-  })
-  .then(()=>{
-    Recipe
-      .deleteOne({ title: 'Carrot Cake' })
-      .then((recipe) => {
-        console.log('You deleted it succesfully', recipe)
-      })
-      .catch((error) => {
-        console.log('An error with deleting', error)
-      })
-  })
-  // .then(() => {
-  //   mongoose.connection.close()
-  // })
-  // .then(() => console.log("Database closed"))
-  // .catch((err) => {
-  //   console.error('Error connecting to mongo', err);
-  // });
-
-
-const createNewRecipe = () =>{
-  Recipe
-    .create({ title: "Nardo" })
-    .then((recipe) => {
-      console.log('This is the recipe you were looking for', recipe.title)
-    })
-    .catch((error) => {
-      console.log('error', error)
-    })
-}
-
-const insertRecipesFromData = (data) => {
-  Recipe
-    .insertMany(data)
-    .then((recipe) => {
-      return Recipe.find()
-        .select('title')
-        .then((theResponse) => {
-          console.log(`These are the recipes that got added, ${theResponse}`)
-        })
-    })
-    .catch((error) => {
-      console.log('error', error)
-    })
-}
-
-const updateTheValues = () =>{
-  Recipe
-    .findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
-    .then((recipe) => {
-      console.log('You updated it succesfully', recipe)
-    })
-    .catch((error) => {
-      console.log('An error with updating', error)
-    })
-}
-
-const deleteTheCarrot = () => {
-  Recipe
-    .deleteOne({ title: 'Carrot Cake' })
-    .then((recipe) => {
-      console.log('You deleted it succesfully', recipe)
-    })
-    .catch((error) => {
-      console.log('An error with deleting', error)
-    })
-}

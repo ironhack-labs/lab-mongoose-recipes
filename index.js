@@ -14,14 +14,64 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
+  .then(x => {
+    console.log(`Connected to the database: "${x.connections[0].name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    return x.connection.dropDatabase();
+  })
+  .then(x => {
+    return Recipe
+      .create({
+          title : "Noodles",
+          level : "UltraPro Chef",
+          ingredients : ["Noodles","Water","Fire"],
+          cuisine : "Universal",
+          dishType : "Satisfactory",
+          image : "https://kirbiecravings.com/wp-content/uploads/2018/02/garlic-noodles-31-700x704.jpg",
+          duration : 4,
+          creator : "Lemiso Elko",
+          created : "2020-02-28"
+      }).then(recipe=>{
+        console.log("New recipie added", recipe)
+      })
+      .catch(error => {
+        console.error('Error connecting to the database', error);
+      })
+  })
+  .then(x => {
+    return Recipe
+    .insertMany(data)
+    .then(recipe=>{
+      console.log("New recipie added", recipe)
+    })
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe
+    .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration : 100})
+      .then(x =>{
+      console.log(`Recipe was updated`)
+      }
+    )
+    .catch(error => {
+      console.error('Recipe not updated', error);
+    })
+  })
+  .then(()=>{
+    return Recipe
+    .deleteOne({title:"Carrot Cake"})
+    .then(x =>{
+    console.log(`Recipe was deleted`)
+     }
+    )
+    .catch(error => {
+      console.error('Recipe was not deleted', error);
+    })
+  }
+  )
+  .then(()=> {mongoose.connection.close()})
+  .then(()=>{console.log("Database connection closed");
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+

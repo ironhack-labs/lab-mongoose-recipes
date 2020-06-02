@@ -72,20 +72,24 @@ mongoose
       })
       .then((recipeDeleted) => {
         console.log(`Deleted ${recipeDeleted.title}`);
-      });
+      })
+      .then(() => {
+        mongoose.connection.close(function(){
+          console.log("DB is closed");
+        })
+    });
   })
 
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-
-app.get('/', (req, res) => {
-  Recipe
-  .find({})
-  .then(recipes => {
-    res.render('index',{recipes: recipes});
-  });
-})
+//If you'd like to see the recipes, comment the last 2 .thens (connection.close() and console log DB closed) and uncomment the below.
+//   Recipe
+//   .find({})
+//   .then(recipes => {
+//     res.render('index',{recipes: recipes});
+//   });
+// })
   
 app.listen(3000, () => console.log('🏃‍ on port 3000'));

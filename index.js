@@ -75,7 +75,7 @@ mongoose
       })
       .then(() => {
         mongoose.connection.close(function(){
-          console.log("DB is closed");
+          console.log("Connection is closed");
         })
     });
   })
@@ -84,7 +84,7 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-//If you'd like to see the recipes, comment the last 2 .thens (connection.close() and console log DB closed) and uncomment the below.
+//If you'd like to see the recipes, comment the last .then (connection.close()) and uncomment the below.
 //   Recipe
 //   .find({})
 //   .then(recipes => {

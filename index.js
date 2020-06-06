@@ -20,8 +20,60 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
+    Recipe.create({
+      "title": " Butter chicken",
+    "level": "Amateur Chef",
+    "ingredients": [
+      "500g skinless boneless chicken thighs",
+      "1 lemon juiced",
+      "1 cup raisins",
+      "2 tsp ground cumin",
+      "2 tsp paprika",
+      "1-2 tsp hot chilli powder",
+      "200g natural yogurt",
+      "2 tbsp vegetable oil",
+      "1 large onion chopped",
+      "3 garlic cloves crushed",
+      "1 green chill",
+      "thumb-sized piece ginger",
+      "1 tsp garam masala",
+      "2 tsp ground fenugreek",
+      "3 tbsp tomato purée",
+      "300ml chicken stock",
+      "50g flaked almonds, toasted",
+    ],
+    "cuisine": "International",
+    "dishType": "main_course",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2017/01/butter-chicken.jpg?itok=eE_5ufkS",
+    "duration": 45,
+    "creator": "Jennifer Joyce"
+    })
+    .then((recipe)=> 
+    console.log(`New recipe named ${recipe.title} was added to the DB`))
+    .then(() =>{
+      Recipe.insertMany(data)
+      .then((recipe)=>{
+        recipe.forEach((element) => console.log(`Added ${element.title}`)
+          )
+        })
+        .then(()=> {
+          Recipe.findOneAndUpdate({
+            title:"Orange and Milk-Braised Pork Carnitas"},
+            { duration: 20 })
+            .then(recipe => {
+              console.log("Find recipe and update", recipe.title)
+            })
+          })
+           .then(( )=> {
+            Recipe.findOneAndDelete({
+              title:"Rigatoni alla Genovese"
+            })
+            .then(()=> {console.log("Recipe deleted")
+              mongoose.connection.close()
+          })
+           })
+          })
+        })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

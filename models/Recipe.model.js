@@ -27,7 +27,7 @@ image: {
    type: String
  },
  created: {
-   type: date,
+   type: Date,
    default: date.now
  }
 });

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
-// Import of the data from './data.json'
+// Import of the data from './data.json' || no te encontraba, bribón...
 const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
@@ -20,31 +20,54 @@ mongoose
     return self.connection.dropDatabase();
   })
 
-  // .then(() => {
-  //   return Recipe
-  //     .create(
-  //       {
-  //         title: "Gambitas de huelva con vainilla y coco",
-  //         level: "Easy Peasy",
-  //         duration: "2",
-  //         ingredients: ['gambas', 'vainilla', 'coco'],
-  //         cuisine: "la cuisine de mi casa"
-  //       }
-  //     )
-  //     .then(newRecipe => console.log('Nueva creación cocineril:', newRecipe.title))
-  //     .catch(err => console.log('Hubo un error', err))
-  //   // Run your code here, after you have insured that the connection was made
-  // })
-  // .catch(error => {
-  //   console.error('Error connecting to the database', error);
-  // });
+  .then(() => {
+    //ITERATION 2 CREATE RECIPES
+    return Recipe
+      .create(
+        {
+          title: "Gambitas de huelva con vainilla y coco",
+          level: "Easy Peasy",
+          duration: "2",
+          ingredients: ['gambas', 'vainilla', 'coco'],
+          cuisine: "la cuisine de mi casa"
+        }
+      )
+      .then(newRecipe => console.log('Nueva creación cocineril:', newRecipe.title))
+      .catch(err => console.log('Hubo un error', err))
+    // Run your code here, after you have insured that the connection was made
+  })
 
+  //ITERATION 3 INSERT MULTIPLE RECIPES
   .then(() => {
     return Recipe
-      .create({
-      
-    })
+      .create(data)
+      .then(
+        newRecipes => {
+          newRecipes.forEach(e => (console.log(e.title)))
+        })
   })
+
+  //ITERATION 4 UPDATE RECIPE
+  .then(() => {
+    return Recipe
+      .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true })
+    .then(
+      modifiedRecipe => console.log('Modified:', modifiedRecipe.title, modifiedRecipe.duration))
+  })
+
+  //ITERATION 5 REMOVE RECIPE
+  .then(() => {
+    Recipe
+      .findOneAndDelete({ title: 'Carrot Cake' })
+      //SACAR TÍTULO?
+      .then(success => console.log('Success removal of:', success.title))
+  })
+
+
   .catch(error => {
-    console.error('Error connecting to the database', error)
-  })
+    console.error('Error connecting to the database', error);
+  });
+
+
+//ITERATION 6 CLOSE
+mongoose.disconnect()

@@ -21,7 +21,30 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe
+      .create({
+        title: "Eggs Benedict",
+        level: 'Easy Peasy',
+        dishtype: 'breakfast',
+        image: src = "https://www.bbcgoodfood.com/sites/default/files/recipe/recipe-image/2019/02/eggs-benedict-pancakes.jpg",
+        duration: 30,
+        creator: "Rodrigo",
+      })
+      .then(newRecipe => console.log('La nueva receta es:', newRecipe))
+ 
+  .then(() => {Recipe.create(data)
+  .then((recipe) => { recipe.forEach((element) => console.log(`Estas son las ultimas recetas ${element.title}`)) })
   })
+
+  .then(() => Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true } ))
+  .then(recipe => console.log('Actualizada la duracion de', recipe))
+  .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }, { new: true }))
+  .then(recipeDeleted => console.log('La receta eliminada es', recipeDeleted))
+  .then(() => mongoose.connection.close())
+
   .catch(error => {
     console.error('Error connecting to the database', error);
+  })
   });
+  
+

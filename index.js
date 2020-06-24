@@ -12,7 +12,9 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false //TEMA DEL DEPRECATED
+
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -51,13 +53,13 @@ mongoose
   .then(() => {
     return Recipe
       .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true })
-    .then(
-      modifiedRecipe => console.log('Modified:', modifiedRecipe.title, modifiedRecipe.duration))
+      .then(
+        modifiedRecipe => console.log('Modified:', modifiedRecipe.title, modifiedRecipe.duration))
   })
 
   //ITERATION 5 REMOVE RECIPE
   .then(() => {
-    Recipe
+    return Recipe
       .findOneAndDelete({ title: 'Carrot Cake' })
       //SACAR TÍTULO?
       .then(success => console.log('Success removal of:', success.title))

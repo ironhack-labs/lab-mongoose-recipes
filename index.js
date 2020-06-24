@@ -17,6 +17,7 @@ mongoose
 
   })
   .then(self => {
+
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
@@ -24,6 +25,7 @@ mongoose
 
   .then(() => {
     //ITERATION 2 CREATE RECIPES
+    console.log("-----ITERACION 2-----")
     return Recipe
       .create(
         {
@@ -41,6 +43,7 @@ mongoose
 
   //ITERATION 3 INSERT MULTIPLE RECIPES
   .then(() => {
+    console.log("-----ITERACION 3-----")
     return Recipe
       .create(data)
       .then(
@@ -51,14 +54,16 @@ mongoose
 
   //ITERATION 4 UPDATE RECIPE
   .then(() => {
+    console.log("-----ITERACION 4-----")
     return Recipe
       .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true })
       .then(
-        modifiedRecipe => console.log('Modified:', modifiedRecipe.title, modifiedRecipe.duration))
+        modifiedRecipe => console.log('Modified:', modifiedRecipe.title, 'with new duration:', modifiedRecipe.duration))
   })
 
   //ITERATION 5 REMOVE RECIPE
   .then(() => {
+    console.log("-----ITERACION 5-----")
     return Recipe
       .findOneAndDelete({ title: 'Carrot Cake' })
       //SACAR TÍTULO?

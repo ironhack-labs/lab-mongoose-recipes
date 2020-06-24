@@ -19,9 +19,39 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+  // Run your code here, after you have insured that the connection was made
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+        title: 'Brownie',
+        level: 'Easy Peasy',
+        ingredients: 'chocolate',
+        cuisine: 'francesa',
+        dishType: 'dessert',
+        duration: 2,
+        creator: 'desconocido'
+      })
+      .then(newRecipie => console.log(newRecipie.title))
+
   })
+  .then(() => Recipe.create(data))
+  .then((recipe) => recipe.forEach(elm => {
+    console.log(elm.title)
+  }))
+  .then(() => Recipe.updateOne({
+    title: 'Rigatoni alla Genovese'
+  }, {
+    duration: 100
+  }, {
+    new: true
+  }).then(details => console.log("Los detalles de la modificación son:", details)))
+
+  .then(() => Recipe.deleteOne({
+    title: 'Carrot Cake'
+  }).then(deletedItem => console.log(deletedItem)))
+  .then(() => mongoose.connection.close() )
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  
+  

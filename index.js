@@ -36,14 +36,17 @@ mongoose
       .then(() => Recipe.create(data))
       .then(newrigatoni => {
 
-        console.log("receta modificada")
-        return Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+       // console.log(newrigatoni)
+       return Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
       })
-      .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
-
-      .catch(err => console.log("Hubo un error!", err))
-
-    mongoose.connection.close()
+      .then(() => Recipe.findOneAndRemove({ title: 'Carrot Cake' }))
+      .then(RecipeDeleted => console.log(RecipeDeleted))
+      .then(()=> mongoose.connection.close())
+    
+      .catch(err => console.error("!!!!!Hubo un error!", err))
+      
+      
+      
 
 
   })

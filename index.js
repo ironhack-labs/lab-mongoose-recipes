@@ -2,6 +2,15 @@ const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
+Model.create( { details: "yummy"} ).then(Recipe.model.js => {
+  console.log(this.title);
+}).catch(err => {
+  console.log(err);
+});
+
+
+
+
 // Import of the data from './data.json'
 const data = require('./data');
 

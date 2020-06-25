@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Iteration 1 - Recipe Schema
 const recipeSchema = new Schema({
   title: {
     type: String,

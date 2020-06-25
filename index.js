@@ -42,18 +42,27 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(async () => {
-    //data.map(doc => insertRecipes(doc))
-    await insertMultipleRecipes(data)
 
+    //Iteration 2 - Create a recipe
+    data.map(async doc => {
+      const result = await insertRecipes(doc)
+      console.log(result.title)
+    })
+
+    //Iteration 3 - Insert multiple recipes
+    const recipes = await insertMultipleRecipes(data)
+    recipes.map(({ title }) => console.log(title))
+
+    //Iteration 4 - Update recipe
     await updateRecipe({ title: "Rigatoni alla Genovese" }, { duration: 100 })
 
+    //Iteration 5 - Remove a recipe
     await deleteRecipe({ title: 'Carrot Cake' })
 
+    //Iteration 6 - Close the Database
     await mongoose.disconnect()
 
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   })
-
-

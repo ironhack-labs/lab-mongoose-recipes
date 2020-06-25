@@ -24,8 +24,7 @@ const recipeSchema = new Schema({
   },
   dishType: {
     type: String,
-    // Possible values
-    
+    enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other']
   },
   image: {
     type: String,

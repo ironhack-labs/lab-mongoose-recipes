@@ -20,6 +20,12 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+    Recipe.create({title: 'Banana Bread', ingredients: ['banana', 'love'],
+    cuisine: 'American',
+    dishType: 'breakfast',
+    duration: 40,
+    creator: 'Pauline',
+    }).then((recipe) => console.log(recipe.title))
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {

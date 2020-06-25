@@ -21,7 +21,50 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+     Recipe.create({
+      title: 'chicken curry',
+      level: 'Easy Peasy',
+      ingredients: ['chicken', 'onion', 'pepper', 'carrot', 'rice', 'soya', 'salt', 'coconut milk', 'curry'],
+      cuisine: 'indian',
+      dishType: 'main_course',
+      image: "https://t2.rg.ltmcdn.com/es/images/4/1/3/pollo_al_curry_hindu_facil_72314_600.jpg",
+      duration: 60,
+      creator: 'Pablo de Tuero',
+
+    })
+    .then(newRecipe => console.log(newRecipe))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  //Recetas del data.json
+
+  Recipe
+    .create(data)
+
+    .then(newData => console.log('Los nuevos elementos creados:', newData.title))
+
+    //Actualiza rigatoni
+
+    .then(() => Recipe.findOneAndUpdate(
+      { title: 'Rigatoni alla Genovese' }, 
+      { duration: 100 }, 
+      { new: true }
+    ))
+    .then(rigatoni => console.log('Actualiza la duración de', rigatoni.title))
+
+    // Borrar el carrot cake
+
+    .then(() => Recipe.deleteOne(
+      {title: 'Carrot Cake'}
+    ))
+    .then(disappear => console.log('Ya no venemos', disappear.title))
+
+    //desconectar
+
+    .then(()=> mongoose.connection.close(() => console.log('Mongoose Disconect')))
+
+    .catch(err => console.log('Hubo un error', err))
+  
+  

@@ -7,13 +7,15 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+mongoose.set('useFindAndModify', false);
+
 
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -38,7 +40,7 @@ mongoose
         dishType: 'drink',
         image: "https://images.unsplash.com/photo-1541546006121-5c3bc5e8c7b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80",
         duration: 5,
-        creator: "GOD OF ALL COKTAILS"
+        creator: "Mr.Bulleit"
       })
       .then(recipe => {
         console.log("You're recipe got added", recipe);
@@ -48,6 +50,39 @@ mongoose
       })
     
     })
+
+  //Iteration 3 - insert multiple recipes
+
+  .then(() => {
+    Recipe
+    .insertMany(data)
+    .then(recipe => {
+      return Recipe.find()
+        .select('title')
+        .then((theResponse) => {
+          console.log(`These are the recipes that got added, ${theResponse}`)
+        })
+    })
+    .catch((error) => {
+      console.log('error', error);
+    }); 
+
+  })
+
+// Iteration 4 - Update recipe
+  .then(() => {
+    Recipe
+    .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100 }, {new: true})// somehow this does not work
+    .then(recipe => {
+             console.log(`Duration of ${recipe} was changed`, recipe);
+         })
+    .catch(err => {
+             console.log('Updating Duration failed',err);
+         });
+    
+   })
+
+////////////////////////////////////////////////////////////////
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

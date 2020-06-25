@@ -51,9 +51,9 @@ mongoose
     
     })
 
-  //Iteration 3 - insert multiple recipes
+    //Iteration 3 - insert multiple recipes
 
-  .then(() => {
+   .then(() => {
     Recipe
     .insertMany(data)
     .then(recipe => {
@@ -67,10 +67,10 @@ mongoose
       console.log('error', error);
     }); 
 
-  })
+   })
 
-// Iteration 4 - Update recipe
-  .then(() => {
+    // Iteration 4 - Update recipe
+    .then(() => {
     Recipe
     .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100 }, {new: true})// somehow this does not work
     .then(recipe => {
@@ -82,7 +82,17 @@ mongoose
     
    })
 
-////////////////////////////////////////////////////////////////
-  .catch(error => {
+    // Iteration 5 - remove Carrot cake
+
+   .then (() => {
+
+   Recipe
+  .deleteOne({title:"Carrot Cake"}).then(result => {result
+         console.log(result);
+
+   })
+   })
+
+   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -71,11 +71,14 @@ mongoose
 
     // Iteration 4 - Update recipe
     .then(() => {
-    Recipe
-    .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100 }, {new: true})// somehow this does not work
-    .then(recipe => {
-             console.log(`Duration of ${recipe} was changed`, recipe);
-         })
+     Recipe
+     .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100 }, {new: true})
+     .then(recipe => {
+              console.log(`Duration of ${recipe} was changed`, recipe);
+
+            })
+              
+         
     .catch(err => {
              console.log('Updating Duration failed',err);
          });
@@ -87,10 +90,14 @@ mongoose
    .then (() => {
 
    Recipe
-  .deleteOne({title:"Carrot Cake"}).then(result => {result
-         console.log(result);
+  .deleteOne({title:"Carrot Cake"})
+  .then(result => {
+         console.log(`Recipe was deleted`,result);
 
    })
+   .catch(err => {
+    console.log('Deleting Recipe failed',err);
+});
    })
 
    .catch(error => {

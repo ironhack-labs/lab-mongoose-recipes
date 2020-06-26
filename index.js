@@ -50,56 +50,50 @@ mongoose
       })
     
     })
+  
 
-    //Iteration 3 - insert multiple recipes
+    //Iteration 3 - insert multiple recipes + 4 - update one recipe
 
-   .then(() => {
+  .then( () => {
     Recipe
     .insertMany(data)
-    .then(recipe => {
+     .then((inputData) => {
       return Recipe.find()
         .select('title')
         .then((theResponse) => {
-          console.log(`These are the recipes that got added, ${theResponse}`)
+           console.log(`These are the recipes that got added, ${theResponse}`)
         })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    }); 
+       .catch(error=> 
+         console.log('Error while adding new recipes', error))
 
-   })
-
-    // Iteration 4 - Update recipe
-    .then(() => {
-     Recipe
-     .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100 }, {new: true})
-     .then(recipe => {
-              console.log(`Duration of ${recipe} was changed`, recipe);
-
+        .then(() => {
+          Recipe
+          .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100 }, {new: true})
+           .then(updateRecipe => {
+              console.log(`Duration of ${updateRecipe.title} was changed`);
             })
-              
-         
-    .catch(err => {
+            .catch(err => {
              console.log('Updating Duration failed',err);
-         });
-    
-   })
+         })
+       })
 
     // Iteration 5 - remove Carrot cake
 
-   .then (() => {
+           .then (() => {
 
-   Recipe
-  .deleteOne({title:"Carrot Cake"})
-  .then(result => {
-         console.log(`Recipe was deleted`,result);
-
-   })
-   .catch(err => {
-    console.log('Deleting Recipe failed',err);
-});
-   })
+              Recipe
+               .deleteOne({title:"Carrot Cake"})
+                .then(deletedData => {
+                  console.log(`This Recipe was deleted:`, deletedData);
+                      })
+                  .catch(err => {
+                    console.log('Deleting Recipe failed',err);
+                      })
+                        })
+     })
 
    .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+      })
+
+     })

@@ -11,7 +11,8 @@ mongoose.set('useFindAndModify', false);
 
 
 // Connection to the database "recipe-app"
-mongoose
+const dbChanges = 
+  mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -22,6 +23,9 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+      })
   .then( () => {
     //Iteration 2 - Create a recipe
     Recipe
@@ -77,23 +81,38 @@ mongoose
          })
        })
 
-    // Iteration 5 - remove Carrot cake
+    // Iteration 5 - remove Carrot cake 
 
            .then (() => {
 
               Recipe
                .deleteOne({title:"Carrot Cake"})
                 .then(deletedData => {
-                  console.log(`This Recipe was deleted:`, deletedData);
+                  console.log(`The Recipe was deleted:`, deletedData);
                       })
                   .catch(err => {
                     console.log('Deleting Recipe failed',err);
                       })
                         })
-     })
+          })
+       })
 
-   .catch(error => {
-    console.error('Error connecting to the database', error);
-      })
+ 
+    // Iteration 6 close the connection - tested my first async function:)
 
-     })
+
+       async function firstAsync() {
+        let dbChanges = new Promise((res, rej) => {
+            setTimeout(() => res("Mongoose connection is closed"), 1000)
+        });
+    
+        // wait until the promise returns us a value
+        let result = await dbChanges; 
+      
+        // "Mongoose connection is closed"
+        console.log(result); 
+        mongoose.connection.close();
+        };
+    
+    firstAsync();
+   

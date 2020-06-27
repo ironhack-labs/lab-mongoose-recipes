@@ -6,14 +6,11 @@ const recipeSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true
+    // unique: true
   },
   level: {
     type: String,
-    validate: {
-      message: 'Every Word needs to be with capital letter',
-      enum: ['Easy Peasy', 'Amateur Chef ', 'UltraPro Chef']
-    }
+    enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
   },
   ingredients: {
     type: [String]
@@ -37,7 +34,7 @@ const recipeSchema = new Schema({
   creator: String,
   created: {
     type: Date,
-    default: Date.prototype.toTimeString()
+    // default: Date.prototype.toTimeString()
   }
 });
 

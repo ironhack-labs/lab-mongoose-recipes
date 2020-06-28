@@ -39,8 +39,19 @@ mongoose
   })
   //Iteration 4 - Update recipe
   .then(async()=>{
-    await Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+    await Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+
+  //Iteration 5 - Remove a recipe
+    await Recipe.deleteOne({ title: 'Carrot Cake' })
   })
+  .then(() => {
+  //Iteration 6 - Close the Database
+    mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    });
+
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

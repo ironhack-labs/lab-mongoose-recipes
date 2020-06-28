@@ -20,16 +20,19 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  // Run your code here, after you have insured that the connection was made
     const myFavoriteRecipe = new Recipe({
       title: 'pizza', 
       cuisine: 'italian'
     });
-
     myFavoriteRecipe
-       .save()
-       .then(newRecipe => console.log(`A new recipe is created: ${newRecipe}!`))
-       .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+    .save()
+    .then(newRecipe => console.log(`A new recipe is created: ${newRecipe}!`))
+    .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+    })
+  .then(()=>{
+    Recipe.collection.insertMany(data)
+    .then(console.log('the array of recipes was added'))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { updateOne } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -21,6 +22,7 @@ mongoose
   })
   .then(() => {
   // Run your code here, after you have insured that the connection was made
+  //Iteration 2 - Create a recipe
     const myFavoriteRecipe = new Recipe({
       title: 'pizza', 
       cuisine: 'italian'
@@ -30,9 +32,14 @@ mongoose
     .then(newRecipe => console.log(`A new recipe is created: ${newRecipe}!`))
     .catch(err => console.log(`Error while creating a new recipe: ${err}`));
     })
+  //Iteration 3 - Insert multiple recipes
   .then(()=>{
     Recipe.collection.insertMany(data)
     .then(console.log('the array of recipes was added'))
+  })
+  //Iteration 4 - Update recipe
+  .then(async()=>{
+    await Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

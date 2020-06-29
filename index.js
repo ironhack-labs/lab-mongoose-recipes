@@ -7,6 +7,16 @@ const data = require('./data')
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app'
 
+const myRecipe = {
+  title: 'Rissotto Funghi',
+  level: 'Easy Peasy',
+  ingredients: ['1 cup of rice', '300grs Funghi', '1 Onion', 'White wine'],
+  cuisine: 'Italian',
+  dishType: 'main_course',
+  duration: 30,
+  creator: 'Andrés Martínez'
+}
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -23,50 +33,30 @@ mongoose
 
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    //Iteration 2 - Create a recipe
-    const myRecipe = new Recipe({
-      title: 'Rissotto Funghi',
-      level: 'Easy Peasy',
-      ingredients: ['1 cup of rice', '300grs Funghi', '1 Onion', 'White wine'],
-      cuisine: 'Italian',
-      dishType: 'main_course',
-      duration: 30,
-      creator: 'Andrés Martínez'
-    })
-
-    myRecipe
-      .save()
-      .then((recipe) => console.log('The recipe was created'))
-      .catch((error) =>
-        console.log('An error occurred creating a recipe', error)
+    Recipe.create(myRecipe)
+      //Iteration 2 - Create a recipe
+      .then((recipe) => console.log(`The ${recipe.title} recipe was created`))
+      //Iteration 3 - Insert multiple recipes
+      .then(() => Recipe.insertMany(data))
+      .then(() => {
+        data.forEach((el) => console.log(`The ${el.title} recipe was added`))
+      })
+      //Iteration 4 - Update recipe
+      .then(() =>
+        Recipe.findOneAndUpdate(
+          { title: 'Rigatoni alla Genovese' },
+          { duration: 100 }
+        )
       )
-  })
-
-  .then(() => {
-    //Iteration 3 - Insert multiple recipes
-    Recipe.insertMany(data)
+      .then((recipe) => console.log(`The ${recipe.title} recipe was updated`))
+      //Iteration 5 - Remove a recipe
+      .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
+      .then((recipe) => console.log(`The ${recipe.title} recipe was deleted`))
+      //Iteration 6 - Close the Database
       .then(() => {
-        console.log('The recipes were inserted')
-        data.forEach((el) => console.log(`${el.title} added`))
-      })
-
-      .then(() => {
-        //Iteraciones que ocurren una vez que termine el proceso de insertar la data con todas las recetas
-        //Iteration 4 - Update recipe
-        Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-          .then(() => console.log('The recipe was updated'))
-          .catch((error) =>
-            console.log('An error ocurred updating a recipe', error)
-          )
-      })
-
-      .then(() => {
-        //Iteration 5 - Remove a recipe
-        Recipe.deleteOne({ title: 'Carrot Cake' })
-          .then(() => console.log('The recipe was deleted'))
-          .catch((error) =>
-            console.log('An error ocurred deleting a recipe', error)
-          )
+        mongoose.connection.close()
+        console.log('Database closed.')
+        process.exit(0)
       })
 
       .catch((error) => console.log('An error ocurred', error))

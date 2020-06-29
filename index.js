@@ -21,7 +21,20 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Hamburger",
+      level: "Amateur Chef",
+      ingredients: ['hamburger bread', 'grind meat', 'cucumbers', 'tomatoes', 'fresh onion', 'cheddar cheese', 'bbq salse'],
+      cuisine: 'high',
+      dishtype: 'main_course',
+      image: null,
+      duration: 12,
+      creator: 'Ronald McDonald',
+      created: null
+    }).then((recipe) => console.log(recipe.title))
   })
+  .then(() => Recipe.insertMany(data))
+  .then(dataRec => dataRec.forEach(el => console.log(`${el.title}`)))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

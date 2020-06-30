@@ -61,7 +61,7 @@ mongoose
 
 
   function listItems() {
-    return Recipe.find({}, {title: 1})
+    return Recipe.find({}, {title: 1, _id: 0})
       .then(recipes => console.log(recipes))
   }
 

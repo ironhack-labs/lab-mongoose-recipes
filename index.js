@@ -7,6 +7,16 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+const spanishOmelette = new Recipe ({
+  title: 'Spanish Omelette',
+  level: 'Easy Peasy',
+  ingredients: [ 'Potatoes', 'Onion', 'Eggs', 'Olive Oil', 'Salt' ],
+  cuisine: 'traditional',
+  dishType: 'main_course',
+  image: 'https://www.65ymas.com/uploads/s1/35/92/57/bigstock-spanish-omelette-with-potatoes-351100148_1_621x621.jpeg',
+  duration: 60,
+  creator: 'Miguel Valle'
+})
 
 // Connection to the database "recipe-app"
 mongoose
@@ -22,6 +32,9 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    spanishOmelette.save()
+      .then(newR => console.log(`A new recipe is created: ${newR}!`))
+      .catch(err => console.log(`Error while creating a new recipe: ${err}`));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

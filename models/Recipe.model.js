@@ -20,10 +20,6 @@ const recipeSchema = new Schema({
     type: String,
     enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other']
   },
-  cuisine: {
-    type: String,
-    require: true
-  },
   image: {
     type: String,
     default: 'https://images.media-allrecipes.com/images/75131.jpg'

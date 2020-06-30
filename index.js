@@ -35,6 +35,12 @@ mongoose
   })
   .then(() => Recipe.insertMany(data))
   .then(dataRec => dataRec.forEach(el => console.log(`${el.title}`)))
+  .then(() => Recipe.findOneAndUpdate({ "title": "Rigatoni alla Genovese" }, {
+    duration: 100 }, { new: true }))
+  .then((recipe => console.log(`the updated recipe is ${recipe.title} and the new duration is ${recipe.duration}`)))
+  .then(() => Recipe.deleteOne({ title: "Carrot Cake"}, function (err) {}))
+  .then(removed => console.log(`this recipe ${removed.title} is removed`))
+  .then(() => mongoose.connection.close(true))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

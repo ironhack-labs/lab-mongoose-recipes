@@ -41,9 +41,9 @@ mongoose
       .then(() => Recipe.deleteOne( {title: 'Carrot Cake'} ))
       .then(() => console.log(`Recipe deleted!`))
       .then(()=> {
-        console.log('Bye bye');
-        mongoose.connection.close();
-        process.exit(0);
+        console.log('Bye bye')
+        mongoose.connection.close()
+        process.exit(0)
       })
       .catch(err => console.log(`Error while creating a new recipe: ${err}`))
   })

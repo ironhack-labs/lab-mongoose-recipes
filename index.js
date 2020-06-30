@@ -48,6 +48,7 @@ mongoose
       Recipe.deleteOne({title: 'Carrot Cake'})
     )
     .then(() => console.log(`The Carrot Cake has been deleted`))
+    .then(() => listItems())
     .then(() => {
       mongoose.connection.close()
       console.log('Database closed.')
@@ -58,8 +59,14 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
+
+  function listItems() {
+    return Recipe.find({}, {title: 1})
+      .then(recipes => console.log(recipes))
+  }
+
   process.on('SIGINT', () => {
-    mongoose.connection.close(() => {
+    mongoose.connection.close().then(() => {
       console.log('Mongoose default disconnected');
       process.exit(0);
     });

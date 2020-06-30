@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require('./models/Recipe.model')
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require('./data')
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://localhost:27017/recipe-app'
 
 const spanishOmelette = {
   title: 'Spanish Omelette',
@@ -26,9 +26,9 @@ mongoose
     useUnifiedTopology: true
   })
   .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
+    console.log(`Connected to the database: "${self.connection.name}"`)
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    return self.connection.dropDatabase()
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
@@ -38,8 +38,10 @@ mongoose
       .then (() => data.forEach(recipe => {console.log(`A new recipe is created: ${recipe.title}!`)}))
       .then (() => Recipe.findOneAndUpdate({ title : 'Rigatoni alla Genovese' }, { duration : 100 }))
       .then(rigatoni => console.log(`Recipe updated: ${rigatoni.title}!`))
-      .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+      .then(() => Recipe.deleteOne( {title: 'Carrot Cake'} ))
+      .then(() => console.log(`Recipe deleted!`))
+      .catch(err => console.log(`Error while creating a new recipe: ${err}`))
   })
   .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    console.error('Error connecting to the database', error)
+  })

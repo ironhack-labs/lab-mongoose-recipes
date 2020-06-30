@@ -35,9 +35,9 @@ mongoose
     Recipe.create(spanishOmelette)
       .then(newR => console.log(`A new recipe is created: ${newR.title}!`))
       .then (() => Recipe.insertMany (data))
-      .then (() => data.forEach(recipe => {
-        console.log(`A new recipe is created: ${recipe.title}!`)
-      }))
+      .then (() => data.forEach(recipe => {console.log(`A new recipe is created: ${recipe.title}!`)}))
+      .then (() => Recipe.findOneAndUpdate({ title : 'Rigatoni alla Genovese' }, { duration : 100 }))
+      .then(rigatoni => console.log(`Recipe updated: ${rigatoni.title}!`))
       .catch(err => console.log(`Error while creating a new recipe: ${err}`));
   })
   .catch(error => {

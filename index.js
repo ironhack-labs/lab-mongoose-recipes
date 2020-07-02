@@ -20,7 +20,7 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // LET'S CREATE THE WONDERFUL AND MUST-HAVE GLASS OF WATER RECIPE
     Recipe.create({
       title: "glass of water",
       level: "Easy Peasy",
@@ -32,27 +32,39 @@ mongoose
     })
       .then((dbRes) => {
         console.log(`${dbRes.title} recipe added.`);
+
+
+        // THEN - LET'S ADD ALL THE RECIPES IN DATA.JSON
         Recipe.insertMany(data)
           .then((dbRes) => {
             dbRes.forEach((recipe) => {
               console.log(recipe.title);
             });
 
+            // THEN - LET'S UPDATE THE RIGATONI'S DURATION
             Recipe.findOneAndUpdate(
               { name: "Rigatoni alla Genovese" },
               { duration: 100 }
             )
               .then((dbRes) => {
                 console.log(`Rigatoni Recipe update is a success !`);
+
+                // THEN - LET'S REMOVE THE CARROT CAKE (it's a lie)
                 Recipe.deleteOne({ name: "Carrot Cake" })
                   .then((dbRes) => {
                     console.log(`deletion of Carrot Cake complete`);
-                    mongoose.connection.close()
-                    .then((endRes) => {
-                      console.log(`DB closed`)
-                    })
-                    .catch((endErr) => {console.error(endErr)})
 
+                    // THEN & AT LAST - LET'S END THE DB CONNEXION
+                    mongoose.connection
+                      .close()
+                      .then((endRes) => {
+                        console.log(`DB closed`);
+                      })
+
+                      
+                      .catch((endErr) => {
+                        console.error(endErr);
+                      });
                   })
                   .catch((dbErr) => {
                     console.error(dbErr);

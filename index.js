@@ -21,7 +21,51 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({ title: "Potatoes", level: "Easy Peasy", cuisine: "english", dishType: "main_course" })
+      .then(dbRes => {
+        console.log(dbRes.title);
+      })
+      .catch(dbErr => {
+        console.log(dbErr);
+        ;
+      }).then(() => {
+        Recipe.insertMany(data)
+          .then(dbRes => {
+            dbRes.forEach(recipe => {
+              console.log(recipe.title)
+            });
+          })
+          .catch(dbErr => {
+            console.log(dbErr);
+            ;
+          }).then(() => {
+            Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+              .then(dbRes => {
+                console.log("Recipe succesfully updated")
+              })
+              .catch(dbErr => {
+                console.log(dbErr);
+              }).then(() => {
+                Recipe.deleteOne({ title: "Carrot Cake" })
+                  .then(dbRes => {
+                    console.log("Recipe succesfully removed")
+                  })
+                  .catch(dbErr => {
+                    console.log(dbErr);
+                  }).then(() => {
+                    mongoose.connection.close()
+                    .then(dbRes => {
+                      console.log("Well closed")
+                    })
+                    .catch(dbErr => {
+                      console.log(dbErr);
+                    })
+                  })
+              })
+          })
+      })
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

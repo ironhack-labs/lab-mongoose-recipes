@@ -34,7 +34,7 @@ mongoose
         console.log(`${dbRes.title} recipe added.`);
 
 
-        // THEN - LET'S ADD ALL THE RECIPES IN DATA.JSON
+        // THEN - LET'S ADD ALL THE RECIPES FROM DATA.JSON
         Recipe.insertMany(data)
           .then((dbRes) => {
             dbRes.forEach((recipe) => {
@@ -61,7 +61,7 @@ mongoose
                         console.log(`DB closed`);
                       })
 
-                      
+
                       .catch((endErr) => {
                         console.error(endErr);
                       });

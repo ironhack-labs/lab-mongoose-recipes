@@ -5,6 +5,7 @@ const process = require('process')
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const newRecipe = require('./newRecipe')
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -17,13 +18,34 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    Recipe.deleteMany({})
     return self.connection.dropDatabase();
   })
   .then(() => {
+    Recipe.deleteMany({})
+
     Recipe.create(data)
       .then(recipe => {
-        // console.log('The user is saved and its value is: ', recipe)
+        console.log('Create First Recipes')
+        // console.log(data);
+      })
+      .then(() => {
+        Recipe.insertMany(newRecipe)
+          .then(newRec => {
+            console.log('InsertMany New Recipe')
+          })
+          .then(() => {
+            Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+              .then(() => console.log('Updated Duration'))
+              .catch(error => console.log('An error happened while update duration:', error));
+          })
+          .then(() => {
+            Recipe.find({}, 'title duration -_id')
+              .then(title => {
+                console.log('Find', title);
+              })
+              .catch(error => console.log('An error happened while find title:', error));
+          })
+          .catch(error => console.log('An error happened while insert:', error));
       })
       .catch(error => console.log('An error happened while saving a new user:', error));
 
@@ -33,11 +55,6 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-Recipe.find({}, 'title -_id')
-  .then(title => {
-    console.log(title);
-  })
-  .catch(error => console.log('An error happened while find title:', error));
 
 
 process.on('SIGINT', () => {

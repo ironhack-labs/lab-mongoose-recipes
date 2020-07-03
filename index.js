@@ -9,6 +9,8 @@ const newRecipe = require('./newRecipe')
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+mongoose.set('useFindAndModify', false);
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -39,11 +41,16 @@ mongoose
               .catch(error => console.log('An error happened while update duration:', error));
           })
           .then(() => {
-            Recipe.find({}, 'title duration -_id')
-              .then(title => {
-                console.log('Find', title);
+            Recipe.deleteOne({ title: 'Carrot Cake' })
+              .then(() => console.log('Recipe Deleted'))
+              .then(() => {
+                Recipe.find({}, 'title duration -_id')
+                  .then(title => {
+                    console.log('Find', title);
+                  })
+                  .catch(error => console.log('An error happened while find title:', error));
               })
-              .catch(error => console.log('An error happened while find title:', error));
+              .catch(error => console.log('An error happened while deleting recipe:', error));
           })
           .catch(error => console.log('An error happened while insert:', error));
       })
@@ -54,8 +61,6 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {

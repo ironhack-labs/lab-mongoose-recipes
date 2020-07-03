@@ -17,11 +17,30 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    return Recipe.deleteMany({})
+      .then(() => console.log('database wiped'))
+      .catch(e => console.error('Error wiping database', e));
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create(data)
+      .then(console.log('data was added'))
+      .catch(e => console.error('Error adding entries', e))
+      .then(() => Recipe.updateOne({
+        title: "Rigatoni alla Genovese"
+      }, {
+        duration: 100
+      }))
+      .then(console.log('Rigattoni Updated'))
+      .catch(e => console.error('Error updating entry' + e))
+      .then(() => Recipe.deleteOne({
+        title: 'Carrot Cake'
+      }))
+      .then(console.log('Carrot Cake removed'))
+      .catch(e => console.error('Error removin entry' + e))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  process.on('SIGINT', () => mongoose.connection.close(() => console.log('Closing mongoose')));

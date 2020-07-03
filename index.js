@@ -21,6 +21,7 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
     const pizzaRecipe = new Recipe({
       title: 'Pizza caprese',
       level: 'Easy Peasy',
@@ -37,7 +38,9 @@ mongoose
     // pizzaRecipe.save()
     // .then((pizzaRecipe) => console.log(pizzaRecipe.title))
     .catch(e => console.log('Error creating recipe', e))
-    
+
+    Recipe.insertMany(data)
+    .then(allRecipes => allRecipes.forEach(recipe => console.log(recipe.title)))
 
   })
   .catch(error => {

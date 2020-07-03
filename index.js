@@ -1,3 +1,4 @@
+//importando o mongoose do npm
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -5,6 +6,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
+//conexao com o banco
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
@@ -18,38 +20,46 @@ mongoose
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
+    //dropDatabase deleta todos os dados do banco
   })
   .then(async () => {
+    //quando mexer com o async o metodo () precisa ser async (async ())
+    try{
+      // Interation 2
+      const resultCreate = await Recipe.create({
+        title: "Camarao ao Molho",
+        ingredients: ['Camarao', 'Tomate'],
+        cuisine: 'Haute',
+        dishType: 'snack',
+        duration: 120
+      });
+      console.log('Recipe created! => ', resultCreate.title)
 
-    const resultCreate = await Recipe.create({
-      title: "Camarao ao Molho",
-      ingredients: ['Camarao', 'Tomate'],
-      cuisine: 'Haute',
-      dishType: 'snack',
-      duration: 120
-    });
-    console.log('Recipe created => ', resultCreate)
+       // Interation 3
+      const resultManyRecipe = await Recipe.insertMany(data);
+      resultManyRecipe.map(result => console.log(result.title))
 
-    const resultManyRecipe = await Recipe.create([
-      { title: 'Churros', cuisine: 'Fusion', dishType: 'snack', duration: 20 },
-      { title: 'Cha Mate', cuisine: 'Vegetarian', dishType: 'other', duration: 5 },
-      { title: 'French Fries', cuisine: 'Fusion', dishType: 'snack', duration: 10 },
-      { title: 'Rigatoni alla Genovese', cuisine: 'Fusion', dishType: 'main_course', duration: 500 },
-      { title: 'Carrot Cake', cuisine: 'Vegetarian', dishType: 'dessert', duration: 50 }
-    ]);
-    console.log('MANY Recipe created => ', resultManyRecipe)
+       // Interation 4
+      const updateRigatoni = await Recipe.updateOne(
+        {title: 'Rigatoni alla Genovese'},
+        {duration: 100}
+      );
+      const findUpdatedDoc = await Recipe.find({title: 'Rigatoni alla Genovese'})
+      console.log(`Sucessfully updated document with title ${findUpdatedDoc[0].title} to duration ${findUpdatedDoc[0].duration} `)
+      // console.log(`Updated Rigatoni!!`, updateRigatoni)
 
-    const updateRigatoni = await Recipe.updateOne(
-      {title: 'Rigatoni alla Genovese'},
-      {duration: 100}
-    );
-    console.log(`Updated Rigatoni!!`, updateRigatoni)
+      // Interation 5
+      const deleteCake = await Recipe.deleteOne({title: 'Carrot Cake'});
+      console.log(`Deleted Cake! Status: ${!!deleteCake.ok}, Documents matched: ${deleteCake.n}, Documents deleted: ${deleteCake.deletedCount}`)
+    
+      // Interation 6
+      await mongoose.disconnect()
 
-    const deleteCake = await Recipe.deleteOne({title: 'Carrot Cake'});
-    console.log('Deleted Cake! ', deleteCake)
-  
-    mongoose.connection.close()
+    } catch (err) {
+      console.error(err)
+    }
   })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

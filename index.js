@@ -51,10 +51,13 @@ mongoose
     .then(() => console.log('You succesfully deleted the Carrot Cake recipe'))
     .then(() => {
       Recipe.find({}, {title: 1, _id: 0})
-      .then(allRecipes => console.log(allRecipes))
+      .then(allRecipes => console.log(`These are the remaining recipes ${allRecipes}`))
+      .then(() => {
+        mongoose.connection.close()
+        console.log(`The database is now closed`)
+      })
     })
          
-
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

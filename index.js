@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -41,6 +42,11 @@ mongoose
 
     Recipe.insertMany(data)
     .then(allRecipes => allRecipes.forEach(recipe => console.log(recipe.title)))
+    .then(() => 
+      Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true})
+      )
+    .then(rigatoniRecipe => console.log(`Congrats! You updated the ${rigatoniRecipe.title} recipe. The duration now is ${rigatoniRecipe.duration}`))   
+    .catch(error => console.log(`Sorry, you didn't update the Rigatoni recipe.`, error)) 
 
   })
   .catch(error => {

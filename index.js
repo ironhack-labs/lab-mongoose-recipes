@@ -21,7 +21,27 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    const pizzaRecipe = new Recipe({
+      title: 'Pizza caprese',
+      level: 'Easy Peasy',
+      ingredients: ['Tomato', 'Mozzarella', 'Pizza dough', 'Salt', 'Oregano', 'Garlic'],
+      cuisine: 'Italian',
+      dishType: 'other',
+      image: 'https://www.albal.net/image-Pizza-Caprese-Casera,51939923ed5d938e4b27ed96631b531264bf6f54.jpg',
+      duration: 45,
+      creator: 'Andrea',
+    });
+    Recipe.create(pizzaRecipe)
+    .then(pizzaRecipe => console.log(pizzaRecipe.title))
+    // Otra forma de hacer el ej de arriba con mismo resultado:
+    // pizzaRecipe.save()
+    // .then((pizzaRecipe) => console.log(pizzaRecipe.title))
+    .catch(e => console.log('Error creating recipe', e))
+    
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+

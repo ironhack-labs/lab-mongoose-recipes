@@ -45,8 +45,15 @@ mongoose
     .then(() => 
       Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true})
       )
-    .then(rigatoniRecipe => console.log(`Congrats! You updated the ${rigatoniRecipe.title} recipe. The duration now is ${rigatoniRecipe.duration}`))   
-    .catch(error => console.log(`Sorry, you didn't update the Rigatoni recipe.`, error)) 
+      .then(rigatoniRecipe => console.log(`Congrats! You updated the ${rigatoniRecipe.title} recipe. The duration now is ${rigatoniRecipe.duration}`))   
+      .catch(error => console.log(`Sorry, you didn't update the Rigatoni recipe.`, error))
+    .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
+    .then(() => console.log('You succesfully deleted the Carrot Cake recipe'))
+    .then(() => {
+      Recipe.find({}, {title: 1, _id: 0})
+      .then(allRecipes => console.log(allRecipes))
+    })
+         
 
   })
   .catch(error => {

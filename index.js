@@ -29,15 +29,25 @@ Recipe.deleteMany({})
   .then(data => {
     console.log('Iteration 1', data.title);
   })  
+  .then( () => {
+    Recipe.insertMany(data)
+      .then(data => {
+        data.forEach(el => {
+          console.log('Iteration 2', el.title);
+        })
+      })
+      .then( () => {
+        Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {useFindAndModify: false})
+          .then(recipeUpdate => console.log('The recipe was updated correctly', recipeUpdate.title, '- Duration',  recipeUpdate.duration))
+      })
+      .then( () => {
+        Recipe.findOneAndDelete({ title: 'Carrot Cake' }, {useFindAndModify: false})
+          .then(() => {
+            Recipe.countDocuments()
+            .then(number => console.log('The recipe was removed correctly, now have ', number, 'documents in db')
+            )           
+          })
+      })
+  })
   .catch((err) => console.log(err))
-})
-Recipe.deleteMany({})
-.then( () => {
-  Recipe.insertMany(data)
-    .then(data => {
-      data.forEach(el => {
-        console.log('Iteration 2', el.title);
-      });
-    })
-    .catch((err) => console.log(err))
 })

@@ -56,6 +56,11 @@ mongoose
           .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {useFindAndModify: false})
           .then(updatedRecipe => console.log(`Duration of ${updatedRecipe.title} was updated to ${updatedRecipe.duration}`))
       })
+      .then( () => {
+        Recipe
+          .deleteOne({ title: 'Carrot Cake' })
+          .then(deletedRecipe => console.log('Deleted', deletedRecipe))
+      })
   })
   .catch(err => console.log(`Error ${err} adding recipe to the DB`))
   

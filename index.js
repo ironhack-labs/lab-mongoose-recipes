@@ -6,7 +6,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const chicken = {
+const chickenRecipe = {
     "title": "Asian Glazed Chicken Thighs",
     "level": "Amateur Chef",
     "ingredients": [
@@ -37,24 +37,17 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
     Recipe.deleteMany({})
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create(chicken)
-      .then(recipe => 
-      console.log(`Created new recipe: ${recipe}`)
-      )   
+    Recipe.create(chickenRecipe)
+      .then(recipeInDB => console.log(`${recipeInDB.title} just added to the database`))
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
-
+  .catch(err => console.log(`Error ${err} adding recipe to the DB`));
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {
     process.exit(0);
-  });
-});
+  })
+})

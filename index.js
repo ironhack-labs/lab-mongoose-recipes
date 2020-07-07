@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
-const data = require('./data');
+const recipeMocks = require('./data');
 
 const chickenRecipe = {
-    "title": "Asian Glazed Chicken Thighs",
+    "title": "Asian Glazed Chicken Thighs II",
     "level": "Amateur Chef",
     "ingredients": [
       "1/2 cup rice vinegar",
@@ -44,7 +44,17 @@ mongoose
     Recipe.create(chickenRecipe)
       .then(recipeInDB => console.log(`${recipeInDB.title} just added to the database`))
   })
-  .catch(err => console.log(`Error ${err} adding recipe to the DB`));
+  .then(() => {
+    Recipe.insertMany(recipeMocks)
+      .then(recipesInDB => {
+        recipesInDB.forEach(recipe => {
+          console.log(`${recipe.title} just added to the database`);
+        });
+      })
+  })
+
+  .catch(err => console.log(`Error ${err} adding recipe to the DB`))
+  
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {

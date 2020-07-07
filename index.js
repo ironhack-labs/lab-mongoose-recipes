@@ -48,11 +48,15 @@ mongoose
     Recipe.insertMany(recipeMocks)
       .then(recipesInDB => {
         recipesInDB.forEach(recipe => {
-          console.log(`${recipe.title} just added to the database`);
+          console.log(`${recipe.title} just added to the database`)
         });
       })
+      .then( () => {
+        Recipe
+          .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {useFindAndModify: false})
+          .then(updatedRecipe => console.log(`Duration of ${updatedRecipe.title} was updated to ${updatedRecipe.duration}`))
+      })
   })
-
   .catch(err => console.log(`Error ${err} adding recipe to the DB`))
   
 

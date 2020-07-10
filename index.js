@@ -21,7 +21,27 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    const oneRecipe ={ 
+      title: 'vov',
+      level:'UltraPro Chef',
+      ingredients:['ruckus','velkhare','revo'],
+      cuisine: 'ao',
+      dishType:'for',
+      image:'rei',
+      duration:'77',
+      creator:'vfro',
+      
+      
+      }
+      
+      
+      Recipe.create(oneRecipe).then(user=>console.log(Recipe.find({},title)))
+      Recipe.insertMany(data).then(user=>console.log(Recipe.find({},title)))
+      Recipe.findOneAndUpdate({name:'Rigatoni alla Genovese'},{duration:100},function(){console.Log('success in updating')})
+      Recipe.deleteOne({name:'Carrot Cake' }, function(){console.log('success in deleting')})
+      
   })
+  .then(db.shutdownServer())
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

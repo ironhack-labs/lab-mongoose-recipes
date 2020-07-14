@@ -22,45 +22,38 @@ mongoose
     console.log(`Connected to the database: "${self.connection.name}"`);
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    Recipe.deleteMany({})
+  .catch(error => console.log('An error happened while insert:', error));
 
-    Recipe.create(data)
-      .then(recipe => {
-        console.log('Create First Recipes')
-        // console.log(data);
-      })
-      .then(() => {
-        Recipe.insertMany(newRecipe)
-          .then(newRec => {
-            console.log('InsertMany New Recipe')
-          })
-          .then(() => {
-            Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-              .then(() => console.log('Updated Duration'))
-              .catch(error => console.log('An error happened while update duration:', error));
-          })
-          .then(() => {
-            Recipe.deleteOne({ title: 'Carrot Cake' })
-              .then(() => console.log('Recipe Deleted'))
-              .then(() => {
-                Recipe.find({}, 'title duration -_id')
-                  .then(title => {
-                    console.log('Find', title);
-                  })
-                  .catch(error => console.log('An error happened while find title:', error));
-              })
-              .catch(error => console.log('An error happened while deleting recipe:', error));
-          })
-          .catch(error => console.log('An error happened while insert:', error));
-      })
-      .catch(error => console.log('An error happened while saving a new user:', error));
+Recipe.deleteMany({})
+  .then(() => console.log('deleteMany'))
+  .catch((error) => console.log(error))
 
-
+Recipe.create(data)
+  .then(recipe => {
+    console.log('Create First Recipes')
+    console.log(recipe);
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .catch(error => console.log('An error happened while creating recipes:', error));
+
+Recipe.insertMany(newRecipe)
+  .then(newRec => {
+    console.log('InsertMany New Recipe')
+  })
+  .catch(error => console.log('An error happened while insert recipes:', error));
+
+Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then(() => console.log('Updated Duration'))
+  .catch(error => console.log('An error happened while update duration:', error));
+
+Recipe.deleteOne({ title: 'Carrot Cake' })
+  .then(() => console.log('DeleteOne'))
+  .catch(error => console.log('An error happened while deleting recipe:', error));
+
+Recipe.find({}, 'title duration -_id')
+  .then(title => {
+    console.log('Find', title);
+  })
+  .catch(error => console.log('An error happened while find title:', error));
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {

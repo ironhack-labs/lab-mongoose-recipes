@@ -20,8 +20,43 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const recipe = {
+      "title": "Macaroni a mi manera",
+      "level": "Amateur Chef",
+      "ingredients": [
+      "1 kg pasta",
+      "5 pieces of bacon",
+      "1/3 cup tomato souce"
+    ],
+      "cuisine": "Italiana",
+      "dishType": "breakfast",
+      "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      "duration": 40,
+      "creator": "Chef Yop"
+    }
+
+    return Recipe.create(recipe);
+
   })
+  
+  .then(newRecipe => console.log('La receta se llama:', newRecipe.title))
+    // Run your code here, after you have insured that the connection was made
+  
+  //insertMany
+    .then(() => Recipe.insertMany(data))
+  
+  //update
+    .then(() => Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true }))
+    .then(recipe => console.log("The recipe update succesfully!", recipe))
+
+  //delete
+    .then(() => Recipe.deleteOne({ title: "Carrot Cake" }))
+    .then(console.log("This recipe it's no longer aviable."))
+
+  //close DB
+    .then(() => mongoose.connection.close())
+    .then(console.log("The DB it's disconnected."))
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

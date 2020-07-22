@@ -1,69 +1,61 @@
 const mongoose = require('mongoose');
-const Recipe = require('./models/Recipe.model'); // Import of the model Recipe from './models/Recipe'
-const data = require('./data.json'); // Import of the data from './data.js'
-// Connection to the database "recipeApp"
-mongoose
-  .connect('mongodb://localhost/recipeApp', {
-    useNewUrlParser: true
-  })
-  .then(() => console.log('Connected to Mongo!'))
-  .catch(err => console.error('Error connecting to mongo', err));
 
+// Import of the model Recipe from './models/Recipe.model.js'
+const Recipe = require('./models/Recipe.model');
+// Import of the data from './data.json'
+const data = require('./data');
 
-const lasagna = {
-  title: "Lasagna",
-  level: "UltraPro Chef",
-  ingredients: ["pasta sheets", "minced meet", "vegetables", "bechamel", "love"],
-  cuisine: "Italian",
+const macarrones = {
+  title: "Macarrones",
+  level: "Easy Peasy",
+  ingredients: ["Lots of macarroni", "Solis tomato", "minced meat"],
+  cuisine: "worldwide",
   dishType: "main_course",
-  image: "https://www.recetasdesbieta.com/wp-content/uploads/2018/10/lasagna-original.-860x380.jpg",
-  duration: 120,
-  creator: "Sergio",
+  image: "https://www.hogarmania.com/archivos/201909/macarrones-compota-editorial-1280x720x80xX.jpg",
+  duration: 30,
+  creator: "Chef Sergio"
 }
-/*.then(() => {*/
-// Run your code here, after you have insured that the connection was made
-//Añadimos 1 sola recipe 
-/*Recipe.create(lasagna)
-  .then(newRecipe => console.log(`Creating a new recipe: ${lasagna.title}.`))
-  .catch(err => console.log(`Error at creating the lasagna`, err))*/
 
-/*})*/
-/*.then(() => {
-  //Ahora varias recipes. insertMany se usa para añadir varios docuemntos a la vez
-  //Las recetas están en un array en data.json
-  //El parámetro de insertMany es el nombre del archivo que contiene esas recetas
-  //Como es un array, iteramos con un forEach e imprimimos cada título
-  Recipe.insertMany(data)
-    .then(data.forEach(recipe => {
-      //Se debe poner el elemento recipe en el console.log para que salgan los títulos
-      console.log(`Creating a new recipe: ${recipe.title}`)
-    }))
-    .catch(err => console.log(`Error at inserting many recipes`, err))
-})*/
+const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
-//Encontramos un documento para actualizarlo
-/*Recipe.findOneAndUpdate({
-    title: "Rigatoni alla Genovese"
-  }, {
-    duration: 100
-  }, {
-    new: true
+// Connection to the database "recipe-app"
+mongoose
+  .connect(MONGODB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   })
-  //Para comprobar que haya cambiado, hacemos un console.log
-  .then(recipe => console.log(`Recipe updated`, recipe))
-  .catch(err => console.log(`Error at updating the Rigatoni`, err))
-*/
-
-/*Recipe.deleteOne({
-    title: "Carrot Cake"
+  .then(self => {
+    console.log(`Connected to the database: "${self.connection.name}"`);
+    // Before adding any documents to the database, let's delete all previous entries
+    return self.connection.dropDatabase();
   })
-  .then(() => console.log(`Recipe deleted`))
-  .catch(err => console.log(err))
-  */
-
-process.on('SIGINT', function () {
-  Mongoose.connection.close(function () {
-    console.log('Mongo Database disconnected through app termination');
-    process.exit(0);
+  .then(() => {
+    // Run your code here, after you have insured that the connection was made
+    //ITERATION 2: metemos la receta en la data base
+    Recipe.create(macarrones)
+      .then((recipe) => console.log(`The ${recipe.title} recipe has been created`))
+      //ITERATION 3: insertamos todas las que hay en data (linea 6, que apunta al data.json)
+      .then(() => Recipe.insertMany(data))
+      //ITERATION 4: buscamos en la DB la que tiene ese título (primer parámetro) y le cambiamos la duration (segundo parámetro).
+      //Para comprobarlo, pasamos un tercer parámetro new: true
+      .then(() => Recipe.findOneAndUpdate({
+        title: "Rigatoni alla Genovese"
+      }, {
+        duration: 100
+      }, {
+        new: true
+      }))
+      .then(update => console.log("The damn rigatoni recipe has been updated", update))
+      //ITERATION 5: eliminamos el documento que tenga el title pasado
+      .then(() => Recipe.deleteOne({
+        title: "Carrot Cake"
+      }))
+      .then(console.log("Carrot cake is NO MORE"))
+      //ITERATION 6: desconectamos por último la DB
+      .then(() => mongoose.connection.close())
+      .then(console.log("The DB it's disconnected, muahahah"))
+  })
+  .catch(error => {
+    console.error('Error connecting to the database', error);
   });
-});

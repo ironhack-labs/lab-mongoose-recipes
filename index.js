@@ -33,7 +33,7 @@ mongoose
       duration: 220,
       creator: "Hanna"
     });
-    if (data1) console.log("Success!");
+    if (data1) console.log("Success!", data1.title);
     let data2 = await Recipe.insertMany(data);
     if (data2) console.log("Success!");
     let data3 = await Recipe.findOneAndUpdate(
@@ -43,7 +43,7 @@ mongoose
     if (data3) console.log("Success!");
     let data4 = await Recipe.deleteOne({ title: "Carrot Cake" });
     if (data4) console.log("Success!");
-    await Promise.all([data1, data3, data2, data4])
+    Promise.all([data1, data3, data2, data4])
       .then(res => {
         console.log(res);
         mongoose.connection.close();

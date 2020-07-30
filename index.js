@@ -35,24 +35,33 @@ mongoose
         console.log(recipe.title);
         console.log("<---------------------------->\n");
       })
-      .catch(err => console.log(err));
-
-    // Iteration #3
-    Recipe.insertMany(data)
-      .then(() =>{
-        Recipe.find({}, {_id:0, title:1})
-          .then(recipesFromDB => {
-            recipesFromDB.forEach(ele => console.log(ele.title) );
-            console.log("<---------------------------->\n");
+      .then(() => {
+        // Iteration #3
+        Recipe.insertMany(data)
+          .then(() =>{
+            Recipe.find({}, {_id:0, title:1})
+              .then(recipesFromDB => {
+                recipesFromDB.forEach(ele => console.log(ele.title) );
+                console.log("<---------------------------->\n");
+              })
           })
-      }).then(() => {
-        // Iteration #4
-        Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
-          .then(updatedRecipe => {
-            console.log(`${updatedRecipe.title} recipe has been updated`);
-            console.log("<---------------------------->\n");
+          .then(() => {
+            // Iteration #4
+            Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
+              .then(updatedRecipe => {
+                console.log(`${updatedRecipe.title} recipe has been updated`);
+                console.log("<---------------------------->\n");
+              })
+              .then(() => {
+                  // Iteration #5
+                  Recipe.deleteOne({title: "Carrot Cake"})
+                    .then(() => {
+                      console.log("recipe was removed");
+                    })
+                })
           })
       })
+
 
     
   })

@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -21,6 +22,9 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create(data)
+      .then(recipe => console.log(recipe))
+      .catch(err => console.log(err));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

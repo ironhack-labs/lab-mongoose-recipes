@@ -7,6 +7,14 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+// recipe for iteration #2
+const recipeIter2 = {
+  title: "Iron Schema",
+  level: "Easy Peasy",
+  cuisine: "express",
+  creator: "Kevin"
+}
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -22,9 +30,17 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create(data)
-      .then(recipe => console.log(recipe))
+    // Iteration #2
+    Recipe.create(recipeIter2)
+      .then(recipe => console.log(recipe.title))
       .catch(err => console.log(err));
+
+    // Iteration #3
+    Recipe.insertMany(data)
+      .then(() =>{
+        Recipe.find({}, {_id:0, title:1})
+          .then(recipesFromDB => console.log(recipesFromDB))
+      });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

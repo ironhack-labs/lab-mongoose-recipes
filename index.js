@@ -21,7 +21,35 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Iteration 2
+    Recipe.create(data[0])
+      .then(() => {
+        Recipe.find({}, {title: 1})
+          .then((result) => console.log(result));
+      })
+    
+    // Iteration 3
+    Recipe.insertMany(data)
+      .then(() => {
+        Recipe.find({}, {title: 1})
+          .then((result) => {
+            console.log(result)
+            
+            // Iteration 4
+            Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set:{duration: 100}})
+              .then(() => {
+                console.log('Value Updated')
+
+                // Iteration 5
+                Recipe.deleteOne({title:"Carrot Cake"})
+                  .then(() => {
+                    console.log("Recipe deleted")
+                    mongoose.connection.close()
+                  })
+              })
+            });
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })

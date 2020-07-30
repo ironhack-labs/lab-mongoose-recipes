@@ -29,18 +29,32 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
     // Iteration #2
     Recipe.create(recipeIter2)
-      .then(recipe => console.log(recipe.title))
+      .then(recipe => {
+        console.log(recipe.title);
+        console.log("<---------------------------->\n");
+      })
       .catch(err => console.log(err));
 
     // Iteration #3
     Recipe.insertMany(data)
       .then(() =>{
         Recipe.find({}, {_id:0, title:1})
-          .then(recipesFromDB => console.log(recipesFromDB))
-      });
+          .then(recipesFromDB => {
+            recipesFromDB.forEach(ele => console.log(ele.title) );
+            console.log("<---------------------------->\n");
+          })
+      }).then(() => {
+        // Iteration #4
+        Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
+          .then(updatedRecipe => {
+            console.log(`${updatedRecipe.title} recipe has been updated`);
+            console.log("<---------------------------->\n");
+          })
+      })
+
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

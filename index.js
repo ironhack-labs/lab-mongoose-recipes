@@ -25,19 +25,20 @@ mongoose
     Recipe.create({
       title: "Paneer Masala",
       ingredients: [
-        "1/2 cup rice vinegar",
-        "5 tablespoons honey",
-        "1/3 cup soy sauce (such as Silver Swan®)",
-        "1/4 cup Asian (toasted) sesame oil",
-        "3 tablespoons Asian chili garlic sauce",
-        "3 tablespoons minced garlic",
+        "1/2 cup paneer pieces",
+        "5 tablespoons cooking oil",
+        "1/3 cup chpooed onions",
+        "1/4 cup chopped tomatoes",
+        "3 tablespoons ginger garlic paste",
+        "1 spoon chilli powder",
         "salt to taste",
-        "8 skinless, boneless chicken thighs",
+        "1 spoon garam masala powder",
       ],
       cuisine: "Indian",
     })
       .then((allRecipes) => {
-        console.log(`Recepie documents created: ${allRecipes}`);
+        console.log("-------- First Recipe added -------------");
+        console.log(`Recepie documents created: ${allRecipes.title}`);
 
         // allRecipes.forEach((recipe) => console.log("Recipe name: ", recipe.title));
 

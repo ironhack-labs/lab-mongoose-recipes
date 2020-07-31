@@ -25,12 +25,13 @@ mongoose
     Recipe.create([
       { title: 'Derf Burger', level: "Amateur Chef", ingredients: ["Beef","Pork","Ketchup","Salt","Pepper","Onion"], cuisine:"Canadian", dishType:"main_course", duration:20, creator:"Fred" }
     ])
-      .then(myRecipe => {console.log(`Recipe created: `, myRecipe.title)
-    }
-    );
+      .then(myRecipe => {console.log(`Recipe created: `, myRecipe.title))
+      .catch(error =>
+        console.log(`Creating a new recipe went wrong! Try again 😞 ${error}`)
+      );
 
     Recipe.insertMany(data)
-      .then(newRecipes => console.log("Recipe created: ", newRecipes.title))
+      .then(newRecipes => console.log("Recipe created: ", ))
       .catch((error =>
         console.log(`Creating a new recipe went wrong! Try again 😞 ${error}`)))
       

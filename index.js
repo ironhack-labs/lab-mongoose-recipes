@@ -11,6 +11,7 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
+    useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -37,11 +38,11 @@ mongoose
       .catch(error => console.log(`Error occurred deleting recipe: ${error}`));
     })
 
-    .then(() => {
+    /*.then(() => {
       mongoose.connection.close()
       .then(() => console.log('Connection with database closed successfully'))
       .catch(error => console.log(`Error disconnecting from Mongoose:${error}`));
-        })
+        })*/
       
   .catch(error => {
     console.error('Error connecting to the database', error);

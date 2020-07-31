@@ -22,7 +22,7 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     Recipe.create(
-      { title: 'Derf Burger', 
+      { title: 'Francesinha', 
       level: "Amateur Chef", 
       ingredients: [
         "Beef",

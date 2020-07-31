@@ -22,6 +22,25 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
   })
+
+  Recipe.create({ title: "Feijoada", level: "UltraPro Chef", ingredients: ["rice", "chouriço", "morcela", "farinheira", "pork meat", "Masa"], cuisine: "Portugal", dishType: "dinner", image: "https://honest-food.net/wp-content/uploads/2013/12/portuguese-feijoada-320x320.jpg", duration: 120, creator: "Pedro" })
+  .then((recipe) => console.log(`Saved Recipe ${recipe}`))
+
+  .then(() => Recipe.insertMany(data))
+      .then((dataRecipe) =>
+        dataRecipe.forEach((recipes) => {
+          console.log("Create Recipes:", recipes.title);
+        })
+      )
+
+      Recipe.findOneAndUpdate(
+        { title: "Rigatoni alla Genovese" }, 
+      { duration: 100 }, 
+      { new: true })
+      .then((recipe) => console.log("Update recipe",recipe))
+      })
+      })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

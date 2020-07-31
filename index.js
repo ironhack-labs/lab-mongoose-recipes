@@ -19,8 +19,15 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
+  .then(async (self) => {
     // Run your code here, after you have insured that the connection was made
+    await Recipe.create(data[0]);
+    await Recipe.insertMany(data);
+    await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese'}, {duration: 100})
+    await Recipe.deleteOne({title: 'Carrot Cake'})
+  })
+  .then(() => {
+    return mongoose.disconnect();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

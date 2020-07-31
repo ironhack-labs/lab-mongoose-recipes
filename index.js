@@ -30,7 +30,7 @@ mongoose
       dishType: "other",
       image: "",
       duration: 40,
-      creator: "Rodrigo",
+      creator: "Rodrigo Hernández",
     };
     Recipe.create(tortilla)
       .then((response) =>

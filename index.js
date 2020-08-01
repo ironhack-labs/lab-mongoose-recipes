@@ -62,10 +62,10 @@ mongoose
                     .then(() => {
                       // Iteration #6
                       mongoose.disconnect();
-                    })
-                })
-          })
-      })    
+                    }).catch(error => console.log(`Database disconnect error: ${error}`))
+                }).catch(error => console.log(`Delete recipe error: ${error}`))
+          }).catch(error => console.log(`Recipe update error: ${error}`))
+      }).catch(error => console.log(`Insert recipe error: ${error}`))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

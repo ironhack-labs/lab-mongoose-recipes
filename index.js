@@ -62,6 +62,9 @@ async function agregarRecetasJson(){
   await Recipe.insertMany(data)
   .then(() => {
     console.log('Adding - Multiple Data');
+    data.forEach(function (recipe) {
+      console.log(recipe.title);
+    });
   })  
   .catch(() => {
     console.log('Error Adding - Multiple Data');

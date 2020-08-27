@@ -22,14 +22,26 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+  async function masterFunction(){
     createRecipe()
-    updateRecipe("5f46fa2b8621652118591340", 100)
-    deleteRecipe("5f46fa2b8621652118591340")
+    await
+    addMany(data)
+    await
+    updateRecipe()
+    await
+    deleteRecipe()
+    // iteration 6
+    await
+    mongoose.connection.close() 
+  }
+  masterFunction()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
   
+  // iteration 2
+
   async function createRecipe(){
     const newRecipe = await Recipe.create({
       title: 'Empanadas de Piña',
@@ -52,16 +64,18 @@ mongoose
 
   //iteration 4
 
-  async function updateRecipe(id, duration){
-    await addMany(data)
-    const doc = Recipe.findByIdAndUpdate(id, { duration })
-    console.log('Updated successfully')
+  async function updateRecipe(){
+    const filter = {title: "Rigatoni alla Genovese"}
+    const update = {duration: 100}
+    const doc = await Recipe.findOneAndUpdate(filter, update, { new: true })
+    console.log(doc)
   }
 
   //iteration 5
 
-  async function deleteRecipe(id){
-    const deletedRecipe = await Recipe.findByIdAndRemove(id)
+  async function deleteRecipe(){
+    const filter = {title: "Carrot Cake"}
+    const deletedRecipe = await Recipe.findOneAndRemove(filter)
     console.log('Success deleting recipe')
   }
 

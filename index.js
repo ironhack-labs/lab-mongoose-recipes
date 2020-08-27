@@ -20,8 +20,53 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+// ITERATION 2
+    Recipe.create({
+      title: 'Chocolate mousse',
+      level: 'Easy Peasy',
+      ingredients: ['chocolate', 'eggs', 'sugar'],
+      cuisine: 'International',
+      dishType: 'dessert',
+      duration: 20,
+      creator: 'a chocolate lover'
+    })
+    .then((newRecipe) => {
+      console.log(newRecipe.title)
+// ITERATION 3
+      Recipe.insertMany(data)
+      .then((newRecipe) => {
+        newRecipe.forEach((recipe) => {
+          console.log(recipe.title)
+        })
+// ITERATION 4
+      Recipe.findOneAndUpdate(
+        {title: 'Rigatoni alla Genovese'},
+        {duration: 100}
+        )
+      .then((newRecipe) => {
+        console.log('Recipe successfully updated')
+      })
+      .catch(error => {
+        console.log(error)
+      })
+// ITERATION 5
+      Recipe.deleteOne(
+        {title: 'Carrot Cake'}
+      )
+      .then((newRecipe) => {
+        console.log('Recipe sucessfully deleted')
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    })
   })
+// ITERATION 6
+    mongoose.connection.close()
+    .then((end) => {
+      console.log('Mongoose is disconnected')
+    })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+})

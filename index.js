@@ -27,11 +27,21 @@ mongoose
     })
   }) 
   .then(() => {
-    Recipe.insertMany(data)
+    return Recipe.insertMany(data)
+
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
           console.log(`${data[i].title}`)
         }
+      })
+  })
+  .then(() => {
+     Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+      .then(() => {
+        console.log(`Success! Duration is ${data.duration}`)
+      }) 
+      .catch(error => {
+        console.log(error)
       })
   })
   

@@ -39,28 +39,33 @@ mongoose
           console.log(recipe.title)
         })
 // ITERATION 4
-      Recipe.findOneAndUpdate(
-        {title: 'Rigatoni alla Genovese'},
-        {duration: 100}
-        )
-      .then((newRecipe) => {
-        console.log('Recipe successfully updated')
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        Recipe.findOneAndUpdate(
+          {title: 'Rigatoni alla Genovese'}, 
+          {duration: 100})
+        .then((newRecipe) => {
+          console.log('Recipe successfully updated')
 // ITERATION 5
-      Recipe.deleteOne(
-        {title: 'Carrot Cake'}
-      )
-      .then((newRecipe) => {
-        console.log('Recipe sucessfully deleted')
+          Recipe.deleteOne(
+            {title: 'Carrot Cake'})
+          .then((newRecipe) => {
+            console.log('Recipe sucessfully deleted')
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
       .catch(error => {
         console.log(error)
       })
     })
-  })
+    .catch(error => {
+      console.log(error)
+    })
+})
 // ITERATION 6
     mongoose.connection.close()
     .then((end) => {
@@ -69,4 +74,3 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-})

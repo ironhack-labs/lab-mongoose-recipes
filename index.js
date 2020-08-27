@@ -19,14 +19,21 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
+   .then(() => {
     // Run your code here, after you have insured that the connection was made
     Recipe.create(firstRecipe)
       .then((firstRecipe) => {
       console.log(`${firstRecipe.title}`)
     })
-
-    })
+  }) 
+  .then(() => {
+    Recipe.insertMany(data)
+      .then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          console.log(`${data[i].title}`)
+        }
+      })
+  })
   
   .catch(error => {
     console.error('Error connecting to the database', error);

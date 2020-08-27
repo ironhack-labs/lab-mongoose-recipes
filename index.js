@@ -28,7 +28,6 @@ mongoose
   }) 
   .then(() => {
     return Recipe.insertMany(data)
-
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
           console.log(`${data[i].title}`)
@@ -36,15 +35,20 @@ mongoose
       })
   })
   .then(() => {
-     Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+     return Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
       .then(() => {
-        console.log(`Success! Duration is ${data.duration}`)
+        console.log(`Success!`)
       }) 
       .catch(error => {
         console.log(error)
       })
   })
-  
+  .then(() => {
+    return Recipe.deleteOne({title: "Carrot Cake"})
+      .then(() => {
+        console.log('Carrot Cake was removed')
+      })
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

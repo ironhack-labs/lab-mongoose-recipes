@@ -49,6 +49,15 @@ mongoose
         console.log('Carrot Cake was removed')
       })
   })
+  .then(() => {
+    mongoose.connection.close()
+      .then(() => {
+        console.log("Yes!")
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

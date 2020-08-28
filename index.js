@@ -21,7 +21,54 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    //Iteration 1
+    Recipe.create( {
+      title: "LeafRolls Turkish",
+      level: 'Amateur Chef',
+      ingredients: ["rice","onion","tomatos","parsley","olive oil","black pepper","grape leaves"],
+      cuisine: "Turkish",
+      dishType: "other",
+      image: "",
+      duration: 40,
+      creator:"Mahmut Sarcan",
+    })
+    .then(newRecipe=> console.log(`New recipe:${newRecipe.title}`)
+    )
+    .catch(err=>console.log(err));
+
+    //Iteration 3
+    Recipe.insertMany(data)
+    .then((newRecipe)=> newRecipe.forEach((recipe)=>{
+      console.log(recipe);
+    }))
+    .catch((err)=> console.log(err));
+
+
+    //Iteration 4
+    Recipe.findOneAndUpdate(
+      {title:'Rigatoni alla Genovese'},
+      {duration:100},
+      {new:true}
+    )
+    .then((newRecipe)=> console.log("Updated successfully!"))
+    .catch((err)=> console.log(err));
+
+    //Iteration 5
+    Recipe.deleteOne(
+      {title:'Carrot Cake'}
+    )
+    .then(()=> console.log(`Deleted successfully!`))
+    .catch((err)=> console.log(`Could not delete recipe:${err}`));
+
+   
+    
   })
+   //Iteration 6
+   mongoose.disconnect()
+   .then((end)=>{
+     console.log('Mongoose is disconnected')
+   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+    

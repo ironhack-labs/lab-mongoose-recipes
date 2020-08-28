@@ -1,9 +1,12 @@
+//import mongoose
 const mongoose = require('mongoose');
+//refer to the schema object in a mongoose model
 const Schema = mongoose.Schema;
 
+//define a new schema (blueprint)
 const recipeSchema = new Schema({
   // TODO: write the schema
-  title: {
+  title: {    //start to define the fields in my DB
     type: String, 
     required: true, 
    /*  unique: true */
@@ -37,6 +40,8 @@ const recipeSchema = new Schema({
   
 });
 
+//use a schema as a blueprint, create a model which we will use 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
+//export the module
 module.exports = Recipe;

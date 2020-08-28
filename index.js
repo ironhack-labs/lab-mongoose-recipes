@@ -27,7 +27,7 @@ mongoose
     })
   }) 
   .then(() => {
-    return Recipe.insertMany(data)
+    return Recipe.insertMany(data) // - return a value to the next .then!!!!!!!!
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
           console.log(`${data[i].title}`)

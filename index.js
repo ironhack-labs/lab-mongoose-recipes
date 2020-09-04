@@ -25,3 +25,25 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+  // Recipe.create({
+  //   title: 'Tomatosoup',
+  //   level: 'Easy Peasy',
+  //   ingredients: 'tomatoes',
+  //   cuisine: 'italian',
+  //   dishType: 'main_course',
+   
+  //   duration:'60',
+  //   creator: 'Sophia',
+   
+  // }).then(newRecipe => {
+  //   console.log(newRecipe)
+  // }).catch(err => console.log(err));
+
+  Recipe.insertMany(data)
+  .then((recipes) => {
+    for (let i of recipes){
+      console.log(i.title)
+    }     
+   }).catch(err => console.log(err));

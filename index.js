@@ -21,26 +21,25 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
+  .then(async () => {
     // Run your code here, after you have insured that the connection was made
 
+    await Recipe.insertMany(
+        data
+    ).then(recipe => {
+        console.log(recipe);
+    })
+    await Recipe.findOneAndUpdate(
+      {title:"Rigatoni alla Genovese"},{duration: 100}
+    ).then(update => {
+      console.log(update.title);
+    }).catch(err => console.log(err))
+    
+    await Recipe.deleteOne({title: "Carrot Cake"})
+    .then(deleted => console.log(deleted))
+    .catch(err => console.log("error: ",err))
     mongoose.connection.close()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-// Recipe.insertMany(
-//     data
-// ).then(recipe => {
-//     console.log(recipe);
-// })
-Recipe.findOneAndUpdate(
-  {title:"Rigatoni alla Genovese"},{duration: 100}
-).then(update => {
-  console.log(update);
-}).catch(err => console.log(err))
-
-Recipe.deleteOne({title: "Carrot Cake"})
-.then(deleted => console.log(deleted))
-.catch(err => console.log("error: ",err))

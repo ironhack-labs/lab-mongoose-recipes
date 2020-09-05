@@ -53,6 +53,7 @@ mongoose
             Recipe.deleteOne({ title: 'Carrot Cake' })
               .then(() => {
                 console.log('Recipe Carrot Cake removed successfully');
+                mongoose.connection.close();
               });
           });
       });

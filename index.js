@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -20,7 +21,41 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const newRecipe = {
+      title: 'Pipoca',
+      level: 'Amateur Chef',
+      ingredients: ['Milho', 'Sal', 'Manteiga', 'Azeite'],
+      cuisine: 'Mata Fome',
+      dishType: 'snack',
+      image: 'https://thumbs.dreamstime.com/b/popcorn-red-background-box-movie-flying-out-copy-space-78354377.jpg',
+      duration: 15,
+      creator: 'Chef Leo',
+    };
+
+    Recipe.create(newRecipe)
+      .then((recipe) => {
+        console.log('Recipe', recipe.title, 'created');
+      })
+      .then(() => {
+        Recipe.insertMany(data)
+          .then((recipes) => {
+            recipes.forEach((recipe) => {
+              console.log('Recipe', recipe.title, 'created');
+            });
+          })
+          .then(() => {
+            Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { $set: { duration: 100 } }, { new: true })
+              .then((updatedRecipe) => {
+                console.log('Duration from recipe', updatedRecipe.title, 'updated to', updatedRecipe.duration);
+              });
+          })
+          .then(() => {
+            Recipe.deleteOne({ title: 'Carrot Cake' })
+              .then(() => {
+                console.log('Recipe Carrot Cake removed successfully');
+              });
+          });
+      });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

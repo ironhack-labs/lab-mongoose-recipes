@@ -16,11 +16,18 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
+    process.on('SIGINT', function() {
+      mongoose.connection.close(function () {
+        console.log('Mongoose disconnected on app termination');
+        process.exit(0);
+      });
+    });
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
   .then(() => {
-
+    // Run your code here, after you have ensured that the connection was made
+    
     // Recipe.create({
     //   "title": "Asian Glazed Chicken Thighs",
     //   "level": "Amateur Chef",
@@ -47,19 +54,26 @@ mongoose
         });
         console.log(recipeTitle);
 
-        Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+        Recipe.findOneAndUpdate({
+            title: 'Rigatoni alla Genovese'
+          }, {
+            duration: 100
+          })
           .then(() => {
             console.log('success');
-          });
 
+            Recipe.findOneAndDelete({
+              title: 'Carrot Cake'
+            })
+            .then(() => {
+              console.log('success');
+              mongoose.connection.close(function () {
+                console.log('Mongoose disconnected, all done.');
+              });
+            });
+          });
       });
 
-
-
-
-
-    console.log('heyhey');
-    // Run your code here, after you have ensured that the connection was made
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

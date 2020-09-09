@@ -94,10 +94,10 @@ mongoose
           return Recipe.insertMany(data)
       })
       .then(theRecipes => {
-          return theRecipes.forEach(recipe => console.log("There is a new recipe: ",recipe.title))
+          return theRecipes.forEach(recipe => console.log(`There is a new recipe: ${recipe.title}`))
       })
       .then(() => Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration: 100},{new: true }))
-      .then(recipeUpdate => console.log("Recipe Update ",recipeUpdate))  
+      .then(recipeUpdate => console.log(`Recipe Update - new duration: ${recipeUpdate.duration}`))  
       .then(() => Recipe.deleteOne({title:"Carrot Cake"}))
       .then(recipeDelete => console.log("Recipe Delete ",recipeDelete))  
       .then(() =>  mongoose.connection.close() )

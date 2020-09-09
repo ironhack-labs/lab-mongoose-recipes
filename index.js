@@ -91,7 +91,6 @@ mongoose
           return Recipe.find({})
       })
       .then(theRecipes => {
-          console.log("There are new recipes: ", theRecipes)
           return Recipe.insertMany(data)
       })
       .then(theRecipes => {

@@ -33,7 +33,15 @@ mongoose
 
   })
   .then(() => Recipe.create(data))
-  .then((data) => data.forEach(element => console.log(`${element.title}`)))
+  .then(() => Recipe.findOneAndUpdate(
+
+      { title: 'Rigatoni alla Genovese' }, 
+      { duration: 100 },
+      { new: true }
+      
+    )
+  )
+  //.then((data) => data.forEach(element => console.log(`${element.title}`)))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

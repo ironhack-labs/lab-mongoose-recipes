@@ -43,23 +43,23 @@ mongoose
       duration:25,
       creator: "Marianne Turner"
       })
-      .then(() => console.log(`Se han creado una nueva receta`))
-      .catch(err => console.log(`Hubo un error: ${err}`))
+      .then(() => console.log(`There is a new recipe!`))
+      .catch(err => console.log(`Error: ${err}`))
 
       //Iteration 3 -  Insert multiple recipes
       Recipe.insertMany(data)
-      .then(theNewRecipes => console.log(`Se han creado ${theNewRecipes.length} nuevas recetas`))
-      .catch(err => console.log(`Hubo un error: ${err}`))
+      .then(theNewRecipes => console.log(`There are ${theNewRecipes.length} new recipes`))
+      .catch(err => console.log(`Error: ${err}`))
 
       //Iteration 4 -  Update recipe
       Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration: 100})
-      .then(() => console.log('Se ha modificado la receta'))
-      .catch(err => console.log(`Hubo un error: ${err}`))
+      .then(() => console.log('Update complete'))
+      .catch(err => console.log(`Error: ${err}`))
 
      //Iteration 5 - Remove a recipe
       Recipe.deleteOne({title:"Carrot Cake"})
-      .then(() => console.log('Se ha eliminado la receta'))
-      .catch(err => console.log(`Hubo un error: ${err}`))
+      .then(() => console.log('Delete complete'))
+      .catch(err => console.log(`Error: ${err}`))
   
      //Iteraction 6 - Close The Database
        mongoose.connection.close() 
@@ -86,22 +86,22 @@ mongoose
       creator: "Marianne Turner"
       })
       .then(theRecipe => {
-          console.log(`Se ha creado una nueva receta de ${theRecipe.title}`)
+          console.log(`There is a new recipe ${theRecipe.title}`)
           return Recipe.find({})
       })
       .then(theRecipes => {
-          console.log("Hay nuevas recetas ", theRecipes)
+          console.log("There are new recipes: ", theRecipes)
           return Recipe.insertMany(data)
       })
       .then(theRecipes => {
-          return theRecipes.forEach(recipe => console.log("Hay una receta de ",recipe.title))
+          return theRecipes.forEach(recipe => console.log("There is a new recipe: ",recipe.title))
       })
       .then(() => Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration: 100},{new: true }))
       .then(recipeUpdate => console.log("Recipe Update ",recipeUpdate))  
       .then(() => Recipe.deleteOne({title:"Carrot Cake"}))
       .then(recipeDelete => console.log("Recipe Delete ",recipeDelete))  
       .then(() =>  mongoose.connection.close() )
-      .catch(err => console.log(`Hubo un error: ${err}`))
+      .catch(err => console.log(`Error: ${err}`))
     
   })
   .catch(error => {

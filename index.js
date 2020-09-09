@@ -21,7 +21,30 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: "Pizza Carbonara",
+      level: "Easy Peasy",
+      ingredients: ["masa", "onion", "beacon", "cream"],
+      cuisine: "Italiana",
+      dishType: "main_course",
+      image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Frecetinas.com%2Fpizza-carbonara-casera%2F&psig=AOvVaw3u5m9xaY7adMIy9nSr1Ltk&ust=1599742106753000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDgs_qN3OsCFQAAAAAdAAAAABAD",
+      duration: 10,
+      creator: "David"
+    })
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then(firstRecip => console.log(firstRecip.title))
+  .then(() => Recipe.insertMany(data))
+  .then((recipe) => recipe.forEach(elm => console.log(elm.title)))
+  .then(() => Recipe.updateOne({
+    title: "Rigatoni alla Genovese"
+  }, {
+    duration: 100
+  }))
+  .then(() => console.log("Receta actulizada."))
+  .then(() => Recipe.deleteOne({
+    title: "Carrot Cake"
+  }))
+  .then(() => console.log("Receta eliminada."))
+  .then(() => mongoose.connection.close())
+
+  .catch(error => console.error('Error connecting to the database', error));

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { insertMany } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -12,7 +13,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -21,7 +23,50 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: 'Papas',
+
+      level: 'Easy Peasy',
+
+      ingredients: ['oil', 'carrot'],
+
+      cuisine: 'Spain',
+
+      dishType: 'breakfast',
+
+      image: "https://images.media-allrecipes.com/images/75131.jpg",
+
+
+
+      duration: 10,
+
+      creator: 'Sergio'
+
+    })
+  })
+  .then(recipe => console.log(`${recipe.tilte}`))
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+  .then(data => data.forEach(elm => console.log(`The new recipe is called: ${elm.title}`)))
+
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+  })
+  .then(recipe => console.log(`la duracion de la receta actualizada es ${recipe.duration}`))
+
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+  })
+
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
   });
+});
+
+

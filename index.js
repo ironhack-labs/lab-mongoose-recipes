@@ -44,7 +44,14 @@ mongoose
   .then(() => console.log('Update Rigatoni alla Genevese: Done'))
   .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
   .then(() => console.log('Delete Carrot Cake: Done'))
-  //.then((data) => data.forEach(element => console.log(`${element.title}`)))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  })
+})

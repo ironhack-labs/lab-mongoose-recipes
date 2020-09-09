@@ -48,12 +48,12 @@ mongoose
   .then(() => {
     return Recipe.insertMany(data)
   })
-  .then(data => data.forEach(elm => console.log(`The new recipe is called: ${elm.title}`)))
+  .then(data => data.forEach(elm => console.log(`The name of the recipe is: ${elm.title}`)))
 
   .then(() => {
     return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
   })
-  .then(recipe => console.log(`la duracion de la receta actualizada es ${recipe.duration}`))
+  .then(recipe => console.log(`the duration of the updated recipe is ${recipe.duration}`))
 
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" })
@@ -64,7 +64,7 @@ mongoose
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {
-    console.log('Mongoose default connection disconnected through app termination');
+    console.log('mongoose has been disconnected');
     process.exit(0);
   });
 });

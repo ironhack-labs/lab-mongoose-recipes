@@ -44,8 +44,8 @@ mongoose
   .then(newDuration => console.log('el nuevo tiempo de Rigatoni alla Genovese es', newDuration.duration))
 
   //-------Iteración 5: Remove
-  .then(() => Recipe.deleteOne({title: 'Carrot Cake'}))
-  .then(console.log('La Receta no está disponible'))
+  .then(() => Recipe.deleteOne({title: 'Carrot Cake'}, console.log('La Receta no está disponible'))
+  //.then(console.log('La Receta no está disponible'))
 
   .catch(error => {
     console.error('Error connecting to the database', error);

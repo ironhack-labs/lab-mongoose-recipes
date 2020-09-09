@@ -40,7 +40,7 @@ mongoose
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" })
   })
-  .then(updatedRecipe => console.log(`The selected recipe is no longer available`))
+  .then(() => console.log(`The selected recipe is no longer available`))
 
   .catch(error => {
     console.error('Error connecting to the database', error);

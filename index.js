@@ -20,8 +20,20 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+   return Recipe.create({
+      title: 'Ponquesitos',
+      level: 'Easy Peasy',
+      ingredients: ['flour', 'eggs', 'chocolate'],
+      cuisine: 'Venezuelan',
+      dishType: 'dessert',
+      duration: 1,
+      creator: 'Juan Semprun'
+    })
+
   })
+  .then(() => Recipe.create(data))
+  .then((data) => data.forEach(element => console.log(`${element.title}`)))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

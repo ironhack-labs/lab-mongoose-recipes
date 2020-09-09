@@ -39,6 +39,8 @@ const recipeSchema = new Schema({
     default: Date.now     // o Date.now() ??
   }
 
+}, {
+  timestamps: true
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

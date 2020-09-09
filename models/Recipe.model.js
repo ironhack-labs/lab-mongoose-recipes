@@ -1,35 +1,39 @@
 const mongoose = require('mongoose');
-
-const recipeSchema = new mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
-  // TODO: write the schema
-    title: {
+  title: {
       type: String,
       unique: true,
-      //required: true,
+      required: true,
     },
     
     level: {
       type: String,
       enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
     },
+    
+  cuisine: {
+    type: String,
+      
+  },
 
-    ingredients: {
+  ingredients: {
       type: [String],
     },
 
-    dishType: {
+  dishType: {
       type: String,
-      enum: ['breakfast', 'main_course' 'soup', 'snack', 'drink', 'dessert', 'other']
+      enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other']
     },
 
-    image: {
+  image: {
       type: String,
-      default: ""
+    default: "https://images.media-allrecipes.com/images/75131.jpg "
+    
     },
 
-    duration: {
+  duration: {
       type: Number,
       min: 0
     },
@@ -48,3 +52,7 @@ const recipeSchema = new Schema({
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = Recipe;
+
+
+
+

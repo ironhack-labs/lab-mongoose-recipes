@@ -20,6 +20,24 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+    return Recipe.create({
+      "title": "Bite size donuts (AKA Donut Holes)",
+      "level": "Amateur Chef",
+      "ingredients": ["1 1/4 cups (176g) all-purpose flour (scoop and level to measure)",
+        "2 tsp baking powder",
+        "1/4 tsp salt",
+        "1/2 cup (120 ml) buttermilk",
+        "1/4 cup (50g) granulated sugar",
+        "3 Tbsp (42g) melted butter",
+        "3 - 4 cups vegetable oil, for frying"
+        ],
+      "cuisine": "American",
+      "dishType": "breakfast",
+      "image": "https://www.cookingclassy.com/wp-content/uploads/2020/05/15-minute-donuts-03-600x900.jpg",
+      "duration": 20,
+      "creator": "Jaclyn from cookingclassy.com"
+      // "created": "Default" preciso colocar isso aqui ou ele ja vai direto?
+    })
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {

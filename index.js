@@ -42,16 +42,12 @@ mongoose
       //     // "created": "Default" preciso colocar isso aqui ou ele ja vai direto?
     
     })
-  //   // Run your code here, after you have insured that the connection was made
    })
   .then(newRecipe => console.log(` Test title new recipe: ${newRecipe.title}`))
   .then(() => {
-    
-    return Recipe.insertMany(data, function(){
-    })
-    
-  })
-  return Recipe.insertMany(data)
+    return Recipe.insertMany(data)
+
+  } )
   .then((data) => {
     for (let i = 0; i < data.length; i++) {
       console.log(`Test title every recipe: ${data[i].title}`)

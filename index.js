@@ -66,6 +66,8 @@ mongoose
        console.log('Carrot Cake removed!')
      })
  })
+ .then(() => mongoose.connection.close())
+    .then(() => console.log("Ending conection"))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

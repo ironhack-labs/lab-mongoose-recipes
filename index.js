@@ -53,6 +53,8 @@ mongoose
         Recipe.deleteOne({ title: 'Carrot Cake' })
         .then(carrot => console.log('success2',carrot))
         .catch(error => console.log(error))
+        .then(() => mongoose.connection.close())
+        .catch(error => console.log(error))
   
       })
     })

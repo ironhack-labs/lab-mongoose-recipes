@@ -21,20 +21,18 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-
-    const newRecipe = Recipe.create({
-      title: "cake",
-      level: "Easy Peasy",
-      ingredients: ["eggs", "suggar", "milk", "pounder"],
-      cuisine: "",
-      dishType: "dessert",
-      image: "https://images.media-allrecipes.com/images/75131.jpg",
-      duration: 1,
-      creator: "Chief of Cake",
-      created: "04/13/1965",
+    Recipe.create(data[0]).then(() => {
+      console.log(data[0].title);
     });
-    console.log(newRecipe.title);
   })
+  .then(() => {
+    Recipe.insertMany(data).then(() => {
+      data.forEach((recipe) => {
+        console.log(recipe.title);
+      });
+    });
+  })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

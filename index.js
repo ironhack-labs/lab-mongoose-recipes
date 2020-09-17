@@ -35,7 +35,14 @@ mongoose
     //   console.log("\n\n**** Iteration 1 ---> create one recipe *******\n");
     //   console.log(insertedRecipe);
     // })
+    dbRecipeInteration();
+  })
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+  });
 
+
+  const dbRecipeInteration = async () => {
     //Iteration 2
     const insertedRecipe = await Recipe.create({
       title: " Cookies Nuts Chocolate",
@@ -73,7 +80,4 @@ mongoose
     //Iteration 6
     mongoose.connection.close();
     console.log(`\r\nYou close the DB!!`);
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  };

@@ -19,10 +19,10 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
+  .then(async () => {
     // Run your code here, after you have insured that the connection was made
 
-    //One Recipe
+    //Insert One Recipe
     try {
       const cookies = {
         title: "Cookies",
@@ -41,22 +41,29 @@ mongoose
         creator: "My mother",
       };
       const result = await Recipe.create(cookies);
-    } catch (err){
+    } catch (err) {
       console.err(err);
     }
 
-    //Many Recipe
+    //Insert Many Recipe
     try {
       const result = await Recipe.insertMany(data);
       console.log(result);
-    } catch (err){
+    } catch (err) {
       console.err(err);
     }
 
-
-    
-
-    
+    //Update a recipe
+    try {
+      const result = await Recipe.updateOne(
+        {
+          title: "Rigatoni alla Genovese",
+        },
+        { duration: 100 }
+      );
+    } catch (err) {
+      console.err(err);
+    }
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

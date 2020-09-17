@@ -5,7 +5,8 @@ const recipeSchema = new Schema({
     // TODO: write the schema
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     level: {

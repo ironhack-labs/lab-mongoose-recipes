@@ -77,5 +77,6 @@ mongoose
 
     //Iteration 6
     mongoose.connection.close();
-    console.log(`\r\nYou close the DB!!`);
+  
+    console.log(mongoose.connection.readyState === 3 ? "\r\nConnection closed" : "\r\nPending");
   };

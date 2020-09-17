@@ -1,4 +1,5 @@
-[{
+[
+  {
     "title": "Asian Glazed Chicken Thighs",
     "level": "Amateur Chef",
     "ingredients": [
@@ -91,5 +92,38 @@
     "image": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F4398987.jpg&w=596&h=399.32000000000005&c=sc&poi=face&q=85",
     "duration": 30,
     "creator": "Chef Jennifer"
+  },
+  {
+    "title": "Fancy tartine",
+    "level": "UltraPro Chef",
+    "ingredients": ["bread", "nutella", "peanut butter"],
+    "cuisine": "USA",
+    "dishType": "snack",
+    "image": "https://image.shutterstock.com/image-photo/nut-nougat-cream-chocolate-peanut-260nw-577105216.jpg",
+    "duration": 302,
+    "creator": "tylor",
+    "date": null
+  },
+  {
+    "title": "Franch style tartine",
+    "level": "Amateur Chef",
+    "ingredients": ["bread", "nutella"],
+    "cuisine": "French",
+    "dishType": "breakfast",
+    "image": "https://st.depositphotos.com/1171396/4522/i/450/depositphotos_45222335-stock-photo-jar-of-nutella-with-toast.jpg",
+    "duration": 302,
+    "creator": "tylor",
+    "date": null
+  },
+  {
+    "title": "Sad tartine",
+    "level": "Easy Peasy",
+    "ingredients": ["bread"],
+    "cuisine": "anywhere",
+    "dishType": "breakfast",
+    "image": "https://images.immediate.co.uk/production/volatile/sites/4/2018/08/GettyImages-90420262-46266ba.jpg?quality=90&resize=768,574",
+    "duration": 302,
+    "creator": "tylor",
+    "date": null
   }
 ]

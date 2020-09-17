@@ -25,3 +25,40 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  mongoose.connection.on("error", () => {
+    console.error("NAY : database connection failed !!!");
+  });
+  
+  mongoose.connection.on("connected", () => {
+    console.log("YAY : Database connected !!!");
+  });
+
+// ---------------------------
+// Lab starting from here
+var jsonRecipe = require('./data.json');
+
+
+async function launchCRUD() {
+
+  // Iteration 2
+  const newRecipe = await Recipe.create({
+    title: 'Poulet Cumin',
+    level: 'Easy Peasy',
+    ingredients: ['Poulet', 'Huile Végétale', 'Cumin', 'Sel', 'Curry', 'Poivre'],
+    cuisine: 'Bonne',
+    dishtype: 'main_course',
+    image: 'https://recettes.de/images/blogs/le-blog-de-clementine/poulet-roti-epice-a-l-indienne-et-pommes-de-terre-au-cumin.640x480.jpg',
+    duration: 10,
+    creator: "Chef Nicole",
+    created: Date('2020-09-17'),
+  });
+  console.log(newRecipe.title);
+  // Itertaion 3
+  const manyNewRecipe = await Recipe.insertMany(jsonRecipe);
+
+}
+
+launchCRUD()
+
+

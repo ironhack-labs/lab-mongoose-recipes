@@ -20,7 +20,7 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(async() => {
+  .then(() => {
     // Run your code here, after you have insured that the connection was made
     //TO KEEP EXEMPLE AVEC THEN SI PAS DE ASYNC FUNC:
     // Recipe.create({
@@ -34,7 +34,8 @@ mongoose
     // }).then(insertedRecipe => {
     //   console.log("\n\n**** Iteration 1 ---> create one recipe *******\n");
     //   console.log(insertedRecipe);
-    // })
+    // });
+
     dbRecipeInteration();
   })
   .catch(error => {
@@ -59,14 +60,11 @@ mongoose
     const insertManyRecipes = await Recipe.insertMany(data);
     console.log("Inserted recipes : \r\n");
     insertManyRecipes.forEach(recipe => console.log(`title: ${recipe.title}`));
-    console.log(`\r\n`);
 
     //Iteration 4
     const updateSpecRecipe =  await Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
-      {
-        duration: 100,
-      },
+      { duration: 100 },
       { new: true }
     );
     console.log(`\r\nUpdate: ${updateSpecRecipe.title} with sucess!!`);
@@ -75,7 +73,7 @@ mongoose
     const deletedRecipe = await Recipe.deleteOne({
       title: "Carrot Cake",
     });
-    console.log(`\r\nDeleted one row with success`);
+    console.log(`\r\nDeleted one row with success! `);
 
     //Iteration 6
     mongoose.connection.close();

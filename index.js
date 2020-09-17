@@ -5,6 +5,8 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
+mongoose.set('useFindAndModify', false);
+
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
@@ -65,5 +67,4 @@ async function doTheLab() {
     //iteration 6
     mongoose.connection.close();
     console.log("DB disconnected");
-
 }

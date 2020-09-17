@@ -36,14 +36,13 @@ mongoose
     //   console.log(insertedRecipe);
     // });
 
-    dbRecipeInteration();
+    //dbRecipeInteration();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-
-  const dbRecipeInteration = async () => {
+  (async function() {
     //Iteration 2
     const insertedRecipe = await Recipe.create({
       title: " Cookies Nuts Chocolate",
@@ -79,4 +78,5 @@ mongoose
     mongoose.connection.close();
   
     console.log(mongoose.connection.readyState === 3 ? "\r\nConnection closed" : "\r\nPending");
-  };
+  }
+  )();

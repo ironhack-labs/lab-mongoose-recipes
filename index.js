@@ -21,6 +21,8 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    //One Recipe
     try {
       const cookies = {
         title: "Cookies",
@@ -42,6 +44,16 @@ mongoose
     } catch (err){
       console.err(err);
     }
+
+    //Many Recipe
+    try {
+      const result = await Recipe.insertMany(data);
+      console.log(result);
+    } catch (err){
+      console.err(err);
+    }
+
+
     
 
     

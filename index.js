@@ -28,17 +28,17 @@ mongoose
         title: "Cookies",
         level: "Easy Peasy",
         ingredients: [
-          "Farine",
+          "Flour",
           "Eggs",
-          "Sugar",
-          "Levure Chimique",
-          "Chunks Chocolate",
+          "Brown Sugar",
+          "Baking Powder",
+          "Chunks of Chocolate",
           "Honey",
         ],
         cuisine: "American",
         dishType: "dessert",
         duration: 20,
-        creator: "My mother",
+        creator: "My Mother",
       };
       const result = await Recipe.create(cookies);
     } catch (err) {
@@ -59,7 +59,9 @@ mongoose
         {
           title: "Rigatoni alla Genovese",
         },
-        { duration: 100 }
+        {
+          duration: 100,
+        }
       );
     } catch (err) {
       console.err(err);
@@ -74,7 +76,7 @@ mongoose
     }
 
     //Closing the database
-    // mongoose.disconnect();
+    mongoose.disconnect();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

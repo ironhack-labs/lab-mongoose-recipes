@@ -21,7 +21,7 @@ mongoose
   })
   .then(() => {
     /*Recipe.create(  {
-      "title": "Chocolate Chip Cookies",
+      "title": "Chocolate Brownies",
       "level": "Amateur Chef",
       "ingredients": [
         "1/2 cup light brown sugar",
@@ -33,8 +33,8 @@ mongoose
       "cuisine": "French",
       "dishType": "dessert",
       "image": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F4398987.jpg&w=596&h=399.32000000000005&c=sc&poi=face&q=85",
-      "duration": 30,
-      "creator": "Chef Jennifer"
+      "duration": 45,
+      "creator": "Chef Mystery"
     })
     .then(recipe => console.log('The recipe is saved and the title is: ', recipe.title))
     .catch(error => console.log('An error occured while saving a new recipe:', error))*/
@@ -51,6 +51,10 @@ mongoose
   .then(async() => {
     await Recipe.deleteOne({title: "Carrot Cake"});
     console.log(`Successfully removed: Carrot Cake`);
+  })
+  .then(() => {
+    mongoose.connection.close();
+    mongoose.connection.readyState === 3 ? console.log("Connection closed") : console.log("Connection NOT closed");
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

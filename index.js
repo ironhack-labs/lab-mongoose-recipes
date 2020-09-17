@@ -35,20 +35,15 @@ mongoose
     }
     createRecipe();
   */
-
-    async function createRecipes() {
+    (async function () {
+      // fonction asynchrone immédiatement appelée
       const newRecipes = await Recipe.insertMany(data);
       let recipeTitle = [];
       newRecipes.forEach((recipe) => {
         recipeTitle.push(recipe.title);
       });
       //console.log(recipeTitle);
-      updateRecipe();
-      deleteRecipe();
-    }
-    createRecipes();
 
-    async function updateRecipe() {
       const updatedRecipe = await Recipe.findOneAndUpdate(
         { title: "Rigatoni alla Genovese" },
         {
@@ -57,13 +52,14 @@ mongoose
         { new: true }
       );
       //console.log("Duration updated");
-    }
 
-    async function deleteRecipe() {
       const deletedRecipe = await Recipe.deleteOne({
         title: "Carrot Cake",
       });
-    }
+    })().then(() => {;
+      mongoose.connection.close();
+      //console.log(mongoose.connection.readyState);
+    });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

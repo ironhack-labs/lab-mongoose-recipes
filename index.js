@@ -40,7 +40,7 @@ mongoose
     .catch(error => console.log('An error occured while saving a new recipe:', error))*/
   })
   .then(() => {
-    Recipe.insertMany([{
+   Recipe.insertMany([{
       "title": "Asian Glazed Chicken Thighs",
       "level": "Amateur Chef",
       "ingredients": [
@@ -135,9 +135,19 @@ mongoose
       "creator": "Chef Jennifer"
     }
   ])
-  .then(recipes => recipes.forEach(recipe => console.log(`Recipe Title: ${recipe.title}`)))
+  .then(recipes => recipes.forEach(recipe => console.log(`Recipe Title: ${recipe.title} ${recipe.duration}`)))
   .catch(error => console.log('An error occured while saving a new recipe:', error))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+//Iteration 4
+  async function update () {
+    const updatedRecipe = await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true});
+    console.log(`Successfully updated: ${updatedRecipe.title}, Duration: ${updatedRecipe.duration}`);
+  }
+update();
+
+
+

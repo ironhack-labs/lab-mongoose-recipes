@@ -53,4 +53,9 @@ async function doTheLab() {
     for (let recipe of ite3) {
         console.log("ite3 : ", recipe.title);
     }
+
+    //iteration 4
+    const ite4 = await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true });
+    console.log("ite4 : change duration of Rigatoni alla Genovese to ", ite4.duration);
+
 }

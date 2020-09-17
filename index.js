@@ -49,6 +49,11 @@ mongoose
           )
           .then(deleted => console.log(deleted))
           .catch(err => console.error('error in iteration-5', err))
+          .then(() =>{
+            //Iteration-6
+            mongoose.connection.close()
+          })
+          .catch(err => console.log('error in iteration-6', err))
         })
       })    
   })

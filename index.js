@@ -18,21 +18,32 @@ mongoose
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
-    console.log("hellow");
   })
+
+// INSERT ONE RECIPE
+  // .then(() => {
+  //   Recipe.create({
+  //     title: "Moelleux au chocolat",
+  //     level: "Easy Peasy",
+  //     ingredients: ["eggs", "chocolate", "flour"],
+  //     cuisine: "french",
+  //     dishType: "dessert",
+  //     duration: 30,
+  //     creator: "Lisa",
+  //   })
+  //   .then((newRecipe) => {
+  //     console.log(newRecipe);
+  //   });
+  // })
+// INSERT ALL RECIPES FROM data.js
   .then(() => {
-    Recipe.create({
-      title: "Moelleux au chocolat",
-      level: "Easy Peasy",
-      ingredients: ["eggs", "chocolate", "flour"],
-      cuisine: "french",
-      dishType: "dessert",
-      duration: 30,
-      creator: "Lisa",
-    }).then((newRecipe) => {
-      console.log(newRecipe);
+    Recipe.insertMany(data).then((allRecipes) => {
+      allRecipes.forEach((recipe) => {
+        console.log(recipe.title);
+      });
     });
   })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

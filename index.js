@@ -46,16 +46,24 @@ const myRecipe = {
 async function doTheLab() {
     //iteration 2
     const ite2 = await Recipe.create(myRecipe);
-    console.log("ite2 : ", ite2.title);
+    console.log("ite2 : creation of ", ite2.title);
 
     //iteration 3
     const ite3 = await Recipe.insertMany(data);
     for (let recipe of ite3) {
-        console.log("ite3 : ", recipe.title);
+        console.log("ite3 : adding ", recipe.title, " to the database");
     }
 
     //iteration 4
     const ite4 = await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true });
     console.log("ite4 : change duration of Rigatoni alla Genovese to ", ite4.duration);
+
+    //iteration 5
+    const ite5 = await Recipe.deleteOne({ title: "Carrot Cake" }, function(err) {});
+    console.log("ite5 : deleted Carrot Cake from DB");
+
+    //iteration 6
+    mongoose.connection.close();
+    console.log("DB disconnected");
 
 }

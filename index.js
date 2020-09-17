@@ -32,7 +32,14 @@ mongoose
       });
     });
   })
-
+  .then(() => {
+    const updatedRecipe = Recipe.findByIdAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true } 
+    )
+    console.log(updatedRecipe)
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

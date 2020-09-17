@@ -19,9 +19,39 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+  // .then(() => {
+  //   // Recipe.create(
+  //   //   {
+  //   //   title: "Gâteau au chocolate",
+  //   //   level: "Easy Peasy",
+  //   //   ingredients: [
+  //   //     "200g de chocolat",
+  //   //     "100g de beurre",
+  //   //     "3 oeufs",
+  //   //     "50g de farine",
+  //   //     "100g de sucre"
+  //   //   ],
+  //   //   cuisine: "French",
+  //   //   dishType: "dessert",
+  //   //   image: "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg",
+  //   //   duration: 20,
+  //   //   creator: "Chef Cailloux"
+  //   // }
+  //   // )
+  //   .then(recipe => console.log('toto ', recipe.title))
+  //   .catch(error => console.log(error));
+  // })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.insertMany(data)
+    .then(recipe => console.log('toto ', data.forEach(recipe => console.log(recipe.title))))
+    .catch(error => console.log(error));
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+
+

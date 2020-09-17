@@ -22,19 +22,45 @@ mongoose
   })
 
   .then(() => {
-    async function createRecipe() {
-      const recipe = await Recipe.create({
-        title: "Chocolate",
-        level: "Easy Peasy",
-        ingredients: "choco",
-        dishType: "breakfast",
-        duration: 30,
-        creator: "Tony"
+    // async function createRecipe() {
+    //   const recipe = await Recipe.create({
+    //     title: "Chocolate",
+    //     level: "Easy Peasy",
+    //     ingredients: "choco",
+    //     dishType: "breakfast",
+    //     duration: 30,
+    //     creator: "Tony"
+    //   });
+    // }
+    // createRecipe();
+
+    async function createRecipes() {
+      const allRecipes = await Recipe.insertMany(data);
+      updateRecipes();
+      deleteRecipe();
+    }
+    createRecipes();
+
+    async function updateRecipes() {
+      const updateRecipes = await Recipe.findOneAndUpdate(
+        {title: "Rigatoni alla Genovese"},
+        {
+          duration: 100,
+        },
+        { new: true }
+      );
+    }
+
+    async function deleteRecipe() {
+      const deletedRecipe = await Recipe.deleteOne({
+        title: "Carrot Cake",
       });
     }
-    createRecipe();
+
   })
 
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
+
+"fofooooo".substring(1).toLowerCase().toUpperCase();

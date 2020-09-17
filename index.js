@@ -30,11 +30,15 @@ mongoose
 async function launchCRUDSequence() {
   const createdRecipe = await Recipe.create(data[0])
     .then((recipe) => console.log(recipe.title))
-    .catch((err) => console.log("error in iteration", err));
+    .catch((error) => {
+      console.error("Error connecting to the database", error);
+    });
 
   const insertedAll = await Recipe.insertMany(data)
     .then(data.forEach((element) => console.log(element.title)))
-    .catch((err) => console.log("error in iteration", err));
+    .catch((error) => {
+      console.error("Error connecting to the database", error);
+    });
 
   const updatedRecipe = await Recipe.findOneAndUpdate(
     { title: "Rigatoni alla Genovese" },
@@ -43,8 +47,10 @@ async function launchCRUDSequence() {
   );
   console.log(updatedRecipe);
 
-  const deletedRecipe = await Recipe.deleteOne({ title: "Carrot Cake" }).then(
-    console.log("SUCCESS!!!")
-  );
+  const deletedRecipe = await Recipe.deleteOne({ title: "Carrot Cake" })
+    .then(console.log("SUCCESS!!!"))
+    .catch((error) => {
+      console.error("Error connecting to the database", error);
+    });
   mongoose.connection.close();
 }

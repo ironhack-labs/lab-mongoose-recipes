@@ -38,6 +38,7 @@ mongoose
 // Lab starting from here
 var jsonRecipe = require('./data.json');
 
+mongoose.set('useFindAndModify', false);
 
 async function launchCRUD() {
 
@@ -56,9 +57,25 @@ async function launchCRUD() {
   console.log(newRecipe.title);
   // Itertaion 3
   const manyNewRecipe = await Recipe.insertMany(jsonRecipe);
-
+  for (let i= 0; i<manyNewRecipe.length; i++) {
+    console.log(manyNewRecipe[i].title)
+  };
+  // Iteration 4
+  const updateRigatoniGenovese = await Recipe.findOneAndUpdate(
+    { title: 'Rigatoni alla Genovese' },
+    { duration: 100 },
+    { new: true },
+  );
+  console.log(updateRigatoniGenovese);
+  // iteration 5
+  const removeCarrotCake = await Recipe.deleteOne({
+    title: "Carrot Cake",
+  })
+  console.log(removeCarrotCake)
 }
-
 launchCRUD()
+
+// Iteration 6
+mongoose.disconnect()
 
 

@@ -64,6 +64,17 @@ mongoose
     } catch (err) {
       console.err(err);
     }
+
+    //Remove a recipe
+    try {
+      const result = await Recipe.deleteOne({ title: "Carrot Cake" });
+      console.log("Carrot Cake recipe removed with success");
+    } catch (err) {
+      console.err(err);
+    }
+
+    //Closing the database
+    // mongoose.disconnect();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

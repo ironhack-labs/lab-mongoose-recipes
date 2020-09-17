@@ -53,7 +53,7 @@ You can use MongoDB Compass to double check that everything is working as intend
 $ node index.js
 ```
 
-Tip: When you have successfully created a new recipe (you see it in the database using Compass tool), you might want to comment out this step. The reason for this is that next time when you run `$ node index.js`, it will try to create a new recipe with the same name and you will get an error in the terminal related to the *duplicate keys* - the title should be unique, and the dish with that title already exists in the database.
+Tip: When you have successfully created a new recipe (you see it in the database using Compass tool), you might want to comment out this step. The reason for this is that next time when you run `$ node index.js`, it will try to create a new recipe with the same name and you will get an error in the terminal related to the _duplicate keys_ - the title should be unique, and the dish with that title already exists in the database.
 
 ### Iteration 3 - Insert multiple recipes
 

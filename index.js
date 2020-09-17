@@ -38,8 +38,32 @@ mongoose
 
     async function createRecipes() {
       const newRecipes = await Recipe.insertMany(data);
+      let recipeTitle = [];
+      newRecipes.forEach((recipe) => {
+        recipeTitle.push(recipe.title);
+      });
+      //console.log(recipeTitle);
+      updateRecipe();
+      deleteRecipe();
     }
     createRecipes();
+
+    async function updateRecipe() {
+      const updatedRecipe = await Recipe.findOneAndUpdate(
+        { title: "Rigatoni alla Genovese" },
+        {
+          duration: 100,
+        },
+        { new: true }
+      );
+      //console.log("Duration updated");
+    }
+
+    async function deleteRecipe() {
+      const deletedRecipe = await Recipe.deleteOne({
+        title: "Carrot Cake",
+      });
+    }
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

@@ -40,22 +40,17 @@ mongoose
         duration: 20,
         creator: "My Mother",
       };
-      const result = await Recipe.create(cookies);
-    } catch (err) {
-      console.err(err);
-    }
+      //Create recipe
+      const resultCreate = await Recipe.create(cookies);
+      console.log("---------");
+      console.log(resultCreate);
 
-    //Insert Many Recipe
-    try {
-      const result = await Recipe.insertMany(data);
-      console.log(result);
-    } catch (err) {
-      console.err(err);
-    }
+      //Insert Many Recipe
+      const resultInsertMany = await Recipe.insertMany(data);
+      console.log(resultInsertMany);
 
-    //Update a recipe
-    try {
-      const result = await Recipe.updateOne(
+      //Update one recipe
+      const resultUpdateOne = await Recipe.updateOne(
         {
           title: "Rigatoni alla Genovese",
         },
@@ -63,20 +58,19 @@ mongoose
           duration: 100,
         }
       );
-    } catch (err) {
-      console.err(err);
-    }
+      console.log(resultUpdateOne);
 
-    //Remove a recipe
-    try {
-      const result = await Recipe.deleteOne({ title: "Carrot Cake" });
+      //Remove One recipe
+      const resultRemoveOne = await Recipe.deleteOne({ title: "Carrot Cake" });
+      console.log(resultRemoveOne);
       console.log("Carrot Cake recipe removed with success");
-    } catch (err) {
-      console.err(err);
-    }
 
-    //Closing the database
-    mongoose.disconnect();
+      //Disconnect from database
+      mongoose.disconnect();
+      console.log("---------");
+    } catch (err) {
+      console.error(err);
+    }
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

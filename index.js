@@ -44,7 +44,11 @@ mongoose
   .then(() => {
     Recipe.insertMany(data)
     .then(recipe => console.log('toto ', data.forEach(recipe => console.log(recipe.title))))
-    .catch(error => console.log(error));
+    .catch(error => console.log(error))
+    .then(() => {
+      Recipe.findOneAndUpdate( { title: 'Rigatoni alla Genovese' }, {duration: 100}, {new: true} )
+      .then(riga => console.log('titi', riga))
+    })
   })
 
   .catch(error => {

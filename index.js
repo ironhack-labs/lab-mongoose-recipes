@@ -45,7 +45,6 @@ mongoose
     });
     console.log(updatedRecipe);
   })
-
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

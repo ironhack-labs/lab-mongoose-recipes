@@ -20,7 +20,6 @@ mongoose
     return self.connection.dropDatabase();
   })
 
-  // INSERT ONE RECIPE
   .then(() => {
     Recipe.create({
       title: "Moelleux au chocolat",
@@ -30,30 +29,24 @@ mongoose
       dishType: "dessert",
       duration: 30,
       creator: "Lisa",
-    })
-    .then((newRecipe) => {
+    }).then((newRecipe) => {
       console.log(newRecipe);
+      Recipe.insertMany(data)
+        .then((allRecipes) => allRecipes.forEach((recipe) => console.log(recipe.title)))
+        .then(() => {
+          Recipe.findOneAndUpdate(
+            { title: "Rigatoni alla Genovese" },
+            { duration: 100 },
+            { new: true }
+          )
+            .then(console.log("Rigatoni recipe successfuly updated!"))
+            .then(() => Recipe.deleteOne({ title: "Carrot Cake" }))
+            .then(console.log("Carrot Cake removed"))
+            .then(() => mongoose.connection.close())
+            .then(console.log("connexion closed"));
+        });
     });
   })
-  // INSERT ALL RECIPES FROM data.js
-  .then(() => {
-    Recipe.insertMany(data).then((allRecipes) => {
-      allRecipes.forEach((recipe) => {
-        console.log(recipe.title);
-      });
-    });
-  })
-
-  // UPDATE RECIPE
-  .then(() => {
-    Recipe.findOneAndUpdate(
-      { title: "Rigatoni alla Genovese" },
-      { duration: 100 }
-      { new: true }
-    ).then(console.log('Rigatoni recipe successfuly updated!'));
-  })
-
-  
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

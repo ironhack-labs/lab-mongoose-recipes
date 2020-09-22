@@ -40,29 +40,29 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    // Iteration 2
-    Recipe.create(newRecipe)
-      .then((recipe) => console.log(`The recipe is saved and its title is: ${recipe.title}`))
-      .catch((err) => console.log(`Error while creating a new recipe: ${err}))`));
+  .then(async () => {
+    try {
+      const recipe = await Recipe.create(newRecipe);
+      console.log(`The recipe is saved and its title is: ${recipe.title}`);
 
-    // Iteration 3
-    Recipe.insertMany(data)
-      .then(data.forEach(recipe => console.log(`The recipe is saved and its title is: ${recipe.title}`)))
-      .catch(err => console.log(`Error while creating a new recipe: ${err}))`));
+      const recipes = await Recipe.insertMany(data);
+      recipes.forEach((recipe) => console.log(`The recipe is saved and its title is: ${recipe.title}`));
+    } catch(err) {
+      console.log(`Error while creating a new recipe: ${err}))`);
+    }
+  })
+  .then(async () => {
+    try {
+      const updateRecipe = await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true });
+      console.log(`The recipe ${updateRecipe.title} was updated successfully!`);
 
-    // Iteration 4
-    Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-      .then((recipe) => console.log(`The recipe ${recipe.title} was updated successfully!`))
-      .catch(err => console.log(`Error while updating the recipe: ${err}))`));
-
-    // Iteration 5
-    Recipe.deleteOne({ title: 'Carrot Cake' })
-      .then((recipe) => console.log(`The recipe ${recipe.title} was deleted successfully!`))
-      .catch(err => console.log(`Error while updating the recipe: ${err}))`));
+      const deleteRecipe = await Recipe.deleteOne({ title: 'Carrot Cake' });
+      console.log(`The recipe ${deleteRecipe.title} was deleted successfully!`)
+    } catch(err) {
+      console.log(`Error while updating the recipe: ${err}))`);
+    }
   })
   .then(() => {
-    // Iteration 6
     mongoose.connection.close();
     console.log('The connection was closed.');
   })

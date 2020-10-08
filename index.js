@@ -14,14 +14,71 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
+
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+        title: 'recipe1',
+        cuisine: "Asian"
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log('oh no:', err)
+      })
+
+    Recipe.insertMany(data)
+      .then((response) => {
+        response.forEach(recipe => {
+          console.log(recipe.title)
+        })
+
+        let updateRigatoni = Recipe.findOneAndUpdate({
+          title: 'Rigatoni alla Genovese'
+        }, {
+          $set: {
+            duration: 100
+          }
+        })
+
+        updateRigatoni.then(() => {
+          console.log('rigatoni updated!')
+        }).catch((err) => {
+          console.log('rigatoni not updated', err)
+        })
+
+        let removeCarrotCake = Recipe.deleteOne({
+          title: 'Carrot Cake'
+        })
+
+        removeCarrotCake.then(() => {
+          console.log('carrot cake removed!')
+        }).catch((err) => {
+          console.log('carrot cake not removed', err)
+        })
+
+        Promise.all([updateRigatoni, removeCarrotCake])
+          .then(() => {
+            console.log('connection is closed')
+            mongoose.connection.close()
+          })
+          .catch((err) => {
+            console.log('connection did not close', err)
+          })
+      })
+
+      .catch((err) => {
+        console.log('oh no:', err)
+      })
+
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

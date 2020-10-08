@@ -16,12 +16,52 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then(() => { // Iteration 2 and 3 
+    console.log('Database has been dropped')
+    Recipe.create({ title: "Pizza", cuisine: "Italian" })
+      //createRecipe
+      .then((response) => {
+        console.log(response)
+      })
+    let recipeMany = Recipe.insertMany(data)
+    recipeMany
+      .then(() => {
+        console.log('all added')
+      })
+    Promise.all([recipeMany]) //iteration 4
+      .then(() => {
+        let updatePromise = Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } })
+        updatePromise
+          .then(() => {
+            console.log('Updated worked!')
+          })
+        let deletePromise = Recipe.deleteOne({ title: 'Carrot Cake' })
+        deletePromise
+          .then((response) => {
+            console.log('Recipe deleted', response)
+
+          })
+          .catch((err) => {
+            console.log('Not deleted')
+            console.log(err)
+          })
+        Promise.all([updatePromise, deletePromise])
+          .then(() => {
+            mongoose.connection.close()
+              .then((response) => {
+                console.log('Connection lost')
+              })
+              .catch(() => {
+                console.log('Not dropped')
+              })
+          })
+      })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+

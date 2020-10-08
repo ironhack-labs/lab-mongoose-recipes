@@ -20,8 +20,60 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    let firstIteration = Recipe.create(data[0])
+     firstIteration
+        .then((res)=>{
+              console.log("data was sent",res)
+    })
+        .catch(()=>{
+              console.log("failure")
+    })
+  
+  
+  let secondIteration = Recipe.insertMany(data)
+    secondIteration
+        .then((res)=>{
+              res.filter((res)=>{ console.log(res.title)})
+      
+               console.log("data was sent")
+    })
+        .catch(()=>{
+              console.log("failure")
+      
+    })
+  
+
+
+  Promise.all([firstIteration,secondIteration])
+
+  .then(()=>{
+    let thirdIteration =Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{$set:{duration:100}})
+  thirdIteration
+          .then((res)=>{
+                console.log("data was sent",res)
+               })
+          .catch(()=>{
+                console.log("failure")
+               })
+    let fourthIteration =  Recipe.deleteOne({title:'Carrot Cake'})
+               fourthIteration
+                    .then((res)=>{
+                            console.log("data was sent",res)
+                         })
+                   .catch(()=>{
+                            console.log("failure")
+                         })
+                       })
+
+         Promise.all([thirdIteration, fourthIteration])
+          .then(() => {
+            mongoose.connection.close()
+            . then(() => {
+
+            })
+          })              
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  

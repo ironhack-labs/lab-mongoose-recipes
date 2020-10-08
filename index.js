@@ -29,14 +29,18 @@ mongoose
     //     console.log("Something went wrong", err);
     //   });
 
-    let updateRecipe = Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } });
-    let deleteRecipe = Recipe.deleteOne({ title: "Carrot Cake" });
+
     let insertRecipes = Recipe.insertMany(data);
-    let disconnectPromise = Promise.all([updateRecipe, deleteRecipe, insertRecipes]);
+    // let updateRecipe;
+    // let deleteRecipe;
 
     insertRecipes
       .then((res) => {
         console.log("Data added");
+
+        let updateRecipe = Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } });
+        let deleteRecipe = Recipe.deleteOne({ title: "Carrot Cake" });
+        let disconnectPromise = Promise.all([updateRecipe, deleteRecipe]);
 
         updateRecipe
           .then((res) => {
@@ -49,24 +53,36 @@ mongoose
         deleteRecipe
           .then((res) => {
             console.log("Recipe deleted", res);
-
-            disconnectPromise
-              .then(() => {
-                mongoose.disconnect();
-                console.log("Disconnected");
-              })
-              .catch((err) => {
-                console.log("Could not disconnect", err);
-              });
-
           })
           .catch((err) => {
             console.log("Could not delete", err);
+          });
+
+        disconnectPromise
+          .then((res) => {
+            console.log(res);
+            mongoose.disconnect();
+            console.log("Disconnected");
+          })
+          .catch((err) => {
+            console.log("Could not disconnect", err);
           });
       })
       .catch((err) => {
         console.log("Could not insert", err);
       });
+
+    // let disconnectPromise = Promise.all([updateRecipe, deleteRecipe]);
+
+    // disconnectPromise
+    //   .then((res) => {
+    //     console.log(res)
+    //     mongoose.disconnect();
+    //     console.log("Disconnected");
+    //   })
+    //   .catch((err) => {
+    //     console.log("Could not disconnect", err);
+    //   });
 
   })
   .catch(error => {

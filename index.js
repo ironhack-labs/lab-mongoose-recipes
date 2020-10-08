@@ -20,7 +20,54 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    //Iteration 1
+    // Recipe.create(data[0])
+    //   .then((res) => {
+    //     console.log("Data added", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("Something went wrong", err);
+    //   });
+
+    let updateRecipe = Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } });
+    let deleteRecipe = Recipe.deleteOne({ title: "Carrot Cake" });
+    let insertRecipes = Recipe.insertMany(data);
+    let disconnectPromise = Promise.all([updateRecipe, deleteRecipe, insertRecipes]);
+
+    insertRecipes
+      .then((res) => {
+        console.log("Data added");
+
+        updateRecipe
+          .then((res) => {
+            console.log("Update success", res);
+          })
+          .catch((err) => {
+            console.log("Could not update", err);
+          });
+
+        deleteRecipe
+          .then((res) => {
+            console.log("Recipe deleted", res);
+
+            disconnectPromise
+              .then(() => {
+                mongoose.disconnect();
+                console.log("Disconnected");
+              })
+              .catch((err) => {
+                console.log("Could not disconnect", err);
+              });
+
+          })
+          .catch((err) => {
+            console.log("Could not delete", err);
+          });
+      })
+      .catch((err) => {
+        console.log("Could not insert", err);
+      });
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

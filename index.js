@@ -36,34 +36,36 @@ mongoose
       allRecipes.forEach((recipe) => {
         console.log(recipe.title)
       })
-      Recipe.updateOne({title:"Rigatoni alla Genovese"}, {duration:100})
-      .then(()=>{
+      let updatePromise = Recipe.updateOne({title:"Rigatoni alla Genovese"}, {duration:100})
+      updatePromise.then(()=>{
         console.log("updated")
       })
-      Recipe.deleteOne({title:"Carrot Cake"})
-      .then(() =>{
+      let deletePromise= Recipe.deleteOne({title:"Carrot Cake"})
+      deletePromise.then(() =>{
         console.log("SUCCESSSSS")
+
       })
+
+      Promise.all([updatePromise, deletePromise])
+        .then(() => {
+           mongoose.connection.close()
+             .then(() => {
+               console.log(`Connection closed`)
+             })
+        })
+
     })
     .catch((recipe) =>{
       console.log(recipe.title)
     })
 
-    mongoose
-  .disconnect(MONGODB_URI, {
-    useCreateIndex: false,
-    useNewUrlParser: false,
-    useUnifiedTopology: false
-  })  
-  .then(() => {
-    console.log("Yippie yay closed")
-  })
-  .catch(() => {
-    console.log("nope")
-  })
+ 
 
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
     
   });
+
+
+  

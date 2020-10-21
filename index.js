@@ -21,7 +21,46 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Tiramisu",
+      level: "Amateur Chef",
+      ingredients: ["Mascarpone", "Cafe", "Amaretto", "biscuit"],
+      cuisine: "Italian",
+      dishType: "dessert",
+      duration: 45,
+      creator: "IdonTKnow",
+    }
+    )
+    .then((newRecipe) => console.log(`New recipe added ${newRecipe.title}`))
+    .catch(error => {
+      console.error('Error connecting to the database', error);
+    });
+
+
   })
+  .then(() =>  { 
+    Recipe.insertMany(data)
+    .then((recipes) => recipes.map(recipe => console.log(recipe.title)))
+    .then(() => {
+      Recipe.findOneAndUpdate(
+      {title: "Rigatoni alla Genovese" },
+      {duration: 100},
+      { new : true }
+      )
+      .then((updtadedRecipe) => console.log(updtadedRecipe))
+      .catch(error => console.error('Error connecting to the database', error))})
+    .then(() => Recipe.deleteOne(
+      {title: "Carrot Cake"}
+    ))
+    .catch(error => {
+      console.error('Error connecting to the database', error)})})
+
+      
+  .then(() =>  mongoose.connection.close(() => console.log('Mongoose default connection disconnected through app termination')))
+
   .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    console.error('Error connecting to the database', error)});
+
+  
+
+

@@ -20,8 +20,46 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+    (async () => {
+      try {
+        const recipes = await Recipe.create({
+        title:"canelones",
+        cuisine:"italiana"
+        });
+        console.log(`This recipe was saved ${recipes.title}`);
+        return recipes;
+      } catch (error) {
+        console.log(error.message);
+      }
+    })();
+  
+  (async() =>{
+    try{
+      const insert = await Recipe.insertMany(data);
+      console.log(insert.map(acc=> console.log(recipes.title)));
+    }catch(error){
+      console.log(error.message)
+    }
+  })();
+  
+  (async()=> {
+    try{
+      const recipe= await Recipe.findOneAndUpdate(
+        {title: 'Rigatoni alla Genevese'},
+        {duration:100},
+        {new:true}
+      );
+      console.log(recipe)
+    }catch(error){
+      console.log(error.message)
+    }
+  })();
     // Run your code here, after you have insured that the connection was made
   })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  
+  

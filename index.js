@@ -17,7 +17,7 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    // return self.connection.dropDatabase();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
@@ -25,3 +25,22 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  (async () => {
+    try {
+      var dataFile= await require(__dirname+"/data.json")
+      // console.log(dataFile)
+      var recipies = await Recipe.insertMany(dataFile)
+      const recipie = await Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration:100} );
+      const deleted = await Recipe.deleteOne({ title: "Carrot Cake" });
+      await mongoose.connection.close()
+      console.log("Rigatoni alla Genovese was succesfully updated!");
+      // console.log(recipies)
+      console.log(`Recipies succesfully added from data.json`);
+    } catch (error) {
+      console.log(error.message);
+    }
+  })();
+ 
+  
+

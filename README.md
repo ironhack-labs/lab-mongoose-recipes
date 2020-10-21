@@ -36,8 +36,8 @@ Create a `Recipe` model inside of the file `/models/Recipe.model.js`. The schema
 - **ingredients** - Type `Array` of `String`s (represented as `[ String ]`).
 - **cuisine** - Type `String`. Should be required.
 - **dishType** - Type `String`. Possible values: _breakfast_, _main_course_, _soup_, _snack_, _drink_, _dessert_ or _other_.
-- **image** - Type `String`. Default value: _"https://images.media-allrecipes.com/images/75131.jpg"_.
-- **duration** - Type `Number`. The minimum value should be 0.
+- **image** - Type `String`. Default value: _.
+- **duration** - Type `Number`. The minimum va_"https://images.media-allrecipes.com/images/75131.jpg"lue should be 0.
 - **creator** - Type `String`.
 - **created** - Type `Date`. By default, today.
 

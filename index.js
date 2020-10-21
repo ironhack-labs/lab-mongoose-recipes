@@ -25,3 +25,22 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+(async() => {
+  try{
+    const food = await Recipe.create({
+      title: 'Tortilla de patatas',
+      level: 'Easy Peasy',
+      ingredients: 'Potatoes, Eggs, Onions, Olive Oil, Salt',
+      cuisine: 'Spanish',
+      dishType: 'main course',
+      duration: 15,
+      creator: 'Eric',
+      })
+      console.log(food)
+  } catch (error){
+    console.log(error)
+  }
+})()
+

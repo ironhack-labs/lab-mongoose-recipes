@@ -51,7 +51,7 @@ mongoose
     );
 
     // TODO Iteration #5 - Remove a recipe
-    const deletedRecipe = await Recipe.deleteOne({3
+    const deletedRecipe = await Recipe.deleteOne({
       title: "Carrot Cake",
     });
     console.log(deletedRecipe);

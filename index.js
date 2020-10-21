@@ -20,8 +20,56 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    //Iteracion 2
+
+    (async () => {
+
+      // Iteracion 2
+
+      try {
+        const recetas = await Recipe.create({
+          title: "Guisantes con jamón",
+          level: "Easy Peasy",
+          ingredients: ["guisantes", "cebolla", "jamón serrano", "harina de trigo"],
+          cuisine: "Española",
+          dishType: "main_course",
+          image: "https://i.blogs.es/1d7e53/guisantes_jamon-copia/1024_2000.jpg",
+          duration: 15,
+          creator: "Alberto",
+        });
+        console.log(`Esta receta se llama ${recetas.title}`); 
+
+        //Iteracion 3
+
+        let multiRecipes = await Recipe.insertMany(data)
+        for(i=0; i<multiRecipes.length; i++)
+        console.log(`${data[i].title}`);
+
+        //iteracion 4
+
+        const encontrar = await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration:100}, {new: true });
+        console.log(encontrar);
+
+        //Iteracion 5
+
+        const borrar = await Recipe.deleteOne({title: "Carrot Cake"});
+        console.log(borrar);
+      } catch(error){
+        console.log(error.message)
+      }
+
+      //Iteracion 6
+
+      mongoose.connection.close();
+
+    })();
+
+  
+
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+   
+ 

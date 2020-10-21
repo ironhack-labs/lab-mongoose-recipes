@@ -21,8 +21,16 @@ mongoose
   })
   .then(() => {
     try {
-      const recipe = Recipe.create();
-      console.log(`This recipe was saved ${recipe}`);
+      // /* Iterarion 2 */
+      // const recipe = Recipe.create(data[0]);
+      // console.log(`This recipe was saved ${recipe}`);
+
+      // /* Iteration 3 */
+      // Recipe.insertMany(data, function(error, docs) {});
+      // console.log(`This recipes were saved ${data}`);
+
+
+
     } catch (error) {
       console.log(error.message);
     }

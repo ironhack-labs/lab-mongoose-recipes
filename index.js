@@ -17,7 +17,7 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    // return self.connection.dropDatabase();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
@@ -26,6 +26,9 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
+ (async() =>{
+   const totalRecipes = Recipe.insertMany(data);
+ })();
 
 (async() => {
   try{
@@ -34,7 +37,7 @@ mongoose
       level: 'Easy Peasy',
       ingredients: 'Potatoes, Eggs, Onions, Olive Oil, Salt',
       cuisine: 'Spanish',
-      dishType: 'main course',
+      dishType: 'main_course',
       duration: 15,
       creator: 'Eric',
       })
@@ -42,5 +45,34 @@ mongoose
   } catch (error){
     console.log(error)
   }
-})()
+})();
 
+
+(async () => {
+  try {
+    const update = await Recipe.findOneAndUpdate(
+      {title: 'Rigatoni alla Genovese'},
+      {duration: 100},
+      {new: true}
+    );
+    console.log(update);
+  } catch (error) {
+    console.log(error.message);
+  }
+})();
+
+(async () => {
+  try {
+    const remove = await Recipe.deleteOne(
+      {title: 'Carrot Cake'},
+      {new: true}
+    );
+    console.log(remove);
+  } catch (error) {
+    console.log(error.message);
+  }
+})();
+
+mongoose.connection.close(() => {
+  console.log('Mongoose default connection disconnected through app termination');
+})  

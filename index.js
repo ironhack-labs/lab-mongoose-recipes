@@ -20,8 +20,53 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    
+      Recipe.create({
+        title: 'Tortilla',
+        level: 'Easy Peasy',
+        ingredients:['Eggs', 'Potato', 'Onion' ,'Salt'],
+        cuisine:'Spanish',
+        dishType:'main_course',
+      });    
   })
+
+
+  .then(() => {
+    return Recipe.insertMany(data);  
+  })
+
+  .then((result) => {
+
+    result.forEach(element => {
+    console.log(element.title);
+    });
+    
+  })
+
+  .then(() => {
+  
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100},
+      { new: true }
+    );      
+  })
+
+  .then(() => {
+  
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+         
+  })
+
+  .then(() => {
+
+     mongoose.connection.close(() => {
+        console.log("Mongoose default connection disconnected through app termination");
+        process.exit(0);
+      });
+             
+  })
+
   .catch(error => {
-    console.error('Error connecting to the database', error);
+    console.error(error);
   });

@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`# Connected to the database: '${self.connection.name}'`);

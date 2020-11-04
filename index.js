@@ -21,6 +21,19 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create(data)
+      .then(recipies => {
+        console.log(recipies)
+
+        Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+        .then(recipe => console.log("Succes Message", recipe))
+        .catch(error => console.log(error))
+    
+        Recipe.deleteOne({title: "Carrot Cake"})
+        .then(recipe => console.log("Deleted element", recipe))
+        .catch(error => console.log(error))
+      })
+      .catch(error => console.log(error))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

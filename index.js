@@ -22,9 +22,16 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
 
-   Recipe.create({ title: "food" }).then(console.log("food created"))
+   Recipe.create({ title: "food1" }).then(console.log("food created"))
    // Recipe.find({ title: "food" }).then(foods => console.log(foods))//here this doesnt work
-   const arr = [{ title: 'pie' }, { title: 'burger' }];
+   const arr = [
+     { title: 'pie' },
+     { title: 'burger' },
+     { title: 'beef' },
+     { title: 'watter bolillo' },
+     { title: 'steack' },
+     { title: 'soup' }
+   ];
    Recipe.insertMany(arr, function(error, docs) {});
 
 

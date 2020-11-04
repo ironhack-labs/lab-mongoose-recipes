@@ -21,15 +21,16 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    // async function iteration1(){
-    //
-    // }
 
-   Recipe.create({ title: "food" }).then(r => {     })
-   let resipe = Recipe.find({name:"food"})
-   console.log(resipe);
+   Recipe.create({ title: "food" }).then(console.log("food created"))
+   // Recipe.find({ title: "food" }).then(foods => console.log(foods))
+
+
+
 
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  Recipe.find({ title: "food" }).then(foods => console.log(foods))

@@ -21,7 +21,29 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-  })
+    // Recipe.create({
+    //   title:"rattatooie",
+    //   cuisine:"french",
+    // }).then(()=>{
+    //    console.log("Recipe created bro!")
+    //   })
+
+        Recipe.create(data)
+
+        }).then(()=>{
+             console.log("database imported bro!!!")
+            })
+    .then(()=>{
+      Recipe.findOneAndUpdate({duration:100}).then(() =>{
+        console.log("Success Update")
+      })
+      .then(()=>{
+        Recipe.deleteOne({title:"Carrot Cake"}).then(()=>{
+          console.log("The cake's gone bro!")
+        })
+      })
+    })
+ 
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

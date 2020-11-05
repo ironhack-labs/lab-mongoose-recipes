@@ -70,7 +70,21 @@ mongoose
     })();
 
 
+  }).then(() => {
+
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+
   })
+
+  // .then(() => {
+  //
+  //    mongoose.connection.close(() => {
+  //       console.log("Mongoose default connection disconnected through app termination");
+  //       process.exit(0);
+  //     });
+  //
+  // })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -20,7 +20,17 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+    
     // Run your code here, after you have insured that the connection was made
+
+    // Iteration 3
+    Recipe.insertMany(recipesData)
+      .then((results) => {
+        results.forEach((result) => {
+          console.log(`Recipe titles: ${result.title}`);
+        });
+      })
+      .catch((saveErr) => console.error(`Save failed: ${saveErr}`));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

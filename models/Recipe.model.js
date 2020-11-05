@@ -19,7 +19,10 @@ const recipeSchema = new Schema({
     type: [ String ],
   },
   // cuisine - Type String.Should be required.
-  cuisine: String,
+  cuisine: {
+    type: String,
+    required: true,
+  },
   // dishType - Type String.Possible values: breakfast,  main_course,  soup,  snack,  drink,  dessert or other.
   dishType: String,
   // image - Type String.Default value: "https://images.media-allrecipes.com/images/75131.jpg".

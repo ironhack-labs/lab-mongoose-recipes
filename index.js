@@ -18,41 +18,42 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    Recipe.create(recipeObj)
+    return Recipe.create(recipeObj)
       .then((results) => console.log(`Saved new recipe: ${results.title}`))
-      .catch((saveErr) => console.error(`Save failed: ${saveErr}`)),
-
-      Recipe.insertMany(data)
-      .then((results) => console.log(`Succesfully added ${results.values.title}`))
-      .catch((saveErr) => console.error(`Save failed: ${saveErr}`)),
-
-      setTimeout(function () {
-        Recipe.findOneAndUpdate({
-            title: "Rigatoni alla Genovese"
-          }, {
-            duration: 100
-          })
-          .then((results) => console.log(`Succesfully updated!`))
-          .catch((saveErr) => console.error(`Save failed: ${saveErr}`)),
-
-          Recipe.deleteOne({
-            title: 'Carrot Cake'
-          })
-          .then((results) => console.log(`Succesfully deleted`))
-          .catch((saveErr) => console.error(`Save failed: ${saveErr}`))
-      }, 1000)
-
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
+      .then(results => {
+        results.forEach((result) => {
+          console.log(result.title)
+        });
+      })
+  })
+  .then(() => {
+    Recipe.findOneAndUpdate({
+        title: "Rigatoni alla Genovese"
+      }, {
+        duration: 100
+      })
+      .then((results) => console.log(`Succesfully updated!`))
+  })
+  .then(() => {
+    Recipe.deleteOne({
+        title: 'Carrot Cake'
+      })
+      .then((results) => console.log(`Succesfully deleted`))
+  })
+  .then(() => {
+    process.on("SIGINT", () => {
+      mongoose.connection.close(() => {
+        console.log(`Mongo connection disconnected`);
+        process.exit(0);
+      });
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   })
-
-process.on("SIGINT", () => {
-  mongoose.connection.close(() => {
-    console.log(`Mongo connection disconnected`);
-    process.exit(0);
-  });
-})
 
 const recipeObj = {
   title: 'Pizza funghi',

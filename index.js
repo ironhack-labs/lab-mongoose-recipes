@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const recipesData = require("./data.json");
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
@@ -6,6 +7,8 @@ const Recipe = require('./models/Recipe.model');
 const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+
+mongoose.set('useFindAndModify', false);
 
 // Connection to the database "recipe-app"
 mongoose
@@ -20,8 +23,40 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+    //Iteration3 
+    Recipe.insertMany(recipesData)
+      .then((results) => {
+        results.forEach((result) => {
+          console.log(`Recipe title: ${result.title}`);
+        });
+
+        //Iteration4 w/ Thomas begin
+        Recipe.findOneAndUpdate({
+            title: 'Rigatoni alla Genovese'
+          }, {
+            $set: {
+              duration: 100
+            }
+          }, {
+            new: true
+          })
+          .then(() => console.log("data modified succesfully"))
+          .catch(err => console.error(`Error: ${err}`));
+
+        //iteration 5
+        Recipe.deleteOne({
+            title: 'Carrot Cake'
+          }, {
+            new: true
+          })
+          .then(() => console.log("data deleted"))
+          .catch(err => console.error(`Error: ${err}`));
+
+          mongoose.connection.close()
+      });
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

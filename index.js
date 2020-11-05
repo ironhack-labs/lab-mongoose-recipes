@@ -20,7 +20,36 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: "Tiramisù",
+      level: "Amateur Chef",
+      ingredients: ["4 eggs", "100g sugar", "500g mascarpone", "300g savoiardi biscuits", "2 cups of espresso", "Unsweetened cocoa powder to taste"],
+      cuisine: "Italian",
+      dishType: "dessert",
+      image: "https://ricetta.it/Uploads/Imgs/tiramisu-classico.jpg",
+      duration: 40,
+      creator: "Chef Elia"
+    })
+    .then(response => console.log("Data inserted succesfully"))
+    .then(err => console.error(`Error: ${err}`))
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
+    .then(response => console.log("Data inserted succesfully"))
+    .catch(err => console.error(`Error: ${err}`));
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    .then(response => console.log("Data modified succesfully"))
+    .catch(err => console.error(`Error: ${err}`));
+  })
+  .then(() => {
+    return Recipe.deleteOne({title: "Carrot Cake"})
+    .then(response => console.log("Carrot Cake was deleted succesfully"))
+    .catch(err => console.error(`Error: ${err}`));
+  })
+  .then(() => {
+    return mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

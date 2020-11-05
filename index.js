@@ -70,3 +70,10 @@ Recipe.deleteOne({
   .catch((error) =>
     console.log("An error happened while deleting the recipe", error)
   );
+
+process.on("SIGINT", () => {
+  mongoose.connection.close(() => {
+    console.log("Connection disconnected");
+    process.exit(0);
+  });
+});

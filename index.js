@@ -12,7 +12,7 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -21,7 +21,43 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    //Iteration 2
+    /*Recipe.create(data[0]).then(() => {
+                console.log("Iteration 2: Document created")
+    })*/
+
+    //Iteration 3
+    Recipe.insertMany(data).then(() => {
+      Recipe.find({},{title: 1, _id: 0})
+         .then(recipes => {
+           console.log("Iteration 3")
+           console.log(recipes)
+         })
+         .catch(err => console.log(err))
+    })
+    //Iteration 4
+    Recipe.findOneAndUpdate(
+      {title: "Rigatoni alla Genovese"},
+      {$set: {duration: 100}}, {useFindAndModify: false, new: true}
+    ).then(
+      console.log("Iteration 4: Success updating")
+    ).catch(err => console.log(err))
+    //Iteration 5
+    Recipe.deleteOne(
+      {title: 'Carrot Cake'}
+    ).then(console.log("Iteration 5: Deleted successfully")).catch((err => console.log(err)))
+      
+  }).then(() => {
+      //Iteration 6
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Iteration 6: Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+

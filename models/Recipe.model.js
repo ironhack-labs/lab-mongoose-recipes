@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 const recipeSchema = new Schema({
   // TODO: write the schema
   // title - Type String.It should be required and unique.
-  title: String,
+  title: {
+    type: String,
+    required: true,
+    unique: true
+  },
   // level - Type String.Can be one of the following values: Easy Peasy - Amateur Chef - UltraPro Chef(remember the enum validator).
   level: String,
   // ingredients - Type Array of Strings(represented as[String]).

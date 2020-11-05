@@ -17,10 +17,21 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    //return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    //ITERATION 2
+  Recipe.create({
+  title: "Manti",
+  level: "UltraPro Chef",
+  ingredients: ["flour", "salt", "egg", "ground beef"],
+  cuisine: "Turkish",
+  dishType: "main_course",
+  image:"https://i0.wp.com/turkishfoodchef.com/wp-content/uploads/2017/02/Turkish-Ravioli-Manti-Recipe.jpg",
+  duration: 30,
+  creator:"cu",
+  created: Date.now()
+  })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

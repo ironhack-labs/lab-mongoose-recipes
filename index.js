@@ -14,14 +14,51 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(self => {
+  /*.then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
-  })
+  })*/
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+   /* Recipe.insertMany(data)
+    .then((results) => console.log(`saved new recipes ${results}`))
+    .catch(() => console.error('save Failed'));
+
+    const omelette = {
+      "title": "Spanish Omelette",
+        "level": "Amateur Chef",
+        "ingredients": [
+          "oil",
+          "3 tablespoons salt",
+          "500 gr potatoes",
+          "7 eggs"
+        ],
+        "cuisine": "Mediterranean",
+        "dishType": "main_course",
+        "duration": 50,
+        "creator": "Chef LePliakas"
+    }
+
+      const recipe = new Recipe(omelette);
+
+      recipe
+        .save()
+        .then(() => console.log('saved new recipe'))
+        .catch(() => console.error('save Failed'));*/
+
+    /*Recipe.findOneAndUpdate( { title: "Rigatoni alla Genovese" }, {$set: { duration: 100 }} )
+    .then(() => console.log(`Updated!`))
+    .catch(() => console.error('update Failed'));*/
+
+    Recipe.deleteOne({title: "Carrot Cake"})
+      .then(() => console.log(`Deleted!`))
+      .catch(() => console.error('delete Failed'));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  mongoose.connection.close()
+  .then(() => console.log(`Connection closed!`))
+  .catch(() => console.error('delete Failed'));

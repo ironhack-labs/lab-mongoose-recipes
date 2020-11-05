@@ -20,32 +20,14 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.insertMany(data)
+      .then((results) =>
+        results.forEach((result) => {
+          console.log(result.title);
+        })
+      )
+      .catch((err) => console.error(err));
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-
-// const chickenRice = {
-//   title: "Hainanese Chicken Rice",
-//   level: "Amateur Chef",
-//   ingredients: [
-//     "Green onions",
-//     "500g Chicken Breast",
-//     "Turmeric",
-//     "Chopped Ginger",
-//     "Chopped Garlic",
-//     "Sriracha or sambal",
-//     "salt to taste",
-//     "Sesame oil",
-//   ],
-//   cuisine: "Asian",
-//   dishType: "main_course",
-//   image:
-//     "https://steamykitchen.com/wp-content/uploads/2017/09/hainanese-chicken-rice-recipe-9681.jpg",
-//   duration: 40,
-//   creator: "Chef in Hainan",
-// };
-// Recipe.create(chickenRice)
-//   .then((result) => console.log(result))
-//   .catch((err) => console.error(err));

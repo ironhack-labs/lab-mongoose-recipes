@@ -12,6 +12,7 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
+    useFindAndModify: false,
     useUnifiedTopology: true
   })
   .then(self => {
@@ -31,11 +32,15 @@ mongoose
       creator: "Chef Elia"
     })
     .then(response => console.log("Data inserted succesfully"))
-    .then(err => console.error(`Error: ${err}`))
+    .catch(err => console.error(`Error: ${err}`))
   })
   .then(() => {
     return Recipe.insertMany(data)
-    .then(response => console.log("Data inserted succesfully"))
+    .then(response => {
+      data.forEach((recipe) => {
+        console.log("Recipe Title: ", recipe.title);
+      })
+    })
     .catch(err => console.error(`Error: ${err}`));
   })
   .then(() => {

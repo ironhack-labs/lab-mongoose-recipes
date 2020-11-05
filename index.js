@@ -52,14 +52,13 @@ mongoose
   .then(() => {
 
      mongoose.connection.close(() => {
-        console.log("Mongoose default connection disconnected through app termination");
         process.exit(0);
       });
 
   })
 
   .catch(error => {
-    console.error('Error connecting to the database', error);
+    console.error('Error', error);
   });
 
 // Recipe.find({ title: "Rigatoni alla Genovese" }).then(foods => console.log(foods))//one foo

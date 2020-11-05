@@ -34,6 +34,14 @@ mongoose
       })
       .catch((err) => console.error(err));
   })
+  .then(() => {
+    process.on("SIGINT", () => {
+      mongoose.connection.close(() => {
+        console.log("Mongo connection disconnected");
+        process.exit(0);
+      });
+    });
+  })
   .catch((error) => console.error("Error connecting to the database", error));
 
 const recipeObj = {
@@ -56,10 +64,3 @@ const recipeObj = {
   duration: 40,
   creator: "Chef in Hainan",
 };
-
-process.on("SIGINT", () => {
-  mongoose.connection.close(() => {
-    console.log("Mongo connection disconnected");
-    process.exit(0);
-  });
-});

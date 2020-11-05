@@ -27,50 +27,24 @@ mongoose
     }).then(console.log("food created"))
     // Recipe.find({ title: "food" }).then(foods => console.log(foods))//here this doesnt work
 
-    //foods fromo data.jsoon
-    Recipe.create(data)
-      .then(user => console.log('The dats is saved  '))
-      .catch(error => console.log('An error happened while :', error));
+  })
+  .then(() => {
+    return Recipe.insertMany(data);
+  })
+  .then(() => {
 
-    //Iteration 3 - Insert multiple recipes
-    const arr = [{
-        title: 'pie'
-      },
-      {
-        title: 'burger'
-      },
-      {
-        title: 'beef'
-      },
-      {
-        title: 'watter bolillo'
-      },
-      {
-        title: 'steack'
-      },
-      {
-        title: 'soup'
-      }
-    ];
-
-    Recipe.insertMany(arr, function(error, docs) {});
-    //Iteration 4 - Update recipe
-    (async () => {
-      try {
-        const update = await Recipe.findOneAndUpdate({
-          title: "Rigatoni alla Genovese"
-        }, {
-          duration: 100
-        }, {
-          useFindAndModify: false
-        });
-      } catch (error) {
-        console.log(error.message);
-      }
-    })();
+    return Recipe.findOneAndUpdate({
+      title: "Rigatoni alla Genovese"
+    }, {
+      duration: 100
+    }, {
+      new: true
+    });
+  })
 
 
-  }).then(() => {
+
+  .then(() => {
 
     return Recipe.deleteOne({ title: "Carrot Cake" });
 

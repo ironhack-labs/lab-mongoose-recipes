@@ -21,18 +21,39 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    //one foood
+    Recipe.create({
+      title: "food1"
+    }).then(console.log("food created"))
+    // Recipe.find({ title: "food" }).then(foods => console.log(foods))//here this doesnt work
 
-   Recipe.create({ title: "food1" }).then(console.log("food created"))
-   // Recipe.find({ title: "food" }).then(foods => console.log(foods))//here this doesnt work
-   const arr = [
-     { title: 'pie' },
-     { title: 'burger' },
-     { title: 'beef' },
-     { title: 'watter bolillo' },
-     { title: 'steack' },
-     { title: 'soup' }
-   ];
-   Recipe.insertMany(arr, function(error, docs) {});
+    //foods fromo data.jsoon
+    Recipe.create(data)
+      .then(user => console.log('The user is saved and its value is: ', user))
+      .catch(error => console.log('An error happened while saving a new user:', error));
+
+    //Iteration 3 - Insert multiple recipes
+    const arr = [{
+        title: 'pie'
+      },
+      {
+        title: 'burger'
+      },
+      {
+        title: 'beef'
+      },
+      {
+        title: 'watter bolillo'
+      },
+      {
+        title: 'steack'
+      },
+      {
+        title: 'soup'
+      }
+    ];
+
+    Recipe.insertMany(arr, function(error, docs) {});
 
 
   })
@@ -40,5 +61,5 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-  // Recipe.find({ title: "food" }).then(foods => console.log(foods))//one foo
-  Recipe.find().then(foods => console.log(foods))//all foods
+// Recipe.find({ title: "food" }).then(foods => console.log(foods))//one foo
+Recipe.find().then(foods => console.log(foods)) //all foods

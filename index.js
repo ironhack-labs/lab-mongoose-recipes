@@ -16,24 +16,26 @@ mongoose
   })
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
   .then(() => {
     Recipe.create(recipeObj)
       .then((result) => console.log(result.title))
       .catch((err) => console.error(err));
+  })
+  .then(() => {
     Recipe.insertMany(data)
-      .then((results) =>
+      .then((results) => {
         results.forEach((result) => {
           console.log(result.title);
-        })
-      )
+        });
+        Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+          .then(() => console.log(`Successful update!`))
+          .catch((err) => console.error(err));
+      })
       .catch((err) => console.error(err));
   })
-  .catch((error) => {
-    console.error("Error connecting to the database", error);
-  });
+  .catch((error) => console.error("Error connecting to the database", error));
 
 const recipeObj = {
   title: "Hainanese Chicken Rice",

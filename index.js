@@ -13,26 +13,28 @@ mongoose
   })
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    console.log(`Clearing database`);
     return self.connection.dropDatabase();
   })
   .then(() => {
-    Recipe.create(recipeObj)
-      .then((result) => console.log(result.title))
-      .catch((err) => console.error(err));
-    Recipe.insertMany(data)
-      .then((results) => {
-        results.forEach((result) => {
-          console.log(result.title);
-        });
-        Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-          .then(() => console.log(`Successfully updated Rigatoni!`))
-          .catch((err) => console.error(err));
-        Recipe.deleteOne({ title: "Carrot Cake" })
-          .then(() => console.log(`Successfully removed Carrot Cake!`))
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
+    return Recipe.create(recipeObj);
+  })
+  .then(() => {
+    return Recipe.insertMany(data).then((results) => {
+      results.forEach((result) => {
+        console.log(result.title);
+      });
+    });
+  })
+  .then(() => {
+    return Recipe.updateOne(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    ).then(() => console.log(`Successfully updated Rigatoni!`));
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" }).then(() =>
+      console.log(`Successfully removed Carrot Cake!`)
+    );
   })
   .then(() => {
     process.on("SIGINT", () => {

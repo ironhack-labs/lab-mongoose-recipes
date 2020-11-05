@@ -21,6 +21,23 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create(recipeObj)
+.then((results) => console.log(`Saved new recipe: ${results.title}`))
+.catch((saveErr) => console.log(`Save failed: ${saveErr}`)),
+
+Recipe.insertMany(data)
+.then((results) => console.log(`Saved new recipes: ${results.values.title}`))
+.catch((saveErr) => console.log(`Save failed: ${saveErr}`)),
+
+Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+.then((results) => console.log(`Updated recipe`))
+.catch((saveErr) => console.error(`Update failed: ${saveErr}`)),
+
+Recipe.deleteOne({title: 'Carrot Cake'})
+.then((results) => console.log("Recipe is deleted"))
+.catch((saveErr) => console.log ("Delete failed"));
+
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
@@ -37,21 +54,7 @@ const recipeObj = {
   creator: "Sophie",
 }
 
-Recipe.create(recipeObj)
-.then((results) => console.log(`Saved new recipe: ${results}`))
-.catch((saveErr) => console.log(`Save failed: ${saveErr}`));
 
-Recipe.insertMany(data)
-.then((results) => console.log(`Saved new recipes: ${results}`))
-.catch((saveErr) => console.log(`Save failed: ${saveErr}`));
-
-Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
-.then((results) => console.log(`Updated recipe`))
-.catch((upErr) => console.log(`Update failed: ${upErr}`)); 
-
-Recipe.deleteOne({title: 'Carrot Cake'})
-.then(() => console.log("Recipe is deleted"))
-.catch(() => console.log ("Delete failed"))
 
 process.on("SIGINT", () => {
   mongoose.connection.close(() => {

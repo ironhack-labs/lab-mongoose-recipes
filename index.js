@@ -25,3 +25,19 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+const recipeObj = {
+  title: 'Pizza funghi',
+  level: 'Easy Peasy',
+  ingredients: ['flour', 'water', 'tomato sauce', 'salt', 'pepper', 'oregano', 'cheese', 'basilicum', 'mushrooms'],
+  cuisine: 'Italian',
+  dishType: "main_course",
+  image: 'https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_1140/https://foodfromclaudnine.nl/wp-content/uploads/2019/09/LRM_EXPORT_588516826938097_20190906_200813581-1140x1425.jpeg',
+  duration: 40,
+  creator: 'Antonio the Italian',
+  created: new Date()
+}
+
+Recipe.create(recipeObj)
+  .then((results) => console.log(`Saved new recipe: ${results.title}`))
+  .catch((saveErr) => console.error(`Save failed: ${saveErr}`));

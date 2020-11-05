@@ -25,3 +25,37 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+//Iteration 2: add a new recipe
+const recipeObj = {
+  title: "Sweet potato soup",
+  level: "Easy Peasy",
+  ingredients:["Sweet potato", "Carrots", "Red Onions", "Paprika", "Garlic", "Parsly", "Cayenne", "Vegetable Stock", "Water"],
+  cuisine: "Sophie's cuisine",
+  dishType: "soup",
+  duration: 20,
+  creator: "Sophie",
+}
+
+Recipe.create(recipeObj)
+.then((results) => console.log(`Saved new recipe: ${results}`))
+.catch((saveErr) => console.log(`Save failed: ${saveErr}`));
+
+Recipe.insertMany(data)
+.then((results) => console.log(`Saved new recipes: ${results}`))
+.catch((saveErr) => console.log(`Save failed: ${saveErr}`));
+
+Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+.then((results) => console.log(`Updated recipe`))
+.catch((upErr) => console.log(`Update failed: ${upErr}`)); 
+
+Recipe.deleteOne({title: 'Carrot Cake'})
+.then(() => console.log("Recipe is deleted"))
+.catch(() => console.log ("Delete failed"))
+
+process.on("SIGINT", () => {
+  mongoose.connection.close(() => {
+    console.log(`Mongo connection disconnected`);
+    process.exit(0);
+  });
+}); 

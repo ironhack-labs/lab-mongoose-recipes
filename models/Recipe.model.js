@@ -24,7 +24,10 @@ const recipeSchema = new Schema({
     required: true,
   },
   // dishType - Type String.Possible values: breakfast,  main_course,  soup,  snack,  drink,  dessert or other.
-  dishType: String,
+  dishType: {
+    type: String,
+    enum: ["breakfast", "main_course", "soup", "snack", "drink", "dessert"]
+  },
   // image - Type String.Default value: "https://images.media-allrecipes.com/images/75131.jpg".
   image: String,
   // duration - Type Number.The minimum value should be 0.

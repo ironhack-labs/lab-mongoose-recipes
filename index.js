@@ -29,8 +29,8 @@ mongoose
 
     //foods fromo data.jsoon
     Recipe.create(data)
-      .then(user => console.log('The user is saved and its value is: ', user))
-      .catch(error => console.log('An error happened while saving a new user:', error));
+      .then(user => console.log('The dats is saved  '))
+      .catch(error => console.log('An error happened while :', error));
 
     //Iteration 3 - Insert multiple recipes
     const arr = [{
@@ -54,6 +54,26 @@ mongoose
     ];
 
     Recipe.insertMany(arr, function(error, docs) {});
+    //Iteration 4 - Update recipe
+    const query = {
+      title: 'Rigatoni alla Genovese'
+    };
+
+    Recipe.findOneAndUpdate(query, {
+      $set: {
+        duration: 100
+      }
+    }, {
+      useFindAndModify: false
+    }, (err, doc) => {
+      if (err) {
+        console.log("Something wrong when updating data!");
+      }
+
+      console.log(doc);
+    });
+
+    // Recipe.findOneAndUpdate(query, { $set: { duration: "100" }})
 
 
   })
@@ -61,5 +81,5 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-// Recipe.find({ title: "food" }).then(foods => console.log(foods))//one foo
-Recipe.find().then(foods => console.log(foods)) //all foods
+// Recipe.find({ title: "Rigatoni alla Genovese" }).then(foods => console.log(foods))//one foo
+// Recipe.find().then(foods => console.log(foods)) //all foods

@@ -43,7 +43,7 @@ mongoose
           new: true,
         }
       )
-        .then(() => console.log("data deleted"))
+        .then(() => console.log("Data is deleted"))
         .catch((err) => console.error(`Error: ${err}`));
 
       mongoose.connection.close();

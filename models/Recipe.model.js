@@ -10,9 +10,14 @@ const recipeSchema = new Schema({
     unique: true
   },
   // level - Type String.Can be one of the following values: Easy Peasy - Amateur Chef - UltraPro Chef(remember the enum validator).
-  level: String,
+  level: {
+    type: String,
+    enum: ["Easy Peasy" , "Amateur Chef" , "UltraPro Chef"]
+  },
   // ingredients - Type Array of Strings(represented as[String]).
-  ingredients: [],
+  ingredients: {
+    type: [ String ],
+  },
   // cuisine - Type String.Should be required.
   cuisine: String,
   // dishType - Type String.Possible values: breakfast,  main_course,  soup,  snack,  drink,  dessert or other.

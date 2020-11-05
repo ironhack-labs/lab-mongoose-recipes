@@ -55,25 +55,19 @@ mongoose
 
     Recipe.insertMany(arr, function(error, docs) {});
     //Iteration 4 - Update recipe
-    const query = {
-      title: 'Rigatoni alla Genovese'
-    };
-
-    Recipe.findOneAndUpdate(query, {
-      $set: {
-        duration: 100
+    (async () => {
+      try {
+        const update = await Recipe.findOneAndUpdate({
+          title: "Rigatoni alla Genovese"
+        }, {
+          duration: 100
+        }, {
+          useFindAndModify: false
+        });
+      } catch (error) {
+        console.log(error.message);
       }
-    }, {
-      useFindAndModify: false
-    }, (err, doc) => {
-      if (err) {
-        console.log("Something wrong when updating data!");
-      }
-
-      console.log(doc);
-    });
-
-    // Recipe.findOneAndUpdate(query, { $set: { duration: "100" }})
+    })();
 
 
   })

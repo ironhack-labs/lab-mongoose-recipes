@@ -21,7 +21,41 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    
+  return Recipe.insertMany(data)
+        .then(() => {
+    console.log(`${data.title} was created`);
+    
+  return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+        .then((updatedRecipe) => {
+        console.log(`Recipe got updated ${updatedRecipe}`);
+  
+  return Recipe.deleteOne({name: 'Carrot Cake'})
+        .then((resultFromDeletedOne) => {
+          console.log(`Ops! Recipe got deleted ${resultFromDeletedOne} `)
+    
+    mongoose.connection.close();
+    
+        });      
+  
+    
+      });
+
+})
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+ /*Recipe.create({
+    title: 'Ninja Pizza',
+    level: 'Easy Peasy',
+    ingredients: 'everything you want',
+    cuisine: 'italian',
+    dishType: 'pasta',
+    }).then((response) => {
+    console.log('Recipe Created', response);
+  }).catch((err) => {
+    console.log('Something is burning', err);
+  });*/
+

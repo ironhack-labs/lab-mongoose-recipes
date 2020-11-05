@@ -68,12 +68,9 @@ mongoose
   .catch((errReceived) => console.log(errReceived))
    */
 
-
-
-
-mongoose.connection.close(function () {
+/* mongoose.connection.close(function () {
   console.log('Mongoose connection disconnected');
-});
+}); */
 
 
 process.on('SIGINT', () => {

@@ -30,7 +30,10 @@ mongoose
         .catch(error => console.log(error))
     
         Recipe.deleteOne({title: "Carrot Cake"})
-        .then(recipe => console.log("Deleted element", recipe))
+        .then(recipe => {
+          console.log("Deleted element", recipe)
+          mongoose.connection.close()
+        })
         .catch(error => console.log(error))
       })
       .catch(error => console.log(error))

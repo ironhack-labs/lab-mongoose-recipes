@@ -12,16 +12,63 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify:false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    //return self.connection.dropDatabase();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+  });
+
+// Recipe.create(
+//   {
+//     "title": "Asian Glazed Chicken Thighs",
+//     "level": "Amateur Chef",
+//     "ingredients": [
+//       "1/2 cup rice vinegar",
+//       "5 tablespoons honey",
+//       "1/3 cup soy sauce (such as Silver Swan®)",
+//       "1/4 cup Asian (toasted) sesame oil",
+//       "3 tablespoons Asian chili garlic sauce",
+//       "3 tablespoons minced garlic",
+//       "salt to taste",
+//       "8 skinless, boneless chicken thighs"
+//     ],
+//     "cuisine": "Asian",
+//     "dishType": "main_course",
+//     "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+//     "duration": 40,
+//     "creator": "Chef LePapu"
+//   }
+//   ).then(r=>{
+//     console.log(`${Recipe.title}`)
+//   })
+
+// Recipe.insertMany(data).then(r=>{
+//   data.forEach(element => {
+//     console.log(`${element.title}`) 
+//   });
+//  })
+
+// Recipe
+// .findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration:100})
+// .then(r=>{console.log("Dish succesfully updated")})
+// .catch(error=>console.log("An error ocurred"))
+
+// Recipe
+// .deleteOne({title:"Carrot Cake"})
+// .then(r=>{console.log("Dish succesfully deleted")})
+// .catch(error=>console.log("An error ocurred"))
+
+
+  mongoose.connection.close(() => {
+    console.log('The connection has closed');
+    process.exit(0);
   });

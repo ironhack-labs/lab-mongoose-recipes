@@ -20,18 +20,47 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    
+
     // Run your code here, after you have insured that the connection was made
+    const greenTea = {
+      title: "Green Tea",
+      level: "Easy Peasy",
+      ingredients: ["green tea leaves", "water"],
+      cuisine: "Chinese",
+      dishType: "drink",
+      duration: 7,
+      creator: "ANSummers",
+    };
+
+    Recipe.create(greenTea)
+      .then((recipe) =>
+        console.log("New recipe saved:", recipe.title)
+      )
+      .catch((error) =>
+        console.log("Error while saving new recipe: ", error)
+      );
 
     // Iteration 3
-    Recipe.insertMany(recipesData)
-      .then((results) => {
-        results.forEach((result) => {
-          console.log(`Recipe titles: ${result.title}`);
-        });
-      })
+    Recipe.insertMany(data)
+      .then((results) => console.log(`Saved new recipes: ${results}`))
       .catch((saveErr) => console.error(`Save failed: ${saveErr}`));
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+
+// Iteration 4
+Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } })
+  .then(() => console.log(`Duration updated!`))
+  .catch(() => console.error('Update Failed'));
+
+// Iteration 5
+Recipe.deleteOne({ title: "Carrot Cake" })
+  .then(() => console.log(`Carrot Cake successfully removed`))
+  .catch((error) =>
+    console.log("An error happened while removing recipe", error)
+  );
+     // Iteration 6
+process.on("SIGINT", () => {
+  mongoose.connection.close(() => {
+    console.log(`Mongo connection disconnected`);
+    process.exit(0);
+  })
+})

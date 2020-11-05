@@ -29,13 +29,23 @@ const recipeSchema = new Schema({
     enum: ["breakfast", "main_course", "soup", "snack", "drink", "dessert"]
   },
   // image - Type String.Default value: "https://images.media-allrecipes.com/images/75131.jpg".
-  image: String,
+  image: {
+    type: String,
+    default: "https://images.media-allrecipes.com/images/75131.jpg"
+  },
   // duration - Type Number.The minimum value should be 0.
-  duration: Number,
+  duration: {
+    type: Number,
+    minimum: 0
+  },
   // creator - Type String.
   creator: String,
   // created - Type Date.By  default,  today.
-  created: Date
+  created: {
+    type: Date,
+    default: Date.now()
+
+  }
 
 });
 

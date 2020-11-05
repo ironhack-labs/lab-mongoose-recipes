@@ -23,7 +23,8 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     //one foood
     Recipe.create({
-      title: "food1"
+      title: "food1",
+      cuisine: "food1"
     }).then(console.log("food created"))
     // Recipe.find({ title: "food" }).then(foods => console.log(foods))//here this doesnt work
 

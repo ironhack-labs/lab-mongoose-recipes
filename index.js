@@ -32,13 +32,11 @@ mongoose
     return Recipe.insertMany(data);
   })
   .then(() => {
-
-    return Recipe.findOneAndUpdate({
-      title: "Rigatoni alla Genovese"
-    }, {
+    let query = { title: "Rigatoni alla Genovese" }
+    return Recipe.findOneAndUpdate(query, {
       duration: 100
     }, {
-      new: true
+      useFindAndModify: false
     });
   })
 

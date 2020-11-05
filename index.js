@@ -140,14 +140,38 @@ mongoose
     ];
     Recipe.insertMany(arr, {
         ordered: false
-      },
+      }),
 
-      function (error, docs) {});
+      //   function (error, docs) {});
+
+
+      arr.findOneAndUpdate({
+        title: "Rigatoni alla Genovese"
+      }, {
+        $set: {
+          duration: 110
+        }
+      }, {
+        new: true
+      }, (err, arr) {
+        if (err) {
+          console.log("Something wrong wwhen updating data!");
+        }
+        console.log(arr);
+      });
+
+    // arr.findOneAndUpdate({
+    //   title: 'Rigatoni alla Genovese'
+    // }, {
+    //   duration: 100,
+    // })
+    // .then(successCallback)
+    // .catch(errorCallback);
+
+
+
 
   });
-
-
-
 
 
 
@@ -159,5 +183,7 @@ mongoose
 
 
 
+
+
+
 // const recipe = new Recipe(r)
-// console.log(Asian Glazed Chicken Thinghs);

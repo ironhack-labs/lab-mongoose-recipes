@@ -48,14 +48,14 @@ mongoose
 
   })
 
-  // .then(() => {
-  //
-  //    mongoose.connection.close(() => {
-  //       console.log("Mongoose default connection disconnected through app termination");
-  //       process.exit(0);
-  //     });
-  //
-  // })
+  .then(() => {
+
+     mongoose.connection.close(() => {
+        console.log("Mongoose default connection disconnected through app termination");
+        process.exit(0);
+      });
+
+  })
 
   .catch(error => {
     console.error('Error connecting to the database', error);

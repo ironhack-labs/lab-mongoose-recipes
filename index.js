@@ -26,20 +26,47 @@ mongoose
     console.error("Error connecting to the database", error);
   });
 
-// const scrambledEggs = {
-//   title: "Scrambled Eggs",
-//   level: "Easy Peasy",
-//   ingredients: ["Eggs", "Milk", "Salt", "Pepper", "Corriander"],
-//   cuisine: "English",
-//   dishType: "breakfast",
-//   duration: 15,
-//   creator: "Chef Roy-Arne Brussel",
-// };
+const scrambledEggs = {
+  title: "Scrambled Eggs",
+  level: "Easy Peasy",
+  ingredients: ["Eggs", "Milk", "Salt", "Pepper", "Corriander"],
+  cuisine: "English",
+  dishType: "breakfast",
+  duration: 15,
+  creator: "Chef Roy-Arne Brussel",
+};
 
-// Recipe.create(scrambledEggs)
-//   .then((recipe) =>
-//     console.log("The recipe has been saved and its value is: ", recipe)
-//   )
-//   .catch((error) =>
-//     console.log("An error happened while saving a new recipe: ", error)
-//   );
+Recipe.create(scrambledEggs)
+  .then((recipe) =>
+    console.log("The recipe has been saved and its value is: ", recipe)
+  )
+  .catch((error) =>
+    console.log("An error happened while saving a new recipe: ", error)
+  );
+
+Recipe.insertMany(data)
+  .then((recipe) =>
+    console.log("The recipe has been saved and its value is: ", recipe)
+  )
+  .catch((error) =>
+    console.log("An error happened while saving a new recipe: ", error)
+  );
+
+Recipe.updateOne(
+  {
+    title: "Rigatoni alla Genovese",
+  },
+  { duration: 100 }
+)
+  .then(() => console.log("The recipe has been updated accordingly"))
+  .catch((error) =>
+    console.log("An error happened while updating the recipe", error)
+  );
+
+Recipe.deleteOne({
+  title: "Carrot Cake",
+})
+  .then(() => console.log("The recipe has been deleted accordingly"))
+  .catch((error) =>
+    console.log("An error happened while deleting the recipe", error)
+  );

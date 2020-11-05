@@ -22,7 +22,7 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
    //create
-     Recipe.create({
+  Recipe.create({
       title: "Asian Glazed Chicken Thighs",
       level: "Amateur Chef",
       ingredients: [
@@ -41,12 +41,14 @@ mongoose
       duration: 40,
       creator: "Chef LePapu"
     })
-    .then(r => {
+    .then(r => 
         console.log(r.title)
-      });
+    .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+
 //insert many
       Recipe.insertMany(data)
-      .then(recipe => recipe.forEach(res => 
+      .then(recipe =>
+       recipe.forEach(res => 
       console.log(`The recipe ${res.title} was inserted`)))
 //update
         Recipe.findOneAndUpdate(

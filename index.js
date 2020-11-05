@@ -12,38 +12,19 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create(recipeObj)
-.then((results) => console.log(`Saved new recipe: ${results.title}`))
-.catch((saveErr) => console.log(`Save failed: ${saveErr}`)),
+    return self.connection.dropDatabase();})
+  .then(() => {return Recipe.create(recipeObj)})
+  .then(()=>{return Recipe.insertMany(data)})
+  .then(()=>{return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})})
+  .then(()=>{return Recipe.deleteOne({title: 'Carrot Cake'})})
+  .catch(error => {console.error('Error connecting to the database', error);});
 
-Recipe.insertMany(data)
-.then((results) => console.log(`Saved new recipes: ${results.values.title}`))
-.catch((saveErr) => console.log(`Save failed: ${saveErr}`)),
-
-Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
-.then((results) => console.log(`Updated recipe`))
-.catch((saveErr) => console.error(`Update failed: ${saveErr}`)),
-
-Recipe.deleteOne({title: 'Carrot Cake'})
-.then((results) => console.log("Recipe is deleted"))
-.catch((saveErr) => console.log ("Delete failed"));
-
-
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
-
-//Iteration 2: add a new recipe
 const recipeObj = {
   title: "Sweet potato soup",
   level: "Easy Peasy",
@@ -53,8 +34,6 @@ const recipeObj = {
   duration: 20,
   creator: "Sophie",
 }
-
-
 
 process.on("SIGINT", () => {
   mongoose.connection.close(() => {

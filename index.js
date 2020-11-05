@@ -58,7 +58,7 @@ mongoose
   })
 
   .catch(error => {
-    console.error('Error', error);
+    console.error('Err', error);
   });
 
 // Recipe.find({ title: "Rigatoni alla Genovese" }).then(foods => console.log(foods))//one foo

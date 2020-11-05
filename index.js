@@ -25,3 +25,32 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  
+const newRecipe={
+  title:'flan',
+  cuisine:'international',
+  duration: {type: Number, min: 0},
+}
+
+Recipe.create(newRecipe)
+.then(recipe=>{console.log("new recipe created")})
+.catch(err=>{console.log(err)})
+
+Recipe.insertMany(data)
+.then(recipe=>{console.log("recipes saved")})
+.catch(err=>{console.log(err)})
+
+Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"} ,{duration:100})
+.then(recipe=>{console.log("item updated")})
+.catch(err=>{console.log(err)})
+
+Recipe.deleteOne({title:"Carrot Cake"})
+.then(recipe=>{console.log("item deleted")})
+.catch(err=>{console.log(err)})
+
+
+  
+
+ 
+
+ 

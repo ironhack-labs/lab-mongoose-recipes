@@ -30,7 +30,7 @@ mongoose
 
 
 //!  //* ITERATION 2
-/*   const pannaCotta = {
+  const pannaCotta = {
     title: "Panna Cotta",
     level: "Easy Peasy",
     ingredients: ["Cream", "Milk", "Sugar", "Gelatin","Vanilla","OrangeBlossom" ],
@@ -45,32 +45,28 @@ mongoose
       console.log(`your recipe ${recipe} has been added`);
     })
     .catch((errReceived) => console.log(errReceived)); 
-  */
-/* //!    //* ITERATION 3 
+ 
+//!    //* ITERATION 3 
   Recipe.create(data)
   .then((results) => { 
   for (let result of results){
   console.log(result.title);
   }})
   .catch((errReceived) => console.log(errReceived));
- */
+
  //!   //* ITERATION 4
-/*   const filter = {title: "Rigatoni alla Genovese"};
+  const filter = {title: "Rigatoni alla Genovese"};
   const update = {duration: 100};
 
   Recipe.findOneAndUpdate(filter, update, { new: true })
     .then(()=>console.log(`recipe rigatoni updated`))
     .catch((errReceived) => console.log(errReceived))
-  */ 
+
 //!   //* ITERATION 5
-/* Recipe.deleteOne({title: "Carrot Cake"})
+Recipe.deleteOne({title: "Carrot Cake"})
   .then(()=>console.log(`Carrot Cake has been deleted`))
   .catch((errReceived) => console.log(errReceived))
-   */
-
-/* mongoose.connection.close(function () {
-  console.log('Mongoose connection disconnected');
-}); */
+   
 
 
 process.on('SIGINT', () => {

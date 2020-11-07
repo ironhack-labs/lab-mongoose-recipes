@@ -11,42 +11,48 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
+    useFindAndModify: false,
     useUnifiedTopology: true,
   })
+
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     return self.connection.dropDatabase();
   })
+
   .then(() => {
-    Recipe.create(recipeObj)
-      .then((results) => console.log(`Saved new recipe: ${results}`))
-      .catch((saveErr) => console.log(`Save failed: ${saveErr}`));
-
-    Recipe.insertMany(data).then((results) => {
+    return Recipe.create(recipeObj).then((results) =>
+      console.log(`Saved new recipe: ${results.title}`)
+    );
+  })
+  .then(() => {
+    return Recipe.insertMany(data).then((results) => {
       results.forEach((result) => {
-        console.log(`Recipe titles: ${result.title}`);
+        console.log(result.title);
       });
-
-      Recipe.findOneAndUpdate(
-        { title: "Rigatoni alla Genovese" },
-        { $set: { duration: 100 } },
-        { new: true }
-      )
-        .then(() => console.log("Data modified succesfully"))
-        .catch((err) => console.error(`Error: ${err}`));
-
-      Recipe.deleteOne(
-        {
-          title: "Carrot Cake",
-        },
-        {
-          new: true,
-        }
-      )
-        .then(() => console.log("Data is deleted"))
-        .catch((err) => console.error(`Error: ${err}`));
-
-      mongoose.connection.close();
+    });
+  })
+  .then(() => {
+    Recipe.findOneAndUpdate(
+      {
+        title: "Rigatoni alla Genovese",
+      },
+      {
+        duration: 100,
+      }
+    ).then((results) => console.log(`Recipe Updated`));
+  })
+  .then(() => {
+    Recipe.deleteOne({
+      title: "Carrot Cake",
+    }).then((results) => console.log(`Recipe Deleted`));
+  })
+  .then(() => {
+    process.on("SIGINT", () => {
+      mongoose.connection.close(() => {
+        console.log(`Mongo connection closed`);
+        process.exit(0);
+      });
     });
   })
   .catch((error) => {

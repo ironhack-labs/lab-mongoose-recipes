@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require('./models/Recipe.model.js');
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require('./data.json');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -21,7 +21,19 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: "Bechamel",
+      level: "Easy Peasy",
+      ingredients: ["Flour", "Butter", "Milk", "Salt", "Nutmeg"],
+      cuisine: "French",
+      dishType: "other",
+      image: "",
+      duration: 45,
+      creator: "François Pierre de La Varenne",
+    })
+    .then (res => {console.log("El título es:", res.title)})
   })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -51,14 +51,14 @@ mongoose
   // .then(() => {
   //   return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
   //     .then(() => console.log('Rigatoni alla Genovese is updated'))
-  //     .catch((saveErr) => console.error(`Save failed: ${saveErr}`))
+  //     .catch(() => console.error('Update failed'))
   // })
 
   //IT5
   // .then(() => {
   //   return Recipe.deleteOne({ title: "Carrot Cake" })
   //       .then(() => console.log("Carrot Cake is deleted"))
-  //       .catch((saveErr) => console.error(`Save failed: ${saveErr}`))
+  //       .catch(() => console.error('Delete failed'))
   // })
 
   //IT6 
@@ -67,7 +67,7 @@ mongoose
         console.log("database is closed")
     })
   })
-  
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

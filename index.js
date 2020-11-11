@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: true
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -20,8 +21,49 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: 'Banana Bread',
+      level: 'Easy Peasy',
+      ingredients: ['Bananas', 'Sugar', 'Chocolate Chips', 'Eggs', 'flour'],
+      cuisine: 'American cuisine',
+      dishType: 'dessert',
+      duration: 2,
+      creator: 'Natalia Fernández'
+    })
+
+      .then(res => { console.log("El nombre de mi receta es",res.title) })
+
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+
+  .then(() => {
+   return Recipe.insertMany(data)
+
+      .then(recipes => {
+        recipes.forEach(elm => console.log("El nombre de todas las recetas es", elm.title))
+      })
+    
+  })
+
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: "100" })
+      
+      .then(() => console.log("success updating!"))
+    
+  })
+
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+      .then(() => console.log("success deleting!"))
+    
+  })
+
+  .then(() => {
+    return mongoose.connection.close(() => {
+      console.log("success closing database!")
+    })
+  })
+
+.catch(error => {
+console.error('Error connecting to the database', error);
+});
+

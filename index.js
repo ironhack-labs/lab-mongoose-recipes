@@ -52,7 +52,7 @@ mongoose
 
   // ITERATION 4
   .then(() => {
-    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }) // Este método me sale deprecated
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
       .then((res) => console.log("You updated: ", res.title))
       .catch((err) => { console.error("Some error occurred with Iteration 4: ", err) })
   })

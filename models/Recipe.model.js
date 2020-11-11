@@ -44,7 +44,7 @@ const recipeSchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now() // No estoy seguro de esto, ¿Puedo meter el metodo now() aquí?, como he puesto { timestamps: true } ¿No necesitaría created verdad?
+    default: new Date() // COMPROBAR EN COMPASS
   }
 
 }, { timestamps: true }

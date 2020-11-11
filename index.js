@@ -1,27 +1,37 @@
-const mongoose = require('mongoose');
+const   mongoose = require('mongoose'),
+        chalk = require('chalk'),
+        Recipe = require('./models/Recipe.model'),
+        data = require('./data')
 
-// Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
-// Import of the data from './data.json'
-const data = require('./data');
+const MONGODB_URI = 'mongodb://localhost:27017/recipe-app'
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+//  Console colors
+const yellow = chalk.bold.yellow,
+      magenta = chalk.bold.magenta,
+      blue = chalk.bold.blueBright
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect(MONGODB_URI, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true })
   .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
+    console.log(blue(`Connected to the database: "${self.connection.name}"`));
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create(data[ 0 ])
+          .then(newRecipe => console.log(yellow(newRecipe.title)))
+          .then(() => Recipe.insertMany(data.slice(1)))
+          .then(recipeArr => recipeArr.forEach(recipe => console.log(magenta(recipe.title))))
+          .then(() => Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: '100'}, { new: true }))
+          .then(updated => console.log(yellow('Modified recipe is:', updated)))
+          .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
+          .then(info => console.log(info))
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then(self => self.connection.close(() => console.log(blue('Connection closed'))))
+  .catch(error => { console.error(chalk.bold.red('Error connecting to the database', error)) })
+
+
+
+  
+

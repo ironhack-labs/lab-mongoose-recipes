@@ -20,7 +20,60 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Iteration 2
+    Recipe.create({
+      title: 'Tortilla',
+      level: 'Easy Peasy',
+      ingredients: ['eggs', 'potatoes', 'onions'],
+      cuisine: 'european',
+      dishType: 'other',
+      image: 'https://images.media-allrecipes.com/images/75131.jpg',
+      duration: 20,
+      creator: 'Maria'
+    })
+      .then(recipe => {
+        console.log(recipe.title)
+    
+        // Iteration 3
+        Recipe.insertMany(data)
+          .then((newRecipes) => {
+            newRecipes.forEach((elm) => {
+              console.log(elm.title);
+
+              // Iteration 4
+              Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+                .then((elm) => {
+                  console.log('Updated succesfully!')
+
+                  // Iteration 5
+                  Recipe.deleteOne({ title: 'Carrot Cake' })
+                    .then((recipe) => {
+                      console.log('Success, Carrot Cake removed')
+
+
+                    })
+                    .catch(err => console.log("Error!", err))
+                  
+                })
+                .catch(err => console.log("Error!", err))
+              
+            })
+              .catch(err => console.log("Error!", err))
+            
+          })
+          .catch(err => console.log("Error!", err))
+        
+      })
+      // // Iteration 6
+      // .then(() => {
+      //   mongoose.connection.close(() => {
+      //     console.log('Database is closed')
+      //   })
+      // })
+        
+        
+        
+        
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

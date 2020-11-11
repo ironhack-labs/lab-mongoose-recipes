@@ -17,7 +17,7 @@ mongoose
   })
 
   .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
+    console.log(`Connected to the database: "${self.connection.name}"\n`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
@@ -29,13 +29,13 @@ mongoose
       title: 'Lentejas', level: 'Easy Peasy', ingredients: ['lentejas', 'agua', 'verduras', 'laurel', 'vino tinto'],
       cuisine: 'Spanish', dishType: 'main_course', duration: 60, creator: 'Moncho the Chef'
     })
-      .then(newRecipe => console.log('se ha creado la receta:', newRecipe.title))
+      .then(newRecipe => console.log(`Se ha creado la receta: ${newRecipe.title}\n`))
       .then(() => Recipe.insertMany(data))
-      .then(eachRecipe => eachRecipe.forEach(element => console.log('Las nuevas recetas son:', element.title)))
+      .then(eachRecipe => eachRecipe.forEach(element => console.log(`Las nuevas recetas son: ${element.title}\n`)))
       .then(() => Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true }))
-      .then(newDuration => console.log(`La duración de la receta '${newDuration.title}' ha sido correctamente modificada a ${newDuration.duration} mins`))
+      .then(newDuration => console.log(`La duración de la receta '${newDuration.title}' ha sido correctamente modificada a ${newDuration.duration} mins\n`))
       .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
-      .then(deletedRecipe => console.log(`Se ha eliminado correctamente ${deletedRecipe.deletedCount} documento`))
+      .then(deletedRecipe => console.log(`Se ha eliminado correctamente ${deletedRecipe.deletedCount} documento\n`))
       .then(() => mongoose.connection.close())
   })
   .catch(error => console.error('Error connecting to the database', error));

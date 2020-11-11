@@ -19,9 +19,51 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
+
+    return Recipe
+      .create({ title: "Arroz", level: "Easy Peasy", ingredients: ["arroz"], cuisine: "make rice in water", dishtype: "main_course", duration: 32, image: "", creator: "Javier Fernández", created: 2020 - 11 - 11 })
+
+  }
+  )
+
+  .then(() => {
+    return Recipe
+      .create(data)
+      .then(data => {
+        data.forEach(elm => {
+          console.log(`El nombre de las recetas es ${elm.title}`)
+        })
+
+      }) 
+  }
+
+  )
+
+  .then(() => {
+    return Recipe
+      .updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  }
+  )
+
+  .then(() => {
+    return Recipe
+      .deleteOne({ title: "Carrot Cake" })
+  }
+  )
+
+  .then(() => {
+
+    return mongoose.connection.close(() => {
+      console.log("Conexión cerrada")
+    }
+
+    )
+  }
+  )
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

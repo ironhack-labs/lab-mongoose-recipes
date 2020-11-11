@@ -20,6 +20,7 @@ const createOneRecipe = () => {
     .catch(err => console.error(err))
 }
 
+// create MANY RECIPES
 const createManyRecipes = () => {
   Recipe.insertMany(data)
   .then((recipes) => {
@@ -33,6 +34,7 @@ const createManyRecipes = () => {
   .catch(err => console.error(err))
 }
 
+// update ONE RECIPE with the TITLE
 const updateRecipe = (title) => {
     Recipe.updateOne({ title: title }, { duration: 100 })
     .then((data) => {
@@ -44,6 +46,7 @@ const updateRecipe = (title) => {
     .catch(err => console.error(err))
 }
 
+// delete ONE RECIPE with the TITLE
 const deleteRecipe = (title) => {
       Recipe.deleteOne({ title: title })
     .then(data => {
@@ -76,13 +79,6 @@ mongoose
 
     // deleteRecipe('Carrot Cake')
 
-
-
-
-
-
-
-    // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

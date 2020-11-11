@@ -12,16 +12,65 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+        title: "Spaghetti alla carbonara",
+        level: "Amateur Chef",
+        ingredients: [
+          "200gr spaghetti",
+          "1 egg",
+          "100gr speck",
+          "100gr parmesan cheese",
+          "1/4 cup olive oil",
+          "salt to taste"
+        ],
+        cuisine: "Italian",
+        dishType: "main_course",
+        image: "https://i.blogs.es/eed2d0/carbonara_rec/450_1000.jpg",
+        duration: 40,
+        creator: "Chef Alba"
+      })
+      .then((result) => {
+        console.log(result.title)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    Recipe.insertMany(data)
+      .then((result) => {
+        result.forEach((result) => console.log(result.title))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+      .then((result) => {
+        console.log(`Your new duration is ${result.duration}`)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    Recipe.deleteOne({title: 'Carrot Cake'})
+    .then((result) => {
+      console.log(`The recipe Carrot Cake is no longer available`)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  mongoose.connection.close()

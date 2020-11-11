@@ -24,7 +24,7 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => Recipe.create({ title: 'lasaña', level: 'Amateur Chef', ingredients: ['carne picada, zanahoria, pimiento verde, cebolla, diente de ajo, sal, aceite de oliva, albahaca, salsa de tomate, laminas de pasta para lasaña, queso rallado, leche entera, harina de trigo, mantequilla'], cuisine: 'en una cazuela ponemos aceite de oliva, cebolla, pimiento y las zanahorias, cuando esten en su punto le añadimos la carne y la cubrimos con la salsa de tomate. para montar la lasaña colocamos una fuente apta para horno y colocamos una capa de de pasta, una de bechamel y una de carne, repetimos la operacion hasta llegar al borde y luego horneamos por 50 min aprox', dishType: 'main_course', image: " https://images.media-allrecipes.com/images/75131.jpg ", duration: '2', creator: 'Heyling', created: 'Date.now' }))
+  .then(() => Recipe.create({ title: 'Arepas', level: 'Easy Peasy', ingredients: ['harina de maiz, agua, sal'], cuisine: 'Venezuela', dishType: 'breakfast', duration: 1, creator: 'Heyling Marquez' }))
 
   .then((newrecipe) => console.log(newrecipe))
 
@@ -42,6 +42,9 @@ mongoose
 
   .then(() => mongoose.connection.close())
 
+  .then(() => console.log("Hasta Pronto...."))
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

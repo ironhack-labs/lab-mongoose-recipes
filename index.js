@@ -8,7 +8,8 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app'
 //  Console colors
 const yellow = chalk.bold.yellow,
       magenta = chalk.bold.magenta,
-      blue = chalk.bold.blueBright
+      blue = chalk.bold.blueBright,
+      red = chalk.bold.red
 
 // Connection to the database "recipe-app"
 mongoose
@@ -27,9 +28,10 @@ mongoose
           .then(updated => console.log(yellow('Modified recipe is:', updated)))
           .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
           .then(info => console.log(info))
+          .catch(error => console.error(red(error)))
   })
   .then(self => self.connection.close(() => console.log(blue('Connection closed'))))
-  .catch(error => { console.error(chalk.bold.red('Error connecting to the database', error)) })
+  .catch(error => console.error(red('Error connecting to the database', error)))
 
 
 

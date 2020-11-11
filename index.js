@@ -57,7 +57,7 @@ mongoose
       .catch((err) => { console.error("Some error occurred with Iteration 4: ", err) })
   })
 
-  // ITERATION 5
+  // ITERATION 5  //primero hacer un findOne del que sacar la info y despúes deletearlo
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" })
       .then((res) => console.log("You deleted: ", res.title)) // Return undefined, ¿Como puedo hacer que me retorne el título?

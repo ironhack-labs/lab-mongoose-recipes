@@ -52,7 +52,7 @@ mongoose
 
   // ITERATION 4
   .then(() => {
-    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }) // Este método me sale deprecated
       .then((res) => console.log("You updated: ", res.title))
       .catch((err) => { console.error("Some error occurred with Iteration 4: ", err) })
   })
@@ -61,7 +61,14 @@ mongoose
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" })
       .then((res) => console.log("You deleted: ", res.title)) // Return undefined, ¿Como puedo hacer que me retorne el título?
-      .catch((err) => { console.error("Some error occurred with Iteration 6: ", err) })
+      .catch((err) => { console.error("Some error occurred with Iteration 5: ", err) })
+  })
+
+  // ITERATION 6
+  .then(() => {
+    return mongoose.connection.close(() => {
+      console.log("The Database it´s closed.")
+    })
   })
 
   .catch(error => {

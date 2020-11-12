@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -31,64 +32,35 @@ mongoose
       cuisine: "Singaporean",
       dishType: "main_course",
       image: "https://www.seriouseats.com/recipes/images/2013/02/20130224-242112-singapore-chili-crab-edit.jpg",
-      duration: 420,
+      duration: 30,
       creator: "‪Zafrullah Abdul",
       created: Date.now() ,
     }
+    const pr = Recipe.create(recipe1, (err, result) => {
+      if (err) console.log(err);
+      else console.log(`Recipe for ${recipe1.title} was added to the Database`);
+    });
 
-    const pr = Recipe.create(recipe1);
-
-    return pr;
-
-  })
-  .then((createdRecipe) => {
-
-     console.log(`Recipe for ${createdRecipe.title} was added to the Database`);
-
-     // Iteration 3 - Insert Multiple Recipes
-
-     let pr = Recipe.insertMany(data);
-
-     return pr;
-
-  })
-  .then (( result ) => {
-      result.forEach( (entry) => 
-        { console.log(`Recipe for ${entry.title} was added to the Database`) } )
-
-        // Iteration 4: Update recipe
-
-      const pr = Recipe.findOneAndUpdate(
-        { title: "Rigatoni alla Genovese" },
-        { duration: 100  },
-      );
-
-      return pr;
-
-  })
-  .then ( () => {
-      console.log(`Rigatoni alla Genovese was updated `);
-
-      // Iteration 5 - Remove a recipe
-
-      const pr = Recipe.deleteOne({ title: "Carrot Cake"})
-
-      return pr;
-  })
-  .then( () => console.log("Carrot Cake is no longer available") )
-  .then( () => {
-    
-      // Iteration 6 - Close the Database after all ops are completed
-
-      process.on('SIGINT', () => {
-
-        mongoose.connection.close( () => {
-        console.log('Mongoose connection disconnected due to app termination');
+    // Iteration 3 - Insert Multiple Recipes
+    Recipe.insertMany(data)
+      .then( (result) => {
+        result.forEach( (entry) => 
+        {console.log(`Recipe for ${entry.title} was added to the Database`)})
       })
-  
-    })
+      .catch( (err) => console.log( err ) );
+
+    // Iteration 4: Update recipe
+
+    Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { $set: { duration: 100 } },
+    )
+    .then( ( result ) => console.log(`Rigatoni alla Genovese was updated ` + result))
+    .catch( ( err ) => console.log(err) );
+
 
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  })
+  });
+*/

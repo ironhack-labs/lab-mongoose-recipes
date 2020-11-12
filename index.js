@@ -56,10 +56,19 @@ mongoose
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }
-    );
+    ).then(() => {
+      console.log("updated");
+    });
   })
   .then(() => {
-    return Recipe.deleteOne();
+    return Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {
+      console.log("deleted");
+    });
+  })
+  .then(() => {
+    mongoose.connection.close().then(() => {
+      console.log("connection closed");
+    });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

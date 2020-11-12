@@ -27,7 +27,8 @@ mongoose
       level: 'Amateur Chef',
       ingredients: ['dough', 'tomatoes', 'cheese', 'pineapple'],
       cuisine: 'Italian',
-      dishType: 'Main course',
+      dishType: 'main_course',
+      image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fsp.depositphotos.com%2Fstock-photos%2Fmasa-de-pizza.html&psig=AOvVaw3chovxxQX_LpiNVMixmcrO&ust=1605290095809000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPi2-OHJ_ewCFQAAAAAdAAAAABAJ',
       duration: 60,
       creator: 'Salvatore',
       created: undefined

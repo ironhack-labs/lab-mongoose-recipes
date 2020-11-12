@@ -38,6 +38,12 @@ mongoose
       .catch(error=> console.log('The recipe has not been created:', error))
       
 
+    Recipe
+        .insertMany(data)
+        .then(allRecipes => {
+          allRecipes.forEach(allRecipes => console.log('All the recipes has been created title:', allRecipes.title))
+        })
+        .catch(error=> console.log('The recipes have not been created:', error))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

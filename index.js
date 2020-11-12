@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -20,8 +21,61 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+    const recipePizza = {
+      title: 'Hawaiian Pizza',
+      level: 'Amateur Chef',
+      ingredients: ['dough', 'tomatoes', 'cheese', 'pineapple'],
+      cuisine: 'Italian',
+      dishType: 'Main course',
+      duration: 60,
+      creator: 'Salvatore',
+      created: undefined
+    };
+
+    // Start async operation of creating a document
+    const pr = Recipe.create(recipePizza);
+
+    return pr;
   })
+  .then((createdRecipe) => {
+    console.log('createdRecipe', createdRecipe);
+
+    const pr = Recipe.insertMany(data);
+
+    return pr;
+  })
+  .then((result) => {
+    const titleOfRecipe = result.map((recipe) => {
+      return recipe.title;
+    })
+    console.log('title of each recipe', titleOfRecipe);
+
+    const pr = Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { $set: { duration: 100 } }
+    );
+
+    return pr;
+  })
+  .then(() => {
+    console.log('Successfully updated!');
+
+    const pr = Recipe.deleteOne({ title: "Carrot Cake" });
+
+    return pr;
+  })
+  .then((result) => {
+    console.log("result.deletedRecipe", result.deletedCount);
+    console.log('Successfully deleted Recipe!');
+    mongoose.connection.close(() => {
+      console.log('Mongoose connection disconnected due to app termination');
+    })
+  }
+  )
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+

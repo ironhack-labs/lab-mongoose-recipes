@@ -68,7 +68,7 @@ mongoose
   .then((deleteOne) => {
     console.log("Recipe deleted");
     mongoose.connection.close(() => {
-      console.log("Mongoose connection disconnected due to app termination");
+      console.log("Mongoose connection disconnected");
     });
   })
 

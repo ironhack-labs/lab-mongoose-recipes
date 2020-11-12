@@ -17,11 +17,29 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    //return self.connection.dropDatabase();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Recipe.create({title:'Chile sin Carne',level:'UltraPro Chef',cuisine:'mexican'})
+    // .then(recipe=>console.log(recipe.title))
+    // .catch(err=>console.log(err))
+
+    //iteration 3
+    // Recipe.insertMany(data)
+    // .then(recipe=>console.log(recipe))
+    // .catch(err=>console.log(err))
+
+    //iteration 4
+    // Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{duration:100}).
+    // then(()=>console.log('recipe updated'))
+
+    //iteration 5
+    // Recipe.deleteOne({title:'Carrot Cake'})
+    // .then(()=>console.log('recipe deleted'))
+
   })
+  .then(()=>mongoose.connection.close())
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

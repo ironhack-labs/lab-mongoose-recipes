@@ -34,20 +34,33 @@ mongoose
         creator: "Chef Sara", 
         reated: "default" 
       })
-      .then(newRecipe => console.log('The recipe is already created, title:', newRecipe.title))
-      .catch(error=> console.log('The recipe has not been created:', error))
+      .then((newRecipe => console.log('Data created:', newRecipe.title)))
+      .catch((error=> console.log('Error, data not created:', error)))
       
 
     Recipe
-        .insertMany(data)
-        .then(allRecipes => {
-          allRecipes.forEach(allRecipes => console.log('All the recipes has been created title:', allRecipes.title))
-        })
-        .catch(error=> console.log('The recipes have not been created:', error))
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+      .insertMany(data)
+      .then((allRecipes => {
+        allRecipes.forEach(allRecipes => console.log('All data created:', allRecipes.title))
+      }))
+      .catch((error=> console.log('Error, all data not created:', error)))
+
+
+    Recipe
+      .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, { new: true })
+      .then((changed => console.log('Data updated:', changed.duration)))
+      .catch((error => console.log('Error, data not updated:', error)))
+
+    Recipe
+      .deleteOne({title: "Carrot Cake"})
+      .then((deletedRecipe => console.log('Data deleted', deletedRecipe.title)))
+      .catch((error => console.log('Error, data not deleted:', error)))       
+})
+.catch(error => 
+  console.error('Error connecting to the database:', error)
+)
+
+// mongoose.connection.close();
 
 
 

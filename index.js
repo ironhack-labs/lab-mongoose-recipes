@@ -21,6 +21,23 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    Recipe
+      .create({
+        title: "Fried eggs", 
+        level: "Easy Peasy", 
+        ingredients: ["Eggs", "Olive oil", "Salt"],
+        cuisine: "International", 
+        dishType: "main_course", 
+        image: "https://images.media-allrecipes.com/images/75131.jpg", 
+        duration: 5, 
+        creator: "Chef Sara", 
+        reated: "default" 
+      })
+      .then(newRecipe => console.log('The recipe is already created, title:', newRecipe.title))
+      .catch(error=> console.log('The recipe has not been created:', error))
+      
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

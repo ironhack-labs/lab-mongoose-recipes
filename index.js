@@ -25,3 +25,49 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+//MY CODE - TO INSERT IN SECOND "THEN" ONE BY ONE
+const recipeApplePie = 
+{
+  title: 'apple pie',
+  level: 'Easy Peasy',
+  ingredients: [apples, water, sugar],
+  cuisine: 'yes',
+  dishType: 'dessert',
+  image:'',
+  duration: 20,
+  creator: 'Andreu',
+  created: ''
+};
+
+Recipe.create(recipeApplePie)
+  .then((result)=>{`recipe created: ${result.title}`})
+  .catch((error)=>{`error while creating ${error}`})
+
+
+Recipe.insertMany(data)
+  .then((result)=>{
+    result.forEach(element => {
+      console.log(`${result.title}`)
+    });
+  })
+  .catch((error)=>{`error`})
+
+
+Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  .then((result)=>{
+    console.log(`successful update: ${result.duration}`)
+  })
+  .catch((error)=>{`error while update: ${result.duration}`})
+
+  Recipe.deleteOne({title: 'Carrot cake'})
+    .then(result=>console.log(`success delete: ${result}`))
+    .catch(error=>console.log(`error while deleting ${error}`))
+
+
+//CLOSING DATABASE
+  mongoose.connection.close()
+    .then(result=>console.log('conection close'))
+    .catch(error=>console.log('error while closing database'))
+  

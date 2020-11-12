@@ -8,10 +8,10 @@ const recipeSchema = new Schema({
   ingredients: [String],
   cuisine: String,
   dishType: String,
-  image: String,  
-  duration: Number,
+  image: {type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg' }, 
+  duration: { type: Number, min: 0},
   creator: String,
-  created:  Date
+  created:  {type: Date, default: 2020-11-11}, 
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

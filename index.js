@@ -43,6 +43,14 @@ mongoose
       { new: true }
     );
   })
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("it will disconnect");
+    return mongoose.disconnect();
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
+    return mongoose.disconnect();
   });

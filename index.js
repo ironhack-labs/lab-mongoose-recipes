@@ -34,19 +34,22 @@ mongoose
       const filter = {title: 'Rigatoni alla Genovese'};
       const update = {duration: 100};
       const rigatoni = Recipe.findOne(filter)
-      Recipe.findOneAndUpdate(filter, update).then( () => {console.log(rigatoni)})
+      Recipe.findOneAndUpdate(filter, update)
+      .then( () => {console.log(rigatoni)})
       .then( () => {
-        Recipe.deleteOne({title: 'Carrot Cake'}).then( () => {
+        Recipe.deleteOne({title: 'Carrot Cake'})
+        .then( () => {
           console.log('carrot removed')
+        })
+        .then( () => {
+          mongoose.connection.close()
+          console.log('connection closed')
         })
       })
       
     })
     
-    // .then( () => {
-    //   mongoose.connection.close()
-    //   console.log('connection closed')
-    // })
+    
 
     console.log('insetmany works')
   })

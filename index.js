@@ -24,26 +24,26 @@ const promise1 = mongoose
     // Before adding any documents to the database, let's delete all previous entries
     // return self.connection.dropDatabase();
   })
-  // .then(() => {
-  //   Recipe.create({
-  //     title: 'Yummy recipe',
-  //     cuisine: 'Very yummy cuisine',
-  //   }).then((recipe) => console.log(recipe));
-  // })
-  // .then(() => {
-  //   Recipe.insertMany(recipesArray).then((recipe) => console.log(recipe));
-  // })
-  // .then(() => {
-  //   Recipe.updateOne(
-  //     { title: 'Rigatoni alla Genovese' },
-  //     { duration: 100 }
-  //   ).then(console.log('Success!'));
-  // })
-  // .then(() => {
-  //   Recipe.deleteOne({ title: 'Carrot Cake' }).then(
-  //     console.log('Sucessfully deleted!')
-  //   );
-  // })
+  .then(() => {
+   return Recipe.create({
+      title: 'Yummy recipe',
+      cuisine: 'Very yummy cuisine',
+    }).then((recipe) => console.log(recipe));
+  })
+  .then(() => {
+    return Recipe.insertMany(recipesArray).then((recipe) => console.log(recipe));
+  })
+  .then(() => {
+    return Recipe.updateOne(
+      { title: 'Rigatoni alla Genovese' },
+      { duration: 100 }
+    ).then(console.log('Success!'));
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: 'Carrot Cake' }).then(
+      console.log('Sucessfully deleted!')
+    );
+  })
   .catch((error) => {
     console.error('Error connecting to the database', error);
   });

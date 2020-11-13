@@ -19,39 +19,44 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     // return self.connection.dropDatabase();
   })
-  .then(() => {
-    
+  
   // CREATE
-  Recipe.create({ 
-    title: 'Chilli Con Carne',
-    level: 'Easy Peasy',
-    ingredients: 'minced beef, onions, garlic, tomatos, kidney beans',
-    cuisine: "Mexican",
-    dishType: 'main_course',
-    duration: 60,
-    creator: 'Ania',
-    created: ''
+  .then(() => {
+    return Recipe.create({ 
+      title: 'Chilli Con Carne',
+      level: 'Easy Peasy',
+      ingredients: 'minced beef, onions, garlic, tomatos, kidney beans',
+      cuisine: "Mexican",
+      dishType: 'main_course',
+      duration: 60,
+      creator: 'Ania',
+      created: ''
+    })
+    // .then(recipe => console.log(recipe.title))
+    // .catch(error => console.error(error))
   })
-  // .then(recipe => console.log(recipe.title))
-  // .catch(error => console.error(error))
+  
 
   // INSERT MANY
-  Recipe.insertMany(data)
-  // .then(recipe => console.log(recipe))
-  // .catch(error => console.error(error))
-
+  .then(() => {
+    return Recipe.insertMany(data)
+    // .then(recipe => console.log(recipe))
+    // .catch(error => console.error(error))
+  })
   // FIND ONE AND UPDATE
-  Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
-  // .then(recipe => console.log(recipe.duration))
-  // .catch(error => console.error(error))
-
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+    // .then(recipe => console.log(recipe.duration))
+    // .catch(error => console.error(error))
+  })
   // REMOVE
-  Recipe.deleteOne({ title: 'Carrot Cake' })
-  // .then(recipe => console.log('success', recipe))
-  // .catch(error => console.error(error))
+  .then(() => {
+    Recipe.deleteOne({ title: 'Carrot Cake' })
+    // .then(recipe => console.log('success', recipe))
+    // .catch(error => console.error(error))
   })
 
-  .then(mongoose.connection.close())
+  .then(() => { mongoose.connection.close() })
 
   .catch(error => {
     console.error('Error connecting to the database', error);

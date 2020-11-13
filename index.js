@@ -30,6 +30,11 @@ mongoose
       creator: 'Ania',
       created: ''
     })
+      // .then(recipe => console.log(`Recipe title is: ${recipe.title}`, recipe))
+      // .catch(error => console.log('An error happened while saving a new recipe:', error));
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
       .then(recipe => console.log(`Recipe title is: ${recipe.title}`, recipe))
       .catch(error => console.log('An error happened while saving a new recipe:', error));
   })

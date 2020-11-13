@@ -25,9 +25,9 @@ const recipeSchema = new Schema({
     type: String,
     default: "https://images.media-allrecipes.com/images/75131.jpg",
   },
-  duration: {type: Number, min: 0},
-  creator: {type: String};
-  created: {type: Date, default: new Date()}
+  duration: { type: Number, min: 0 },
+  creator: { type: String },
+  created: { type: Date, default: new Date() },
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

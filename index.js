@@ -40,9 +40,14 @@ mongoose
   })
   .then(() => {
     return Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
-      .then(recipe => console.log(`Recipe duration updated`, recipe))
-      .catch(error => console.log('An error happened while updating the recipe:', error));
+      // .then(recipe => console.log(`Recipe duration updated`, recipe))
+      // .catch(error => console.log('An error happened while updating the recipe:', error));
 
+  })
+  .then(() => {
+    return Recipe.deleteOne({title: 'Carrot Cake'})
+      .then(recipe => console.log(`Recipe deleted`, recipe))
+      .catch(error => console.log('An error happened while deleting the recipe:', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

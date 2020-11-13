@@ -5,8 +5,7 @@ const recipeSchema = new Schema({
   title: String,
   level: {
     type: String,
-    validate: {
-      enum: ['Easy Peasy', 'Amateur Chef','UltraPro Chef']
+    enum: ['Easy Peasy', 'Amateur Chef','UltraPro Chef']
     },
   ingredients: {
     type: [ String ]
@@ -17,9 +16,7 @@ const recipeSchema = new Schema({
   },
   dishType: {
     type: String,
-    validate: {
-      enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other']
-    }
+    enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other']
   },
   image: {
     type: String,
@@ -34,8 +31,6 @@ const recipeSchema = new Schema({
     type: Date,
     default: Date.now
   }
-  }
-
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

@@ -20,7 +20,18 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+     return Recipe.create({ 
+      title: 'Chilli Con Carne',
+      level: 'Easy Peasy',
+      ingredients: 'minced beef, onions, garlic, tomatos, kidney beans',
+      cuisine: "Mexican",
+      dishType: 'main_course',
+      duration: 60,
+      creator: 'Ania',
+      created: ''
+    })
+      .then(recipe => console.log(`Recipe title is: ${recipe.title}`, recipe))
+      .catch(error => console.log('An error happened while saving a new recipe:', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

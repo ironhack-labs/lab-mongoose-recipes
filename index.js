@@ -35,8 +35,14 @@ mongoose
   })
   .then(() => {
     return Recipe.insertMany(data)
-      .then(recipe => console.log(`Recipe title is: ${recipe.title}`, recipe))
-      .catch(error => console.log('An error happened while saving a new recipe:', error));
+      // .then(recipe => console.log(`Recipe title is: ${recipe.title}`, recipe))
+      // .catch(error => console.log('An error happened while saving a new recipe:', error));
+  })
+  .then(() => {
+    return Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+      .then(recipe => console.log(`Recipe duration updated`, recipe))
+      .catch(error => console.log('An error happened while updating the recipe:', error));
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

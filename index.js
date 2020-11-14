@@ -20,24 +20,10 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    return Recipe.create({
-      "title": "Cold Beetroot Soup",
-      "level": "Amateur Chef",
-      "ingredients": [
-        "1l of Kefir",
-        "Jar of marinated beetroot",
-        "1 cucumber",
-        "A bit of dill",
-        "1 spring onion",
-      ],
-      "cuisine": "Lithuanian",
-      "dishType": "main_course",
-      "duration": 20,
-      "creator": "Chef Daina"
-    })
-      .then(recipe => {
+    return Recipe.insertMany(data)
+      .then(data.forEach(recipe => {
         console.log(`${recipe.title}`);
-    })
+    }))
       .catch(error => {
         console.log('An error occurred creating a new recipe', error);
       })

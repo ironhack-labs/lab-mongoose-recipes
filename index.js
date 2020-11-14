@@ -14,20 +14,24 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
-  })
+  .then(
+    () => {
+      console.log(`Connected to the database: "${mongoose.connection.name}"`);
+      // Before adding any documents to the database, let's delete all previous entries
+      return mongoose.connection.dropDatabase();
+    },
+    (error) => {
+      console.error('Error connecting to the database', error);
+    }
+  )
   // .then(() => {
   //   const recipeOne = data[0];
   //   Recipe.create(recipeOne)
   //     .then(recipe => console.log(recipe.title))
   //     .catch(err => console.log(`An error occurred while saving a new recipe: ${err}`));
   // })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then(() => manipulateRecipeDb())
+  .catch(error => console.error(error));
 
 async function manipulateRecipeDb() {
   await insertRecipes(data);
@@ -52,8 +56,3 @@ async function removeOneRecipe() {
   await Recipe.deleteOne({title: "Carrot Cake"});
   console.log("Successfully removed Carrot Cake");
 }
-
-manipulateRecipeDb()
-  .then(()=>console.log("Success!"))
-  .catch(err => console.error(err));
-

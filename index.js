@@ -28,6 +28,15 @@ mongoose
         console.log('An error occurred creating a new recipe', error);
       })
   })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+      .then(() => {
+        console.log('Update successful!');
+      })
+      .catch(error => {
+        console.log('An error occurred updating the recipe', error);
+      })
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

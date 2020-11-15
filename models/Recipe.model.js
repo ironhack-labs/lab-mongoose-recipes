@@ -8,7 +8,7 @@ const recipeSchema = new Schema ({
   ingredients: {type: [String]},
   duration: {type: Number,min: 0},
   creator: {type: String},
-  created: {type: Date, default: new Date().toLocaleDateString()},
+  created: {type: Date, default: new Date()},
   level: {
     type: String,
     enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
@@ -21,11 +21,7 @@ const recipeSchema = new Schema ({
   image: {
     type: String,
     default:  'https://images.media-allrecipes.com/images/75131.jpg'
-  },
-  
-
-  
-
+  }
 });
 
 //Create the model

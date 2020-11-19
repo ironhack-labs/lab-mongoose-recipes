@@ -1,6 +1,8 @@
+//1. IMPORTACIONES
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//2. SCHEMA
 const recipeSchema = new Schema({
   // Iteración 1: write the schema
   title: { type: String, required: true, unique: true },
@@ -30,6 +32,8 @@ const recipeSchema = new Schema({
   created: { type: Date, defaultValue: Date.now },
 });
 
+//3. MODELO
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
+//4. EXPORTACION
 module.exports = Recipe;

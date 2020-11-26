@@ -21,7 +21,32 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // main()
+    AllInOne();
+    // findOneUpdate();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+// async function main() {
+//   const [recipe] = data
+//   const newRecipe = await Recipe.create(recipe)
+//   console.log(newRecipe)
+//   }
+
+async function AllInOne () {
+  const insertRecipe = await Recipe.insertMany(data)
+  insertRecipe.forEach((recipe)=>{
+    console.log(`${recipe.title}`)
+  })
+  const update = await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100},{new: true})
+  console.log(`Se ha cambiado la duracion de la receta ${update.title} a ${update.duration}min`)
+  const deleteRecipe = await Recipe.deleteOne({title: "Carrot Cake"})
+  mongoose.connection.close()
+}
+
+// async function findOneUpdate(){
+//   const update = await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100},{new: true})
+//   console.log(update)
+// }

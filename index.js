@@ -20,8 +20,28 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const receta = {
+      title: "Pan con tomate",
+      level: "Easy Peasy",
+      ingredients: ["Bread", "Tomatoe", "Salt", "Olive Oil"],
+      cuisine: "Catalan",
+      dishType: "other",
+      image: "https://www.peretarres.org/media/4177/como-hacer-pa-amb-tomaquet-perfecto.jpg",
+      duration: 5,
+      creator: "i don't know"
+    }
+  
+    return Recipe.create(receta)
   })
+  .then((res) => {
+    return Recipe.insertMany(data)
+  })
+  .then((res) => {
+      return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100}, {new:true})
+  })
+  .then((res) => {
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  }).then((res) => mongoose.connection.close())
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

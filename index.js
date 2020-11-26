@@ -21,7 +21,40 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // const newRep = {
+    //   "title": "Pablito al horno",
+    //   "level": "Amateur Chef",
+    //   "ingredients": [
+    //     "1/2 cup rice vinegar",
+    //     "5 tablespoons honey"
+    //   ],
+    //   "cuisine": "Spanish",
+    //   "dishType": "main_course",
+    //   "duration": 20,
+    //   "creator": "Chef Batman"
+    // }
+    // return Recipe.create(newRep);
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+mongoose.connection.on("connected", () =>
+  console.log("Mongoose default connection open")
+);
+mongoose.connection.on("error", (err) =>
+  console.log(`Mongoose default connection error: ${err}`)
+);
+mongoose.connection.on("disconnected", () =>
+  console.log("Mongoose default connection disconnected")
+);
+
+process.on("SIGINT", () => {
+  mongoose.connection.close(() => {
+    console.log(
+      "Mongoose default connection disconnected through app termination"
+    );
+    process.exit(0);
+  });
+});

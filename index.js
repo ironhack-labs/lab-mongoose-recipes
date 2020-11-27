@@ -21,6 +21,23 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    // async function test(recipe) {
+    //   const recipeData =  await Recipe.create(recipe) // data[0]
+    // }
+
+    // test(data[0])
+
+    // const recipeData = Recipe.create(data[0])
+    // console.log(recipeData.title)
+    const recipeData = Recipe.insertMany(data)
+    for (let i = 0, i<data.length; i++){
+      console.log(data[i].title)
+    }
+    return recipeData
+  })
+  .then((recipeData) => {
+    recipeData.findOneAndUpdate()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

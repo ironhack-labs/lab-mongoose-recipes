@@ -21,6 +21,32 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create(data)//Iteración 2-3
+    .then(
+      (recipe) => {
+        recipe.forEach(recipeTitle => console.log(recipeTitle.title))
+        return recipe
+      }
+    )
+    .then((res,req)=>{//Iteración 4
+      Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration:100},{new:true}).then((recipe)=>{
+        console.log("Bro U niled, the duration is updated",recipe);
+      })
+      return res
+    })
+    .then(()=>{//Iteracion 5
+      Recipe.deleteOne({title:"Carrot Cake"}).then(()=>{
+        console.log("Really? Don't U like Carrot Cake?",)
+
+        mongoose.connection.close(() => {//Iteracion 6
+              console.log(
+                "Mongoose default connection disconnected through app termination"
+              );
+              process.exit(0);
+            })
+      })
+
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

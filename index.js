@@ -32,21 +32,23 @@ mongoose
     };
     return Recipe.create(newRep);
   })
-  .then(() => {
+  .then((recipe) => {
+    console.log(`new recipe:  ${recipe.title}`);
     return Recipe.insertMany(data);
   })
-  .then(() => {
-    console.log("duration rigatoni changed to 100");
+  .then((recipes) => {
+    recipes.forEach(value => console.log(`recipe inserted ${value.title}`));
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
-      { duration: 100 }
+      { duration: 100 },{new:true}
     );
   })
-  .then(() => {
-    console.log("Carrot Cake deleted");
+  .then((rigatoni) => {
+    console.log(`Duration of  ${rigatoni.title} change to ${rigatoni.duration}`);
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then(() => {
+    console.log(`cake deleted!`);
     mongoose.connection.close();
   })
   .catch((error) => {

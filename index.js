@@ -19,25 +19,37 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create({    
-      title: 'Milanesa',
-      level: 'Easy Peasy',
-      ingredients: ['Filete de ternera', 'Pan rallado', 'Huevos'],
-      cuisine: 'Argentina',
-      dishType: 'main_course',
-      image: 'https://t2.rg.ltmcdn.com/es/images/4/9/8/img_milanesa_de_carne_11894_600.jpg',
-      duration: 30,
-      creator: 'Chef',
-      created: '2020-11-27'
-    })
-  
+  // .then(() => {
+  //   // Run your code here, after you have insured that the connection was made
+  //   Recipe.create({    
+  //     title: 'Milanesa',
+  //     level: 'Easy Peasy',
+  //     ingredients: ['Filete de ternera', 'Pan rallado', 'Huevos'],
+  //     cuisine: 'Argentina',
+  //     dishType: 'main_course',
+  //     image: 'https://t2.rg.ltmcdn.com/es/images/4/9/8/img_milanesa_de_carne_11894_600.jpg',
+  //     duration: 30,
+  //     creator: 'Chef',
+  //     created: '2020-11-27'
+  //   })
+  // })
     .then(theNewRecipeCreated => {
       console.log('The new recipe is:', theNewRecipeCreated.title)
       return Recipe.insertMany(data)     
     })
-  })
+    .then(() => {
+      return Recipe.update({'Rigatoni alla Genovese': {duration: 100}})
+      .then(console.log('Successfully updated!'))
+    })
+    .then(() => {
+      return Recipe.deleteOne({name: 'Carrot Cake'})
+      .then(console.log('Successfully deleted'))
+    })
+    .then(()=> {
+      mongoose.connection.close()
+      .then('Successfully closed')
+    })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

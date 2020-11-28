@@ -20,8 +20,26 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    //const recipe = mongoose.model("recipe", recipeSchema);
+    
+    const pasta = {
+      title: "macarroni",
+      level: "Easy Peasy",
+      ingredients: "pasta",
+      cuisine: "ni idea",
+      dishType: "main_course",
+      duration: 50,
+      creator: "benito",
+    }
+    
+    return Recipe.create(pasta)
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+  

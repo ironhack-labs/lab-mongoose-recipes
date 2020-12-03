@@ -24,6 +24,7 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     //Iteration 2******************* */ create my recipe
+
     const crepe = {
       title: "Crepe",
       level: "Easy Peasy",
@@ -36,21 +37,36 @@ mongoose
       created: "2019-12-20"
     }
 
+
+
     async function createCrepeRecipe() {
+
       await Recipe.create(crepe)
-        .then(recipe => console.log("The title of this recipe is: ", recipe.title))
+        .then(recipe => {
+          console.log(" title recipe : ", recipe.title)
+        })
         .catch(error => console.log("An error happened while saving a new user: ", error))
     };
     createCrepeRecipe();
     // > db.recipes.find(); check in mongo compass
 
   })
+
+
   .then(() => {
     //Iteration 3  *****************Insert recipes from data.json
 
     async function insertRecipes() {
       await Recipe.insertMany(data)
-        .then((data) => data.map(each => console.log("The title of this recipe is: ", each.title)))
+        .then((data) => {
+          data.map(each => console.log(" title recipe : ", each.title))
+
+          //Iteration 4, delete
+          updateRecipe();
+
+          // Iteration 5 - Remove a recipe
+          deleteCarrotRecipe();
+        })
         .catch(error => console.log("here insertRecipes", error))
     }
 
@@ -60,45 +76,38 @@ mongoose
   })
 
 
-  .then(() => {
-
-    // Iteration 4 - Update recipe
-
-    async function updateRecipe() {
-      await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } }, { new: true })
-        .then(update => {
-          console.log(update) //=>null: why return null ??????
-          const data = Recipe.find({ title: "Rigatoni alla Genovese" }, { duration: 1, _id: 0 });
-          console.log(data) // return: Query {Query { _mongooseOptions: {}, _transforms: [], ???????????????????
-
-          console.log("successfully updated ")
-        })
-        .catch(error => console.log("here insertRecipes", error))
-    }
-
-    updateRecipe();
-
-    // db.recipes.find({title:"Rigatoni alla Genovese"}, {duration:1, _id:0})
-    // db.recipes.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {$set: { duration: 100 } });
-
-
-  })
-  .then(() => {
-    // **************Iteration 5 - Remove a recipe
-    Recipe.deleteOne({ title: 'Carrot Cake' })
-      .then(() => console.log("successfully deleted "))
-      .catch(error => console.log("here insertRecipes", error))
-  })
-
-  .then(() => {
-    setTimeout(() => {
-      mongoose.connection.close();
-    }, 5000);
-
-  })
-
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
 
+// *****************Iteration 4 - Update recipe
+async function updateRecipe() {
+  await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } }, { new: true })
+    .then(update => console.log(update.title + " recipe takes " + update.duration + " min to cook"))
+    .catch(error => console.log("here insertRecipes", error))
+}
+// db.recipes.find({title:"Rigatoni alla Genovese"}, {duration:1, _id:0})
+// db.recipes.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {$set: { duration: 100 } });
+
+
+// **************Iteration 5 - Remove a recipe
+async function deleteCarrotRecipe() {
+  Recipe.deleteOne({ title: 'Carrot Cake' })
+    .then(() => console.log(`Carrot cake recipe deleted  successfully`))
+    .catch(error => console.log("here insertRecipes", error))
+}
+// db.recipes.deleteOne({ title: 'Carrot Cake' })
+
+// *************Iteration 6 - Close the Database
+function closeDatabase() {
+  setTimeout(async () => {
+    await mongoose.connection.close()
+    .then(() => {
+      console.log("connection closed")
+      process.exit(0);
+    })
+  }, 5000);
+
+}
+closeDatabase();

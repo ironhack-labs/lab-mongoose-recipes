@@ -59,7 +59,7 @@ mongoose
     console.log("Carrot Cake successfully removed");
   })
   .then(async () => {
-    mongoose.connection.close();
+    await mongoose.connection.close();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

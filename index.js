@@ -70,6 +70,8 @@ mongoose
     await Recipe.deleteOne({title: "Carrot Cake"});
     console.log("RIP le carrot cake");
 
+    mongoose.connection.close();
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

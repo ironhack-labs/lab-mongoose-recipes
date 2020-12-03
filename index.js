@@ -6,22 +6,22 @@ const Recipe = require("./models/Recipe.model");
 const data = require("./data");
 
 const newRecipe = {
-  title: "Pâtes au saumon",
+  title: "Poulet DG",
   level: "UltraPro Chef",
   ingredients: [
-    "200g de pâtes",
-    "3 tranches de saumon",
-    "1 échalote",
-    "1 pot de crème fraîche",
-    "1 pincée de sel",
-    "1 pincée de poivre",
+    "1 poulet",
+    "2 carottes",
+    "12 doigts de plantain mûrs",
+    "2 oignons",
+    "3 tomates",
+    "200g de haricots verts",
   ],
-  cuisine: "Français",
+  cuisine: "Camerounais",
   dishType: "main_course",
   image:
-    "https://static.750g.com/images/600-600/26fa667a22b0845fe0d5e592c64e3cb3/pates-au-saumon-fume.png",
-  duration: 20,
-  creator: "Chef Marine Sanjuan",
+    "https://www.editions2015.com/cameroun/wp-content/uploads/2015/09/poulet-dg-1.jpg",
+  duration: 110,
+  creator: "Chef Etouma Esther Bela",
 };
 
 const MONGODB_URI = "mongodb://localhost:27017/recipe-app";

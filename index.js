@@ -19,9 +19,32 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+    Recipe.create(data)
+      .then((recipe) => {
+        recipe.forEach((recipeTitle) => console.log(recipeTitle.title));
+        return recipe;
+      })
+      .then(() => {
+        return Recipe.findOneAndUpdate(
+          { title:"Rigatoni alla Genovese"},
+          { duration: 100 },
+          {new: true}
+        ).then(
+          console.log("Great update!!"));
+      })
+      .then(() => {
+        return Recipe.deleteOne(
+          { title: "Carrot Cake" }
+          ).then(
+          console.log("Great remove!!")
+        );
+      })
+      .then(() => {
+        mongoose.connection.close().then(console.log("Great closing!!"));
+      })
+      .catch((error) => {
+        console.error("Error connecting to the database", error);
+      });
   });

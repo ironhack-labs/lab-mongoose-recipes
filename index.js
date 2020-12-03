@@ -19,33 +19,33 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
+  .then(async () => {
         
     //// ITERATION 2: Create a recipe DONE. Commented to do iteration 3
-    // const newRecipe = {
-    //   title: "Pâtes au saumon",
-    //   level: "UltraPro Chef",
-    //   ingredients: [
-    //     "200g de pâtes",
-    //     "3 tranches de saumon",
-    //     "1 échalote",
-    //     "1 pot de crème fraîche",
-    //     "1 pincée de sel",
-    //     "1 pincée de poivre"
-    //   ],
-    //   cuisine: "Français",
-    //   dishType: "main_course",
-    //   image: "https://static.750g.com/images/600-600/26fa667a22b0845fe0d5e592c64e3cb3/pates-au-saumon-fume.png",
-    //   duration: 20,
-    //   creator: "Chef Marine Sanjuan"
-    // }
+    const newRecipe = {
+      title: "Pâtes au saumon",
+      level: "UltraPro Chef",
+      ingredients: [
+        "200g de pâtes",
+        "3 tranches de saumon",
+        "1 échalote",
+        "1 pot de crème fraîche",
+        "1 pincée de sel",
+        "1 pincée de poivre"
+      ],
+      cuisine: "Français",
+      dishType: "main_course",
+      image: "https://static.750g.com/images/600-600/26fa667a22b0845fe0d5e592c64e3cb3/pates-au-saumon-fume.png",
+      duration: 20,
+      creator: "Chef Marine Sanjuan"
+    }
 
-    // Recipe.create(newRecipe);
-    // console.log("vazy affiche le titre>>>", newRecipe.title);
+    await Recipe.create(newRecipe);
+    //console.log("vazy affiche le titre>>>", newRecipe.title);
 
     //// ITERATION 3:
 
-    Recipe.insertMany(data);
+    await Recipe.insertMany(data);
 
     /// Version longue: 
     // (function loopTitle() {
@@ -55,8 +55,20 @@ mongoose
     // })()
 
     // Version courte:
-    data.forEach(toto => console.log(toto.title));
+    data.forEach(recipe => console.log(recipe.title));
 
+
+    //// ITERATION 4:
+
+    await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100});
+    console.log("SUCCESSSSSSSSS");
+
+    // await = car on veut attendre que la db ait fini l'opé avant de faire la suite du code
+
+    //// ITERATION 5:
+
+    await Recipe.deleteOne({title: "Carrot Cake"});
+    console.log("RIP le carrot cake");
 
   })
   .catch(error => {

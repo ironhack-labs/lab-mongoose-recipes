@@ -41,7 +41,7 @@ mongoose
     }
 
     await Recipe.create(newRecipe);
-    //console.log("vazy affiche le titre>>>", newRecipe.title);
+    //console.log("Display title>>>", newRecipe.title);
 
     //// ITERATION 3:
 
@@ -61,14 +61,14 @@ mongoose
     //// ITERATION 4:
 
     await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100});
-    console.log("SUCCESSSSSSSSS");
+    console.log("Successful update");
 
-    // await = car on veut attendre que la db ait fini l'opé avant de faire la suite du code
+    // await = car on veut attendre que la db ait fini l'opération avant de faire la suite du code
 
     //// ITERATION 5:
 
     await Recipe.deleteOne({title: "Carrot Cake"});
-    console.log("RIP le carrot cake");
+    console.log("Successful deletion");
 
     mongoose.connection.close();
 

@@ -20,8 +20,25 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create(data).then((recipe)=>{
+      recipe.forEach((recipeTitle)=>console.log(recipeTitle.title));
+      return recipe;
+  })
+  .then(() => {
+    return Recipe.update(
+      {title : 'Rigatoni alla Genovese'},  {duration :100}
+    ).then(console.log('updated'));
+  })
+  .then(() => {
+    return Recipe.deleteOne(
+      {title : 'Carrot Cake'}, 
+    ).then(console.log('remove'));
+  })
+  .then(()=> {
+    mongoose.connection.close().then(console.log('db closed'));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+});
+

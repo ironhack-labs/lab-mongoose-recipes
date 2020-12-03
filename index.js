@@ -51,7 +51,7 @@ mongoose
     console.log("Deleted");
   })
   .then(async () => {
-    mongoose.disconnect(MONGODB_URI);
+    await mongoose.disconnect(MONGODB_URI);
     console.log("Database closed");
   })
   .catch((error) => {

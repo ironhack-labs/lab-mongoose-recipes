@@ -48,8 +48,15 @@ Recipe.insertMany(data)
   .then(() => {
     Recipe.deleteOne({ title: "Carrot Cake" })
       .then(console.error("success"))
-      .catch((error) => console.log("An error happened", error));
+      .catch((error) => console.log("An error happened", error))
+      .then(() => {
+        mongoose
+          .disconnect(MONGODB_URI)
+          .catch((error) => console.log("An error happened", error));
+        console.error("Disconnected");
+      });
   })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

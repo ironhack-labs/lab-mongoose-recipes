@@ -54,7 +54,13 @@ mongoose
       .catch((err) => console.error(err));
     //iteration 5
     Recipe.deleteOne({ title: "Carrot Cake" })
-      .then((result) => console.log(`${result} Deleted`))
+      .then((result) => {
+        console.log(`${result} Deleted`);
+        mongoose.connection
+          .close()
+          .then((result) => console.log(result))
+          .catch((err) => console.error(err));
+      })
       .catch((err) => console.error(err));
   })
   .catch((error) => {

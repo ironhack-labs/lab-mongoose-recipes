@@ -21,7 +21,43 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    // Iteration 2
+    
+    return Recipe.create ({
+      title: "Palacsinta",
+      level: "Easy Peasy",
+      ingredients: ["flour", "salt", "eggs", "milk", "sugar", "soda water", "sunflower oil for frying"],
+      cuisine: "Hungarian",
+      dishType: "dessert",
+      image: "https://www.club43.hu/Images/Products/palacsinta1.jpg",
+      duration: 30,
+    })
   })
+
+    // Iteration 3
+
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+
+    // Iteration 4 
+
+  .then(() => {
+    return Recipe.findOneAndUpdate( { title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true } )
+  })
+
+    // Iteration 5
+
+  .then(() => {
+    return Recipe.deleteOne( { title: "Carrot Cake" } )
+  })
+
+    // Iteration 6
+
+  .then(() => mongoose.connection.close())
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

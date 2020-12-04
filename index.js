@@ -20,6 +20,7 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+    //iteration 1
     const resultCreate = Recipe.create({
       title: "Pão de queijo",
       level: "Amateur Chef",
@@ -35,6 +36,26 @@ mongoose
       .catch((err) => {
         console.error(err);
       });
+    //iteration 3
+    Recipe.insertMany(data)
+      .then((result) => {
+        result.map((e) => console.log(e.title));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    //iteration 4
+    Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    )
+      .then((result) => console.log(`Duration update...? ${result.duration}`))
+      .catch((err) => console.error(err));
+    //iteration 5
+    Recipe.deleteOne({ title: "Carrot Cake" })
+      .then((result) => console.log(`${result} Deleted`))
+      .catch((err) => console.error(err));
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

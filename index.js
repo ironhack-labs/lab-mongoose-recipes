@@ -30,15 +30,32 @@ mongoose
 
     // const recipeData = Recipe.create(data[0])
     // console.log(recipeData.title)
+
     const recipeData = Recipe.insertMany(data)
-    for (let i = 0, i<data.length; i++){
+    for (let i = 0; i<data.length; i++){
       console.log(data[i].title)
     }
     return recipeData
   })
-  .then((recipeData) => {
-    recipeData.findOneAndUpdate()
+  .then(() => {
+    const filter = { 'title': 'Rigatoni alla Genovese' }
+    const update = { 'duration': 100 }
+    console.log('su duración actualizada es', data[3].duration)
+    return Recipe.findOneAndUpdate(filter, update, {new:true})
+  })
+  .then((rigatoni) => {
+    console.log('el plato es: ',rigatoni.title)
+    console.log('su duración actualizada es', rigatoni.duration)
+    return Recipe.deleteOne({"title": "Carrot Cake"})
+  })
+  .then((carrotCake) => {
+    console.log('We managed to erase the Carrot Cake from the recipes!', carrotCake)
+    mongoose.connection.close()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+

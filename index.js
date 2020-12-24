@@ -20,6 +20,23 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+    Recipe.create({
+      title: `Sebas's recipe`,
+      level: `Easy Peasy`,
+      ingredients: [`Bread`, `Cheese`],
+      cuisine: `colombian`,
+      dishType: `snack`,
+      image: ``,
+      duration: 30,
+      creator: `Sebastian`,
+      created: ``
+    })
+    .then(newRecipe => {
+      console.log(`new recipe created by ${newRecipe.title}`)
+    })
+    .catch(error => {
+      console.log(`error creating website ${error}`)
+    })
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {

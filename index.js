@@ -19,26 +19,35 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    Recipe.create({
-      title: `Sebas's recipe`,
-      level: `Easy Peasy`,
-      ingredients: [`Bread`, `Cheese`],
-      cuisine: `colombian`,
-      dishType: `snack`,
-      image: ``,
-      duration: 30,
-      creator: `Sebastian`,
-      created: ``
-    })
-    .then(newRecipe => {
-      console.log(`new recipe created by ${newRecipe.title}`)
-    })
-    .catch(error => {
-      console.log(`error creating website ${error}`)
-    })
-    // Run your code here, after you have insured that the connection was made
-  })
+  // .then(() => {
+  //   Recipe.create({
+  //     title: `Sebas's recipe`,
+  //     level: `Easy Peasy`,
+  //     ingredients: [`Bread`, `Cheese`],
+  //     cuisine: `colombian`,
+  //     dishType: `snack`,
+  //     image: ``,
+  //     duration: 30,
+  //     creator: `Sebastian`,
+  //     created: ``
+  //   })
+  //   .then(newRecipe => {
+  //     console.log(`new recipe created by ${newRecipe.title}`)
+  //   })
+  //   .catch(error => {
+  //     console.log(`error creating website ${error}`)
+  //   })
+  //   // Run your code here, after you have insured that the connection was made
+  // })
+  // Recipe.insertMany(data)
+  // .then(dataResult => {
+  //   dataResult.forEach((eachData) => {
+  //     console.log(`New recipe added by ${eachData.title}`);
+  //   });
+  // })
+  // .catch(error => {
+  //   console.log(`error adding recipe ${error}`);
+  // })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

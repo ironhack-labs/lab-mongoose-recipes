@@ -22,29 +22,29 @@ mongoose
   .then(() => {
     //Iteration 2 - Create a recipe
     Recipe
-      .create({
-        title: "Soft Boiled Egg",
-        level: "UltraPro Chef",
-        ingredients: [ "egg1", "egg2"],
-        cuisine: "foreign delicacy",
-        dishType: "breakfast",
-        duration: 10,
-        creator: "Mom"
-      })
-      .then(newRecipe => console.log(newRecipe.title))
-      .catch(error => {
-        console.error('Error adding to the database', error);
-      });
-      Recipe
-      .create({
-        title: "Raw Egg",
-        level: "Amateur Chef",
-        ingredients: [ "egg", "mouth"],
-        cuisine: "french",
-        dishType: "drink",
-        duration: 0.001,
-        creator: "G*d"
-      })
+    .create({
+      title: "Soft Boiled Egg",
+      level: "UltraPro Chef",
+      ingredients: [ "egg1", "egg2"],
+      cuisine: "foreign delicacy",
+      dishType: "breakfast",
+      duration: 10,
+      creator: "Mom"
+    })
+    .then(newRecipe => console.log(newRecipe.title))
+    .catch(error => {
+      console.error('Error adding to the database', error);
+    });
+    Recipe
+    .create({
+      title: "Raw Egg",
+      level: "Amateur Chef",
+      ingredients: [ "egg", "mouth"],
+      cuisine: "french",
+      dishType: "drink",
+      duration: 0.001,
+      creator: "G*d"
+    })
     .then(newRecipe => console.log(newRecipe.title))
     .catch(error => {
       console.error('Error adding to the database', error);
@@ -53,12 +53,22 @@ mongoose
     Recipe
     .insertMany(data)
     .then(recipes => {recipes.forEach(e => console.log(e.title))})
+    .then(()=> {
+       // Iteration 4 - Update recipe
+      Recipe
+      .updateOne({title:"Rigatoni alla Genovese"},{duration: 100})
+      .then(() => console.log("success"))
+      .catch(error => {
+        console.error('Error update one database', error);
+      });
+    })
+    
     .catch(error => {
       console.error('Error insert many to the database', error);
     });
+   
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+.catch(error => {
+  console.error('Error connecting to the database', error);
+});
 
-  

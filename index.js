@@ -62,7 +62,15 @@ mongoose
         console.error('Error update one database', error);
       });
     })
-    
+    .then(()=>{
+      // Iteration 5 - Remove a recipe
+      Recipe
+      .deleteOne({title: "Carrot Cake"})
+      .then(() => console.log("delete successful"))
+      .catch(error => {
+        console.error('Error delete database', error);
+      }); 
+    })
     .catch(error => {
       console.error('Error insert many to the database', error);
     });

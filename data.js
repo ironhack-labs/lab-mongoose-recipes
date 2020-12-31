@@ -1,4 +1,4 @@
-[{
+const recipesArr = [{
     "title": "Asian Glazed Chicken Thighs",
     "level": "Amateur Chef",
     "ingredients": [
@@ -93,3 +93,6 @@
     "creator": "Chef Jennifer"
   }
 ]
+
+
+module.exports = recipesArr

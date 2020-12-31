@@ -50,6 +50,12 @@ mongoose
       console.error('Error adding to the database', error);
     });
     //Iteration 3 - Insert multiple recipes
+    Recipe
+    .insertMany(data)
+    .then(recipes => {recipes.forEach(e => console.log(e.title))})
+    .catch(error => {
+      console.error('Error insert many to the database', error);
+    });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

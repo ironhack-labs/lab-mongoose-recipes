@@ -30,13 +30,26 @@ mongoose
     .then(recipeData => recipeData.forEach(recipe => console.log(`The recipe for ${recipe.title} has been added to the database`)))
     .catch(error => console.log(`There was an error adding the recipes to the database`, error));
 
-    Recipe.updateOne({title:"Rigatoni alla Genovese"}, {duration: 100}) 
+    setTimeout(() => {
+    Recipe.updateOne({title:'Rigatoni alla Genovese'}, {duration: 100}) 
     .then(() => console.log(`The requested recipe has been successfully updated with a new duration.`))
 
     .catch(error => console.log(`There was an error updating the recipe`, error))
+  }, 2000)
 
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  })
+  setTimeout(() => {
+    Recipe.deleteOne({title:'Carrot Cake'}) 
+    .then(() => console.log(`The requested recipe has been deleted from the database.`))
 
+    .catch(error => console.log(`There was an error deleting the recipe`, error))
+    .then(() => {
+      console.log('Closing Connection');
+      mongoose.connection.close();
+    })
+  }, 2000)
+
+})
+
+.catch(error => {
+console.error('Error connecting to the database', error);
 })

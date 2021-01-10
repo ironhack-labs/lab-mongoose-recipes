@@ -21,6 +21,15 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Risotto de setas",
+      level: "Easy Peasy",
+      ingredients: ["rice", "mushrooms", "cheese"],
+      cuisine: "italian",
+      dishType: "main_course",
+      duration: 40,
+      creator: 
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

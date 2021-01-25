@@ -21,7 +21,7 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    
+    console.log('Second promise')
     // Iteration 2
     // const recipe1 = data[0];
     // Recipe.create(recipe1)
@@ -44,8 +44,15 @@ mongoose
     //   .then(recipe => console.log(`The ${recipe.title} recipe was deleted from the database!`))
     //   .catch(error => console.log('An error happened while deleting the recipe', error));
 
-    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+  });
+
+  // Iteration 6
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
   });

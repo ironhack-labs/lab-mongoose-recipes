@@ -21,13 +21,16 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // const recipe1 = data[0];
+    // Recipe.create(recipe1)
+    //   .then(recipe => console.log(`The ${recipe.title} recipe has been added to the database`, recipe))
+    //   .catch(error => console.log('An error happened while saving a new recipe', error));
+
+    const recipes = data;
+    Recipe.insertMany(recipes)
+      .then(recipe => console.log(`The ${recipe.title} recipe has been added to the database`))
+      .catch(error => console.log('An error happened while saving a new recipe', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-const recipe1 = data[0]
-
-Recipe.create(recipe1)
-  .then(recipe => console.log(`The ${recipe.title} recipe has been added to the database`, recipe))
-  .catch(error => console.log('An error happened while saving a new recipe', error));

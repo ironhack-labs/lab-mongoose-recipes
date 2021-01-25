@@ -16,7 +16,7 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
+    // Before adding any documents to the database, let's delete all previous entries DROP
     return self.connection.dropDatabase();
   })
   .then(() => {
@@ -25,3 +25,11 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+  process.on("SIGINT", () => {
+    mongoose.connection
+    .close()
+    .then(() => console.log("Disconnected"))
+    .finally(() => process.exit())
+  })

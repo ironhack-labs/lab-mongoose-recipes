@@ -19,8 +19,26 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
+    /*
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const data = {
+      title: 'Nothing',
+      level: 'Easy Peasy',
+      ingredients: ['water', 'salt'],
+      cuisine: 'Single',
+      dishType: 'other',
+      duration: 1,
+      creator: 'mario',
+    };
+    Recipe.create(data)
+    .then(recipe => console.log('The user is saved and its value is: ', recipe.title))
+    .catch(error => console.log('An error happened while saving a new recipe:', error));
+  }) 
+  */
+  .then(() => {
+    Recipe.insertMany(data)
+    .then(recipe => console.log('Recipes are saved and values are: ', data.map(doc => doc.title).sort()))
+    .catch(error => console.log('An error happened while saving a new recipe:', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

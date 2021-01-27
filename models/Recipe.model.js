@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-// -> Iteration 2 --------------------------------------------------------
+// -> Iteration 1 --------------------------------------------------------
 const recipeSchema = new Schema({
   title: {
     type: String,
@@ -36,16 +36,16 @@ const recipeSchema = new Schema({
     type: Date,
     default: Date.now
   }
-});
+})
 
-/*
+const Recipe = mongoose.model('Recipe', recipeSchema)
+
+module.exports = Recipe
+
+/* Apuntes Inés - Omitir del lab -
 recipeSchema.methods.myFunctionName = function () {
   // this es la receta ex:
   this.title
   // Se puede hacer destructuring, en este caso no lo tenemos. sería:
   // const { street, number, city } = this.adress
 } */
-
-const Recipe = mongoose.model('Recipe', recipeSchema)
-
-module.exports = Recipe

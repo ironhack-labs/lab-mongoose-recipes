@@ -1,11 +1,28 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require('./models/Recipe.model')
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require('./data')
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const recipeIt1 = {
+  "title": "Fried eggs",
+  "level": "Amateur Chef",
+  "ingredients": [
+    "Olive oil",
+    "1 egg",
+    "Salt"
+  ],
+  "cuisine": "Spanish",
+  "dishType": "other",
+  "image": "",
+  "duration": 5,
+  "creator": "All spaniards"
+}
+
+const MONGODB_URI = 'mongodb://localhost:27017/recipe-app'
+
+mongoose.set('useFindAndModify', false) // añadido por aviso en la consola
 
 // Connection to the database "recipe-app"
 mongoose
@@ -22,41 +39,27 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     // -> Iteration 2 --------------------------------------------------------
-    /* const restIt1 = {
-      "title": "Asian Glazed Chicken Thighs",
-      "level": "Amateur Chef",
-      "ingredients": [
-        "1/2 cup rice vinegar",
-        "5 tablespoons honey",
-        "1/3 cup soy sauce (such as Silver Swan®)",
-        "1/4 cup Asian (toasted) sesame oil",
-        "3 tablespoons Asian chili garlic sauce",
-        "3 tablespoons minced garlic",
-        "salt to taste",
-        "8 skinless, boneless chicken thighs"
-      ],
-      "cuisine": "Asian",
-      "dishType": "main_course",
-      "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-      "duration": 40,
-      "creator": "Chef LePapu"
-    }
-    Recipe.create(restIt1)
-    .then(recepie => console.log(restIt1.title))
-    .catch(e => console.log(e)) */
+    Recipe.create(recipeIt1)
+    .then(recepie => console.log('Action create: doc recepie ' + recipeIt1.title))
+    .catch(e => console.log(e))
 
     // -> Iteration 3 --------------------------------------------------------
     Recipe.insertMany(data)
     .then(recepies => {
       recepies.forEach(rec => console.log(rec.title))
     })
+    .then(() => { // incluyo aquí para que ya estén insertados
+        // -> Iteration 4 --------------------------------------------------------
+        Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, { $set: { duration: 100 }})
+        .then(r => console.log('Action update: Rigatoni alla Genovese duration'))
+        .catch(e => console.log(e))
+        
+        // -> Iteration 5 --------------------------------------------------------
+        Recipe.deleteOne({title: "Carrot cake"})
+        .then(r => console.log('Action deleted: Carrot cake'))
+        .catch(e => console.log(e))
+    })
     .catch(e => console.log(e))
-
-    // -> Iteration 4 --------------------------------------------------------
-    Recepie.findOneAndUpdate({title: "Rigatoni alla Genovese"}, { $set: { duration: 100 }})
-
-    // -> Iteration 5 --------------------------------------------------------
-    Recepie.deleteOne({name: "Carrot cake"})
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -39,31 +39,35 @@ mongoose
       .then((recipe) => {
         console.log(recipe.title)
       })
-      .catch((e)=> console.log("Error creating recipe", e))
-
+      .catch((e) => console.log("Error creating recipe", e))
+  
     //IT 3
     Recipe
       .insertMany(data)
       .then((recipes) => {
         recipes.forEach(recipe => console.log(recipe.title))
       })
+      .then(() => {
+        //IT 4
+        Recipe
+          .updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+          .then((recipe) => {
+            console.log('RECIPE', recipe)
+            console.log(`Changes in Rigatoni alla Genovese's recipe have been saved`)
+          })
+          .catch((e)=> console.log("Error changes in Rigatoni alla Genovese's recipe", e))
+      })
+      .then(() => {
+        //IT 5
+        Recipe
+          .deleteOne({ title: 'Carrot Cake' })
+          .then((recipe) => {
+            console.log('RECIPE', recipe)
+            console.log(`The Carrot Cake's recipe has been deleted from the DB`)
+          })
+          .catch((e)=> console.log("Error Carrot Cake no deleted", e))
+      })
       .catch((e) => console.log("Error, no recipe update", e))
-    
-    //IT 4
-    Recipe
-      .updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-      .then(recipe => {
-        console.log(`Changes in ${recipe.title} recipe have been saved`)
-      })
-      .catch((e)=> console.log("Error changes in Rigatoni alla Genovese's recipe", e))
-
-    //IT 5
-    Recipe
-      .deleteOne({ title: 'Carrot Cake' })
-      .then(recipe => {
-        console.log(`The ${recipe.title} recipe has been deleted from the DB`)
-      })
-      .catch((e)=> console.log("Error Carrot Cake no deleted", e))
 
   })
   .catch(error => {

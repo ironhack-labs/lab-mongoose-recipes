@@ -43,6 +43,16 @@ mongoose
     recipes.forEach(recipe => {
       console.log(recipe.title)
     });
+
+    Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration:100})
+    .then(recipe=>{
+      if(recipe){
+        console.log(`recipe ${recipe.title} updated`)
+      }else{
+        console.log('recipe not found')
+      }
+    })
+    
   })
   
   })

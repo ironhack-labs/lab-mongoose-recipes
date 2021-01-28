@@ -46,6 +46,15 @@ mongoose
           .then(recipe => console.log(`change done ${recipe}`))
           .catch(err => console.log(`Error updating recipe ${err}`))
       })
+      .then (() => {
+        // ITERATION 5
+        const query = { title: "Carrot Cake" };
+      
+        Recipe.deleteOne(query)
+          .then(recipe => console.log(`Recipe deleted ${recipe.title}`))
+          .catch(err => console.log(`Error deleting recipe ${err}`))
+        
+      })
   })
   .catch(error => { console.error('Error saving data', error); })
 

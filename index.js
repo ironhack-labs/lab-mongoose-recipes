@@ -21,7 +21,27 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: 'garlic mushrooms',
+      level:'Amateur Chef',
+      ingredients:['garlic','mushrooms','oil','white wine','salt'],
+      cuisine:'International',
+      dishType:'other',
+      image:'https://www.google.com/search?q=champi%C3%B1ones+al+ajillo&rlz=1C1CHBD_esES857ES857&oq=champ&aqs=chrome.4.69i59l2j69i57j46i433j0i20i263i395i433j69i60l3.8571j1j4&sourceid=chrome&ie=UTF-8',
+      duration:40,
+      creator:' my wife',
+      create: ``
+      
+    })
+  
+  .then((recipe) =>{
+    console.log(recipe.title)
   })
+  .catch((error)=>{
+    console.log(`error in ${error}` )
+  })
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

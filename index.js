@@ -32,9 +32,16 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    /* Recipe.create(recipe1)
-  .then(recipe => console.log('The Recipe is saved and its value is: ', recipe.title))
-  .catch(error => console.log('An error happened while saving a new recipe:', error)); */
+
+    //Insert one recipe
+    Recipe.create(recipe1)
+    .then(recipe => console.log('The Recipe is saved and its value is: ', recipe.title))
+    .catch(error => console.log('An error happened while saving a new recipe:', error));
+
+    //Insert many recipes from data array
+   Recipe.insertMany(data)
+  .then(data.forEach((element) => {console.log('The Recipe is saved and its value is: ', element.title)}))
+  .catch(error => console.log('An error happened while saving a new recipe:', error)); 
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

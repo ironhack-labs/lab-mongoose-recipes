@@ -21,6 +21,7 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    //Iteration 2 
     Recipe.create({
       title: `Three chocolate cake`,
       level: `Amateur Chef`,
@@ -30,18 +31,29 @@ mongoose
       image: `https://www.google.com/search?q=tarta+tres+chocolates&sxsrf=ALeKk0078xoNWcTPfj4HYlZvG5MfdAIL3A:1611854409773&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjVmpjMkb_uAhViQkEAHcO-BeoQ_AUoAnoECAkQBA&biw=1920&bih=976#imgrc=t6HGkmOiZcp2WM`,
       duration: 45,
       creator: `Carlos and my beloved thermomix`,
-      created:``
+      created: ``
     })
 
-    .then((recipe) =>{
-      console.log(recipe.title)
-    })
+      .then((recipe) => {
+        console.log(recipe.title)
+      })
 
-    .catch((error)=> {
-      console.log(`error in ${error}` )
+      .catch((error) => {
+        console.log(`error in ${error}`)
+      })
+      
+    Recipe.insertMany(data)
+    .then(recipes =>{
+      recipes.forEach((eachData)=>{
+      console.log(`recipe added with title ${eachData.title}`);
+      });
     })
-
+    .catch(error => {
+      console.log(`error the recipe was not added by ${error}`)
+    })
   })
+
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

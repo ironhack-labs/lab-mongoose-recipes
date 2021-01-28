@@ -17,7 +17,7 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    //return self.connection.dropDatabase();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
@@ -53,7 +53,7 @@ mongoose
     //   .catch(error => {
     //     console.log(`error the recipe was not added by ${error}`)
     //   })
-    //Iteration 4 findOneAndUpdate y findAndModify aparece como obsoleto...
+    // //Iteration 4 findOneAndUpdate y findAndModify aparece como obsoleto...
 
     Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 },{new: true})
       .then(update => {

@@ -37,11 +37,18 @@ mongoose
   .then((recipe) =>{
     console.log(recipe.title)
   })
-  .catch((error)=>{
-    console.log(`error in ${error}` )
+
+  Recipe.insertMany(data)
+  .then(recipes =>{
+    recipes.forEach(recipe => {
+      console.log(recipe.title)
+    });
+  })
+  
   })
 
-
+ 
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

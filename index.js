@@ -20,34 +20,35 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-//    // Run your code here, after you have insured that the connection was made
-//    ITERATION 2
-//    const recipe = new Recipe ({
-//      title: "Spaguetti",
-//      level:"Easy Peasy",
-//      Ingredients:["pasta","tomato souce"],
-//      cuisine: "Italian",
-//      dishType: "main_course",
-//      duration:30,
-//      creator:"Italian Chef"
-//      });
-//
-//    Recipe.create(recipe)
-//    .then(recipe => console.log(recipe))  
-//    .catch(err => console.log(`Error creating recipe ${err}`)
-//
-// ITERATION 3
-   Recipe.insertMany(data)
-   .then(data => console.log(`Recipes saved: `,data.map(recipe => recipe.title))
-    )
-    .catch(error =>{console.error('Error saving data', error);})
-// ITERATION 4
-  const query = {title: "Rigatoni alla Genovese"};
-  const change = {duration: 100};
-  Recipe.findOneAndUpdate(query,change)
-  .then (recipe => console.log(`change done ${recipe}`))
-  .catch(err => console.log(`Error updating recipe ${err}`))
+    //    // Run your code here, after you have insured that the connection was made
+    //    ITERATION 2
+    const recipe = new Recipe({
+      title: "Spaguetti",
+      level: "Easy Peasy",
+      Ingredients: ["pasta", "tomato souce"],
+      cuisine: "Italian",
+      dishType: "main_course",
+      duration: 30,
+      creator: "Italian Chef"
+    });
+
+    Recipe.create(recipe)
+      .then(recipe => console.log(recipe))
+      .catch(err => console.log(`Error creating recipe ${err}`));
+    // ITERATION 3
+    Recipe.insertMany(data)
+      .then(data => console.log(`Recipes saved: `, data.map(recipe => recipe.title)))
+      .then(() => {
+        // ITERATION 4
+        const query = { title: "Rigatoni alla Genovese" };
+        const change = { duration: 100 };
+        Recipe.findOneAndUpdate(query, change)
+          .then(recipe => console.log(`change done ${recipe}`))
+          .catch(err => console.log(`Error updating recipe ${err}`))
+      })
   })
+  .catch(error => { console.error('Error saving data', error); })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

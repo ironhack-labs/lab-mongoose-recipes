@@ -40,21 +40,26 @@ mongoose
       .then(data => console.log(`Recipes saved: `, data.map(recipe => recipe.title)))
       .then(() => {
         // ITERATION 4
-        const query = { title: "Rigatoni alla Genovese" };
+        let query = { title: "Rigatoni alla Genovese" };
         const change = { duration: 100 };
         Recipe.findOneAndUpdate(query, change)
-          .then(recipe => console.log(`change done ${recipe}`))
+          .then(recipe => console.log(`change done ${query.title} new duration: ${change.duration}`))
           .catch(err => console.log(`Error updating recipe ${err}`))
-      })
-      .then (() => {
-        // ITERATION 5
-        const query = { title: "Carrot Cake" };
-      
+        // ITERATION 5          
+        query = { title: "Carrot Cake" };
+
         Recipe.deleteOne(query)
-          .then(recipe => console.log(`Recipe deleted ${recipe.title}`))
+          .then(recipe => console.log(`Recipe deleted ${query.title} `))
           .catch(err => console.log(`Error deleting recipe ${err}`))
-        
+          // ITERATION 6
+          .finally(() => {
+            mongoose.connection
+              .close()
+              .then(() => console.log("Database close"))
+              .then(() => process.exit());
+          })
       })
+
   })
   .catch(error => { console.error('Error saving data', error); })
 

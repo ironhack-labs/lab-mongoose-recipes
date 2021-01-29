@@ -31,6 +31,6 @@ const recipeSchema = new Schema({
   }
 });
 
-const Recipe = mongoose.model('Recipe', recipeSchema); //(Name of collection // name of the Schema)
+const Recipe = mongoose.model('Recipe', recipeSchema); //(Model name (Singular because the collection will be plural) // name of the Schema)
 
 module.exports = Recipe;

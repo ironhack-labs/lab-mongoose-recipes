@@ -35,14 +35,38 @@ mongoose
 
     //Insert one recipe
     Recipe.create(recipe1)
-    .then(recipe => console.log('The Recipe is saved and its value is: ', recipe.title))
-    .catch(error => console.log('An error happened while saving a new recipe:', error));
+      .then(recipe => console.log('The Recipe is saved and its value is: ', recipe.title)) //Recipe is the model name
+      .catch(error => console.log('An error happened while saving a new recipe:', error));
 
     //Insert many recipes from data array
-   Recipe.insertMany(data)
-  .then(data.forEach((element) => {console.log('The Recipe is saved and its value is: ', element.title)}))
-  .catch(error => console.log('An error happened while saving a new recipe:', error)); 
+    Recipe.insertMany(data)
+      .then(data.forEach((element) => {console.log('The Recipe is saved and its value is: ', element.title)}))
+      .catch(error => console.log('An error happened while saving a new recipe:', error)); 
+
+
   })
+
+  .then(() => { 
+
+    //Recipe update
+      Recipe
+      .updateOne({title:"Rigatoni alla Genovese"},{ duration: 100})
+      .then(console.log(`The recipe has been updated `))
+      .catch(error => console.log('An error happened while updating :', error));  
+      
+      
+      Recipe
+      .deleteOne({ title: 'Carrot Cake' })
+      .then(() => console.log('The recipe has been deleted'))
+      .catch(error => console.error(error))
+  })
+
+  
+ 
+
+ 
+
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

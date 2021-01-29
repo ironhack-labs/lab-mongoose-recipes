@@ -52,6 +52,17 @@ mongoose
         console.log('recipe not found')
       }
     })
+
+    Recipe.deleteOne({name: "Carrot Cake"})
+    .then(()=>{
+      console.log(`recipe deleted`)
+      mongoose.connection.close()
+    })
+    .catch(err =>{
+      console.log(err)
+    })
+      
+    
     
   })
   

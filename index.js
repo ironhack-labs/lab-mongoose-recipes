@@ -1,11 +1,23 @@
+/*require("dotenv").config()
+const result = dotenv.config()
+ 
+if (result.error) {
+  throw result.error
+} */
+
+
+require("./config/db.config")
 const mongoose = require('mongoose');
 
+const process= require("process")
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+
+
 
 const recipe1 = {
   title: 'Tortilla de patatas',

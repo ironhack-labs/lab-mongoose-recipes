@@ -17,11 +17,11 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    //return self.connection.dropDatabase();
+    // return self.connection.dropDatabase();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    //Iteration 2 
+    // Iteration 2 
     // Recipe.create({
     //   title: `Three chocolate cake`,
     //   level: `Amateur Chef`,
@@ -42,7 +42,7 @@ mongoose
     //     console.log(`error in ${error}`)
     //   })
 
-    // //Iteration 3
+    // // //Iteration 3
 
     // Recipe.insertMany(data)
     //   .then(recipes => {
@@ -53,14 +53,22 @@ mongoose
     //   .catch(error => {
     //     console.log(`error the recipe was not added by ${error}`)
     //   })
-    // //Iteration 4 findOneAndUpdate y findAndModify aparece como obsoleto...
+    // // //Iteration 4 findOneAndUpdate y findAndModify aparece como obsoleto...
 
-    Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 },{new: true})
-      .then(update => {
-        console.log(`Correctly changed time to ${update}`)
+    // Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 },{new: true})
+    //   .then(update => {
+    //     console.log(`Correctly changed time to ${update}`)
+    //   })
+    //   .catch(err => {
+    //     console.log(`The data has not been changed by ...${err}`)
+    //   })
+     //Iteration 5 
+      Recipe.deleteOne({title:`Carrot Cake`}, {new: true})
+      .then(recipe => {
+        console.log(`The recipe ${recipe.title} has been deleted from the database`)
       })
-      .catch(err => {
-        console.log(`The data has not been changed by ...${err}`)
+      .cath(err =>{
+        console.log(`The recipe could not be deleted for the following reason ${err}`)
       })
   })
 

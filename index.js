@@ -77,3 +77,12 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+  process.on("SIGINT", ()=> {
+  mongoose.connection
+  .close()
+  .then(()=> console.log ("Sucessfully disconnected from the DB"))
+  .catch((e)=> console.error ("Error disconnecting from the DB",e))
+  .finally(()=> process.exit());
+  })

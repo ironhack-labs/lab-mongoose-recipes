@@ -9,7 +9,7 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI, {
+  .connect(process.env.MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true

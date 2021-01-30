@@ -9,6 +9,7 @@ const Recipe = require('./models/Recipe.model');
 const data = require('./data/data');
 const personalData = require('./data/personalRecipe');
 
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -24,10 +25,48 @@ mongoose
   .then(() => {
 
     Recipe.create(personalData)
-    .then(recipe => console.log('The recipe is saved and its value is: ', recipe.title))
+    .then(recipe => console.log(`New recipe added: ${recipe.title}`))
     .catch(error => console.log('An error happened while saving a new recipe:', error));
 
   })
+  .then(() => {
+
+    Recipe.insertMany(data)
+    .then(recipe => {
+      recipe.forEach(rec => console.log(`New recipe added: ${rec.title}`))
+      })
+    .catch(error => console.log('An error happened while saving new recipes:', error));
+
+  })
+
+  .then(() => {
+    Recipe.updateOne({title: 'Rigatoni alla Genovese'}, { duration: '100' })
+    .then(console.log('Update done!'))
+    .catch(error => console.log('An error happened while updating:', error));
+
+  })
+
+  .then(() => {
+
+    Recipe.deleteOne({name: 'Carrot Cake' })
+    .then(console.log('delete done!'))
+    .catch(error => console.log('An error happened while deleting:', error));
+
+  })
+  
+  /* .then(() => {
+    console.error('Conexion to db closed');
+    mongoose.connection.close()
+  }) */
+
   .catch(error => {
-    console.error('Error connecting to the database', error);
+    console.error('Error connecting to the database', error)
   });
+
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose disconnected through app termination')
+      process.exit(0)
+    })
+  })
+

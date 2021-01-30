@@ -1,0 +1,12 @@
+{
+    "title": "Melón con jamón",
+    "level": "Universitario",
+    "ingredients": [
+        "melón",
+        "jamón"
+        ],
+    "cuisine": "Mediterránea",
+    "dishType": "snack",
+    "duration": "3",
+    "creator": "Chef Diego"
+}

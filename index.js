@@ -1,11 +1,13 @@
+require('dotenv').config()
+
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
-// Import of the data from './data.json'
-const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+// Import of the data from './data'
+const data = require('./data/data');
+const personalData = require('./data/personalRecipe');
 
 // Connection to the database "recipe-app"
 mongoose
@@ -20,7 +22,11 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+    Recipe.create(personalData)
+    .then(recipe => console.log('The recipe is saved and its value is: ', recipe.title))
+    .catch(error => console.log('An error happened while saving a new recipe:', error));
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

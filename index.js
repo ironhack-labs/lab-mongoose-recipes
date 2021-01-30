@@ -39,14 +39,15 @@ mongoose
       .then((recipe) => {
         console.log(recipe.title)
       })
-      .catch((e) => console.log("Error creating recipe", e))
-  
-    //IT 3
-    Recipe
-      .insertMany(data)
-      .then((recipes) => {
-        recipes.forEach(recipe => console.log(recipe.title))
-      })
+      .then(() => {
+        //IT 3
+        Recipe
+          .insertMany(data)
+          .then((recipes) => {
+            recipes.forEach(recipe => console.log(recipe.title))
+          })
+          .catch((e) => console.log("Error, no recipe update", e))
+      
       .then(() => {
         //IT 4
         Recipe
@@ -66,8 +67,9 @@ mongoose
             console.log(`The Carrot Cake's recipe has been deleted from the DB`)
           })
           .catch((e)=> console.log("Error Carrot Cake no deleted", e))
+        })
       })
-      .catch((e) => console.log("Error, no recipe update", e))
+      .catch((e) => console.log("Error creating recipe", e))
 
   })
   .catch(error => {

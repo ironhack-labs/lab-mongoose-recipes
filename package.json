@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "mongodb": "^3.6.3",
     "mongoose": "^5.8.9"
   },
   "devDependencies": {

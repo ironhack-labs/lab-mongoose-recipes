@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
 const data = require("./data.json");
+const {
+  deleteOne
+} = require("./models/Recipe.model");
 
 const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
@@ -34,7 +37,7 @@ mongoose
       cuisine: "Venezuelan food",
       dishType: "main_course",
       image: "https://d1kxxrc2vqy8oa.cloudfront.net/wp-content/uploads/2019/09/27092651/RFB-2409-1-pabelloncriollo.jpg",
-      duration:60 ,
+      duration: 60,
       creator: "Pedro Frias",
     }).then((recipe) => {
       console.log(`${recipe.title} recipe added`);
@@ -46,15 +49,34 @@ mongoose
             console.log(`${index+1}-${recipe.title} added`);
           });
         })
-        .then(()=> {
+        .then(() => {
           Recipe
-          .findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration:100},{useFindAndModify:false, new:true})
-          .then((recipe) => console.log(`${recipe.title} duration updated to ${recipe.duration}`))                    
+            .findOneAndUpdate({
+              title: "Rigatoni alla Genovese"
+            }, {
+              duration: 100
+            }, {
+              useFindAndModify: false,
+              new: true
+            })
+            .then((recipe) => console.log(`${recipe.title} duration updated to ${recipe.duration}`))
+        })
+        .then(() => {
+          Recipe
+            .deleteOne({
+              title: "Carrot Cake"
+            })
+            .then((recipe) =>
+              console.log(`${recipe.deletedCount} recipe Successfully deleted`)
+            )
+            .then(() => {
+              mongoose.connection.close()
+                .then(() => console.log("Successfully disconected"));
+            })
         })
     });
     // Run your code here, after you have insured that the connection was made
   })
-
   .catch((error) => {
     console.error("Error connecting to the database", error);
-  });
+  })

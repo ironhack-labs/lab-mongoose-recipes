@@ -20,6 +20,20 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
+
+    Recipe
+      .create({
+      title: "Pabellon",
+      level: "Amateur Chef",
+      ingredients: ["Rice", "Meat", "Platain", "Black beans", "Cylantro", "Egg"],
+      cuisine: "Venezuelan food",
+      dishType: "main_course",
+      image:
+        "https://d1kxxrc2vqy8oa.cloudfront.net/wp-content/uploads/2019/09/27092651/RFB-2409-1-pabelloncriollo.jpg",
+      duration: 1,
+      creator: "Pedro Frias",
+    })
+      .then((recipe) => console.log(`${recipe.title} recipe added`))
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {

@@ -71,7 +71,7 @@ mongoose
             )
             .then(() => {
               mongoose.connection.close()
-                .then(() => console.log("Successfully disconected"));
+                .then(() => console.log( `Successfully disconected from the data base`));
             })
         })
     });

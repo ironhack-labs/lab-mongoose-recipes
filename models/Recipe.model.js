@@ -36,7 +36,7 @@ const recipeSchema = new Schema({
   },
   created: {
     type: Date,
-    default: "2021-02-03"
+    default: '2021-02-03'
   }
 });
 

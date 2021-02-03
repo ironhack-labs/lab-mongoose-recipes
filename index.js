@@ -30,11 +30,26 @@ mongoose
       duration: 30,
       creator: "Chef Abel",
     })
-      .then(newRecipe => console.log("Estamos viendo la nueva receta", newRecipe, "con titulo", newRecipe.title));
-    
-    
-    
-  })
+  //     .then(newRecipe => {
+  //       console.log("Estamos viendo la nueva receta", newRecipe, "con titulo", newRecipe.title)
+  //       Recipe.insertMany(data)
+  //         .then(arrRecipes => {
+  //           console.log(arrRecipes)
+            
+  //       })
+  //     })
+  // })
+      .then(newRecipe => console.log("Estamos viendo la nueva receta", newRecipe, "con titulo", newRecipe.title))
+      .then(() => Recipe.insertMany(data))
+      .then(arrRecipes => {
+        arrRecipes.forEach(element => {
+          console.log(element.title)
+        });
+      })
+      
+      
+    })
+      
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -34,14 +34,10 @@ mongoose
   .then(() => {
     Recipe
       .deleteOne({ title: 'Carrot Cake' })
-      .then(deletedRecipe => console.log(`Success! ${deletedRecipe.deletedCount} recipe deleted.`))
-  })
-  .then(async () => {           // he probado de todo pero me rindo....
-    try {
-      await mongoose.disconnect(() => console.log('Disconnected from the database.'))
-    } catch (error) {
-      console.log('ERROR', error)
-    }
+      .then(deletedRecipe => {
+        console.log(`Success! ${deletedRecipe.deletedCount} recipe deleted.`)
+        mongoose.disconnect(() => console.log('Disconnected from the database.'))
+      })
   })
   .catch(error => {
     console.error('Error connecting to the database', error)

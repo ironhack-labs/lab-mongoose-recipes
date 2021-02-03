@@ -31,7 +31,11 @@ mongoose
           Recipe.findOneAndUpdate( { title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
             .then(newDuration => {
               console.log(`Duration of ${newDuration.title} updated to`, newDuration.duration)
-              .then()
+              Recipe.deleteOne({ title : "Carrot Cake" })
+                .then(recipe => {
+                  console.log(recipe, "deleted successfully")
+                  mongoose.disconnect(() => console.log("Disconnected!!!"))
+                })
             })
         })
       })

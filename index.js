@@ -20,8 +20,19 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe
+      .create({ title: "Arepa", level: "Easy Peasy", ingredients: ["Harina Pan", "sal", "agua"], cuisine: "venezolana", dishType: "breakfast", image: "https://www.recetasderechupete.com/wp-content/uploads/2019/11/Tipos-de-arepa-2-768x527.jpg", duration: 30}
+      )
+      .then(theNewRecipe => console.log("New recipe: ", theNewRecipe.title))
+      Recipe
+        .insertMany(data, function(error,result) {
+          if (error) {console.log(error)
+          } else {
+            data.forEach(elm => console.log("New recipe: ", elm.title ))
+          }
+        })
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

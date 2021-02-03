@@ -21,6 +21,47 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // EJERCICIO 2 Crea una receta
+    Recipe
+      .create({
+        "title": "Tacos al pastor",
+        "level": "UltraPro Chef",
+        "ingredients": [
+          "tortillas de maíz",
+          "cerdo",
+          "...y muchos ingredientes secretos",
+        ],
+        "cuisine": "Mexican Power",
+        "dishType": "main_course",
+        "image": "https://images.media-allrecipes.com/images/75131.jpg",
+        "duration": 240,
+        "creator": "Le Monch"
+      })
+      .then(recipe => console.log(recipe))
+  })
+
+
+  // EJERCICIO 3, 4 y 5
+  .then(() => {
+    Recipe
+      .insertMany(data)
+      .then(recipes => {
+        recipes.forEach((recipe) => {
+          console.log(`Title: ${recipe.title}`)
+          Recipe
+            .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true })
+            .then(newRecipe => {
+              console.log(`Well done Monch, the duration has been changed!`, newRecipe)
+              Recipe
+                .deleteOne({ title: 'Carrot Cake' })
+                .then(deleteRecipe => console.log('Well done Monch, the recipe has been removed!', deleteRecipe))
+              mongoose.disconnect(() => {
+                console.log('Mongoose default connection disconnected through app termination')
+
+              })
+            })
+        })
+      })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

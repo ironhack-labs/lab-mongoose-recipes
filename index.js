@@ -59,8 +59,11 @@ mongoose
       )
       .then(() =>
         Recipe.deleteOne({ title: "Carrot Cake" }, (err, result) => {
-          if (err) console.log(err);
-          console.log("Recipe deleted successfully!");
+          if (result.deletedCount === 1) {
+            console.log("Recipe deleted successfully!");
+          } else if (err) {
+            throw err;
+          }
         })
       );
   })

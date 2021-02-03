@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { updateOne } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -20,7 +21,52 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+    /******-----NEW SINGLE RECIPE-----******/
+    
+    // // Comented as stated instructions in lab (no duplicates allowed)
+    // Recipe
+    //   .create({
+    //     title: 'Tortilla de Patata',
+    //     level: 'Amateur Chef',
+    //     ingredients: ['Olive Oil', '7 Eggs', '4 Potato', '1 Onion', 'Salt'],
+    //     cuisine: 'Spanish',
+    //     dishType: 'other',
+    //     duration: 45,
+    //     creator: 'Spanish Culture',
+    //   })
+    //   .then(NewRecipeInfo => console.log('The new recipe created is:', NewRecipeInfo.title))
+    //   .catch(err => console.log('Error: ', err))
+
+    /******-----INSERTING data.json TO THE DBASE-----******/
+    Recipe
+      .insertMany(data)
+
+      .then(newRecipesInfo => {
+        newRecipesInfo.forEach(elm => console.log('New recipe', elm.title, 'created'))
+        return Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+      })
+
+      /*-----UPDATING RIGATONI-----*/
+      .then(updatedRigatoniDuration => {
+        updatedRigatoniDuration
+        console.log("The Rigatoni alla Genovese duration was updated to 100")
+        return Recipe.deleteOne({title: 'Carrot Cake'})
+      })
+
+      /*-----DELETING CARROT CAKE-----*/
+      .then(deleteCarrotCake => {
+        deleteCarrotCake
+        console.log('The recipe Carrot Cake was deleted')
+        return mongoose.connection.close()
+      })
+
+      /*-----CLOSING DB-----*/
+      .then(closeDB => {
+        closeDB
+        console.log('The DB is closed')
+      })
+      .catch(err => console.log('Error: ', err))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

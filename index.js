@@ -7,6 +7,7 @@ const data = require("./data");
 
 const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
+mongoose.set("useFindAndModify", false);
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -36,12 +37,25 @@ mongoose
       duration: 23,
       creator: "Barbara Diaz",
       created: new Date("2020-10-13"),
-    }).then((recipe) => console.log(recipe.title));
-  })
-  .then(() => {
-    Recipe.insertMany(data).then((insertedRecipes) => {
-      insertedRecipes.forEach((recipe) => console.log(recipe.title));
-    });
+    })
+      .then((recipe) => console.log(recipe.title))
+      .then(() => {
+        Recipe.insertMany(data)
+          .then((insertedRecipes) => {
+            insertedRecipes.forEach((recipe) => console.log(recipe.title));
+          })
+          .then(() => {
+            Recipe.findOneAndUpdate(
+              { title: "Rigatoni alla Genovese" },
+              { duration: 100 },
+              { new: true }
+            ).then((document) =>
+              console.log(
+                `Recipe ${document.title} duration was successfully updated to ${document.duration} minutes!`
+              )
+            );
+          });
+      });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

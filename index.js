@@ -56,13 +56,14 @@ mongoose
           .then((recipes) => {
             recipes.forEach(recipes => {
               console.log(recipes.title)
-            })
+            }) 
+            //.then(() => {
             Recipe.findOneAndUpdate(
               { title: "Rigatoni alla Genovese" }, { duration: 100 })
               .then(() => {
                 console.log("Rigatoni alla Genovese duration is update")
               })
-
+            //.then(() => {
             Recipe.deleteOne({ title: "Carrot Cake" })
               .then(() => {
                 console.log("Carrot Cake was deleted")

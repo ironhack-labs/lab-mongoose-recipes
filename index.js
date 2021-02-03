@@ -39,23 +39,30 @@ mongoose
       created: new Date("2020-10-13"),
     })
       .then((recipe) => console.log(recipe.title))
-      .then(() => {
-        Recipe.insertMany(data)
-          .then((insertedRecipes) => {
-            insertedRecipes.forEach((recipe) => console.log(recipe.title));
-          })
-          .then(() => {
-            Recipe.findOneAndUpdate(
-              { title: "Rigatoni alla Genovese" },
-              { duration: 100 },
-              { new: true }
-            ).then((document) =>
-              console.log(
-                `Recipe ${document.title} duration was successfully updated to ${document.duration} minutes!`
-              )
-            );
-          });
-      });
+      .then(() =>
+        Recipe.insertMany(data).then((insertedRecipes) =>
+          insertedRecipes.forEach((recipe) => console.log(recipe.title))
+        )
+      )
+      .then(() =>
+        Recipe.findOneAndUpdate(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 },
+          { new: true }
+        )
+      )
+      .then((updatedRecipe) =>
+        console.log(
+          `Recipe ${updatedRecipe.title} duration was successfully updated to ${updatedRecipe.duration} minutes!`
+        )
+      )
+      .then(() =>
+        Recipe.deleteOne({ title: "Carrot Cake" }, (err, result) => {
+          if (err) console.log(err);
+          console.log("Recipe deleted successfully!");
+        })
+      )
+      .then(() => mongoose.connection.close());
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

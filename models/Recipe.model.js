@@ -13,9 +13,7 @@ const recipeSchema = new Schema({
     enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"],
   },
 
-  ingredients: {
-    type: [String],
-  },
+  ingredients: [String],
 
   cuisine: {
     type: String,
@@ -38,6 +36,18 @@ const recipeSchema = new Schema({
   image: {
     type: String,
     default: "https://images.media-allrecipes.com/images/75131.jpg",
+  },
+
+  duration: {
+    type: Number,
+    min: 0,
+  },
+
+  creator: String,
+
+  created: {
+    type: Date,
+    default: new Date(),
   },
 });
 

@@ -39,17 +39,19 @@ mongoose
   //       })
   //     })
   // })
-      .then(newRecipe => console.log("Estamos viendo la nueva receta", newRecipe, "con titulo", newRecipe.title))
-      .then(() => Recipe.insertMany(data))
-      .then(arrRecipes => {
-        arrRecipes.forEach(element => {
-          console.log(element.title)
-        });
-      })
-      
-      
-    })
-      
+  .then(newRecipe => console.log("Estamos viendo la nueva receta", newRecipe, "con titulo", newRecipe.title))
+  .then(() => Recipe.insertMany(data))
+  .then(arrRecipes => {
+    arrRecipes.forEach(element => {
+      console.log(element.title)
+    });
+  })
+  .then(() => Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true }))
+  .then(newDuration => console.log(newDuration))
+  .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
+  .then(deletedRecipe => console.log(deletedRecipe))
   .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    console.error('Error connecting to the database', error);  
+  })
+  .then(() => mongoose.disconnect())
+  })

@@ -38,8 +38,9 @@ const recipeSchema = new Schema({
 })
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
+// observacion para mi: el 'Recipe' = el nombre de la colección yo se lo doy en este momento, 
+//bajo este nombre es que lo busco en el mongoshell
+//El segundo parametro es siempre el nombre del esquema
 
 module.exports = Recipe;
 //model('Recipe', recipeSchema);
-
-module.exports = Recipe;

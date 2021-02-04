@@ -18,10 +18,11 @@ mongoose
     console.log(`Connected to the database: "${self.connection.name}"`);
     return self.connection.dropDatabase();
   })
-  .then((self) => {
+  .then(() => {
     return Recipe.insertMany(data);
   })
   .then((recipesCreated) => {
+    console.log(recipesCreated);
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 },

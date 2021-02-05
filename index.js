@@ -76,9 +76,9 @@ app.get("/updatedrecipe", async ()=>{
 //Ireatio 5 Remove recipe y 6 apagar
 
 app.get("/removerecipe", async () => {
-  await Recipe.deleteOne()
-      {title: "Carrot Cake"}
+  await Recipe.deleteOne({title: "Carrot Cake"})   
   await console.log("removed succesfully")
+  
    mongoose.connection.close()
   })
 

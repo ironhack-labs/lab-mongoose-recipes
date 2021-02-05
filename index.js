@@ -25,3 +25,15 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+Recipe.create({
+  title: "Pizza",
+  level: "UltraPro Chef",
+  ingredients: ["Tomato", "Mozzarella", "Meal"],
+  cuisine: "Italian",
+  dishType: "main_course",
+  duration: 20,
+  creator: "Hai and Simone"
+})
+

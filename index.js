@@ -80,9 +80,8 @@ mongoose
   })
 
   app.get("/ciao", () => {
-    Recipe.deleteOne({ name: "Carrot Cake" }).then((message) => {
-            console.log(message)
-        })
+    Recipe.deleteOne({ name: "Carrot Cake" })
+    .then( console.log("listo , borrado"))
         
 })
 

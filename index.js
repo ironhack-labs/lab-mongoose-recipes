@@ -20,7 +20,47 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Create new Recipe
+    Recipe.create({
+      title: 'Margarita',
+      level: 'Easy Peasy',
+      ingredients: ['1 1/2 ounces silver tequila',
+        '1 ounce orange liqueur (Cointreau, Grand Marnier or Triple Sec)',
+        '3/4 ounce freshly-squeezed lime juice',
+        'optional sweetener: agave nectar or simple syrup, to taste',
+        'ice',
+        'optional: lime wedge and coarse salt for rimming the glass'],
+      cuisine: 'Mexican',
+      dishType: 'drink',
+      image: 'https://www.gimmesomeoven.com/wp-content/uploads/2015/05/Classic-Margarita-Recipe-4.jpg',
+      duration: 5,
+      creator: 'Patrick'
+    })
+      .then(recipe => {
+        console.log(`New recipe: ${recipe.title} added`)
+      })
+      .then(() => {
+        // Insert recipes from json file
+        Recipe.insertMany(data)
+          .then(recipes => recipes.forEach(recipe => console.log(`New recipe: ${recipe.title}' is added`)))
+          .then(() => {
+            // Update Rigatoni alla Genovese
+            Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+              .then(recipe => console.log(`'${recipe.title}' is successfully updated`))
+              .catch(error => console.log('Error updating a recipe', error));
+            // Delete carrot cake  
+            Recipe.deleteOne({ title: "Carrot Cake" })
+              .then(result => {
+                if (result.deletedCount > 0) console.log('Successfully deleted recipe');
+                else console.log("Recipe not found, make sure you entered the correct title");
+                // Close the database
+                mongoose.connection.close();
+              })
+              .catch(error => console.log('Error deleting a recipe', error));
+          })
+          .catch(error => console.log('Error creating new recipes', error));
+      })
+      .catch(error => console.log('Error creating new recipes', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

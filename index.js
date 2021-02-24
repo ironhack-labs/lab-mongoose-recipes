@@ -25,3 +25,39 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  function createRecipe(infos) {
+    const {title, level, ingredients, cuisine, dishType, image, duration, creator, created } = infos;
+    Recipe.create({
+      title,
+      level,
+      ingredients,
+      cuisine,
+      dishType,
+      image,
+      duration,
+      creator,
+      created
+    })
+      .then((dbRecipeSuccess) => {
+        console.log(dbRecipeSuccess);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  createRecipe({
+    title: "dhal",
+    level: "Easy Peasy",
+    ingredients: ["lentils", "ginger", "onions", "tomato", "coconut cream"],
+    cuisine: "indian",
+    dishType: "main_course",
+    image: "https://www.kyleecooks.com/wp-content/uploads/2017/12/Spiced-Red-Lentil-Dhal-6-1024x683.jpg",
+    duration: 20,
+    creator: "Myriam",
+    created: 24-02-2021,
+  })
+  // const dhalSchema = new recipeSchema({
+
+  // })

@@ -46,7 +46,7 @@ mongoose
       "duration": 130,
       "creator": "Chef Nadia"
     })
-    .then(recipe =>{
+    .then(recipe => {
       console.log(`newRecipe: ${recipe.title}`)
     })
   }
@@ -56,16 +56,22 @@ mongoose
   });
 
 
-  /* ITERATION 3
+  // ITERATION 3
 
-  Recipe.insertMany(recipes) 
-//const arr = [{ name: 'Star Wars' }, { name: 'The Empire Strikes Back' }];
-//Movies.insertMany(arr, function(error, docs) {});
+recipe.insertMany(data)
+    .then(recipes => {
+      recipes.forEach(recipe => {
+        console.log(`recipe ${recipe.title}`)
+      })
+.catch(error => {
+  console.error('Error connecting to the database', error);
+})
 
-      .then((result) => {
-        result.map((recipeSchema) => {
-          console.log(recipeSchema.title);
-        })
-        .catch(error => {
-          console.error('Error connecting to the database', error);
-        }); */
+
+/*ITERATION 4
+
+recipe.findOneAndUpdate(data)
+.then((result) => {
+
+}
+Model.findOneAndUpdate(query, { $set: { name: 'jason bourne' }}, options, callback) */

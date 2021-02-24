@@ -26,9 +26,19 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-  function createRecipe(infos) {
-    const {title, level, ingredients, cuisine, dishType, image, duration, creator, created } = infos;
-    Recipe.create({
+function createRecipe(infos) {
+  const {
+    title,
+    level,
+    ingredients,
+    cuisine,
+    dishType,
+    image,
+    duration,
+    creator,
+    created
+  } = infos;
+  Recipe.create({
       title,
       level,
       ingredients,
@@ -39,25 +49,92 @@ mongoose
       creator,
       created
     })
-      .then((dbRecipeSuccess) => {
-        console.log(dbRecipeSuccess);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    .then((dbRecipeSuccess) => {
+      console.log(title)
+      console.log(dbRecipeSuccess);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
-  createRecipe({
-    title: "dhal",
-    level: "Easy Peasy",
-    ingredients: ["lentils", "ginger", "onions", "tomato", "coconut cream"],
-    cuisine: "indian",
-    dishType: "main_course",
-    image: "https://www.kyleecooks.com/wp-content/uploads/2017/12/Spiced-Red-Lentil-Dhal-6-1024x683.jpg",
-    duration: 20,
-    creator: "Myriam",
-    created: 24-02-2021,
-  })
-  // const dhalSchema = new recipeSchema({
+// createRecipe({
+//   title: "dhal",
+//   level: "Easy Peasy",
+//   ingredients: ["lentils", "ginger", "onions", "tomato", "coconut cream"],
+//   cuisine: "indian",
+//   dishType: "main_course",
+//   image: "https://www.kyleecooks.com/wp-content/uploads/2017/12/Spiced-Red-Lentil-Dhal-6-1024x683.jpg",
+//   duration: 20,
+//   creator: "Myriam",
+//   created: Date.now(),
+// })
 
-  // })
+const recipesList = require('./data.json');
+
+function insertRecipe(data) {
+  Recipe.insertMany(data)
+    .then((dbRecipeSuccess) => {
+      // console.log(dbRecipeSuccess);
+      dbRecipeSuccess.forEach(element => console.log(element.title));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+insertRecipe(recipesList);
+
+
+
+function updateRecipe(recipeTitle, nameOfFieldToUpdate, updatedInfo) {
+
+  const filter = {
+    title: recipeTitle
+  };
+  const update = {
+    [nameOfFieldToUpdate]: updatedInfo
+  };
+  Recipe.findOneAndUpdate(filter, update)
+    .then(
+      console.log("UPDATE WORKED :D")
+    )
+    .catch((err) => {
+      console.log(err);
+    });
+
+  console.log("ici");
+  console.log("la");
+
+}
+setTimeout(() => {
+  updateRecipe("Rigatoni alla Genovese", "duration", 100);
+}, 2000);
+
+function deleteRecipe(recipeTitle) {
+  Recipe.deleteOne({
+      title: recipeTitle
+    })
+    .then(
+      console.log("successfully removed!")
+    )
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+setTimeout(() => {
+  deleteRecipe("Carrot Cake");
+}, 2000);
+
+setTimeout(() => {
+  mongoose.connection.close()
+    .then(
+      console.log("mongoose connection successfully closed!")
+    )
+    .catch((err) => {
+console.log(err);
+    })
+}, 8000)
+
+;

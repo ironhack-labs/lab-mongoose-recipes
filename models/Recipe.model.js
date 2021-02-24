@@ -20,7 +20,7 @@ const recipeSchema = new Schema({
     type: String,
     enum: [
       "breakfast",
-      "main-course",
+      "main_course",
       "soup",
       "snack",
       "drink",

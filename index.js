@@ -39,7 +39,7 @@ mongoose
         "cheese"
       ],
       "cuisine": "Greek",
-      "dishType": "main-course",
+      "dishType": "main_course",
       "image": "http/www.hellomousaka.png",
       "duration": 80,
       "creator": "Chef Amalia"
@@ -48,6 +48,11 @@ mongoose
     .catch(error => console.log('An error happened while saving a new recipe:', error));
     console.log(mousakaRecipe.title);
    // return createRecipes; 2nd way to add a recipe: found by luck 
+  })
+  .then(() => {
+
+    const insertManyRecipes = Recipe.insertMany(data).then(recipe => console.log('The recipe is saved and its value is: ', recipe))
+    .catch(error => console.log('An error happened while saving a new recipe:', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

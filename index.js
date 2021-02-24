@@ -50,3 +50,14 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  Recipe.insertMany(data, (error, recipe) => {
+    if (error) {
+      console.log('An error happened:', error);
+      return;
+    }
+    console.log('The recipe is saved and its value is: ', recipe);
+  });
+  Recipe.insertMany(data)
+  .then(recipe => console.log('The recipe is saved and its value is: ', recipe))
+  .catch(error => console.log('An error happened while saving a new recipe:', error));

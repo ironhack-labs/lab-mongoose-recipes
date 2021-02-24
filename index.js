@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require('./models/Recipe.model.js')
+
 // Import of the data from './data.json'
 const data = require('./data');
 
@@ -16,12 +16,25 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
+  
     return self.connection.dropDatabase();
   })
   .then(() => {
+   function getRecipeTitles (recipes){
+const {title} = recipes;
+Recipe.create({title});
+console.log(title);
+   }
+     
+   
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  Recipe.deleteOne({title:"Carrot Cake"})
+  .then(successCallback)
+  .catch(errorCallback);
+
+Recipe.insertMany 

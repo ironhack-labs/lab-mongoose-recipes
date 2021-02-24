@@ -25,3 +25,23 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+const ome = { 
+  title:"omelette",
+  level: "Easy Peasy",
+  ingredients:["eggs", "oil"],
+  dishType: "main-course",
+  duration: 5,
+  creator: "Adri"
+};
+
+  Recipe.create(ome, (error, recipe) => {
+    if (error) {
+      console.log('An error happened:', error);
+      return;
+    }
+    console.log('new recipe saved and value is', recipe);
+    return;
+  });
+
+  console.log(ome);

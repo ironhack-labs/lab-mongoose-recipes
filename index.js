@@ -31,7 +31,8 @@ mongoose
   .then(async () => {
     // Run your code here, after you have insured that the connection was made
     try {
-      await Recipe.create(pizza);
+      const createPizza = await Recipe.create(pizza);
+      console.log(createPizza.title);
       await Recipe.insertMany(dataRecipes);
       await Recipe.findOneAndUpdate({title : 'Rigatoni alla Genovese'}, {duration: 100});
       await Recipe.deleteOne({title: 'Carrot Cake'});

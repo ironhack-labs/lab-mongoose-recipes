@@ -7,6 +7,20 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+const cake = {
+  title: "cake",
+  name: "cheese",
+  level: "Amateur Chef",
+  ingredients: ["butter",
+  "suger",
+  "cheese"],
+  cuisine: "french",
+  dishType: "desert",
+  image: "default",
+  duration: 50,
+  creator: "Nao" 
+}
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -21,7 +35,27 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+
+  Recipe.create(cake, (error, recipe) => {
+      if (error) {
+        console.log('An error happened:', error);
+        return;
+      }
+      console.log('The recipe is saved and its value is: ', recipe);
+    });
+
+  Recipe.create(cake)
+  .then(recipe => console.log("Here is the recipe:", recipe))
+  .catch(error => console.log('An error happened while saving a new user:', error));
+
+  Recipe.insertMany(data, (error, recipe) => {
+    if (error) {
+      console.log('An error happened:', error);
+      return;
+    }
+    console.log('The recipe is saved and its value is: ', recipe);
   });
+  
+  Recipe.insertMany(data)
+  .then(recipe => console.log('The recipe is saved and its value is: ', recipe))
+  .catch(error => console.log('An error happened while saving a new recipe:', error));

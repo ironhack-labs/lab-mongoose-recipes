@@ -19,9 +19,51 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
+  
+  function recipeCreate(infos) {
+    const {
+      title,
+      level,
+      ingredients,
+      cuisine,
+      dishType,
+      image,
+      duration,
+      creator,
+      created,
+    } = infos;
+    Recipe.create({
+      title,
+      level,
+      ingredients,
+      cuisine,
+      dishType,
+      image,
+      duration,
+      creator,
+      created,
+    })
+  
+  .then((dbSuccess) => {
     // Run your code here, after you have insured that the connection was made
+    console.log(dbSuccess)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })};
+
+
+  recipeCreate({
+    title: "Ceviche",
+    level: "Amateur Chef",
+    ingredients: ["tomato", "oignon", "shrimp", "orange juice", "lemon"],
+    cuisine: "ecuadorian",
+    dishType: "main_course",
+    image: "https://images.media-allrecipes.com/images/75131.jpg",
+    duration: 45,
+    creator: "Chef Juan",
+    created: Date.now()
+  })
+
+
+  // Recipe.insertMany(data).then(docs => docs).catch(error=>error)

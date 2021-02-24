@@ -1,12 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 
-mongoose
-.connect(process.env.MONGO_URI, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
 
 const Schema = mongoose.Schema;
 
@@ -39,7 +33,7 @@ dishType:{
 },
   image:{
     type:String,
-    default:"https://images.media-allrecipies.com/images/75131.jpg"
+    default:"https://images.media-allrecipes.com/images/75131.jpg"
   },
   duration:{
     type:Number, 

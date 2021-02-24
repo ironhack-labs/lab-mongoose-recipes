@@ -20,7 +20,34 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const mousakaRecipe = 
+     {
+      "title": "Mousaka",
+      "level": "Amateur Chef",
+      "ingredients": [
+        "1/2 kg of meat",
+        "2 potatoes",
+        "2 courgette",
+        "2 eggplants",
+        "1 tomato",
+        "besamel",
+        "3 tablespoons minced garlic",
+        "salt to taste",
+        "pepper to taste",
+        "daphne",
+        "olive oil",
+        "cheese"
+      ],
+      "cuisine": "Greek",
+      "dishType": "main-course",
+      "image": "http/www.hellomousaka.png",
+      "duration": 80,
+      "creator": "Chef Amalia"
+    }
+    const createRecipes = Recipe.create(mousakaRecipe).then(recipe => console.log('The recipe is saved and its value is: ', recipe))
+    .catch(error => console.log('An error happened while saving a new recipe:', error));
+    console.log(mousakaRecipe.title);
+   // return createRecipes; 2nd way to add a recipe: found by luck 
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -6,7 +6,7 @@ const Recipe = require("./models/Recipe.model");
 const data = require("./data.json");
 //console.log("this is what im printing ", data);
 //console.log("this is it", Recipe);
-//const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 const recipe1 = {
   title: "Asian Glazed Chicken Thighs",
   level: "Amateur Chef",
@@ -29,7 +29,7 @@ const recipe1 = {
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect("mongodb://localhost:27017/recipe-app", {
+  .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -42,9 +42,9 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
 //Iteration 2
-    //Recipe.create(recipe1)
-    // .then(user => console.log('The recipe is : ', {recipe1})
-    //.catch(error => console.log('An error happened while saving a new recipe:', error)));
+    Recipe.create(recipe1)
+    .then(recipe => console.log('The recipe is : ',recipe))
+    .catch(error => console.log('An error happened while saving a new recipe:', error));
     //ITERATION 3
    // Recipe.insertMany(data)
     //  .then(function () {

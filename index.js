@@ -44,36 +44,23 @@ mongoose
       creator: "Chef Amalia",
     };
     //Create a new Recipe
-    const createRecipes = Recipe.create(mousakaRecipe)
-      .then((recipe) =>
-        console.log("The recipe is saved and its value is: ", recipe)
-      )
-      .catch((error) =>
-        console.log("An error happened while saving a new recipe:", error)
-      );
-    console.log(mousakaRecipe.title);
-    // return createRecipes; 2nd way to add a recipe: found by luck
+    Recipe.create(mousakaRecipe).then(recipe => console.log(recipe.title))
 
-    //Insert many
-    const insertManyRecipes = Recipe.insertMany(data)
-      .then((recipe) =>
-        console.log("The recipes are saved and there values are: ", recipe)
-      )
-      .catch((error) =>
-        console.log("An error happened while saving the new recipes:", error)
-      );
+    .then(() => { 
+      Recipe.insertMany(data).then(recipes => console.log(recipes.map(recipe => recipe.title)))
 
-    //Update One Recipe
-    const updateOneRecipe = Recipe.findOneAndUpdate(
-      { title: "Rigatoni alla Genovese" },
-      {duration:100},{new: true}
-    )
-      .then((recipe) =>
-        console.log("The recipe is updated and its value is: ", recipe)
-      )
-      .catch((error) =>
-        console.log("An error happened while updating a recipe:", error)
-      );
+      .then(() => {
+        Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true}).then(update => console.log(update))
+
+        .then( () => {
+          Recipe.deleteOne({title: "Chocolate Chip Cookies"}).then(result => console.log(result)).catch(err => console.log(err))
+
+          .then(() => {
+            mongoose.connection.close()
+          })
+        })
+      })
+    })
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

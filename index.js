@@ -19,9 +19,25 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
+
+  function createRecipe(infos) {
+    const {title, level, ingredients, cuisine, dishType, image, duration, creator, created } = infos;
+    Recipe.create({
+      title,
+      level,
+      ingredients,
+      cuisine,
+      dishType,
+      image,
+      duration,
+      creator,
+      created
+    })
+  .then((recipeSuccess) => {
     // Run your code here, after you have insured that the connection was made
+    console.log(title)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  }

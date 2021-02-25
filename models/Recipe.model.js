@@ -25,7 +25,7 @@ const recipeSchema = new Schema({
       "soup",
       "snack",
       "drink",
-      "desert",
+      "dessert",
       "other",
     ],
   },

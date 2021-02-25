@@ -7,6 +7,16 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+const ome = { 
+  title:"omelette",
+  level: "Easy Peasy",
+  ingredients:["eggs", "oil"],
+  dishType: "main-course",
+  duration: 5,
+  creator: "Adri"
+};
+
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -21,27 +31,21 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create(ome, (error, recipe) => {
+      if (error) {
+        console.log('An error happened:', error);
+        return;
+      }
+      console.log('new recipe saved and value is', recipe);
+      return;
+    });
+  
+    console.log(ome);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-const ome = { 
-  title:"omelette",
-  level: "Easy Peasy",
-  ingredients:["eggs", "oil"],
-  dishType: "main-course",
-  duration: 5,
-  creator: "Adri"
-};
 
-  Recipe.create(ome, (error, recipe) => {
-    if (error) {
-      console.log('An error happened:', error);
-      return;
-    }
-    console.log('new recipe saved and value is', recipe);
-    return;
-  });
 
-  console.log(ome);
+ 

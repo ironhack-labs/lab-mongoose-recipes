@@ -40,7 +40,7 @@ mongoose
           .catch(error => console.log('An error happened while saving a new user:', error))
           
           .then(() => {
-            Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } } )
+            Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } }, { new: true } )
               //duration changed on the database but not in the console. Why?
               .then(recipe => console.log("New duration updated", recipe.duration)) 
               .catch(error => console.log("Update Failed", error))

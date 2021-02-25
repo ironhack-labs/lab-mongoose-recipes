@@ -20,7 +20,7 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    const data = {
+    const sata = {
       title: "Ragout de Ragondin",
       level: "Easy Peasy",
       ingredients: ["Ragondin", "couteau", "Ragout"],

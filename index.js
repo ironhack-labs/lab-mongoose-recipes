@@ -16,7 +16,7 @@ mongoose
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
+    // return self.connection.dropDatabase();
   })
   .then(() => {
     Recipe.create({
@@ -30,29 +30,32 @@ mongoose
       creator: "Mondelez",
     })
       .then((recipe) => {
-        console.log(recipe.title);
+        Recipe.insertMany(data)
+          .then((data) => {
+            data.forEach((recipe) => console.log(recipe.title));
+            Recipe.findOneAndUpdate(
+              { title: "Rigatoni alla Genovese" },
+              { duration: 100 }
+            )
+              .then((recipe) => {
+                console.log("Rigatoni updated");
+                Recipe.deleteOne({ title: "Carrot Cake" })
+                  .then((message) => {
+                    console.log("The bunny ate all the carrot cake :(");
+                    mongoose.connection.close();
+                    console.log("co closed");
+                  })
+                  .catch((err) => console.log(err));
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => {
         console.log(err);
       });
-
-    Recipe.insertMany(data)
-      .then((data) => console.log("All recipes are in db"))
-      .catch((err) => console.log(err));
-
-    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {duration: 100})
-      .then((recipe) => {
-        console.log("Rigatoni updated");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    Recipe.deleteOne({ title: "Carrot Cake" })
-      .then((message) => {
-        console.log("The bunny ate all the carrot cake :(");
-      })
-      .catch((err) => console.log(err));
   })
 
   .catch((error) => {

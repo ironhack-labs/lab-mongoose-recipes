@@ -167,6 +167,10 @@ mongoose
       "We're out of something delicious – a reicpe just got removed!",
       removedRecipe
     );
+    return mongoose.disconnect();
+  })
+  .then(() => {
+    console.log("We just disconnected from the databse! Bye bye!");
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

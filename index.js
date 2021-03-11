@@ -50,7 +50,10 @@ const recipeSchema = mongoose.Schema({
       "other",
     ],
   },
-  image: String,
+  image: {
+    type: String,
+    default: "https://images.media-allrecipes.com/images/75131.jpg",
+  },
   duration: {
     type: Number,
     min: 0,
@@ -61,3 +64,7 @@ const recipeSchema = mongoose.Schema({
     default: Date.now(),
   },
 });
+
+const Recipe = mongoose.model("Recipe", recipeSchema);
+
+Recipe.create({});

@@ -149,6 +149,16 @@ mongoose
   .then((manyRecipes) => {
     console.log("Wohooo! So many things to cook!", manyRecipes);
   })
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
+  })
+  .then((updatedRecipe) => {
+    console.log("We updated the recipe!", updatedRecipe);
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

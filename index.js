@@ -159,6 +159,15 @@ mongoose
   .then((updatedRecipe) => {
     console.log("We updated the recipe!", updatedRecipe);
   })
+  .then(() => {
+    return Recipe.findOneAndDelete({ title: "Carrot Cake" });
+  })
+  .then((removedRecipe) => {
+    console.log(
+      "We're out of something delicious – a reicpe just got removed!",
+      removedRecipe
+    );
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

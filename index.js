@@ -1,3 +1,5 @@
+// NOTE TO SELF - TEST AND PUSH TO GITHUB BEFORE SATURDAY
+
 const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -46,6 +48,21 @@ mongoose
       console.log(newRecipes.title);
     });
   })
+  .then(
+    Recipe.findByIdAndUpdate(
+      "/*Insert ID here*/",
+      { duration: 100 },
+      { new: true }
+    ).then((updatedRecipe) => {
+      console.log("Updated Recipe: ", updatedRecipe);
+    })
+  )
+  .then(
+    Recipe.findByIdAndDelete("/*Inset ID here*/").then((deletedRecipe) => {
+      console.log("The following recipe has been deleted: ", deletedRecipe);
+      return mongoose.disconnect();
+    })
+  )
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

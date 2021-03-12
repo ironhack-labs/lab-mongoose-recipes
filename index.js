@@ -38,11 +38,14 @@ mongoose
   //Iteration 3 (not working)
   .then(() => {
     Recipe.insertMany(data);
-    return Recipe;
+  })
+  .then(() => {
+    return Recipe.find({});
   })
   .then((recipes) => {
-    console.log(recipes.title);
+    console.log(recipes);
   })
+
   //Iterastion 4
   .then(() => {
     return Recipe.findOneAndUpdate(

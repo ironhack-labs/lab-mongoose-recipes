@@ -34,18 +34,15 @@ mongoose
   //Iteration 2
   .then((recipe) => {
     console.log(recipe.title);
-  })
-  //Iteration 3 (not working)
-  .then(() => {
-    Recipe.insertMany(data);
+    //Iteration 3
+    return Recipe.insertMany(data);
   })
   .then(() => {
-    return Recipe.find({});
+    return Recipe.find();
   })
   .then((recipes) => {
-    console.log(recipes);
+    console.log("Here's all our recipes", recipes);
   })
-
   //Iterastion 4
   .then(() => {
     return Recipe.findOneAndUpdate(
@@ -54,10 +51,15 @@ mongoose
       { new: true }
     );
   })
-  //Iteration 5 (not working, probably because of iteration 3)
+  //Iteration 5
   .then(() => {
-    Recipe.findOneAndDelete({ title: "Carrot Cake" });
-    //Iteration 6
+    return Recipe.findOneAndDelete({ title: "Carrot Cake" });
+  })
+  .then((deletedRecipe) => {
+    console.log("This recipe has been deleted:", deletedRecipe);
+  })
+  //Iteration 6
+  .then(() => {
     return mongoose.disconnect();
   })
   .catch((error) => {

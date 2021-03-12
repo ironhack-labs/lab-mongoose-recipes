@@ -61,6 +61,19 @@ mongoose
             { new: true }
         );
     })
+    .then((updatedRecipe) =>
+        console.log("Here is the correct duration: ", updatedRecipe.duration)
+    )
+    .then(() => {
+        return Recipe.deleteOne({ title: "Carrot Cake" });
+    })
+    .then((deletedRecipe) =>
+        console.log(
+            `Guns don't kill people but Carrot Cake can :( `,
+            deletedRecipe
+        )
+    )
+    .then(() => mongoose.disconnect())
     .catch((error) => {
         console.error("Error connecting to the database", error);
     });

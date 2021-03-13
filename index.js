@@ -19,8 +19,43 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then(async () => {
+    const newRecipe = {
+      title: 'Pasta with sauce and meat',
+      level: 'Easy Peasy',
+      ingredients: [ 'Pasta', 'Tomatoes', 'Meat' ],
+      cuisine: 'Italian',
+      dishType: 'main_course',
+      duration: 20,
+      creator: 'Anderson',
+    };
+
+    try {
+      const createdRecipes = await Recipe.create(newRecipe);
+      console.log(`Inserted one new Recipe => ${createdRecipes.title}`);
+    
+      const manyNewRecipes = await Recipe.insertMany(data);
+      console.log('Finished inserting many Recipes');
+      manyNewRecipes.forEach(recipe => console.log(recipe.title));
+
+      const updateRecipes = await Recipe.findOneAndUpdate(
+        { title: 'Rigatoni alla Genovese' },
+        { $set: { duration: 100 } },
+        { new: true, findOneAndUpdate: false },
+      );
+
+      console.log(`Successfully update recipe "${updateRecipes.title}" duration to ${updateRecipes.duration} minutes`);
+
+        await Recipe.deleteOne({ title: 'Carrot Cake' } );
+        console.log('Recipe is deleted');
+
+        mongoose.connection.close();
+    
+    } catch (error) {
+      console.log(error);
+    }
+    
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

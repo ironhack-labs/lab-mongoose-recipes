@@ -21,6 +21,9 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create(data[0])
+    .then(recipe => console.log(recipe.title))
+    .catch(err => console.log(err))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

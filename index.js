@@ -38,12 +38,14 @@ mongoose
       .then(() => {
         Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
         .then(() => console.log('Rigatoni recipe successfully updated'))
-        .catch(err => console.log(err))
       })
-      //
-      .catch(err => console.log(err))
-
-    
+      //Iteration 5
+      .then(() => {
+        Recipe.deleteOne({ title: 'Carrot Cake'})
+          .then(() => console.log('Carrot cake successfully deleted'))
+      })
+      //It catches errors from up the chain - the outter catch only catches an error if there's no success (?)
+      .catch(err => console.log('from recipes', err))    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

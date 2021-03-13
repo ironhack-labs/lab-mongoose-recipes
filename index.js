@@ -20,8 +20,36 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const newRecipe = {
+      title: 'Popcorn',
+      level: 'UltraPro Chef',
+      ingredients: ['corn for popcorn', 'salt', 'oil'],
+      cuisine: 'Mexican',
+      dishType: 'snack',
+      image: 'https://bellyfull.net/wp-content/uploads/2019/09/Perfect-Stovetop-Popcorn-blog-2-500x500.jpg',
+      duration: 5,
+      creator: 'Henrique Morikawa',
+      created: new Date (03, 13, 2021)
+    }
+
+    // Recipe.create(newRecipe).then(() => 
+      // console.log(newRecipe.title))
+
+    // Recipe.insertMany(data).then(() => 
+    //   data.map((element)=>{
+    //     console.log(element.title)
+    // })
+
+    Recipe.findOneAndUpdate(({title: 'Rigatoni alla Genovese'}, {duration: 100})).then(() =>
+      console.log('success!!!'),
+      )
+
+    Recipe.deleteOne({title: 'Carrot Cake'}).then(() =>
+      console.log('deleted successfully'))
+
+    mongoose.disconnect();
   })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

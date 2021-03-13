@@ -8,19 +8,59 @@ const data = require('./data');
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 const newRecipe = {
-  title: 'FAROFA DE BANANA',
-  level: 'Easy Peasy',
+  title: 'Bolo Puba 3',
+  level: 'Amateur Chef',
   ingredients: [
-    '1 ½ xícara (chá) de farinha de mandioca torrada',
-    '2 bananas-prata',
-    '½ cebola roxa',
-    '1 dente de alho',
-    '2 colheres (sopa) de manteiga',
-    'sal e pimenta-do-reino moída na hora a gosto'
+    '1 kg de massa de puba (massa de mandioca)',
+    '1 vidro (200 ml) de leite de coco',
+    '1 pacote (50 g) de coco ralado',
+    '1 e 1/2 xícaras (chá) de açúcar',
+    '4 ovos',
+    '200 g de manteiga ou margarina',
+    '1 pitada de sal',
+    '1 colher (sopa) de queijo parmesão ralado (opcional)'
   ],
   cuisine: 'Brasileira',
-  dishtype: 'acompanhamento',
-  duration: 15,
+  duration: 40,
+  cretor: 'Mayara Manso'
+}
+
+const insertManyRecipes = async () => {
+  try {
+    // const insertNewRecipe = Recipe.create(newRecipe);
+    const response = await Recipe.insertMany(data);
+
+    console.log('Finished inserting many Recipes');
+    response.forEach(recipe => console.log(recipe.title));
+
+  } catch (error) {
+    console.log('deu erro aqui [insertRecipes]: ', error)
+  }
+}
+
+const updateDurationRecipe = async (recipeTitle, timeDuration) => {
+  try {
+    const response = await Recipe.findOneAndUpdate({ title: recipeTitle },
+      { $set: { duration: timeDuration } },
+      { new: true, useFindAndModify: false },
+    )
+
+    console.log(`Successfully updated recipe "${response.title}" duration to ${response.duration} minutes`);
+  } catch (error) {
+    console.log('deu erro aqui [updateDurationRecipe]: ', error)
+  }
+}
+
+const removeDurationRecipeByTitle = async (recipeTitle) => {
+  try {
+    const query = { title: recipeTitle };
+
+    await Recipe.deleteOne(query);
+
+    console.log(`${recipeTitle} deletes with success!`)
+  } catch (error) {
+    console.log('deu erro aqui [removeDurationRecipeByTitle]: ', error)
+  }
 }
 
 // Connection to the database "recipe-app"
@@ -35,12 +75,15 @@ mongoose
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create(newRecipe)
-      .then(response => console.log(response.title))
-      .catch(error => console.log('erro ao criar receita: ', error))
-
+  .then(async () => {
+    try {
+      await insertManyRecipes();
+      await updateDurationRecipe('Rigatoni alla Genovese', 100);
+      await removeDurationRecipeByTitle('Carrot Cake')
+      mongoose.connection.close();
+    } catch (error) {
+      console.log(error)
+    }
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

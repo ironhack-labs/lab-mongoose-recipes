@@ -41,7 +41,7 @@ mongoose
     return Recipe.find();
   })
   .then((recipes) => {
-    console.log("Here's all our recipes", recipes);
+    recipes.forEach(element => console.log(element.title));
   })
   //Iterastion 4
   .then(() => {

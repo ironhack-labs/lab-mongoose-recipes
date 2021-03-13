@@ -34,7 +34,16 @@ mongoose
       .then(recipes => {
         recipes.forEach(recipe => console.log(recipe.title))
       })
+      //Iteration 4
+      .then(() => {
+        Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+        .then(() => console.log('Rigatoni recipe successfully updated'))
+        .catch(err => console.log(err))
+      })
+      //
       .catch(err => console.log(err))
+
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

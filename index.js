@@ -38,8 +38,20 @@ mongoose
       const newRecipeMany = await Recipe.insertMany(data);
       newRecipeMany.forEach(recipe => console.log(recipe.title));
 
-      const updateRecipe = await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese'},{ $set: {duration: 100 }});
+      const updateRecipe = await Recipe.findOneAndUpdate(
+        { title: 'Rigatoni alla Genovese'},
+        { $set: {duration: 100 }},
+        { new: true },
+        );
       console.log(`Verifição de código acima. O value de duration tem que ser 100 ==> ${updateRecipe.duration}`)
+
+      const removeRecipe = await Recipe.deleteOne({ title: 'Carrot Cake'});
+
+      console.log(`Carrot Cake deleted`);
+
+      mongoose.connection.close();
+
+
 
     } catch (error) {
       console.log(error)

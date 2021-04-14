@@ -50,10 +50,14 @@ mongoose
     Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
        .then((result3)=>{
          console.log('Rigatoni duration updated!')
-       })
-       Recipe.deleteOne({title: 'Carrot Cake'})
-       .then((result4)=>{
-         console.log('Carrot cake deleted!')
+         Recipe.deleteOne({title: 'Carrot Cake'})
+         .then((result4)=>{
+           console.log('Carrot cake deleted!')
+           mongoose.connection.close()
+           .then((result5)=>{
+             console.log('Properly closed database!')
+           })
+         })
        })
   })
    

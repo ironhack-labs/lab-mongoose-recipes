@@ -10,8 +10,8 @@ const recipeSchema = new Schema({
     image:{type:String, default:"https://images.media-allrecipes.com/images/75131.jpg"},
     duration:{type:Number, min:0},
     creator:{type:String},
-    created:{type:Date, default: date.now},
-}, {versionKey:false, timestamps:true})
+    created:{type:Date, default: Date.now},
+}, {versionKey:false})
 
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

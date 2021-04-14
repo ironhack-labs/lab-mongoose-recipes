@@ -57,11 +57,14 @@ mongoose
     Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
     .then((result)=>{
         console.log('Change made')/* , result) */
-    })
-
-    Recipe.deleteOne({title: 'Carrot Cake'})
-    .then((result)=>{
-        console.log(result)
+        Recipe.deleteOne({title: 'Carrot Cake'})
+        .then((result)=>{
+            console.log(result)
+            mongoose.connection.close()
+            .then(()=>{
+              console.log('Closed')
+            })
+        })
     })
   })
 

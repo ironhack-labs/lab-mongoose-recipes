@@ -22,7 +22,7 @@ mongoose
   .then((result) => {
     // Run your code here, after you have insured that the connection was made
     console.log(`Connected to Mongo! Using the database called ${MONGODB_URI}`)
-    Recipe.create({
+    /* Recipe.create({
       title: "Asian Glazed Chicken Thighs",
       level: "Amateur Chef",
       ingredients: [
@@ -40,9 +40,12 @@ mongoose
       image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
       duration: 40,
       creator: "Chef LePapu"
-  })
+  }) */
+  Recipe.insertMany(data)
   .then((result)=>{
-      console.log(result.title)
+    result.forEach((recipe) => {
+      console.log(recipe.title)
+    })
   })
   .catch((err)=>{
   console.log(er)

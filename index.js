@@ -44,14 +44,17 @@ mongoose
   }) 
   Recipe.insertMany(data)
   .then((result2)=>{
-    result.forEach((recipe) => {
+    result2.forEach((recipe) => {
        console.log(recipe.title) 
     })
     Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
        .then((result3)=>{
          console.log('Rigatoni duration updated!')
        })
-       
+       Recipe.deleteOne({title: 'Carrot Cake'})
+       .then((result4)=>{
+         console.log('Carrot cake deleted!')
+       })
   })
    
   })

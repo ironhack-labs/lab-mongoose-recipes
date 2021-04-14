@@ -42,14 +42,18 @@ mongoose
     creator: "Chef LePapu"
     }) */
     .then((result2)=>{
-      result2.forEach((receta)=>{console.log(receta.title)})
+      result2.forEach((recipe)=>{console.log(recipe.title)})
       Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100})
       .then((result3)=>{
         console.log(`Success`)
-      })
-      Recipe.deleteOne({title:"Carrot Cake"})
-      .then((result4)=>{
-        console.log(`Carrot Cake erased successfully`)
+        Recipe.deleteOne({title:"Carrot Cake"})
+        .then((result4)=>{
+          console.log(`Carrot Cake erased successfully`)
+          mongoose.connection.close()
+          .then((result5)=>{
+            console.log(`All Iterations done and Database closed ;)`)
+          })
+        })
       })
     })
   })

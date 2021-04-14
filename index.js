@@ -43,7 +43,7 @@ mongoose
     return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
   })
   .then(() => {
-    return Recipe.deleteOne({ title: 'Carrot Cake' })
+    return Recipe.deleteOne({ title: 'Carrot Cake' }, () => console.log("Receta borrada correctamente"))
   })
   .then(() => {
     mongoose.connection.close()
@@ -51,27 +51,3 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-
-
-
-/**
- * Cat.collection.drop()
-  .then(() => console.log("Colección vaciada"))
-  .catch(err => console.log("Hubo un error!", err))
-
-
-Cat.create({ name: 'Michifú' })
-  .then(theCat => {
-      console.log('El método .create() retorna el objeto de la BBDD:', theCat, 'El gato se llama', theCat.name)
-      return Cat.find()
-  })
-  .then(allTheCats => {
-      console.log("El método .find() retorna un Array", allTheCats)
-      allTheCats.forEach(cat => console.log("Hay un gato llamado", cat.name))
-      return Cat.create([{ name: 'Belcebú' }, { name: 'Garfield' }])
-  })
-  .then(allNewCats => console.log("Los gatos nuevos son:", allNewCats))
-  .catch(err => console.log("Hubo un error!", err))
-
- */

@@ -21,7 +21,8 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then((result) => {
-    Recipe.create({
+    Recipe.insertMany(data)
+    /* Recipe.create({
       title: "Asian Glazed Chicken Thighs",
       level: "Amateur Chef",
       ingredients: [
@@ -39,9 +40,9 @@ mongoose
     image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
     duration: 40,
     creator: "Chef LePapu"
-    })
+    }) */
     .then((result)=>{
-      console.log(result.title)
+      result.forEach((receta)=>{console.log(receta.title)})
     })
   })
   .catch(error => {

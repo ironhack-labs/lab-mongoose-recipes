@@ -37,21 +37,16 @@ mongoose
       return Recipe.syncIndexes()
   })
   .then(() => {
-    Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set:{duration:100}}, {new: true}, (err, recipe) => {
-    if (err) {
-        console.log('Something went wrong when updating data!', err)
-    }
-    console.log('You have successfully updated this recipe:', recipe)
-    })
+    Recipe
+    .findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set:{duration:100}}, {new: true})
+    .then(recipe => console.log('You have successfully updated this recipe:', recipe))
+    .catch(err => console.log('Something went wrong when updating data!', err))
     return Recipe.syncIndexes()
   })
   .then(() => {
-    Recipe.deleteOne({ title: 'Carrot Cake' }, (err, recipe) => {
-    if (err) {
-        console.log('Something went wrong when deleting recipe!', err);
-    }
-     console.log('You have successfully deleted a recipe.')
-    })
+    Recipe.deleteOne({ title: 'Carrot Cake' })
+    .then(recipe => console.log('You have successfully deleted this recipe:', recipe))
+    .catch(err => console.log('Something went wrong when deleting this recipe!', err))
     return Recipe.syncIndexes()
   })
   .then(() => {

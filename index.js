@@ -53,9 +53,15 @@ mongoose
     result.forEach((recipe)=>{
       console.log(recipe.title)
     })
+
     Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
     .then((result)=>{
-        console.log('Change made', result)
+        console.log('Change made')/* , result) */
+    })
+
+    Recipe.deleteOne({title: 'Carrot Cake'})
+    .then((result)=>{
+        console.log(result)
     })
   })
 

@@ -12,18 +12,19 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any documents to the database, let's delete all previous entries
     return self.connection.dropDatabase();
   })
-  .then((result) => {
+  .then((result1) => {
     // Run your code here, after you have insured that the connection was made
     console.log(`Connected to Mongo! Using the database called ${MONGODB_URI}`)
-    /* Recipe.create({
-      title: "Asian Glazed Chicken Thighs",
+     Recipe.create({
+      title: "Mandunguillas",
       level: "Amateur Chef",
       ingredients: [
         "1/2 cup rice vinegar",
@@ -40,17 +41,19 @@ mongoose
       image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
       duration: 40,
       creator: "Chef LePapu"
-  }) */
+  }) 
   Recipe.insertMany(data)
-  .then((result)=>{
+  .then((result2)=>{
     result.forEach((recipe) => {
-      console.log(recipe.title)
+       console.log(recipe.title) 
     })
+    Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+       .then((result3)=>{
+         console.log('Rigatoni duration updated!')
+       })
+       
   })
-  .catch((err)=>{
-  console.log(er)
-  })
-
+   
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

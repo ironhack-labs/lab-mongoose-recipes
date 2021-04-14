@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
   // TODO: write the schema
-  title: {type: String},
+  title: {type: String, require: true, unique: true},
   level: {type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']},
   ingredients: {type: [String]},
   cuisine: {type: String, required: true},

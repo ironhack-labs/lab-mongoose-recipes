@@ -41,8 +41,12 @@ mongoose
     duration: 40,
     creator: "Chef LePapu"
     }) */
-    .then((result)=>{
-      result.forEach((receta)=>{console.log(receta.title)})
+    .then((result2)=>{
+      result2.forEach((receta)=>{console.log(receta.title)})
+      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100})
+      .then((result3)=>{
+        console.log(`Success`)
+      })
     })
   })
   .catch(error => {

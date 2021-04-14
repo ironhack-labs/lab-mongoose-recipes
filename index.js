@@ -47,6 +47,10 @@ mongoose
       .then((result3)=>{
         console.log(`Success`)
       })
+      Recipe.deleteOne({title:"Carrot Cake"})
+      .then((result4)=>{
+        console.log(`Carrot Cake erased successfully`)
+      })
     })
   })
   .catch(error => {

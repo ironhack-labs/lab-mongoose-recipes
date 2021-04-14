@@ -21,7 +21,44 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.syncIndexes()
   })
+  .then(()=>{
+  return Recipe.create({
+     title: 'Almondigas de Caballo', 
+     level: 'UltraPro Chef', 
+     ingredients: ['Horse Meat', 'Garlic', 'tomato', 'albahaca','oil'], 
+     cuisine: 'French'
+    })
+
+  })
+  .then((newRecipe)=>{
+    console.log('La nueva receta es', newRecipe)
+    
+    return Recipe.insertMany(data)
+
+  })
+  .then((allRecipes) =>{
+    console.log("El método .insertMany() retorna todos las recetas", allRecipes)
+    allRecipes.forEach(elm => {
+      console.log('Los nombres de todas las recetas son', elm.title)
+    });
+
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese'}, { $inc: { duration: 100 }})
+  })
+  
+  .then((updateRecipe)=>{
+    console.log('la receta', updateRecipe, 'fue actualizada con exito')
+
+    return Recipe.deleteOne({ title: 'Carrot Cake'} )
+  })
+  .then((deletedRecipe)=>{
+    console.log('la receta', deletedRecipe, ' ha sido eliminada conn exito');
+    mongoose.disconnect(() => console.log("Desconectado con exito"))
+
+  })
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

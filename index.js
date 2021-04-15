@@ -45,6 +45,32 @@ mongoose
 
   Recipe.create(recipe1)
     .then(recipe => {
-      console.log(`Recipe created: ${recipe.name}`)
+      console.log(`Recipe created: ${recipe.title}`)
     })
     .catch(error=>console.error(error));
+
+  Recipe.insertMany(data)
+  .then(data => {
+    console.log(`Recipe created ${data.length}`)
+  })
+  .catch(error => console.error(error));
+
+  Recipe.find({}, { title: 1, _id: 0 })
+  .then(recipe => console.log(recipe))
+  .catch(error => console.error(error))
+
+  Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set:{duration: 100}}, {new: true})
+  .then(recipe => {console.log(recipe)})
+  .catch(error => console.error(error))
+
+  Recipe.deleteOne({title: "Carrot Cake"}, )
+  .then(recipe => {console.log("Yuhu")})
+  .catch(error => console.error(error))
+
+  mongoose.connection.close();
+  
+
+
+
+
+

@@ -55,7 +55,10 @@ mongoose
     .catch((err) => console.log(err));
 
 
-
+    mongoose.connection.close()
+    .then((result5)=>{
+      console.log(`Database closed`)
+    })
 
 
   })

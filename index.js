@@ -25,3 +25,26 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  const recipe1 =  {
+    "title": "Huevos fritos",
+    "level": "Easy Peasy",
+    "ingredients": [
+      "2 pounds red onions, sliced salt to taste",
+      "2 (16 ounce) boxes uncooked rigatoni",
+      "1 tablespoon chopped fresh marjoram leaves",
+      "1 pinch cayenne pepper",
+      "2 tablespoons freshly grated Parmigiano-Reggiano cheese"
+    ],
+    "cuisine": "Italian",
+    "dishType": "main_course",
+    "image": "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg",
+    "duration": 220,
+    "creator": "Chef Luigi"
+  };
+
+  Recipe.create(recipe1)
+    .then(recipe => {
+      console.log(`Recipe created: ${recipe.name}`)
+    })
+    .catch(error=>console.error(error));

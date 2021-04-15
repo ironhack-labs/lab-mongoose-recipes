@@ -20,7 +20,24 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const recipe1 = {
+      title: "Omelette of potatoes",
+      level: "Amateur Chef",
+      ingredients: ["1kg - Potatoes", "8 Eggs", "1 Big Onion", "Olive oil", "Salt"],
+      cuisine: "Mediterranean",
+      dishType: "main_course",
+      image: "https://live.mrf.io/statics/i/ps/www.cocinacaserayfacil.net/wp-content/uploads/2018/07/tortilla-de-patata-con-cebolla-caramelizada.jpg?width=1200&enable=upscale",
+      duration: 1,
+      creator: "Toni Petit"
+    }
+
+    Recipe.create(recipe1)
+    .then(response => {
+      console.log(`Recipe created: ${recipe1.title}`)
+    })
+    .catch(error => console.log(error))
+
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

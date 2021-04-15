@@ -55,3 +55,7 @@ const recipe1 = {
 Recipe.deleteOne({title: "Carrot Cake"})
 .then(recipe => console.log(`success: ${recipe}`))
 .catch(error => console.error(error))
+
+mongoose.connection.close()
+.then( () => console.log("Connection closed"))
+.catch(error => console.error(error))

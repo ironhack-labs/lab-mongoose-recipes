@@ -20,8 +20,33 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Recipe.create(data[0])
+    //   .then(createdRecipe => {
+    //     console.log(`Recipe created: ${createdRecipe.title}`)
+    //   })
+    //   .catch(error => console.error(error));
+
+    Recipe.insertMany(data)
+      .then(data => {
+        console.log(`Recipes created: ${data.length}`)
+
+        Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" },
+          { $set: { duration: 100 } }, { new: true })
+          .then(data => {
+            console.log("Change done successfully", data)
+          })
+          .catch(error => console.error(error));
+
+        Recipe.deleteOne({ title: "Carrot Cake" })
+          .then(recipe => {
+            console.log(`A recipe has been deleted`, recipe)
+          })
+          .catch(error => console.error(error));
+      })
+      .catch(error => console.error(error));
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
   });

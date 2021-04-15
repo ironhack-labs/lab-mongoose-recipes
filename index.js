@@ -22,26 +22,17 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.insertMany(data, (err, recipesList) => {
-      if(err !== null)
-        return console.error(`Error on instertMany: ${err}`);
-      
-      recipesList.map(recipe => console.log(recipe.title));
-
-      Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100}, (err) => {
-        if(err !== null)
-          return console.error(`Error on findOneAndUpdate: ${err}`);
-        
-        console.log(`Update successful!`);
-
-        Recipe.deleteOne({title: 'Carrot Cake'}, (err) => {
-          if(err !== null)
-            return console.error(`Error on deleteOne: ${err}`);
-
-          console.log(`Deletion successful!`);
-        })
+    Recipe.insertMany(data)
+      .then((recipesList) => {
+        recipesList.map(recipe => console.log(recipe.title));
+        Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+          .then(() => {
+            console.log('--- findOneAndUpdate successful ---');
+            Recipe.deleteOne({title: 'Carrot Cake'}).then(() => {
+              console.log('--- deleteOne successful ---');
+            })
+          })
       })
-    })    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

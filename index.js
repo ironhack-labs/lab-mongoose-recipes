@@ -46,11 +46,17 @@ mongoose
     //  });
     // Recipe.insertMany(data)
 
-    Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+    // Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+
+    Recipe.deleteOne({title: "carrot cake"})
 
     .then((recipe) =>
-    console.log("Duration has been updated"))  
+    console.log("The recipe has been removed"))  
     .catch((err) => console.log(err));
+
+
+
+
 
   })
 

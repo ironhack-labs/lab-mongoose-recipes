@@ -49,3 +49,8 @@ mongoose
   // })
   // .catch(error => console.error(error));
 
+const newDuration = 100;
+
+Recipe.findOneAndUpdate({ _id: "607844c3e861c21c29ed5b2c"}, {$set: {duration: newDuration}}, {new: true})
+.then(updatedRecipe => {console.log(`Success: ${updatedRecipe}`)})
+.catch(error => console.error(error));

@@ -46,8 +46,12 @@ const recipe1 = {
 // })
 // .catch(error => console.error(error));
 
-const newDuration = 100;
+// const newDuration = 100;
 
-Recipe.findOneAndUpdate({ _id: "607846234241611cc7f218c6"}, {$set: {duration: newDuration}}, {new: true})
-.then(updatedRecipe => {console.log(`Success: ${updatedRecipe}`)})
-.catch(error => console.error(error));
+// Recipe.findOneAndUpdate({ _id: "607846234241611cc7f218c6"}, {$set: {duration: newDuration}}, {new: true})
+// .then(updatedRecipe => {console.log(`Success: ${updatedRecipe}`)})
+// .catch(error => console.error(error));
+
+Recipe.deleteOne({title: "Carrot Cake"})
+.then(recipe => console.log(`success: ${recipe}`))
+.catch(error => console.error(error))

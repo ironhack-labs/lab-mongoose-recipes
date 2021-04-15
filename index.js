@@ -57,18 +57,29 @@ mongoose
       });
     //Iteration 4
     Recipe.findOneAndUpdate(
-      { _id: "60784ba40fb1d42ee8b2aa10" },
+      { title: "Carrot Cake" },
       { $set: { duration: 100 } },
       { new: true }
     )
       .then((recipe) => console.log("Success!"))
       .catch((error) => console.error(error));
     //Iteration 5
-    Recipe.deleteOne({ _id: "60784ba40fb1d42ee8b2aa0f" })
+    Recipe.deleteOne({ title: "Rigatoni alla Genovese" })
       .then((recipe) => console.log("Success"))
       .catch((error) => console.error(error));
+
     //Iteration 6
+
+    mongoose.connection
+      .close()
+      .then(() => {
+        console.log(`Disonnected from the database`);
+      })
+      .catch((error) => {
+        console.error("Error disconnecting from the database");
+      });
   })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

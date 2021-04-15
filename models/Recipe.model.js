@@ -33,16 +33,3 @@ const recipeSchema = new Schema({
 const Recipe = mongoose.model("Recipe", recipeSchema);
 
 module.exports = Recipe;
-
-
-
- const recipePeru = {
-  title: "ceviche",
-  level: "UltraPro Chef",
-  ingredients: ["1 kg fish", "6 lemons", "two purple onions", "yellow pepper"],
-  cuisime: "Peru",
-  dishType: "main_course",
-  duration: 30,
-  creator: "Junior",
-  created: "15 abril",
-}; 

@@ -44,9 +44,13 @@ mongoose
     // duration: 130,
     // creator: "Chef Nadia"
     //  });
-    Recipe.insertMany(data)
-  .then((data) => data.forEach((recipe) => console.log(recipe.title)))
-  .catch((err) => console.log(err));
+    // Recipe.insertMany(data)
+
+    Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+
+    .then((recipe) =>
+    console.log("Duration has been updated"))  
+    .catch((err) => console.log(err));
 
   })
 

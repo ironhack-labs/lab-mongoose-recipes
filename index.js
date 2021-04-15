@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
-
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
-
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
-
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -30,14 +27,29 @@ mongoose
       duration: 1,
       creator: "Toni Petit"
     }
-
-    Recipe.create(recipe1)
-    .then(response => {
-      console.log(`Recipe created: ${recipe1.title}`)
-    })
-    .catch(error => console.log(error))
-
-
+    return Recipe.create(recipe1)
+  })
+  .then(recipe => {
+    console.log(`Recipe created: ${recipe.title}`)
+    return Recipe.insertMany(data)
+  })
+  .then(() => {
+    console.log(`Recipes created from data`)
+    return Recipe.find({}, {title:1, _id:0})
+  })
+  .then(recipes => {
+    console.log(recipes)
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set: {duration: 100}})
+  })
+  .then(recipe => {
+    console.log(`${recipe.title} updated succesfully`)
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(recipe => {
+    console.log(recipe)
+    mongoose.connection.close()
+    .then(() => console.log("Connection closed"))
+    .catch(error => console.error(error))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

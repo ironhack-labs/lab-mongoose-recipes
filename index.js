@@ -7,6 +7,16 @@ const data = require("./data");
 
 const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
+const recipe1 = {
+	title: "Tortilla de papas",
+	level: "Easy Peasy",
+	ingredients: ["Papas", "Cebolla", "Huevo"],
+	cuisine: "Española",
+	dishType: "main_course",
+	duration: 20,
+	creator: "Triana",
+};
+
 // Connection to the database "recipe-app"
 mongoose
 	.connect(MONGODB_URI, {
@@ -20,39 +30,36 @@ mongoose
 		return self.connection.dropDatabase();
 	})
 	.then(() => {
-		// Run your code here, after you have insured that the connection was made
-	})
-	.catch((error) => {
-		console.error("Error connecting to the database", error);
+		Recipe.find({}).then((recipes) => {
+			if (recipes.length === 0) {
+				//Iteration 2
+				Recipe.create(recipe1)
+					.then((recipe) => {
+						console.log(`Recipe created: ${recipe.title}`);
+					})
+					.catch((error) => console.error(error));
+
+				//Iteration 3
+				return Recipe.insertMany(data)
+					.then(() => {
+						console.log(`Recipes created: ${data.length}`);
+						//Iteration 4
+						Recipe.findOneAndUpdate(
+							{ title: "Rigatoni alla Genovese" },
+							{ $set: { duration: 100 } },
+							{ new: true }
+						)
+							.then((recipe) => console.log(recipe))
+							.catch((error) => console.error(error));
+
+						//Iteration 5
+						Recipe.deleteOne({ title: "Carrot Cake" })
+							.then((recipe) => console.log(recipe))
+							.catch((error) => console.error(error));
+					})
+					.catch((error) => {
+						console.error("Error connecting to the database", error);
+					});
+			}
+		});
 	});
-
-//Iteration 2
-const recipe1 = {
-	title: "Tortilla de papas",
-	level: "Easy Peasy",
-	ingredients: ["Papas", "Cebolla", "Huevo"],
-	cuisine: "Española",
-	dishType: "main_course",
-	duration: 20,
-	creator: "Triana",
-};
-
-/*Recipe.create(recipe1)
-	.then((recipe) => {
-		console.log(`Recipe created: ${recipe.title}`);
-	})
-	.catch((error) => console.error(error));
-
-  //iteration 3
-
-Recipe.insertMany(data)
-  .then(data => {
-    console.log(`Recipes created: ${data.length}`)
-  })
-    .catch(error => console.error(error)); */
-
-  //iteration 4
-
-  Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {$set:{duration:100}}, {new: true})
-    .then((recipe) =>{ console.log(recipe)})
-    .catch(error => console.error(error));

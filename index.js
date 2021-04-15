@@ -45,15 +45,8 @@ mongoose
     // creator: "Chef Nadia"
     //  });
     Recipe.insertMany(data)
+  .then((data) => data.forEach((recipe) => console.log(recipe.title)))
+  .catch((err) => console.log(err));
 
   })
 
-  .then((result)=>{
-    // console.log(result.title)
-    result.forEach((recipe)=>{console.log(recipe.title)})
-
-    })
-
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });

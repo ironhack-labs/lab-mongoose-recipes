@@ -37,8 +37,22 @@ const recipe1 = {
 	creator: "Triana",
 };
 
-Recipe.create(recipe1)
+/*Recipe.create(recipe1)
 	.then((recipe) => {
 		console.log(`Recipe created: ${recipe.title}`);
 	})
 	.catch((error) => console.error(error));
+
+  //iteration 3
+
+Recipe.insertMany(data)
+  .then(data => {
+    console.log(`Recipes created: ${data.length}`)
+  })
+    .catch(error => console.error(error)); */
+
+  //iteration 4
+
+  Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {$set:{duration:100}}, {new: true})
+    .then((recipe) =>{ console.log(recipe)})
+    .catch(error => console.error(error));

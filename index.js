@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { model } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -20,8 +21,30 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create(data, (err, recipe) => {
+      recipe.forEach(Element => {
+        console.log(Element.title)
+      })
+    Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+    Recipe.deleteOne({title: "Carrot Cake"})
+      .then(() => {console.log("updated")})
+      .catch(() => {console.log("not updated")})
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });
+  
+
+  
+
+  

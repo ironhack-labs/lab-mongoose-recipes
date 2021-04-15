@@ -20,8 +20,46 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const recipe1 = {
+      title: "Lasagna",
+      level: "Amateur Chef",
+      ingredientes: ["tomate", "pasta", "cebolla", "oregano", "sal", "pimienta", "soja texturizada"],
+      cuisine: "Italiana",
+      dishType: "main_course",
+      duration: 70,
+      creator: "Jesi"
+    }
+    Recipe.create(recipe1)
+      .then(recipe => {
+        console.log(`Recipe created: ${recipe.title}`)
+      })
+    Recipe.insertMany(data)
+      .then(recipes => {
+        console.log(`Recipes creted from data`)
+        Recipe.find({}, {
+            title: 1,
+            _id: 0
+          })
+          .then(recipes => console.log(recipes))
+          .catch(error => console.error(error));
+        Recipe.findOneAndUpdate({
+            title: "Rigatoni alla Genovese"
+          }, {
+            $set: {
+              duration: 100
+            }
+          })
+          .then(recipes => console.log(`${recipes.title} updated succesfully`))
+          .catch(error => console.error(error))
+
+        Recipe.deleteOne({
+            title: "Carrot Cake"
+          })
+          .then(recipes => console.log(`Recipe deleted succesfully`))
+          .catch(error => console.error(error))
+      })
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -23,7 +23,7 @@ mongoose
   .then(() => {
     return Recipe.create({
       title: 'FOOOOD',
-      cuisine: 'Asien'
+      cuisine: 'Asian'
     })
   }).then(newRecipe => {
     console.log(`New Recipe ${newRecipe.title}`)

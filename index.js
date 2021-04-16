@@ -31,31 +31,34 @@ mongoose
 	})
 	.then(() => {
 		//Iteration 2
-		Recipe.create(recipe1)
-			.then((recipe) => {
-				console.log(`Recipe created: ${recipe.title}`);
-			})
-			.catch((error) => console.error(error));
-
+		return Recipe.create(recipe1);
+	})
+	.then((recipe) => {
+		console.log(`Recipe created: ${recipe.title}`);
 		//Iteration 3
-		return Recipe.insertMany(data)
-			.then(() => {
-				console.log(`Recipes created: ${data.length}`);
-				//Iteration 4
-				Recipe.findOneAndUpdate(
-					{ title: "Rigatoni alla Genovese" },
-					{ $set: { duration: 100 } },
-					{ new: true }
-				)
-					.then((recipe) => console.log(recipe))
-					.catch((error) => console.error(error));
-
-				//Iteration 5
-				Recipe.deleteOne({ title: "Carrot Cake" })
-					.then((recipe) => console.log(recipe))
-					.catch((error) => console.error(error));
-			})
+		return Recipe.insertMany(data);
+	})
+	.then((data) => {
+		console.log(`Recipes created: ${data.length}`);
+		//Iteration 4
+		return Recipe.findOneAndUpdate(
+			{ title: "Rigatoni alla Genovese" },
+			{ $set: { duration: 100 } },
+			{ new: true }
+		);
+	})
+	.then((recipe) => {
+		console.log(recipe);
+		//Iteration 5
+		return Recipe.deleteOne({ title: "Carrot Cake" });
+	})
+	.then((recipe) => {
+		console.log(recipe);
+	})
+	.then(() => {
+		//Close DB
+		return mongoose.connection.close();
+	})
 	.catch((error) => {
 		console.error("Error connecting to the database", error);
 	});
-});

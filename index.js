@@ -20,7 +20,10 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    // testing with Promise.all()
+    return runMongooseInOrder();
+  })
+  /* .then(() => {
+    // testing with Promise.all() -> produces undesired result --> since it does not wait for the previous to finish
 
     Promise.all([
       Recipe.create(data[0])
@@ -67,7 +70,8 @@ mongoose
       mongoose.connection.close();
     });
   })
-  .then(() => {
+*/
+  /*  .then(() => {
     // Run your code here, after you have insured that the connection was made
     // iteraction 2 ???? I am not getting an duplicate keys error
     Recipe.create(data[0])
@@ -109,6 +113,28 @@ mongoose
         console.log(err);
       });
   })
+*/
   .catch((error) => {
     console.error('Error connecting to the database', error);
   });
+
+async function runMongooseInOrder() {
+  // iteraction 2
+  let create1 = await Recipe.create(data[0]);
+  console.log('create one', create1.title);
+  // iteraction 3
+  let createMany = await Recipe.insertMany(data);
+  createMany.forEach((recipe) => console.log(recipe.title));
+  // iteraction 4
+  await Recipe.findOneAndUpdate(
+    { title: 'Rigatoni alla Genovese' },
+    { duration: 100 },
+    { useFindAndModify: false }
+  );
+  console.log('findOneAndUpdate done');
+  // iteraction 5
+  await Recipe.deleteOne({ title: 'Carrot Cake' });
+  console.log('deleteOne done');
+  // iteraction 6
+  return mongoose.connection.close();
+}

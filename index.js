@@ -20,7 +20,30 @@ mongoose
     return self.connection.dropDatabase();
   })
   .then(() => {
-    return runMongooseInOrder();
+    (async () => {
+      try {
+        // iteraction 2
+        let create1 = await Recipe.create(data[0]);
+        console.log('create one', create1.title);
+        // iteraction 3
+        let createMany = await Recipe.insertMany(data);
+        createMany.forEach((recipe) => console.log(recipe.title));
+        // iteraction 4
+        await Recipe.findOneAndUpdate(
+          { title: 'Rigatoni alla Genovese' },
+          { duration: 100 },
+          { useFindAndModify: false }
+        );
+        console.log('findOneAndUpdate done');
+        // iteraction 5
+        await Recipe.deleteOne({ title: 'Carrot Cake' });
+        console.log('deleteOne done');
+        // iteraction 6
+        mongoose.connection.close();
+      } catch (error) {
+        console.error('Error running one of the iteraction', error);
+      }
+    })();
   })
   /* .then(() => {
     // testing with Promise.all() -> produces undesired result --> since it does not wait for the previous to finish

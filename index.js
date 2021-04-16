@@ -36,6 +36,15 @@ mongoose
             console.log(`Delete`);
           })
           .catch((error) => console.error(error));
+
+        mongoose.connection
+          .close()
+          .then(() => {
+            console.log(`Disonnected from the database`);
+          })
+          .catch((error) => {
+            console.error("Error disconnecting from the database");
+          });
       })
       .catch((error) => console.error(error));
   })

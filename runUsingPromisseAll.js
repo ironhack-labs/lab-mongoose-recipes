@@ -45,6 +45,10 @@ mongoose
           console.log(err);
           return 'insertMany error';
         }),
+    ]);
+  })
+  .then(() => {
+    return Promise.all([
       Recipe.findOneAndUpdate(
         { title: 'Rigatoni alla Genovese' },
         { duration: 100 },
@@ -72,6 +76,7 @@ mongoose
           return 'deleteOne error';
         }),
     ]).then(() => {
+      console.log('closing');
       return mongoose.connection.close();
     });
   })

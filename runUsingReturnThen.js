@@ -49,7 +49,7 @@ mongoose
   })
   .then((datafound) => {
     console.log('findOne :', datafound.title);
-    return Recipe.deleteOne(data);
+    return Recipe.deleteOne({ title: 'Carrot Cake' });
   })
   .then((info) => {
     console.log('deleteOne:', info);

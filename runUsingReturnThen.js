@@ -43,18 +43,19 @@ mongoose
       { new: true, useFindAndModify: false }
     );
   })
-  .then((data) => {
-    console.log('findOneAndUpdate :', data.title);
+  .then((changed) => {
+    console.log('findOneAndUpdate :', changed.title, changed.duration);
     return Recipe.findOne({ title: 'Carrot Cake' });
   })
-  .then((data) => {
+  .then((datafound) => {
+    console.log('findOne :', datafound.title);
     return Recipe.deleteOne(data);
   })
   .then((info) => {
     console.log('deleteOne:', info);
     return mongoose.connection.close();
   })
-  .then((info) => {
+  .then(() => {
     console.log('closing connection');
     return mongoose.connection.close();
   })

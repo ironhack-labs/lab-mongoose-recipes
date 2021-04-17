@@ -47,8 +47,8 @@ mongoose
           { duration: 100 },
           { useFindAndModify: false }
         )
-          .then((data) => {
-            console.log('findOneAndUpdate :', data.title);
+          .then((changed) => {
+            console.log('findOneAndUpdate :', changed.title, changed.duration);
             // iteraction 5
             Recipe.deleteOne({ title: 'Carrot Cake' })
               .then((info) => {

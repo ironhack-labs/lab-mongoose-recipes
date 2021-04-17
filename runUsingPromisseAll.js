@@ -50,8 +50,12 @@ mongoose
         { duration: 100 },
         { useFindAndModify: false }
       )
-        .then(() => {
-          console.log('findOneAndUpdate sucess');
+        .then((changed) => {
+          console.log(
+            'findOneAndUpdate sucess',
+            changed.title,
+            changed.duration
+          );
           return 'findOneAndUpdate done';
         })
         .catch((err) => {

@@ -34,12 +34,14 @@ mongoose
           console.log('created many:', i, recipe.title)
         );
         // iteraction 4
-        await Recipe.findOneAndUpdate(
+        let changed = await Recipe.findOneAndUpdate(
           { title: 'Rigatoni alla Genovese' },
           { duration: 100 },
           { useFindAndModify: false }
         );
-        console.log('findOneAndUpdate done');
+        console.log('findOneAndUpdate done', changed.title, changed.duration);
+        let datafound = await Recipe.findOne({ title: 'Carrot Cake' });
+        console.log('findOne :', datafound.title);
         // iteraction 5
         await Recipe.deleteOne({ title: 'Carrot Cake' });
         console.log('deleteOne done');

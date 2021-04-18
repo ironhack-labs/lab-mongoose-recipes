@@ -18,7 +18,7 @@ const recipeSchema = new Schema({
     type: String,
     required: true
   },
-  level: {
+  dishType: {
     type: String,
     enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other']
   },

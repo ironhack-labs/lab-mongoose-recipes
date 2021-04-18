@@ -32,23 +32,32 @@ mongoose
       creator: 'Michelle'
     }).then(book => {
       console.log(book.title + ' has been added to the recipe list.')
+
+      Recipe.insertMany(data)
+      .then((recipes) => {
+        console.log('The following recipes have been added:')
+        recipes.forEach(recipe => console.log(recipe.title))
+        })
+      .catch(error => {
+        console.error('Error connecting to the database', error);
+      })
+      .then (() => {
+        Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese'}, { duration: 100}, { new: true})
+        .then((recipe) => {
+          console.log(recipe.title + ' has been updated.');
+          Recipe.deleteOne({ title: 'Carrot Cake'}, () => console.log('An item has been deleted.'))
+          .then(() => {
+            mongoose.connection.close();
+          })
+        })
+      })
+      .catch(error => {
+        console.error('Error while updating/adding items', error);
+      });
     })
-
-    Recipe.insertMany(data, function() {
-      console.log('The following recipes have been added:')
-      data.forEach(recipe => console.log(recipe.title))
-    })
-
-    setTimeout(function() {
-      Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese'}, { duration: 100}, { new: true})
-      .then( recipe => console.log(recipe.title + ' has been updated.'))
-      .catch( err => console.log('an error ocurred: ', err));
-      Recipe.deleteOne({ title: 'Carrot Cake'}, () => console.log('An item has been deleted.'));
-    }, 3000);
-
-    setTimeout(() => {
-      mongoose.connection.close();
-    }, 5000);
+    .catch(error => {
+      console.error('Error connecting to the database', error);
+    });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -24,15 +24,19 @@ mongoose
   .then(() => {
     (async () => {
       try {
-        await Recipe.syncIndexes();
-        // iteraction 2 - then commented out since it generates error
-        // let create1 = await Recipe.create(data[0]);
-        // console.log('create one', create1.title);
+        //await Recipe.syncIndexes();
+        await Recipe.init();
+
         // iteraction 3
         let createMany = await Recipe.insertMany(data);
         createMany.forEach((recipe, i) =>
           console.log('created many:', i, recipe.title)
         );
+
+        // iteraction 2 - then commented out since it generates error
+        let create1 = await Recipe.create(data[0]);
+        console.log('create one', create1.title);
+
         // iteraction 4
         let changed = await Recipe.findOneAndUpdate(
           { title: 'Rigatoni alla Genovese' },

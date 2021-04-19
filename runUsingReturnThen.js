@@ -22,12 +22,12 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    return Recipe.syncIndexes();
+    return Recipe.init();
   })
   .then(() => {
     // generate error as expected - return error if using data[0] as data
-    //return Recipe.create(data[0]);
-    return Recipe.create(datasingle);
+    return Recipe.create(data[0]);
+    //return Recipe.create(datasingle);
   })
   .then((recipe) => {
     console.log('recipe created single:', recipe.title);

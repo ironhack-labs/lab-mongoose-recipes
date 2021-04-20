@@ -21,7 +21,19 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-  }) // then
+
+    // const firstRecipe = data[0];
+
+    // const recipe1 = Recipe.create(firstRecipe).then((recipe) =>
+    //   console.log("The recipe is saved and the title is", recipe.title)
+    // );
+    // return recipe1;
+
+    let addAllRecipes = Recipe.insertMany(data).then((recipes) =>
+      console.log(recipes)
+    );
+    return addAllRecipes;
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
@@ -50,17 +62,17 @@ mongoose
 
 //------------------------------------------------------------------//
 
-Recipe.create(data)
-  .then((Recipe) => console.log("The user is saved and its value is: ", Recipe))
-  .catch((error) =>
-    console.log("An error happened while saving a new user:", error)
-  );
-console.log(`${Recipe.title}`);
+// Recipe.create(data)
+//   .then((Recipe) => console.log("The user is saved and its value is: ", Recipe))
+//   .catch((error) =>
+//     console.log("An error happened while saving a new user:", error)
+//   );
+// console.log(`${Recipe.title}`);
 
-Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-  .then((Recipe) => console.log("Duration updated", Recipe))
-  .catch((error) => console.log("Duration Update failed", error));
+// Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+//   .then((Recipe) => console.log("Duration updated", Recipe))
+//   .catch((error) => console.log("Duration Update failed", error));
 
-Recipe.deleteOne({ title: "Carrot Cake" })
-  .then((Recipe) => console.log("Deleted", Recipe))
-  .catch((error) => console.log("Error occured while deleting", error));
+// Recipe.deleteOne({ title: "Carrot Cake" })
+//   .then((Recipe) => console.log("Deleted", Recipe))
+//   .catch((error) => console.log("Error occured while deleting", error));

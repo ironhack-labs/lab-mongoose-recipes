@@ -22,13 +22,14 @@ mongoose
   .then(async () => {
     try {
       await Recipe.create({ title: "spaghetti", cuisine: "italian" });
-      await Recipe.insertMany(data);
+      const dataRecipe =await Recipe.insertMany(data);
       console.log("Done!");
+      dataRecipe.forEach(recipe => {console.log(recipe.title)});
       await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, {new: true});
       console.log("changed Duration");
       await Recipe.deleteOne({ title: "Carrot Cake" });
       console.log("deleted Carrot Cake");
-      mongoose.connection.close();
+      // mongoose.connection.close();
       process.exit();
     } catch (error) {
       console.log(error);

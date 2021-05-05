@@ -34,9 +34,14 @@ mongoose
     //   .then(recipe => console.log('This recipe duration was successfully updated to: ', recipe.duration))
     //   .catch(error => console.log('An error happened while updating a recipe:', error));
 
-    Recipe.deleteOne({ title: "Carrot Cake" })
-      .then(recipe => console.log('This recipe was successfully deleted.'))
-      .catch(error => console.log('An error happened while deleting a recipe:', error));
+    // Recipe.deleteOne({ title: "Carrot Cake" })
+    //   .then(recipe => console.log('This recipe was successfully deleted: ', recipe))
+    //   .catch(error => console.log('An error happened while deleting a recipe:', error));
+  })
+  .then(() => {
+    mongoose.connection.close("close", () =>
+      console.log("MongoDB is closed.")
+    );
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

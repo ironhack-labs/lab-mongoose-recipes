@@ -7,6 +7,8 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+const myRecipe = { title: "Guacamole", level: "Easy Peasy", ingredients: ["2 avocados", "1 lime", "1 tomato", "1/2 onion", "salt", "pepper"], cuisine: "Mexican", dishType: "snack", image: "https://assets.afcdn.com/recipe/20181123/84182_w1024h768c1cx2592cy1728.jpg", duration: 10, creator: "Jordan" };
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
@@ -21,7 +23,11 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Recipe.create(myRecipe)
+    // .then(recipe => console.log('The recipe is saved and its title is: ', recipe.title))
+    // .catch(error => console.log('An error happened while saving a new recipe:', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

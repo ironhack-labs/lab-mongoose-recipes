@@ -19,10 +19,9 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
     // Recipe.create(myRecipe)
     // .then(recipe => console.log('The recipe is saved and its title is: ', recipe.title))
     // .catch(error => console.log('An error happened while saving a new recipe:', error));
@@ -30,6 +29,10 @@ mongoose
     // Recipe.insertMany(data)
     //   .then(data.forEach(recipe => console.log('The recipe is saved and its title is: ', recipe.title)))
     //   .catch(error => console.log('An error happened while saving a new recipe:', error));
+
+    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+      .then(recipe => console.log('This recipe duration was successfully updated to: ', recipe.duration))
+      .catch(error => console.log('An error happened while saving a new recipe:', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -26,6 +26,10 @@ mongoose
     // Recipe.create(myRecipe)
     // .then(recipe => console.log('The recipe is saved and its title is: ', recipe.title))
     // .catch(error => console.log('An error happened while saving a new recipe:', error));
+
+    // Recipe.insertMany(data)
+    //   .then(data.forEach(recipe => console.log('The recipe is saved and its title is: ', recipe.title)))
+    //   .catch(error => console.log('An error happened while saving a new recipe:', error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -28,6 +28,7 @@ mongoose
       console.log("changed Duration");
       await Recipe.deleteOne({ title: "Carrot Cake" });
       console.log("deleted Carrot Cake");
+      mongoose.connection.close();
       process.exit();
     } catch (error) {
       console.log(error);
@@ -36,4 +37,3 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-  mongoose.connection.close();

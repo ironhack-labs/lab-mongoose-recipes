@@ -8,10 +8,10 @@ const { model } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+//because I kept getting deprecation warnings when using findOneAndUpdate :/
 mongoose.set('useFindAndModify', false);
 
-// Connection to the database "recipe-app"
-// Connection to the database "recipe-app"
+// Connection to the database 'recipe-app'
 mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
@@ -19,7 +19,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((self) => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
+    console.log(`Connected to the database: '${self.connection.name}'`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
@@ -28,32 +28,32 @@ mongoose
     try {
       await  Recipe.create({
         title: 'BLT',
-        level: "Amateur Chef",
-        ingredients: ["sourdough bread", "bacon", "tomato", "mayo", "crisp lettuce", "salt", "pepper"],
-        cuisine: "sandwich",
-        dishType: "breakfast",
+        level: 'Amateur Chef',
+        ingredients: ['sourdough bread', 'bacon', 'tomato', 'mayo', 'crisp lettuce', 'salt', 'pepper'],
+        cuisine: 'sandwich',
+        dishType: 'breakfast',
         image:
-        "https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg",
+        'https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg',
         duration: 10,
-        creator: "pops"
+        creator: 'pops'
       });
       const allRecipes = await Recipe.insertMany(data);
-      console.log("Recipes added");
-      allRecipes.forEach(recipe => {
-        console.log(recipe.title);
+      console.log(`You've added ${allRecipes.length} recipes :`);
+      allRecipes.forEach((recipe, i) => {
+        console.log(`${i+1}. ${recipe.title}`);
       });
-      await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, {new: true});
-      console.log("duration updated");
-      await Recipe.deleteOne({ title: "Carrot Cake" });
-      console.log("Recipe deleted");
+      const updatedRecipe = await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {new: true});
+      console.log(`You've udpated the duration of ${updatedRecipe.title} to ${updatedRecipe.duration} mins`);
+      const deletedRecipe = await Recipe.deleteOne({ title: 'Carrot Cake' });
+      console.log(`You've deleted the ${deletedRecipe.title}, 〳 ‾́ ﹏ ‾́ 〵`);
       // close connection
       process.exit();
     } catch (e) {
       console.log(`oops, we got this error: ${e}`);
     }
   })
-  .catch((error) => {
-    console.error("Error connecting to the database", error);
+  .catch((e) => {
+    console.error('Error connecting to the database', e);
   });
   
   

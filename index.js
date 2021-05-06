@@ -45,7 +45,7 @@ mongoose
       const updatedRecipe = await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {new: true});
       console.log(`You've udpated the duration of ${updatedRecipe.title} to ${updatedRecipe.duration} mins`);
       const deletedRecipe = await Recipe.deleteOne({ title: 'Carrot Cake' });
-      console.log(`You've deleted the ${deletedRecipe.title}, 〳 ‾́ ﹏ ‾́ 〵`);
+      console.log(`DELETED 〳 ‾́ ﹏ ‾́ 〵`);
       // close connection
       process.exit();
     } catch (e) {

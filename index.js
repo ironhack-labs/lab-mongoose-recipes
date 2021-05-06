@@ -30,15 +30,33 @@ mongoose
       duration: 30,
       creator: "Stephane",
     });
-    console.log();
+    console.log("Quiche was added succesfully");
   })
   .then(() => {
     // implementing
     Recipe.insertMany(data);
   })
 
+  .then(() => {
+    // implementing
+    Recipe.findOneAndUpdate(
+      {title:"Rigatoni alla Genovese"},
+      {duration:100}, (err)=>{
+        if(err){
+          console.log(err);
+        } else {console.log("Duration has been updated");}
+      }   
+    );
+  })
 
+  .then(() => {
+    // implementing
+    Recipe.deleteOne({title:"Carrot Cake"});
+  })
   
+  mongoose.connection.close();
+  process.exit()
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

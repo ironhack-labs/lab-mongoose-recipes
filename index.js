@@ -42,10 +42,13 @@ mongoose
       allRecipes.forEach((recipe, i) => {
         console.log(`${i+1}. ${recipe.title}`);
       });
+      //finOneAndUpdate returns a Promise that resolves to a single document with the arg {new : true} will return the updated doc/object so you can access the info, it returns 
       const updatedRecipe = await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {new: true});
-      console.log(`You've udpated the duration of ${updatedRecipe.title} to ${updatedRecipe.duration} mins`);
-      const deletedRecipe = await Recipe.deleteOne({ title: 'Carrot Cake' });
-      console.log(`DELETED 〳 ‾́ ﹏ ‾́ 〵`);
+      console.log(`You've updated the duration of ${updatedRecipe.title} to ${updatedRecipe.duration} mins`);
+      const deletedRecipe = await Recipe.findOneAndDelete({ title: 'Carrot Cake' })
+      .then(m => {
+        console.log(`${m.title} is gone 〳 ‾́ ﹏ ‾́ 〵`)
+      });
       // close connection
       process.exit();
     } catch (e) {

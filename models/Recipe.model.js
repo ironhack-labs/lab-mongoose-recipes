@@ -15,7 +15,6 @@ const recipeSchema = new Schema({
 });
 
 //experimenting with post and pre 
-
 recipeSchema.pre('findOneAndDelete', async function () {
   console.log(`about to delete`);
 });

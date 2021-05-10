@@ -53,7 +53,7 @@ mongoose
         console.log(`${m.title} is gone 〳 ‾́ ﹏ ‾́ 〵`);
       });
       // close connection
-      process.exit();
+      mongoose.disconnect();
     } catch (e) {
       console.log(`oops, we got this error: ${e}`);
     }

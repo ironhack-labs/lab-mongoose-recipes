@@ -50,7 +50,7 @@ mongoose
       console.log(`You've updated the duration of ${updatedRecipe.title} to ${updatedRecipe.duration} mins`);
       const deletedRecipe = await Recipe.findOneAndDelete({ title: 'Carrot Cake' })
       .then(m => {
-        console.log(`${m.title} is gone 〳 ‾́ ﹏ ‾́ 〵`)
+        console.log(`${m.title} is gone 〳 ‾́ ﹏ ‾́ 〵`);
       });
       // close connection
       process.exit();

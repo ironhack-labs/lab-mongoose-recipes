@@ -14,6 +14,17 @@ const recipeSchema = new Schema({
 
 });
 
+//experimenting with post and pre 
+
+recipeSchema.pre('findOneAndDelete', async function () {
+  console.log(`about to delete`);
+});
+recipeSchema.post('findOneAndDelete', async function () {
+  console.log(`deleted`);
+});
+
+
+
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = Recipe;

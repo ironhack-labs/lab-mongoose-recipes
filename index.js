@@ -36,6 +36,9 @@ mongoose
         'https://static01.nyt.com/images/2020/08/18/dining/27Diaryrex4/27Diaryrex4-articleLarge.jpg',
         duration: 10,
         creator: 'pops'
+      })
+      .catch((e) => {
+        console.error(`We got error ${e}`);
       });
       const allRecipes = await Recipe.insertMany(data);
       console.log(`You've added ${allRecipes.length} recipes :`);

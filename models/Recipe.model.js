@@ -8,7 +8,7 @@ const recipeSchema = new Schema({
   cuisine: {type: String, required: true},
   dishType: {type: String, enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other']},
   image: {type: String, default: "https://images.media-allrecipes.com/images/75131.jpg"},
-  duration: {type: Number, min: 0},
+  duration: {type: Number, min: [0, 'duration must be over 0']},
   creator: String,
   created: {type: Date, default: Date.now}
 

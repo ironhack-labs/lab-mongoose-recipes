@@ -21,9 +21,9 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+  .then(async () => {
     // Run your code here, after you have insured that the connection was made
-    const recipe = {
+    const recipe = await Recipe.create({
       title: "Basic cookies",
       level: "Easy Peasy",
       ingredients: ["butter", "caster sugar", "plain flour", "cinnamon", "chocolate chips"],
@@ -31,31 +31,16 @@ mongoose
       dishType: "snack",
       duration: 32,
       creator: "Sophie",
-    }
+    })
 
-    Recipe.create(recipe)
-      .then(recipe => console.log(`New recipe: ${recipe.title}`))
-      .catch(err => console.log("Error creating recipe:", err))
+    const recipes = await Recipe.insertMany(data)
 
-    Recipe.insertMany(data)
-      .then(data.forEach(recipe => console.log(`New recipe: ${recipe.title}`)))
-      .catch(err => console.log("Error creating recipe:", err))
+    const updateRigatoni = await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
 
-      .then(() => {
-        Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
-        .then(recipe => console.log(`Updated ${recipe.title}`))
-        .catch(err => console.log("Can't update because:", err))
+    const deleteCarrotCake = await Recipe.deleteOne({title: "Carrot Cake" })
 
-        Recipe.deleteOne({title: "Carrot Cake"})
-        .then(console.log("Deteled recipe"))
-        .catch(err => console.log("Can't delete because:", err))
-
-          .then(() => {
-            mongoose.connection.close()
-          })
-        })
-      })
-
+    const disconnect = await mongoose.connection.close()
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  })
+  });

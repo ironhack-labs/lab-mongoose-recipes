@@ -51,9 +51,9 @@ mongoose
       const deletedRecipe = await Recipe.findOneAndDelete({ title: 'Carrot Cake' })
       .then(m => {
         console.log(`${m.title} is gone 〳 ‾́ ﹏ ‾́ 〵`);
-      });
+      })
       // close connection
-      mongoose.disconnect();
+      .then(() => mongoose.disconnect());
     } catch (e) {
       console.log(`oops, we got this error: ${e}`);
     }

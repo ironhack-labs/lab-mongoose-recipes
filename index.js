@@ -14,11 +14,11 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(self => {
+ /*  .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
-  })
+  }) */
   .then(() => {
     // Run your code here, after you have insured that the connection was made
   /*   const mydata = {
@@ -58,8 +58,14 @@ mongoose
       .catch(err => console.log('Oh, no! The document could not be deleted! The error: ', err))
 
   })
+  //AQUI
   .catch(error => {
     console.error('Error connecting to the database', error);
+  });
+
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
   });
 
 

@@ -14,14 +14,14 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
- /*  .then(self => {
+  .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
-  }) */
+  }) 
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-  /*   const mydata = {
+    const oneRecipe = {
       "title": "Asian Chicken",
       "level": "Amateur Chef",
       "ingredients": [
@@ -37,37 +37,43 @@ mongoose
       "creator": "Chef LePapu"
     }
 
-    Recipe.create(mydata)
+    Recipe.create(oneRecipe)
     .then(recipe => console.log('The recipe title is: ', recipe.title))
     .catch(error => console.log('An error happened while saving a new user:', error));
- */
-    Recipe.insertMany(data)
+ 
+     return Recipe.insertMany(data)
       .then(recipes => {
-      recipes.forEach(recipe => {
+        console.log('Recipies created')
+        recipes.forEach(recipe => {
         console.log('The recipe title is: ', recipe.title)
-      });
+      }); 
     })
     .catch(error => console.log('An error happened while saving a new user:', error));
- 
-    Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  })
+  .then(() => {
+  
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
       .then(data => console.log('Rigatoni alla Genovese was successfully updated!'))
       .catch(err => console.log(err))
+  })
+  .then(() => {
 
     Recipe.deleteOne({ title: 'Carrot Cake' })
       .then(data => console.log('Carrot cake was deleted successfully!'))
       .catch(err => console.log('Oh, no! The document could not be deleted! The error: ', err))
-
+ 
   })
-  //AQUI
+
+  
+ 
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
 
-  mongoose.connection.close(() => {
-    console.log('Mongoose default connection disconnected through app termination');
-    process.exit(0);
-  });
-
+  .then(() =>{
+    console.log('connection closed')
+    mongoose.connection.close()
+  })
 
 
 

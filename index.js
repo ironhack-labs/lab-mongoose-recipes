@@ -40,6 +40,14 @@ Recipe.insertMany(data)
 
 //Iteracion 4
 
+Recipe.updateOne({title:"Carrot Cake"}, {duration: 70})
+          .then(updatedRecipe => console.log(`"Time Updated ", ${updatedRecipe}`))
+          .catch(error => console.log("fallo ",error));
+//Iteracion 5
+          Recipe.deleteOne({title:"Chocolate Chip Cookies"})
+          .then(recipe => console.log(`item deleted succesfully: ${recipe}`))
+          .catch(error => console.log("fallo ", error));
+//Iteracion 6
 
 
   let recipe = {

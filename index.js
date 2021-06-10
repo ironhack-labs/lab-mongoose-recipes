@@ -33,11 +33,22 @@ mongoose
     .catch(error=>console.log("algo salio mal",error))
   }
 
+  Recipe.updateOne({title:"Asian Glazed Chicken Thighs"}, {duration: 80})
+          .then(up => console.log("Time Updated ", up))
+          .catch(error => console.log("fallo ",error));
+
   
     Recipe.insertMany(data)
     .then(recCreated => console.log(`se insertaron varias recetas: ${recCreated}`))
     .catch(error=>console.log("algo salio mal",error))
+
+    
   
+    Recipe.deleteOne({title:"Chocolate Chip Cookies"})
+    .then(recipe => console.log(`me eiminaron D;: ${recipe}`))
+    .catch(error => console.log("fallo ", error));
+
+   
    
 
   

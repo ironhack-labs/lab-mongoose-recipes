@@ -62,6 +62,13 @@ mongoose
       { new: true }
     );
   })
+  .then((recipeUpdated) => {
+    console.log(`Recipe ${recipeUpdated.title} updated successfully`);
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("Recipe deleted successfully");
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

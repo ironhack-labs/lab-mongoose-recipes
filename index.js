@@ -51,14 +51,14 @@ mongoose
       )
   })
 
-  .then(() => {
-      console.log(`"${recipe.title}" has been updated`);
+  .then((recipeUpdated) => {
+      console.log(`"${recipeUpdated.title}" has been updated`);
     // Iteration 5
       return Recipe.deleteOne({ title: "Carrot Cake"}); 
   })
 
-  .then(() => {
-    console.log(`"${recipe.title}" has been deleted`)
+  .then((recipeDeleted) => {
+    console.log(`"${recipeDeleted.title}" has been deleted`)
   })
 
   .catch(error => {

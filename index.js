@@ -62,6 +62,9 @@ mongoose
       { new: true }
     );
   })
+
+  // Iteration 4-5:
+
   .then((recipeUpdated) => {
     console.log(`Recipe ${recipeUpdated.title} updated successfully`);
     return Recipe.deleteOne({ title: "Carrot Cake" });
@@ -72,6 +75,9 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to the database", error);
   })
+
+  // Iteration 6:
+
   .finally(() => {
     mongoose.connection.close(() => {
       console.log("Disconnected from database");

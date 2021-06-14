@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
-const { insertMany } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 

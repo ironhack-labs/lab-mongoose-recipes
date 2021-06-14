@@ -44,7 +44,11 @@ mongoose
       return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set: {duration: 100}})
     })
     .then ((fixedRecipe) => {
-      console.log("Rigatoni alla Genovese recipe fixed!")
+      console.log("Rigatoni alla Genovese recipe fixed!");
+      return Recipe.deleteOne({title: "Carrot Cake"})
+    })
+    .then(() => {
+      console.log("Carrot Cake recipe removed successfully!")
     })
     .catch ((err) => {
       console.log("An error occurred while adding recipe to DataBase: ", err)

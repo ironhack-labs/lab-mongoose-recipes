@@ -32,8 +32,15 @@ mongoose
       creator: "Eva Arguiñano",
     })
     .then ((recipe => {
-      console.log("Recipe successfully added to DataBase: ", recipe)
+      console.log("Recipe successfully added to DataBase: ", recipe.title)
+      return Recipe.insertMany(data);
     }))
+    .then ((recipes) => {
+      console.log("recipes successfully added to database: ")
+      for (let i = 0; i < recipes.length; i++) {
+        console.log(recipes[i].title)
+      }
+    })
     .catch ((err) => {
       console.log("An error occurred while adding recipe to DataBase: ", err)
     })

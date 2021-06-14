@@ -21,7 +21,30 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Lemon Cake",
+      level: "Easy Peasy",
+      ingredients: ["3 eggs", "1 sachet of baking powder (16 g of baking powder)", "1 lemon yogurt (125 grams)", "flour (3 measures of yogurt)", "sugar (2 measures of yogurt)", "extra virgin olive oil (1 measure of yogurt)", "zest of 1 lemon butter and flour (to spread the mold)", "jam, icing sugar and mint leaves (for garnish)"],
+      cuisine: "Spanish",
+      dishType: "dessert",
+      image: "https://www.hogarmania.com/archivos/201301/489-bizcocho-de-limon-5104-xl-668x400x80xX.jpg",
+      duration: 60,
+      creator: "Eva Arguiñano",
+    })
+    .then ((recipe => {
+      console.log("Recipe successfully added to DataBase: ", recipe)
+    }))
+    .catch ((err) => {
+      console.log("An error occurred while adding recipe to DataBase: ", err)
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+  });
+
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
   });

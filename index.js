@@ -1,27 +1,86 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require("./data");
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
-  .then(self => {
+  .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    // Iteration 2:
+
+    // return Recipe.create({
+    //   title: "Asian Glazed Chicken Thighs",
+    //   level: "Amateur Chef",
+    //   ingredients: [
+    //     "1/2 cup rice vinegar",
+    //     "5 tablespoons honey",
+    //     "1/3 cup soy sauce (such as Silver Swan®)",
+    //     "1/4 cup Asian (toasted) sesame oil",
+    //     "3 tablespoons Asian chili garlic sauce",
+    //     "3 tablespoons minced garlic",
+    //     "salt to taste",
+    //     "8 skinless, boneless chicken thighs",
+    //   ],
+    //   cuisine: "Asian",
+    //   dishType: "main_course",
+    //   image:
+    //     "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+    //   duration: 40,
+    //   creator: "Chef LePapu",
+    // });
+    // })
+    // .then((recipe) => {
+    //   console.log(`Recipe with the title ${recipe.title} has been created`);
+
+    // Iteration 3:
+
+    return Recipe.insertMany(data);
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+  .then((recipes) => {
+    recipes.forEach((recipe) =>
+      console.log(`Recipe with the title ${recipe.title} has been created`)
+    );
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
+  })
+
+  // Iteration 4-5:
+
+  .then((recipeUpdated) => {
+    console.log(`Recipe ${recipeUpdated.title} updated successfully`);
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("Recipe removed successfully");
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database", error);
+  })
+
+  // Iteration 6:
+
+  .finally(() => {
+    mongoose.connection.close(() => {
+      console.log("Disconnected from database");
+      process.exit(0);
+    });
   });

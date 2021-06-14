@@ -67,8 +67,14 @@ mongoose
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then(() => {
-    console.log("Recipe deleted successfully");
+    console.log("Recipe removed successfully");
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
+  })
+  .finally(() => {
+    mongoose.connection.close(() => {
+      console.log("Disconnected from database");
+      process.exit(0);
+    });
   });

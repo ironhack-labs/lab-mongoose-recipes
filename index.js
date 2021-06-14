@@ -19,6 +19,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+
   .then(() => {
     // Iteration 2
     return Recipe.create({
@@ -32,11 +33,13 @@ mongoose
       creator: "Andrei"
     })
   })
+
   .then((recipe)=> {
       console.log(`"${recipe.title}" has been added to database`)
     // Iteration 3
       return Recipe.insertMany(data);
   })
+
   .then((recipes) => {
       recipes.forEach((recipe) => 
       console.log(`"${recipe.title}" has been added to database`));
@@ -47,15 +50,25 @@ mongoose
         { new: true}
       )
   })
+
   .then(() => {
       console.log(`"${recipe.title}" has been updated`);
     // Iteration 5
       return Recipe.deleteOne({ title: "Carrot Cake"}); 
   })
+
   .then(() => {
     console.log(`"${recipe.title}" has been deleted`)
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+
+  .finally(() => {
+    mongoose.connection.close(() => {
+      console.log('Disconnected from database');
+      process.exit(0)
+    })
+  })
 

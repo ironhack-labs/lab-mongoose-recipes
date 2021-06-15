@@ -50,7 +50,7 @@ mongoose
 
 
       } catch(err) {
-        console.error('the new recipes has not been created' );
+        console.error(err);
       }
 
     });

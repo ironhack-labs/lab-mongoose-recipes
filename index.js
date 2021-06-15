@@ -40,6 +40,11 @@ mongoose
     recipes.forEach((recipe) =>
       console.log(`Recipe with the title ${recipe.title} has been created`)
     );
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

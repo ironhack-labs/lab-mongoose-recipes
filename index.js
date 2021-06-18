@@ -77,5 +77,13 @@ mongoose
 
   .catch(error => {
     console.error('Error connecting to the database', error);
+  })
+
+
+  .finally(() => {
+    mongoose.connection.close(() => {
+      console.log('You are now disconnected from database')
+      process.exit(0)
+    })
   });
 

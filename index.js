@@ -1,3 +1,4 @@
+//Nos traemos la dependencia de Mongoose
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'

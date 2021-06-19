@@ -24,7 +24,7 @@ const recipeSchema = new Schema({
   },
   image: {
     type: String,
-    default: src("https://images.media-allrecipes.com/images/75131.jpg")
+    default: "https://images.media-allrecipes.com/images/75131.jpg"
   },
   duration: {
     type: Number,
@@ -33,11 +33,13 @@ const recipeSchema = new Schema({
   creator: String,
   created: {
     type: Date,
-    default: '2021-06-18'
+    default: Date.now
   }
 
 });
-
+//Le decimos a Mongoose que genere el modelo Recipe
 const Recipe = mongoose.model('Recipe', recipeSchema);
-
+//y lo exportamos
 module.exports = Recipe;
+//OPCION ABREVIADA
+//module.exports=mongoose.model('Recipe',recipeSchema)

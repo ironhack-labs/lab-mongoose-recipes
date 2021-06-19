@@ -13,7 +13,10 @@ const recipeSchema = new Schema({
     type: String,
     enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef']
   },
-  ingredients: [String], //[String]= Array de strings
+  ingredients: {
+    type: [String], //[String]= Array de strings
+    required:true
+  },
   cuisine: {
     type: String,
     required: true

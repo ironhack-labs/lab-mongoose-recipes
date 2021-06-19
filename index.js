@@ -22,33 +22,41 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    //ITERATION 2
+    //Agregamos un nuevo documento a partir del modelo estático Recipe
+    //pasándole como parametro un nuevo objeto (receta)
+    return Recipe.create(
+      {
+        "title": "Pasta al pesto",
+        "level": "Amateur Chef",
+        "ingredients": [
+          "Pasta 500 g",
+          "5 tablespoons olive oil",
+          "2 garlic cloves",
+          "1 bunch of basil",
+          "100 pinions/almonds"
+        ],
+        "cuisine": "Italian",
+        "dishType": "main_course",
+        "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+        "duration": 20,
+        "creator": "Ratatouille"
+      })
+      .then((recipe) => {
+        console.log(recipe.title)
+        //ITERATION 3
+        //Importamos los documentos (recetas)
+        //provenientes del objeto data(JSON)
+        return Recipe.insertMany(data)
+          .then((recipes) => {
+            recipes.forEach((recipe) =>
+              console.log(recipe.title))
+            //  //Aplicamos metodo error() al objeto Console
+          })
+          .catch(error => {
+            console.error('Error connecting to the database', error);
+          })
+
+
+      })
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
-//Agregamos un nuevo documento a partir del modelo estático Recipe
-//pasándole como parametro un objeto
-return Recipe.create({
-  "title": "Asian Glazed Chicken Thighs",
-  "level": "Amateur Chef",
-  "ingredients": [
-    "1/2 cup rice vinegar",
-    "5 tablespoons honey",
-    "1/3 cup soy sauce (such as Silver Swan®)",
-    "1/4 cup Asian (toasted) sesame oil",
-    "3 tablespoons Asian chili garlic sauce",
-    "3 tablespoons minced garlic",
-    "salt to taste",
-    "8 skinless, boneless chicken thighs"
-  ],
-  "cuisine": "Asian",
-  "dishType": "main_course",
-  "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-  "duration": 40,
-  "creator": "Chef LePapu"
-})
-  .then((recipe) => {
-    console.log(recipe.title)
-  })
-  //Aplicamos metodo error() al objeto Console
-  .catch((err) => console.error(err))

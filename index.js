@@ -44,19 +44,38 @@ mongoose
       })
       .then((recipe) => {
         console.log(recipe.title)
-        //ITERATION 3
+        //ITERATION 3: IMPORTAR RECETAS EN LA BD DESDE UN OBJETO
         //Importamos los documentos (recetas)
         //provenientes del objeto data(JSON)
         return Recipe.insertMany(data)
-          .then((recipes) => {
-            recipes.forEach((recipe) =>
-              console.log(recipe.title))
-            //  //Aplicamos metodo error() al objeto Console
-          })
-          .catch(error => {
-            console.error('Error connecting to the database', error);
-          })
+      })
+      .then((recipes) => {
+        recipes.forEach((recipe) =>
+          console.log(recipe.title))
+        //  //Aplicamos metodo error() al objeto Console
+        //ITERATION 4: ACTUALIZAR/MODIFICAR UNA RECETA
+        return Recipe.findOneAndUpdate(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 },
+          { new: true }
+        )
+      })
+      //ITERATION 5: ELIMINAR UNA RECETA
+      .then((LastUpdateRecipes) => {
+        return Recipe.deleteOne({ title: "Carrot Cake" })
+      }).then((recipeDeleted) =>
+        console.log("Receta Carrot Cake borrada"))
 
+      .catch(error => {
+        console.error('Error connecting to the database', error);
+      })
+      //ITERATION 6: CERRAR LA BD
+      .finally(() => {
+        mongoose.connection.close(() => {
+          console.log("Disconnected connection with DB")
+          process.exit(0)
+        })
 
       })
   })
+

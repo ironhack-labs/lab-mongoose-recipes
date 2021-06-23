@@ -19,43 +19,42 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+  // .then(() => {
+  //   return Recipe
+  //   .create(
+  //     [{
+  //       "title": "Asian Glazed Chicken Thighs",
+  //       "level": "Amateur Chef",
+  //       "ingredients": [
+  //         "1/2 cup rice vinegar",
+  //         "5 tablespoons honey",
+  //         "1/3 cup soy sauce (such as Silver Swan®)",
+  //         "1/4 cup Asian (toasted) sesame oil",
+  //         "3 tablespoons Asian chili garlic sauce",
+  //         "3 tablespoons minced garlic",
+  //         "salt to taste",
+  //         "8 skinless, boneless chicken thighs"
+  //       ],
+  //       "cuisine": "Asian",
+  //       "dishType": "main_course",
+  //       "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+  //       "duration": 40,
+  //       "creator": "Chef LePapu"
+  //     }]
+  //   )
+  //   .then(recipe=> console.log('una ricetta', recipe[0].title))
+  // })
+  .then (() =>{
     return Recipe
-    .create(
-      [{
-        "title": "Asian Glazed Chicken Thighs",
-        "level": "Amateur Chef",
-        "ingredients": [
-          "1/2 cup rice vinegar",
-          "5 tablespoons honey",
-          "1/3 cup soy sauce (such as Silver Swan®)",
-          "1/4 cup Asian (toasted) sesame oil",
-          "3 tablespoons Asian chili garlic sauce",
-          "3 tablespoons minced garlic",
-          "salt to taste",
-          "8 skinless, boneless chicken thighs"
-        ],
-        "cuisine": "Asian",
-        "dishType": "main_course",
-        "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-        "duration": 40,
-        "creator": "Chef LePapu"
-      }]
-    )
-    .then(recipe=> console.log('una ricetta', recipe[0].title))
+    .create(data)
+      .then(recipe => console.log('ricette', recipe))
   })
-  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-// you should add a new recipe document to the database by calling the Model.create static,
-// passing it the recipe details as an object. After inserting the recipe, 
-//you should console.log the title of the recipe.
-// Tip: When you have successfully created a new recipe
-//(you see it in the database using Compass tool), 
-//you might want to comment out this step.
-//The reason for this is that next time when you run $ node index.js, 
-//it will try to create a new recipe with the same name and you will get an
-// error in the terminal related to the duplicate keys - the title should be unique, 
-//and the dish with that title already exists in the database.
+// Iteration 3 - Insert multiple recipes
+// We are importing an array of recipes form the data.json file.
+//Using the Model.insertMany static, you should add the entire array to the database.
+//After inserting the documents, print the title of each recipe to the console.
+//   Tip: Follow the same tip as in the previous step.

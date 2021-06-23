@@ -20,7 +20,32 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    return Recipe.syncIndexes()
+  })
+  .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Recipe.create({
+    //   title: "cheese cake",
+    //   level: "Easy Peasy",
+    //   ingredients: ["150 mantequilla", "200g sugar"],
+    //   cuisine: "Spanish",
+    //   dishType: "dessert",
+    //   image: "https://www.recetasderechupete.com/wp-content/uploads/2018/03/Tarta-de-queso-Antonio.jpg",
+    //   duration: 30,
+    //   creator: "Some one",
+    return Recipe.create(data)
+    })
+  .then((recipe) => {
+    recipe.forEach((elm) =>console.log(`${elm.title}`))
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {$set: {duration: 100}})
+  })
+  .then(() => {
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(() => {
+    mongoose.disconnect()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

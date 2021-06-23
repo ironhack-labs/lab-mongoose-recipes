@@ -1,6 +1,7 @@
+//Nos traemos la dependencia de Mongoose
 const mongoose = require('mongoose');
 
-// Import of the model Recipe from './models/Recipe.model.js'
+// Importamos el modelo Recipe desde la carpeta recipe.models. Ruta => './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
@@ -21,7 +22,60 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    //ITERATION 2
+    //Agregamos un nuevo documento a partir del modelo estático Recipe
+    //pasándole como parametro un nuevo objeto (receta)
+    return Recipe.create(
+      {
+        "title": "Pasta al pesto",
+        "level": "Amateur Chef",
+        "ingredients": [
+          "Pasta 500 g",
+          "5 tablespoons olive oil",
+          "2 garlic cloves",
+          "1 bunch of basil",
+          "100 pinions/almonds"
+        ],
+        "cuisine": "Italian",
+        "dishType": "main_course",
+        "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+        "duration": 20,
+        "creator": "Ratatouille"
+      })
+      .then((recipe) => {
+        console.log(recipe.title)
+        //ITERATION 3: IMPORTAR RECETAS EN LA BD DESDE UN OBJETO
+        //Importamos los documentos (recetas)
+        //provenientes del objeto data(JSON)
+        return Recipe.insertMany(data)
+      })
+      .then((recipes) => {
+        recipes.forEach((recipe) =>
+          console.log(recipe.title))
+        //  //Aplicamos metodo error() al objeto Console
+        //ITERATION 4: ACTUALIZAR/MODIFICAR UNA RECETA
+        return Recipe.findOneAndUpdate(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 },
+          { new: true }
+        )
+      })
+      //ITERATION 5: ELIMINAR UNA RECETA
+      .then((LastUpdateRecipes) => {
+        return Recipe.deleteOne({ title: "Carrot Cake" })
+      }).then((recipeDeleted) =>
+        console.log("Receta Carrot Cake borrada"))
+
+      .catch(error => {
+        console.error('Error connecting to the database', error);
+      })
+      //ITERATION 6: CERRAR LA BD
+      .finally(() => {
+        mongoose.connection.close(() => {
+          console.log("Disconnected connection with DB")
+          process.exit(0)
+        })
+
+      })
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+

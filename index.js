@@ -49,12 +49,18 @@ mongoose
     .create(data)
       .then(recipe => console.log('ricette', recipe))
   })
+.then(()=>{
+  return Recipe
+    .findOneAndUpdate({ title: "Rigatoni alla Genovese"},{duration : 100})
+})
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-// Iteration 3 - Insert multiple recipes
-// We are importing an array of recipes form the data.json file.
-//Using the Model.insertMany static, you should add the entire array to the database.
-//After inserting the documents, print the title of each recipe to the console.
-//   Tip: Follow the same tip as in the previous step.
+// Iteration 4 - Update recipe
+// Now you should have six different recipes in the database, 
+// but there was a mistake in one of them.
+// The Rigatoni alla Genovese does not take that long.
+// You should update the duration field and set it to 100.
+//  You might want to use the Model.findOneAndUpdate static.
+// After updating it, print a success message!

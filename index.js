@@ -20,8 +20,25 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.syncIndexes()
   })
+  .then(() => {
+    // Run your code here, after you have insured that the connection was made
+    return Recipe.create(data)
+  })
+
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } }, { new: true })
+  })
+
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+  })
+
+  .then(() => {
+    mongoose.disconnect()
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

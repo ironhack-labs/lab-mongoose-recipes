@@ -63,10 +63,9 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-// Iteration 5 - Remove a recipe
-// Oh oh! 
-// The Carrot Cake is no longer available, 
-// so we need to remove it from the database.
-// Using the Model.deleteOne static, 
-// remove that recipe from the database and display a success message after doing it!
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});

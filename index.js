@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -20,6 +21,21 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    return Recipe.syncIndexes()
+  })
+  .then(() => {
+    Recipe
+      .create([{ title: 'Sopa de Cebolla', level: 'UltraPro Chef', ingredients: ['Cebolla', 'Agua', 'Sal'], cuisine: 'Picas todo  picadito y lo dejas picar un rato.' }])
+      .then(theNewRecipe => console.log('La nueva receta fue creada:', theNewRecipe[0].title))
+      .then(theSecond => { return Recipe.create(data) })
+      .then(theThird => Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }))
+      .then(theFourth => { return Recipe.deleteOne({ title: 'Carrot Cake' }) })
+      .then(theFifth => { mongoose.connection.close() })
+
+      .catch(err => console.log('Se produjo un error.... =>', err))
+
+
+
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {

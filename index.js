@@ -44,23 +44,29 @@ mongoose
   //   )
   //   .then(recipe=> console.log('una ricetta', recipe[0].title))
   // })
-  .then (() =>{
+  .then(() => {
     return Recipe
-    .create(data)
+      .create(data)
       .then(recipe => console.log('ricette', recipe))
   })
-.then(()=>{
-  return Recipe
-    .findOneAndUpdate({ title: "Rigatoni alla Genovese"},{duration : 100})
-})
+  .then(() => {
+    return Recipe
+      .findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+      .then(info => console.log(info, 'was successfully Updated!'))
+  })
+
+  .then(() => {
+    return Recipe
+      .deleteOne({ title: "Carrot Cake" })
+      .then(recipe => console.log(recipe, 'was successfully Deleted!'))//How can I see the item that was deleted and not just the index?
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-// Iteration 4 - Update recipe
-// Now you should have six different recipes in the database, 
-// but there was a mistake in one of them.
-// The Rigatoni alla Genovese does not take that long.
-// You should update the duration field and set it to 100.
-//  You might want to use the Model.findOneAndUpdate static.
-// After updating it, print a success message!
+// Iteration 5 - Remove a recipe
+// Oh oh! 
+// The Carrot Cake is no longer available, 
+// so we need to remove it from the database.
+// Using the Model.deleteOne static, 
+// remove that recipe from the database and display a success message after doing it!

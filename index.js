@@ -9,19 +9,57 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI, {
+  .connect("mongodb://localhost:27017/recipe-app", {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
   .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
+   // console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
+console.log("Connection Successful")
+updateDatabase();
+}).catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  async function updateDatabase(){
+    try{
+    let firstRecipe = await Recipe.create({
+      title: "hummus",
+      level: "Easy Peasy",
+      ingredients: ["chickpeas", "tahini", "olive oil", "lemon"],
+      cuisine: "Middle Eastern",
+      dishType: "other",
+      image:"https://en.wikipedia.org/wiki/Hummus#/media/File:Hummus_Dip_(30863436677).jpg",
+      duration: 30,
+      creator: "Sadia",
+      creation:""
+    });
+    console.log(firstRecipe.title);
+
+
+    let allRecipes = await Recipe.insertMany(data);
+
+    allRecipes.forEach((e) => {
+    console.log(e.title);
+    } );
+
+    console.log(Recipe.title);
+
+    await Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100}
+    );
+    console.log("Recipe updated!");
+
+    await Recipe.deleteOne({title: "Carrot Cake"});
+    console.log("Recipe deleted!");
+  } catch(e) {
+    console.log("Error!")
+  } finally {
+    mongoose.connection.close();
+  } 
+
+  }

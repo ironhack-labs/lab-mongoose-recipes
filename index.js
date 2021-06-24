@@ -19,6 +19,9 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(() => {
+    return Recipe.syncIndexes()
+  })
   // .then(() => {
   //   return Recipe
   //   .create(

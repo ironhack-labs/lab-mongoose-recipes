@@ -19,14 +19,14 @@ mongoose
   //   // Before adding any recipes to the database, let's remove all existing ones
   //   return Recipe.deleteMany()
   // })
-  .then(() => {
+  .then(() => { // Iteration 5
     Recipe.deleteOne({ title: "Carrot Cake"})
     .then(deletedRecipe => {
       console.log(deletedRecipe);
-      mongoose.connection.close();
+      mongoose.connection.close(); // Iteration 6
     });
   })
-  // .then(() => {
+  // .then(() => { // Iteration 4
   //   Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {duration: 100},
   //   {new: true})
   //   .then(updatedRecipe => {
@@ -34,14 +34,14 @@ mongoose
   //     mongoose.connection.close();
   //   });
   // })
-  // .then(() => {
+  // .then(() => { // Iteration 3
   //   Recipe.insertMany(data)
   //   .then(recipe => {
   //     recipe.forEach(recipe => console.log(recipe.title));
   //     mongoose.connection.close();
   //   });
   // })
-  //.then(() => {
+  //.then(() => { // Iteration 2
     // Recipe.create({
     //   title: 'Bla',
     //   cuisine: 'Hr Bu',

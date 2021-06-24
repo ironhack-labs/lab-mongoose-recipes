@@ -50,6 +50,11 @@ async function updateDatabase() {
     console.log(recipeCreated.title);
 
     await Recipe.insertMany(data);
+    
+    data.forEach(recipe => {
+      console.log(recipe.title);      
+    });
+
     await Recipe.updateOne(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }

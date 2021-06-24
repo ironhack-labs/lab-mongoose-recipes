@@ -20,8 +20,30 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({title: "Scrambled Eggs", cuisine: "International"})
+  })
+  .then((res)  => {
+    console.log(res.title)
+    return Recipe.insertMany(data);
+  })
+  .then((result) => {
+    result.forEach((elem)=>{
+      console.log(elem.title)
+    });
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true} )
+  })
+  .then(() => {
+    console.log("Duration updated!");
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(() => {
+    console.log("Carrot cake successfully deleted!")
+    return mongoose.connection.close()
+  })
+  .then(() => {
+    console.log('Mongoose connection disconnected')
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+  

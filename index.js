@@ -9,19 +9,44 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    .connect(MONGODB_URI, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(self => {
+        console.log(`Connected to the database: "${self.connection.name}"`);
+        // Before adding any recipes to the database, let's remove all existing ones
+        return Recipe.deleteMany()
+    })
+    .then(() => {
+        // return Recipe.create(data);
+        // We found out later that we were supposed to create a dish manually
+        return Recipe.insertMany(data);
+    })
+    .then(() => {
+        Recipe.find({})
+            .then((result) => {
+                result.forEach((dish) => {
+                    console.log(dish.title)
+                });
+            })
+    })
+    .then(() => {
+        Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true })
+            .then((updatedDish) => {
+                console.log("The dish is updated:", updatedDish)
+            })
+    })
+    .then(() => {
+        Recipe.deleteOne({ title: 'Carrot Cake' })
+            .then((deleteData) => {
+                console.log('Carrot Cake is deleted!', deleteData)
+            })
+    })
+    .catch(error => {
+        console.error('Error connecting to the database', error);
+    });
+mongoose.connection.close();
+
+// console.log(mongoose.connection.readyState);

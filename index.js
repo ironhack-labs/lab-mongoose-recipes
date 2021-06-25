@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
@@ -6,7 +8,7 @@ const Recipe = require('./models/Recipe.model');
 const data = require('./data');
 
 // const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
-const MONGODB_URI = 'mongodb+srv://K7ns5u3v:F8ZDe6xh7LN2knHQ@cluster0.qvczz.mongodb.net/recipesDB?authSource=admin&replicaSet=atlas-k5k3zo-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true';
+const MONGODB_URI = `mongodb+srv://${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}@cluster0.qvczz.mongodb.net/recipesDB?authSource=admin&replicaSet=atlas-k5k3zo-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true`;
 
 // Connection to the database "recipe-app"
 mongoose

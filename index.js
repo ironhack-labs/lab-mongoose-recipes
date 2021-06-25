@@ -25,3 +25,30 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  // this code is commented out so that we don't repeat the creation at every reload
+  /* const oneRecipe = {
+    title: 'new recipe',
+    level: 'Easy Peasy', 
+    ingredients: ['salt', 'pepper'], 
+    cuisine: 1, 
+    dishType: 'breakfast', 
+    image: "https://images.media-allrecipes.com/images/75131.jpg",
+    duration: 60,
+    creatory: 'Miki',
+  };
+
+
+  Recipe.create(oneRecipe)
+  .then((createdRecipe) => console.log(createdRecipe))
+  .catch((err => console.log(err)))
+ */
+
+  Recipe.insertMany(data)
+	.then(createdRecipes => {
+    createdRecipes.forEach((recipe) => {
+      
+      console.log(recipe.title)
+    })
+  })
+	.catch((err) => console.log(err));

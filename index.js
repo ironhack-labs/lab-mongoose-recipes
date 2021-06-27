@@ -14,20 +14,31 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(self => {
+  /* .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
+  }) */
+  .then(() => {
+  Recipe.create(oneRecipe)
+  .then((createdRecipe) => console.log(createdRecipe))
+  Recipe.insertMany(data)
+	.then(createdRecipes => {
+    createdRecipes.forEach((recipe) => console.log(recipe.title));
+  })
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  .then(console.log('Recipe updated!'))
+  Recipe.findOneAndDelete({title: 'Carrot Cake'})
+  .then(console.log('Recipe deleted!'))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-  // this code is commented out so that we don't repeat the creation at every reload
-  /* const oneRecipe = {
+  
+  
+  const oneRecipe = {
     title: 'new recipe',
     level: 'Easy Peasy', 
     ingredients: ['salt', 'pepper'], 
@@ -38,17 +49,12 @@ mongoose
     creatory: 'Miki',
   };
 
+/*   mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected'));
 
-  Recipe.create(oneRecipe)
-  .then((createdRecipe) => console.log(createdRecipe))
-  .catch((err => console.log(err)))
- */
-
-  Recipe.insertMany(data)
-	.then(createdRecipes => {
-    createdRecipes.forEach((recipe) => {
-      
-      console.log(recipe.title)
-    })
-  })
-	.catch((err) => console.log(err));
+// this next part is listening to the node process, when it says the process is broken (SIGINT), it will disconnect from the database
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+  }); */

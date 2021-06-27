@@ -14,11 +14,11 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  /* .then(self => {
+/*   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
-  }) */
+  }) */ 
   .then(() => {
   Recipe.create(oneRecipe)
   .then((createdRecipe) => console.log(createdRecipe))
@@ -28,9 +28,9 @@ mongoose
   })
   })
   .then(() => {
-  Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
   .then(console.log('Recipe updated!'))
-  Recipe.findOneAndDelete({title: 'Carrot Cake'})
+  Recipe.deleteOne({title: 'Carrot Cake'}, {new: true})
   .then(console.log('Recipe deleted!'))
   })
   .catch(error => {
@@ -49,7 +49,7 @@ mongoose
     creatory: 'Miki',
   };
 
-/*   mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected'));
+mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected'));
 
 // this next part is listening to the node process, when it says the process is broken (SIGINT), it will disconnect from the database
 process.on('SIGINT', () => {
@@ -57,4 +57,4 @@ process.on('SIGINT', () => {
     console.log('Mongoose default connection disconnected through app termination');
     process.exit(0);
   });
-  }); */
+  });

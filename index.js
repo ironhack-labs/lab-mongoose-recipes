@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
+
 // Import of the data from './data.json'
 const data = require('./data');
 
@@ -50,30 +51,44 @@ mongoose
        .catch(err => console.log(err))
  })*/
 
-  // ITERATION 3: INSERT MULTIPLE RECIPES
+ Recipe.insertMany(data)
 
-        Recipe.insertMany(data)
+  .then(recipe => {
 
-	     .then(recipe => {
+    recipe.forEach(element => {
+    console.log(element.title); 
+})
 
-	   	  recipe.forEach(element => {
-         console.log(element.title); 
-       }); 
-	
-	 })
-	 .catch(err => console.log(err))
- })
+  //ITERATION 4: UPDATE RECIPE
+Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {new: true})
 
-   //ITERATION 4: UPDATE RECIPE
-     Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' },
-     
-     { duration: 100 }, {new: true}).then(updatedRecipe => {console.log(updatedRecipe.duration);
-         
-    })
+.then(updatedRecipe => {console.log(updatedRecipe);
+   
+})
 
-   .catch(err => console.log(err))
+.catch(err => console.log(err))
+
+//5 delete a recipe
+
+Recipe.findOneAndDelete({ title: 'Carrot Cake' })
+
+.then(deletedRecipe => 
+  
+  console.log('The Carrot Cake was deleted'));
+
+})
+
+  .catch(err => console.log(err))
+  
+})
+
+.catch(error => {
+    console.error('Error connecting to the database', error);
+
+  });
+
+
+
+
   
 
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });

@@ -72,9 +72,11 @@ Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, {new: t
 
 Recipe.findOneAndDelete({ title: 'Carrot Cake' })
 
-.then(deletedRecipe => 
-  
-  console.log('The Carrot Cake was deleted'));
+.then(deletedRecipe => {
+
+  console.log('The Carrot Cake was deleted');
+  mongoose.connection.close();
+})
 
 })
 
@@ -86,7 +88,6 @@ Recipe.findOneAndDelete({ title: 'Carrot Cake' })
     console.error('Error connecting to the database', error);
 
   });
-
 
 
 

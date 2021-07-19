@@ -19,44 +19,6 @@ const ramenRecipe = {
 };
 
 // Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then((self) => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany();
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create(recipes).then((res) =>
-      console.log(
-        res.map((recipe) => {
-          return recipe;
-        })
-      )
-    );
-    Recipe.create(ramenRecipe).then((res) =>
-      console.log(res.title + " inserted successfully.")
-    );
-    Recipe.insertMany(data).then((res) => {
-      console.log(res.map((eachRes) => eachRes.title));
-      console.log("Data.json inserted successfully.");
-      Recipe.updateOne(
-        { title: "Rigatoni alla Genovese" },
-        { duration: 100 }
-      ).then((res) => console.log(`Recipe was updated successfully.`, res));
-      Recipe.deleteOne({ title: "Carrot Cake" }).then((res) =>
-        console.log("Recipe deleted successfully", res)
-      );
-    });
-  })
-  .catch((error) => {
-    console.error("Error connecting to the database", error);
-  });
 
 // mongoose
 //   .connect(MONGODB_URI, {
@@ -64,15 +26,59 @@ mongoose
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true,
 //   })
-//   .then( async (self) => {
+//   .then((self) => {
 //     console.log(`Connected to the database: "${self.connection.name}"`);
 //     // Before adding any recipes to the database, let's remove all existing ones
-//     await Recipe.deleteMany(); //Clear database
-//     await Recipe.create(ramenRecipe);
-//     await Recipe.insertMany(data);
-//     await Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100})
-//     await Recipe.deleteOne({ title: "Carrot Cake"})
+//     return Recipe.deleteMany();
+//   })
+//   .then(() => {
+//     // Run your code here, after you have insured that the connection was made
+//     Recipe.create(recipes).then((res) =>
+//       console.log(
+//         res.map((recipe) => {
+//           return recipe;
+//         })
+//       )
+//     );
+//     Recipe.create(ramenRecipe).then((res) =>
+//       console.log(res.title + " inserted successfully.")
+//     );
+//     Recipe.insertMany(data).then((res) => {
+//       console.log(res.map((eachRes) => eachRes.title));
+//       console.log("Data.json inserted successfully.");
+//       Recipe.updateOne(
+//         { title: "Rigatoni alla Genovese" },
+//         { duration: 100 }
+//       ).then((res) => console.log(`Recipe was updated successfully.`, res));
+//       Recipe.deleteOne({ title: "Carrot Cake" }).then((res) =>
+//         console.log("Recipe deleted successfully", res)
+//       );
+//     });
 //   })
 //   .catch((error) => {
 //     console.error("Error connecting to the database", error);
 //   });
+// mongoose.disconnect().then(() => console.log("Disconnected from database.")); //doesn't seem to work asynchronously. use async await method.
+
+
+// ASYNC-AWAIT Version, way more organized and readable
+
+mongoose
+  .connect(MONGODB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then( async (self) => {
+    console.log(`Connected to the database: "${self.connection.name}"`);
+    // Before adding any recipes to the database, let's remove all existing ones
+    await Recipe.deleteMany(); //Clear database
+    await Recipe.create(ramenRecipe);
+    await Recipe.insertMany(data);
+    await Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100})
+    await Recipe.deleteOne({ title: "Carrot Cake"})
+    await mongoose.disconnect().then(() => console.log("Disconnected from database."))
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database", error);
+  });

@@ -20,8 +20,64 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    //2
+  const pokebol = {
+    title: "pokebol",
+    level: "Amateur Chef",
+    ingredients: [
+      "Sliced cucumber",
+      "Sliced radish",
+      "Sliced or cubed avocado",
+      "Furikake",
+      "Thinly sliced scallions",
+      "Red pepper flakes",
+    ],
+    cuisine: "hawaiian",
+    dishType: "main_course",
+    duration: 20,
+    creator: "Chef whatever",
+  }
+
+    Recipe.create(pokebol)
+    .then((Recipe => {
+      console.log(Recipe.title);
+    }))
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+//3
+
+Recipe.insertMany(data)
+.then((Recipe)=> {
+  Recipe.forEach(element => {
+    console.log(element.title)
+  })
+})
+
+//4
+Recipe.findOneAndUpdate(
+  {title: "Rigatoni alla Genovese"},
+  {duration: 100},
+)
+.then((updatedRecipe) => {
+  console.log("Rigatoni alla Genovese's recipe is successfully updated !")
+})
+.catch((error)=>{
+  console.log(error);
+})
+
+//5
+Recipe.findOneAndDelete({title:"Carrot Cake"})
+.then (()=> {
+  console.log("Carrot cake is gone")
+
+})
+.catch ((error)=>{
+  console.log(error)
+})
+
+//6
+// mongoose.connection.close()

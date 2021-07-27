@@ -25,7 +25,10 @@ connectDB()
         "https://images.unsplash.com/photo-1512003867696-6d5ce6835040?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
       duration: 20,
       creator: "Iron-Fran",
-    }).then((e) => console.log("Worked."));
+    })
+      .then(Recipe.insertMany(data))
+      .then()
+      .then((e) => console.log("Worked."));
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

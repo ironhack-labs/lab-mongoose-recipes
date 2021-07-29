@@ -20,43 +20,62 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    return createRecipe();
+    manipulateData();
   })
-  .then((recipeFromDb) => {
-    console.log("what is this:", recipeFromDb.title);
-    return includeDataJson();
-  })
-  .then((data) => {
-    data.forEach((recipe) => console.log("all recipes", recipe.title));
-    return updateRecipe();
-  })
-  .then(() => {
-    return removeRecipe();
-  })
-  .then(() => {
-    console.log("success removed");
-    mongoose.connection.close();
-  })
+  // .then(() => {
+  //   return createRecipe();
+  // })
+  // .then((recipeFromDb) => {
+  //   console.log("what is this:", recipeFromDb.title);
+  //   return includeDataJson();
+  // })
+  // .then((data) => {
+  //   data.forEach((recipe) => console.log("all recipes", recipe.title));
+  //   return updateRecipe();
+  // })
+  // .then(() => {
+  //   return removeRecipe();
+  // })
+  // .then(() => {
+  //   console.log("success removed");
+  //   mongoose.connection.close();
+  // })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
 
-function createRecipe() {
-  const recipeData = {
-    title: "Chicken Wings",
-    cuisine: "Asian",
-  };
-  return Recipe.create(recipeData);
-}
+// function createRecipe() {
+//   const recipeData = {
+//     title: "Chicken Wings",
+//     cuisine: "Asian",
+//   };
+//   return Recipe.create(recipeData);
+// }
 
-function includeDataJson() {
-  return Recipe.insertMany(data);
-}
+// function includeDataJson() {
+//   return Recipe.insertMany(data);
+// }
 
-function updateRecipe() {
-  return Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
-}
+// function updateRecipe() {
+//   return Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+// }
 
-function removeRecipe() {
-  return Recipe.deleteOne({ title: "Carrot Cake" });
+// function removeRecipe() {
+//   return Recipe.deleteOne({ title: "Carrot Cake" });
+// }
+
+const recipeData = {
+  title: "Chicken Wings",
+  cuisine: "Asian",
+};
+
+async function manipulateData() {
+  await Recipe.create(recipeData);
+  console.log("created recipe", recipeData.title);
+  await Recipe.insertMany(data);
+  data.forEach((recipe) => console.log("all recipes", recipe.title));
+  await Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+  await Recipe.deleteOne({ title: "Carrot Cake" });
+  console.log("success removed");
+  mongoose.connection.close();
 }

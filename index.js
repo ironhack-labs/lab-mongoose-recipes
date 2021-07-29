@@ -20,50 +20,43 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    createRecipe();
-    includeDataJson();
-    updateRecipe();
-    //removeRecipe(); 
-    //mongoose.connection.close();
+    return createRecipe();
+  })
+  .then((recipeFromDb) => {
+    console.log("what is this:", recipeFromDb.title);
+    return includeDataJson();
+  })
+  .then((data) => {
+    data.forEach((recipe) => console.log("all recipes", recipe.title));
+    return updateRecipe();
+  })
+  .then(() => {
+    return removeRecipe();
+  })
+  .then(() => {
+    console.log("success removed");
+    mongoose.connection.close();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-  removeRecipe(); 
 
 function createRecipe() {
   const recipeData = {
     title: "Chicken Wings",
     cuisine: "Asian",
   };
-
-  Recipe.create(recipeData)
-    .then((recipeFromDb) => console.log(recipeFromDb.title))
-    .catch((err) => console.log(err));
+  return Recipe.create(recipeData);
 }
 
 function includeDataJson() {
-  Recipe.insertMany(data)
-    .then((recipeFromDb) => {
-      recipeFromDb.forEach((recipe) => {
-        console.log(recipe.title);
-      });
-    })
-    .catch((err) => console.log(err));
+  return Recipe.insertMany(data);
 }
 
 function updateRecipe() {
-  Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-    .then(() => {
-      console.log("success updated");
-    })
-    .catch((err) => console.log(err));
+  return Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
 }
 
 function removeRecipe() {
-  Recipe.deleteOne({ title: "Carrot Cake" })
-    .then(() => {
-      console.log("success removed");
-    })
-    .catch((err) => console.log(err));
+  return Recipe.deleteOne({ title: "Carrot Cake" });
 }

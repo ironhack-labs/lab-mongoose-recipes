@@ -33,7 +33,7 @@ const recipeSchema = new Schema({
   creator: String,
   created: {
     type: Date,
-    // default: getDate(),
+    default: new Date(),
   },
 });
 

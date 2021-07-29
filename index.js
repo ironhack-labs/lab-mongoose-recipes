@@ -22,10 +22,14 @@ mongoose
   .then(() => {
     createRecipe();
     includeDataJson();
+    updateRecipe();
+    //removeRecipe(); 
+    //mongoose.connection.close();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
+  removeRecipe(); 
 
 function createRecipe() {
   const recipeData = {
@@ -44,6 +48,22 @@ function includeDataJson() {
       recipeFromDb.forEach((recipe) => {
         console.log(recipe.title);
       });
+    })
+    .catch((err) => console.log(err));
+}
+
+function updateRecipe() {
+  Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+    .then(() => {
+      console.log("success updated");
+    })
+    .catch((err) => console.log(err));
+}
+
+function removeRecipe() {
+  Recipe.deleteOne({ title: "Carrot Cake" })
+    .then(() => {
+      console.log("success removed");
     })
     .catch((err) => console.log(err));
 }

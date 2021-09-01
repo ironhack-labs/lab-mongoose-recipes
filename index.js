@@ -19,8 +19,24 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes())
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+   return  Recipe.create({title: 'iamtitle', level: '5', ingredients: ['coca-cola'], cuisine: 'll', dishType: 'fish' , image: 'https://images.media-allrecipes.com/images/75131.jpg'}
+    )
+  }).then(()=>{
+    console.log('Creado con exito')
+    return     Recipe.create(data); 
+  }).then(() => { 
+    console.log('Succesful change');
+      return  Recipe.updateOne({ title: 'Rigatoni alla Genovese'}, {duration : '100' }) 
+  })
+  .then(() => {
+    return  Recipe.deleteOne({title: 'Carrot Cake'})
+  }).then(() => {
+     console.log('Succesfull deleting');
+  }).then(() => {
+    console.log('Database connection  close');
+      mongoose.connection.close(); 
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -19,9 +19,27 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes())
+
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+  //   ITERATION 2. Create new recipe
+
+  //   Recipe
+  //   .create({title: 'IronBurgers', level: 'UltraPro Chef', ingredients: ['meat', 'bread', 'love'], cuisine: 'spanish', dishType: 'main_course', duration: 1, creator: 'Sara' })
+  //   .then(newRecipe => console.log('The new recipe is', newRecipe))
+  //   .catch(err => console.log('EEERROOORR', err))
+
+
+  //  ITERATION 3. Insert multiple recipes
+
+      Recipe
+      .create(data)
+      .then(newRecipes => newRecipes.map((recipe) => console.log('The title of the recipe is', recipe.title)))
+      .catch(err => console.log('EEERROOORR', err))
   })
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

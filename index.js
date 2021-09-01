@@ -19,9 +19,35 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes())
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe
+
+    // ITERATION 2
+    //   .create(
+    //     {title: 'tiramisu', cuisine: 'italian'}
+    //   )
+    //   .then(recipe => {console.log(recipe.title)})
+    //   .catch((err) => {console.log('there has been an error!', err)})
+
+      .create(data)
+      .then(recipes => {
+        recipes.forEach(getTitle => console.log(getTitle.title))
+        Recipe
+          .deleteOne({title: 'Carrot Cake'})
+          .then(info => console.log(info))
+          .catch(err => console.log(err))
+        Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+          .then(recipes => {
+            console.log('Successfully updated', recipes)
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  mongoose.connection.close()

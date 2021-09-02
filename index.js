@@ -30,19 +30,19 @@ mongoose
   })
   .then(async () => {
     // SINGLE RECIPE
-    return Recipe.create(recipe)
+    await Recipe.create(recipe)
       .then((recipe) => successInsertCallback(recipe))
       .catch((error) => errorCallback(error));
   })
   .then(async () => {
     // MULTIPLE RECIPES
-    return Recipe.insertMany(recipes)
+    await Recipe.insertMany(recipes)
       .then((recipes) => successInsertCallback(recipes))
       .catch((error) => errorCallback(error));
   })
   .then(async () => {
     // UPDATING A SINGLE DOCUMENT
-    return Recipe.findOneAndUpdate(
+    await Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 },
       { new: true }
@@ -52,7 +52,7 @@ mongoose
   })
   .then(async () => {
     //DELETING A SINGLE DOCUMENT
-    return Recipe.deleteOne({ title: "Carrot Cake" })
+    await Recipe.deleteOne({ title: "Carrot Cake" })
       .then((deletedRecipe) => successDeleteCallback(deletedRecipe))
       .catch((error) => errorCallback(error));
   })

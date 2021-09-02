@@ -22,7 +22,7 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made    
   // 2  
-    Recipe.create ({
+    let p1 = Recipe.create ({
       title: "Steak Tartar",
       level: "Amateur Chef",
       ingredients: ["Minced Meat", "Parsley", "Mustard", "Egg Yolk", "Lea Perrins", "Tabasco", "Anxovies", "Chalotte"],
@@ -35,7 +35,7 @@ mongoose
     .then ((recipe) => console.log ("Recipe created: " + recipe.title))
 
   //3-8utWFr5v4ZxrE2Rlt3
-    Recipe.insertMany (data)
+    let p2 = Recipe.insertMany (data)
     .then ((recipes) => {
             recipes.forEach ( (recipe) =>
             console.log ("New Recipe added: " + recipe.title)
@@ -43,20 +43,27 @@ mongoose
         })
   
   // 4ZP5b
-    Recipe.findOneAndUpdate ({title: "Rigatoni alla Genovese"}, {duration: 100})
+    let p3 = Recipe.findOneAndUpdate ({title: "Rigatoni alla Genovese"}, {duration: 100})
       .then (() => console.log ("succesfully updated"))
 
   //5
-    Recipe.deleteOne ({title: "Carrot Cake"})
+    let p4 = Recipe.deleteOne ({title: "Carrot Cake"})
       .then (() => console.log ("succesfully deleted"))
 
   //6
-    mongoose.connection.close ();
+    var actions = [p1, p2, p3, p4]; //populate this with your insert functions as promises
 
-        
+    Promise.all(actions)
+      .then(function() {
+        // all loaded
+        mongoose.connection.close ();
+        console.log ("connection closed");
+      }, function() {
+        // one or more failed
+        mongoose.connection.close ();
+        console.log ("connection closed with errors");
+      });     
   })
-
-
  
   .catch(error => {
     console.error('Error connecting to the database', error);

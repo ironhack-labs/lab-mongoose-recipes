@@ -1,27 +1,64 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
-const data = require('./data');
+const recipes = require("./data");
+const recipe = require("./recipe");
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
+
+const successInsertCallback = (data) => {
+  console.log("\nSuccesful recipe insertion: \n");
+  for (const recipe of data) console.log(recipe.title);
+};
+const successUpdateCallback = (data) =>
+  console.log("\nRecipe: " + data.title + " updated\n");
+
+const successDeleteCallback = (data) => {
+  if (data.deletedCount > 0) console.log("\nRecipe successfuly deleted\n");
+  else console.log("\nRecipe to be deleted could not be found\n");
+};
+const errorCallback = (error) => console.log("An error occurred", error);
 
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
-    useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
   })
-  .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+  .then(async () => {
+    // SINGLE RECIPE
+    return Recipe.create(recipe)
+      .then((recipe) => successInsertCallback(recipe))
+      .catch((error) => errorCallback(error));
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then(async () => {
+    // MULTIPLE RECIPES
+    return Recipe.insertMany(recipes)
+      .then((recipes) => successInsertCallback(recipes))
+      .catch((error) => errorCallback(error));
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+  .then(async () => {
+    // UPDATING A SINGLE DOCUMENT
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    )
+      .then((updatedRecipe) => successUpdateCallback(updatedRecipe))
+      .catch((error) => errorCallback(error));
+  })
+  .then(async () => {
+    //DELETING A SINGLE DOCUMENT
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+      .then((deletedRecipe) => successDeleteCallback(deletedRecipe))
+      .catch((error) => errorCallback(error));
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database", error);
+  })
+  .finally(() => {
+    mongoose.connection.close();
   });

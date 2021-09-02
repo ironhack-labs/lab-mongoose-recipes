@@ -1,0 +1,19 @@
+[
+    {
+        "title": "Pepperoni pizza",
+        "level": "Easy Peasy",
+        "ingredients": [
+            "Pizza dough",
+            "Pepperoni",
+            "Mozzarella cheese",
+            "Tomato saouce",
+            "Oregano",
+            "Flour"
+        ],
+        "cuisine": "Italian",
+        "dishType": "main_course",
+        "image": "https://sipbitego.com/wp-content/uploads/2021/08/Pepperoni-Pizza-Recipe-Sip-Bite-Go.jpg",
+        "duration": 25,
+        "creator": "Sherab Pereiri"
+    }
+]

@@ -8,10 +8,10 @@
     "dev": "node ./index.js"
   },
   "license": "MIT",
-  "dependencies": {
-    "mongoose": "^5.13.8"
-  },
   "devDependencies": {
     "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "mongoose": "^6.0.4"
   }
 }

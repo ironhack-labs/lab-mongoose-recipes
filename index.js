@@ -19,8 +19,9 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+    .then(() => {
     // Run your code here, after you have insured that the connection was made
+    /**** Iteration 2 - Create a recipe ****/
     Recipe.create({
       "title": "Lemon and Milk-Braised Pork Carnitas",
       "level": "UltraPro Chef",
@@ -42,7 +43,20 @@ mongoose
       "creator": "Chef John"
     })
     .then(recipe => console.log(recipe.title))
+  }) 
+
+/**** Iteration 3 - Insert multiple recipes ****/
+
+  Recipe.insertMany(data)
+    .then((recipes) => {
+      recipes.forEach(recipe => {
+        console.log(recipe.title)        
+      });
   })
+
+/**** Iteration 4 - Update recipe ****/
+
+
 
 
 

@@ -8,19 +8,17 @@ const data = require('./data');
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 // Connection to the database "recipe-app"
 mongoose
-	.connect(MONGODB_URI, {
-		useCreateIndex: true,
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false
-
-		// UseaCreated, useNew, etc está deprecated, mejor esta forma
-		// Dejo este código aquí para testear en un futuro
-		// .connect(MONGODB_URI, err => {
-		// 		if(err) throw err;
-		// 		console.log('connected to MongoDB')
-		// 	});
-	})
+	.connect(
+		MONGODB_URI,
+		{
+			// UseaCreated, useNew, etc está deprecated, mejor esta forma
+			// Dejo este código aquí para testear en un futuro
+			// .connect(MONGODB_URI, err => {
+			// 		if(err) throw err;
+			// 		console.log('connected to MongoDB')
+			// 	});
+		}
+	)
 	.then((self) => {
 		console.log(`Connected to the database: "${self.connection.name}"`);
 		// Before adding any recipes to the database, let's remove all existing ones
@@ -31,7 +29,7 @@ mongoose
 		//-------------------------------------------------------------------
 		// Iteration 2
 		Recipe.create({
-			title: 'Arroz cubano - after closing2',
+			title: 'Arroz cubano - re-done after changes',
 			level: 'UltraPro Chef',
 			ingredients: [
 				'3 1/2 pounds boneless pork shoulder, cut into large pieces',
@@ -49,9 +47,6 @@ mongoose
 			image: 'https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg',
 			duration: 160,
 			creator: 'Chef John'
-		}).then((recipe) => {
-			console.log(recipe.title);
-			console.log('Create working');
 		});
 		//-------------------------------------------------------------------
 		// Iteraction 3
@@ -59,18 +54,12 @@ mongoose
 			recipes.forEach((element) => {
 				console.log(element.title);
 			});
+
 			//Iteration 4
-			const promise1 = Recipe.findOneAndUpdate(
-				{ title: 'Rigatoni alla Genovese' },
-				{ duration: 100 }
-			).then(() => {
-				console.log('Update working.');
-			});
+			const promise1 = Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
+
 			//Iteration 5
-			const promise2 = Recipe.deleteOne({ title: 'Carrot Cake' }).then(() => {
-				console.log('Delete working.');
-			});
-			console.log('Insert many working');
+			const promise2 = Recipe.deleteOne({ title: 'Carrot Cake' });
 
 			//Iteracion 6
 			Promise.all([ promise1, promise2 ]).then(() => {
@@ -78,6 +67,17 @@ mongoose
 				mongoose.connection.close();
 			});
 		});
+	})
+	.then(() => {
+		console.log('Create working');
+		console.log('Título de la receta #1 ', recipe.title);
+		console.log('----------------------------------------');
+		console.log('Update working.');
+		console.log('----------------------------------------');
+		console.log('Delete working.');
+		console.log('----------------------------------------');
+		console.log('Insert many working');
+		console.log('----------------------------------------');
 	})
 	.catch((error) => {
 		console.error('Error connecting to the database', error);

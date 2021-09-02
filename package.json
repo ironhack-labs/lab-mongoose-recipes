@@ -1,7 +1,7 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)",
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
@@ -9,9 +9,19 @@
   },
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^5.8.9"
+    "mongoose": "^5.13.8"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
-  }
+    "nodemon": "^2.0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ftvalex01/lab-mongoose-recipes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/ftvalex01/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/ftvalex01/lab-mongoose-recipes#readme"
 }

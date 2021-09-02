@@ -9,9 +9,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^5.8.9"
+    "express": "^4.17.1",
+    "hbs": "^4.1.2",
+    "mongoose": "^5.13.8"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.12"
   }
 }

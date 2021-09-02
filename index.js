@@ -13,6 +13,13 @@ mongoose
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false
+
+		// UseaCreated, useNew, etc está deprecated, mejor esta forma
+		// Dejo este código aquí para testear en un futuro
+		// .connect(MONGODB_URI, err => {
+		// 		if(err) throw err;
+		// 		console.log('connected to MongoDB')
+		// 	});
 	})
 	.then((self) => {
 		console.log(`Connected to the database: "${self.connection.name}"`);

@@ -20,8 +20,62 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    Recipe.insertMany(data)
+
+      .then(response => {
+        console.log(response.length)
+        Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+          .then(response => {
+            console.log('Changed!')
+
+          })
+          .catch(err => {
+            console.log('Error!!')
+          })
+        Recipe.deleteOne({ title: "Carrot Cake" })
+          .then(response => {
+            console.log('deleted')
+            mongoose.connection.close(() => {
+              console.log('closed')
+            })
+          })
+          .catch(err => {
+            console.log('error delete!')
+
+          })
+      })
+
+      .catch(err => {
+        console.log("seeding is not working")
+      })
+
+
+
+
+
+    // let newRecipe = {
+    //   title: 'ice cream',
+    //   level: 'Easy Peasy',
+    //   ingredients: ['pão francês', 'queijo', 'presunto'],
+    //   cuisine: 'Brasileira',
+    //   dishType: 'snack',
+    //   image:
+    //     'http://culinaria.culturamix.com/blog/wp-content/gallery/misto-quente-3/Misto-Quente-6.jpg',
+    //   duration: 5,
+    //   creator: 'JOC'
+    // };
+    // Recipe.create(newRecipe)
+    //   .then(response => {
+    //     console.log(response)
+    //     mongoose.connection.close()
+    //   })
+    //   .catch(err => {
+    //     console.log("error!!!!")
+    //   })
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  

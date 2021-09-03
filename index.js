@@ -21,6 +21,30 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Iteration 2
+    const firstRecipe = data[0]
+    // They called this Model.create, because every Mongoose model has this static method
+    Recipe.create(firstRecipe).then((recipe) => {
+      recipe.remove().then(() => {
+        // Iteration 3
+        Recipe.insertMany(data).then((recipes) => {
+          recipes.forEach((recipe) => {
+            console.log(recipe.title)
+          })
+          // Iteration 4
+          // https://mongoosejs.com/docs/api/model.html#model_Model.findOneAndUpdate
+          Recipe.findOneAndUpdate({name: "Rigatoni alla Genovese "}, {duration: 100}, () => {
+            console.log("Rigatoni duration updated")
+
+            // Iteration 5
+            Recipe.deleteOne({name: "Carrot Cake"}).then(() => {
+              console.log("Carrot cake deleted")
+              mongoose.connection.close();
+            })
+          })
+        })
+      })
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

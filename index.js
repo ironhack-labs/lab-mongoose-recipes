@@ -16,12 +16,72 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const updated = Recipe.findOneAndUpdate(
+      {title: "Rigatoni alla Genovese"},
+      {duration: 100}
+    );
+    return updated;
+  })
+  .then(() => {
+    const remove = Recipe.deleteOne ({title: "Carrot Cake"});
+    return remove;
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+ 
+Recipe.create({
+    title: 'miXto quente',
+    level: 'Easy Peasy',
+    ingredients: ['pão francês', 'queijo', 'presunto'],
+    cuisine: 'Brasileira',
+    dishType: 'Snack',
+    image:
+        'http://culinaria.culturamix.com/blog/wp-content/gallery/misto-quente-3/Misto-Quente-6.jpg',
+    duration: 5,
+    creator: 'JOC'
+})
+
+
+/*Recipe.deleteMany()
+ .then( response => {
+   console.log(`Deleted ${response.deletedCount} elements`)
+   Recipe.insertMany(data)
+     .then(response =>{
+       console.log(`There are all the recipe titles: ${Recipe.title}`);
+       mongoose.connection.close();
+     })
+   })
+   .catch(err => console.log(`An error occurred seeding the DB: ${err}`))*/
+ 
+
+
+
+Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+       .then(() => console.log("succes"))
+       .catch(error=> console.log("Update error: ", error))
+
+
+
+
+
+   
+
+/*Recipe.deleteMany()
+ .then( response => {
+   console.log(`Deleted ${response.deletedCount} elements`)
+  Recipe.insertMany(data)
+     .then(response =>{
+      console.log(`There are all the recipe titles: ${Recipe.title}`);
+   Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+       .then(document=> console.log("new doc: ", document))
+       .catch(error=> console.log("Update error: ", error))
+        mongoose.connection.close();
+     })
+   })
+   .catch(err => console.log(`An error occurred seeding the DB: ${err}`))*/
+ 

@@ -32,33 +32,34 @@ mongoose
       created: undefined
     }
   
-    Recipe
-    .create(paella)
-    .then(recipe => console.log(recipe.title))
+    return Recipe.create(paella)
+
   })
+.then(recipe => console.log(recipe.title))
   
 .then(() => {
     //ITERATION 3
-    Recipe
-    .insertMany(data)
-    .then(arr => {for(recipe of arr)console.log(recipe.title)})
+   return Recipe.insertMany(data)
     
   })
+
+.then(arr => {for(recipe of arr)console.log(recipe.title)})
+
+
     //ITERATION 4
 .then(() => {
-    Recipe
-    .findOneAndUpdate({title: "Rigatoni alla Genovese" }, {duration: 100})
-    .then(()=> console.log("element updated"))
-    
-    })
-    //ITERATION 5
- .then(() => {
-    Recipe
-    .deleteOne({title:"Carrot Cake"})
-    .then(() => console.log("element deleted"))
-    
- })
 
+   return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese" }, {duration: 100} , {new:true})
+    
+  })
+.then((updatedElement)=> console.log(updatedElement))
+    //ITERATION 5
+.then(() => {
+     return Recipe.deleteOne({title:"Carrot Cake"})
+    
+  })
+.then((deletedElement) => console.log(deletedElement))
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

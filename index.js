@@ -46,6 +46,8 @@ mongoose
     console.error('Error connecting to the database', error)
   }); 
 
+  mongoose.connection.close()
+
    
   const recipe = {
   title: "macarrones boloñesa",

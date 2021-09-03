@@ -30,15 +30,13 @@ mongoose
   })
   .then(async () => {
     // SINGLE RECIPE
-    await Recipe.create(recipe)
-      .then((recipe) => successInsertCallback(recipe))
-      .catch((error) => errorCallback(error));
+    await Recipe.create(recipe).then((recipe) => successInsertCallback(recipe));
   })
   .then(async () => {
     // MULTIPLE RECIPES
-    await Recipe.insertMany(recipes)
-      .then((recipes) => successInsertCallback(recipes))
-      .catch((error) => errorCallback(error));
+    await Recipe.insertMany(recipes).then((recipes) =>
+      successInsertCallback(recipes)
+    );
   })
   .then(async () => {
     // UPDATING A SINGLE DOCUMENT
@@ -46,19 +44,29 @@ mongoose
       { title: "Rigatoni alla Genovese" },
       { duration: 100 },
       { new: true }
-    )
-      .then((updatedRecipe) => successUpdateCallback(updatedRecipe))
-      .catch((error) => errorCallback(error));
+    ).then((updatedRecipe) => successUpdateCallback(updatedRecipe));
   })
   .then(async () => {
     //DELETING A SINGLE DOCUMENT
-    await Recipe.deleteOne({ title: "Carrot Cake" })
-      .then((deletedRecipe) => successDeleteCallback(deletedRecipe))
-      .catch((error) => errorCallback(error));
+    await Recipe.deleteOne({ title: "Carrot Cake" }).then((deletedRecipe) =>
+      successDeleteCallback(deletedRecipe)
+    );
   })
   .catch((error) => {
-    console.error("Error connecting to the database", error);
+    errorCallback(error.message);
   })
   .finally(() => {
-    mongoose.connection.close();
+    console.log(mongoose.connection.readyState )
+    if (mongoose.connection.readyState === 1) mongoose.connection.close();
+    console.log(mongoose.connection.readyState )
   });
+
+
+  //Ready states
+
+  // 0: disconnected
+  // 1: connected
+  // 2: connecting
+  // 3: disconnecting
+
+ 

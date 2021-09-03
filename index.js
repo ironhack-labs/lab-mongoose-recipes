@@ -14,34 +14,33 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true 
   })
+
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+
   .then(() => {
-      let prom1 = Recipe.create(recipe)
-        .then(recipe => console.log("The recipe is saved and its name is: ", recipe.title))
-        .catch(error => console.log('An error happened while saving a new recipe:', error));
+      return Recipe.create(recipe)})
 
-      let prom2 = Recipe.insertMany(data)
-        .then(data.forEach(recipe => console.log(`Recipe : ${recipe.title}`)))
-        .catch(error => console.log('An error happened while saving a new recipe:', error));
+  .then(newRecipe => console.log("The recipe is saved and its name is: ", newRecipe.title))
+  
+  
+  .then(() => {
+      return Recipe.insertMany(data)})
 
-      let prom3 = Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
-        .then(update => console.log("Rigatoni updated!"))
-        .catch(error => console.log('An error happened while updating Rigatoni recipe:', error));
+  .then(data.forEach(recipe => console.log(`Recipe : ${recipe.title}`)))
 
-      let prom4 = Recipe.deleteOne({title: "Carrot Cake"})
-        .then(recipe => console.log("Carrot Cake deleted!"))
-        .catch(error => console.log('An error happened while updating Rigatoni recipe:', error));
+  .then(() => {
+      return Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})})
 
-      Promise.all([prom1, prom2, prom3, prom4])
-        .then(function() {
-          mongoose.connection.close();
-          console.log('Mongoose connection disconnected');
-        });
-  })
+  .then(updatedRecipe => console.log("Rigatoni updated!: " , updatedRecipe))
+
+  .then(() => {
+      return Recipe.deleteOne({title: "Carrot Cake"})})
+
+  .then(recipeDeleted => console.log("Carrot Cake deleted!"))
 
   .catch(error => {
     console.error('Error connecting to the database', error)

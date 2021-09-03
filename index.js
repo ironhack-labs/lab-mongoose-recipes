@@ -25,3 +25,61 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+
+const newRecipe = {
+  title: 'miXto quente',
+  level: 'Easy Peasy',
+  ingredients: ['pão francês', 'queijo', 'presunto'],
+  cuisine: 'Brasileira',
+  dishType: 'snack',
+  image: 'http://culinaria.culturamix.com/blog/wp-content/gallery/misto-quente-3/Misto-Quente-6.jpg',
+  duration: 5,
+  creator: 'JOC'
+};
+
+
+// createRecipe.then(newRecipe => console.log("title: ", newRecipe.title))
+
+Recipe.deleteMany()
+  .then(response => {
+    console.log(`Deleted ${response.deletedCount} elements`)
+    Recipe.create(newRecipe)
+      .then((result) => {
+        console.log(result)
+      }).catch((err) => {
+        console.log('not creating one recipe')
+      });
+    Recipe.insertMany(data)
+      .then(response => {
+        console.log(`Created ${response.length} elements`);
+      })
+      .then((result) => {
+        Recipe.findOneAndUpdate({
+            title: "Rigatoni alla Genovese"
+          }, {
+            duration: 100
+          }, {
+            new: true
+          })
+          .then(document => console.log("Success"))
+          .catch(error => console.log("Update error: ", error))
+        Recipe.deleteOne({
+            title: "Carrot Cake"
+          })
+          .then(document => {
+            console.log("Deleted carrot cake");
+            mongoose.connection.close()
+          })
+          .catch(error => console.log("Update error: ", error))
+
+      }).catch((err) => {
+
+      });
+  })
+
+
+
+  .catch(err => console.log(`An error occurred seeding the DB: ${err}`))

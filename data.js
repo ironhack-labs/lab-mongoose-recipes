@@ -1,4 +1,4 @@
-[{
+module.exports = [{
     "title": "Asian Glazed Chicken Thighs",
     "level": "Amateur Chef",
     "ingredients": [

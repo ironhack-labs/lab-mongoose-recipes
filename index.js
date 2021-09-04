@@ -21,38 +21,49 @@ mongoose
   .then(() => {
     
 
-    Recipe.create({
-      "title": "Healthy oat chocolate cake",
-      "level": "Easy Peasy",
-      "ingredients": [
-        "1 cup oats",
-        "2 eggs",
-        "2 bananas",
-        "1/4 cup coconut oil",
-        "1/4 vanilla esence",
-        "3 tablespoons minced garlic",
-        "1/4 cup yeast",
-        "100 grams chocolate 100%",
-        "apricot to decorate",
+   const myRecipe={
+      title: "Healthy oat chocolate cake",
+      level: "Easy Peasy",
+      ingredients: [
+        "cup oats",
+        "eggs",
+         "bananas",
+         "cup coconut oil",
+         "vanilla esence",
+         "tablespoons minced garlic",
+         "cup yeast",
+         "chocolate 100%",
+         "apricot to decorate",
       ],
-      "cuisine": "French",
-      "dishType": "snack",
-      "image": "",
-      "duration": 35,
-      "creator": "Chef Nina",
-    })
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+      cuisine: "French",
+      dishType: "snack",
+      duration: 35,
+      creator: "Chef Nina",
+    }
+
+    return Recipe.create(myRecipe)
   })
 
+.then((myRecipe)=> console.log(myRecipe.title))
 
-  // Iteration 3 - Insert multiple recipes 
-  .then  (() => {
-    return Recipe.insertMany(data)
-  })
-  .then((recipes) => {
-    recipes.forEach(recipe => {
-      console.log(recipe.title)
-    });
-  })
+.then  (() => {
+  return Recipe.insertMany(data)
+})
+
+ 
+  .then((recipes) => recipes.forEach((recipe) => console.log("New recipe: " + recipe.title)))
+
+  .then(() => Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 }))
+
+	.then(() => console.log("Updated!"))
+
+	.then(() => {
+		return Recipe.deleteOne({ title: "Carrot Cake" })
+	})
+	.then(() => console.log("deleted!"))
+
+	.catch((error) => {
+		console.error("Error connecting to the database", error)
+	})
+
+	.finally(() => mongoose.connection.close())

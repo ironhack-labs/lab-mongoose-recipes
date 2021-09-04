@@ -21,7 +21,8 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-   /* Recipe.create({
+    //Iteracion 2
+   Recipe.create({
       "title": "European Chicken Thighs",
       "level": "Amateur Chef",
       "ingredients": [
@@ -40,14 +41,36 @@ mongoose
       "duration": 40,
       "creator": "Chef LePapu"
     })
-   .then(recipe => console.log(recipe.title))*/
-   return Recipe.insertMany(data)
-  })
-  .then((recipes) => {
-    recipes.forEach(recipe => {
-      console.log(recipe.title)
+   .then(recipe => console.log(recipe.title))
+
+   //Iteracion 3
+   Recipe.insertMany(data).then((recipes) => {
+    recipes.forEach((elem) => {
+      console.log(elem.title);
     });
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+
+    //Iteration 4
+    const update = Recipe.findOneAndUpdate(
+      {title: 'Rigatoni alla Genovese'},
+      {duration: 100}
+    ).then(() => {
+      console.log('Update recipe.');
+    });
+
+    //Iteration 5
+    const deleted = Recipe.deleteOne(
+      {title: 'Carrot Cake' }
+      ).then(() => {
+      console.log('Delete recipe.');
+    });
+
+    //Iteracion 6
+    Promise.all([ update, deleted ]).then(() => {
+      console.log('Everything has been inserted');
+      mongoose.connection.close();
+    });
   });
+})
+.catch((error) => {
+  console.error('Error connecting to the database', error);
+});

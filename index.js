@@ -26,8 +26,12 @@ mongoose
       level: 'Easy Peasy',
       ingredients: ['2 cloves of garlic', '5 Thai chillies'],
       cuisine: 'Thai cuisine',
+      dishType: 'main_course',
+      image: 'https://www.eatingthaifood.com/wp-content/uploads/2011/06/smallIMG_2062.jpg',
+      duration: 15,
+      creator: 'Mark Wiens'
     })
-    .then(recipe => console.log(recipe))
+    return Recipe.insertMany(data)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -20,7 +20,14 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // add a new recipe document to the database:
+    Recipe.create({
+      title: 'Thai Green Papaya Salad Recipe (ส้มตำ) – Thai Street Food Style!',
+      level: 'Easy Peasy',
+      ingredients: ['2 cloves of garlic', '5 Thai chillies'],
+      cuisine: 'Thai cuisine',
+    })
+    .then(recipe => console.log(recipe))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

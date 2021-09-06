@@ -40,8 +40,31 @@ mongoose
     });
   })
 
+  .then((newRecipe) => {
+    console.log(newRecipe.title);
+  })
+
   .then(() => {
     return Recipe.insertMany(data);
+  })
+
+  .then((multipleRecipes) => {
+    console.log(multipleRecipes.title);
+
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
+  })
+
+  .then((updatedGenovese) => {
+    console.log("Success!!");
+
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((deletedRecipe) => {
+    console.log("Success");
   })
 
   .catch((error) => {

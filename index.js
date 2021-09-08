@@ -30,24 +30,35 @@ mongoose
     console.error("Error connecting to the database", error);
   });
 
-function showTitle() {
-  Recipe.find()
-    .then((result) => result.forEach((title) => console.log(title.title)))
-    .catch((error) => console.error(error));
+async function showTitle() {
+  const recipe = await Recipe.find() 
+  try{
+    recipe.forEach((title) => console.log(title.title))
+  }
+  catch(error){
+    console.error(error)
+  }
 }
 showTitle();
 
-function updateOneRegister(filter, params) {
-  Recipe.updateMany({ title: `${filter}` }, { duration: `${params}` })
-    .then((result) => console.log("Update successful"))
-    .catch((error) => console.error(error));
+async function updateOneRegister(filter, params) {
+  try{
+    const recipe = Recipe.updateMany({ title: `${filter}` }, { duration: `${params}` })
+    console.log("Update successful")
+  }
+  catch{
+    console.error(error)
+  }
 }
 updateOneRegister("Rigatoni alla Genovese", 100);
 
-function deleteOne(params) {
-  Recipe.deleteOne({ title: `${params}` })
-    .then((result) => console.log(`The row ${params} was deleted`))
-    .catch((error) => console.error(error));
+async function deleteOne(params) {
+  try{
+    const recipe = await Recipe.deleteOne({ title: `${params}` })
+    console.log(`The row ${params} was deleted`)
+  }catch{
+    console.error(error)
+  }
 }
 deleteOne('Carrot Cake')
 

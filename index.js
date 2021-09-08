@@ -36,3 +36,11 @@ function showTitle() {
     .catch((error) => console.error(error));
 }
 showTitle();
+
+function updateOneRegister(filter, params) {
+  Recipe.updateMany({title: `${filter}`}, {duration: `${params}`})
+    .then((result) => console.log("Update successful"))
+    .catch((error) => console.error(error));
+}
+
+updateOneRegister("Rigatoni alla Genovese",100)

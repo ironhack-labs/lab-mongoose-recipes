@@ -50,3 +50,13 @@ function deleteOne(params) {
     .catch((error) => console.error(error));
 }
 deleteOne('Carrot Cake')
+
+function closeDB(){
+  mongoose.connection.close(() => {
+    console.log(
+      'bye'
+    );
+  });
+}
+
+setTimeout(()=>{closeDB()},3000)

@@ -38,9 +38,15 @@ function showTitle() {
 showTitle();
 
 function updateOneRegister(filter, params) {
-  Recipe.updateMany({title: `${filter}`}, {duration: `${params}`})
+  Recipe.updateMany({ title: `${filter}` }, { duration: `${params}` })
     .then((result) => console.log("Update successful"))
     .catch((error) => console.error(error));
 }
+updateOneRegister("Rigatoni alla Genovese", 100);
 
-updateOneRegister("Rigatoni alla Genovese",100)
+function deleteOne(params) {
+  Recipe.deleteOne({ title: `${params}` })
+    .then((result) => console.log(`The row ${params} was deleted`))
+    .catch((error) => console.error(error));
+}
+deleteOne('Carrot Cake')

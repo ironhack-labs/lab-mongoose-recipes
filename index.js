@@ -23,10 +23,14 @@ mongoose
     Recipe.create({title:'my-rice', level:'Easy Peasy', ingredients:['rice','onion','garlic','oil'], cuisine:'Asian', dishType:'main_course',duration:30}).then(result=>{
       console.log(result.title)
     })
+    Recipe.insertMany(data, function(err,docs){
+      if(err){
+        return console.log(err)
+      }else{
+        console.log(console.log(docs.map(element=>element.title)))
+      }
+    })
   
-  })
-  .then(()=>{
-    Recipe.insertMany(data).then(result=>{console.log(result)})
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

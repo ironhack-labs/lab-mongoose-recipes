@@ -19,9 +19,11 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+
+  //iteraçao 2
+  .then(() => {   
     const receita = {
-      title: 'Receita teste',
+      title: 'Carrot Cake',
       level: 'Easy Peasy',
       ingredients: ['Passo 1', 'Passo 2', 'Passo 3'],
       cuisine: 'Brasileira',
@@ -30,11 +32,28 @@ mongoose
       creator: 'Flavio',
     }
     
-    Recipe.create(receita) 
+    return Recipe.create(receita) 
     .then((result) =>{
-      console.log(result)
-    })   
+      console.log(result.title)    
+    }) 
+    .catch(error => {
+      console.error('Erro na criação da receita', error)
+    });  
   })
+
+  //iteraçao 3
+  .then(() =>{
+    return Recipe.insertMany(data)
+    .then((result) => {
+      result.forEach(element => {
+        console.log(element.title)        
+      });      
+    })    
+  }) 
+  //iteraçao 4
+.then(() => {
+
+})
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

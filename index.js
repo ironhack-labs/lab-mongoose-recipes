@@ -33,6 +33,15 @@ mongoose
   })
   
   .then(() => {
+    const receta = new Recipe ({
+      title: "Buebito con jamonchito",
+      level: "Easy Peasy",
+      ingredients: ["jamon", "huevo", "pimienta"],
+      cuisine: "mexicana",
+      dishType: "breakfast",
+      duration: 10,
+      creator: "RLC",
+    })
     Recipe.insertMany(data)
     .then(rec => {
       console.log(`${rec.length}`);
@@ -54,15 +63,7 @@ mongoose
     })
   
   })  
-  const receta = new Recipe ({
-    title: "Buebito con jamonchito",
-    level: "Easy Peasy",
-    ingredients: ["jamon", "huevo", "pimienta"],
-    cuisine: "mexicana",
-    dishType: "breakfast",
-    duration: 10,
-    creator: "RLC",
-  })
+
   
   app.get("/recetas/borrar", (req, res) => {
     Recipe.deleteOne({name: "Carrot Cake"})

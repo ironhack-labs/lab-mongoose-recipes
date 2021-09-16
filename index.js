@@ -10,7 +10,7 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
-    useCreateIndex: true,
+   
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -21,6 +21,41 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.insertMany(data)
+    .then((data)=>{
+      for(let i =0 ; i<data.length;i++){
+        console.log(data[i].title)
+      }
+
+    Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese",},{duration:100,},{
+      new:true,
+    })
+    .then(()=>{
+      console.log("se actualizó")
+    })
+    .catch((e)=>{
+      console.log("hay un error",e)
+    })
+    
+    Recipe.deleteOne({title:"Carrot Cake"},{new:true})
+    .then(()=>{
+      console.log("se eliminó el titulo")
+    })
+
+
+
+
+
+    })
+    .catch((e)=>{
+      console.log(e)
+    })
+    //console.log(data.length) Para saber si me da la longitud de las recetas
+    //let filter= {title:"Rigatoni alla Genovese"}
+    //let act={duration:100}
+  
+
+   
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

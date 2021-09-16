@@ -31,6 +31,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  
   .then(() => {
     Recipe.insertMany(data)
     .then(rec => {
@@ -53,6 +54,15 @@ mongoose
     })
   
   })  
+  const receta = new Recipe ({
+    title: "Buebito con jamonchito",
+    level: "Easy Peasy",
+    ingredients: ["jamon", "huevo", "pimienta"],
+    cuisine: "mexicana",
+    dishType: "breakfast",
+    duration: 10,
+    creator: "RLC",
+  })
   
   app.get("/recetas/borrar", (req, res) => {
     Recipe.deleteOne({name: "Carrot Cake"})

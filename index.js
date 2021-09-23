@@ -19,9 +19,42 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(async() => {
+    
+    await Recipe.insertMany(data)
+
+    await Recipe
+  
+// Update Recipe
+
+
+  Recipe.findOneAndUpdate(
+    { title: "Rigatoni alla Genovese" },
+    { duration: 100 }
+  )
+  .then((updated) => {
+    console.log("updatedRecipe")
+      return updated;
+    }
+    
+  )
+
+  // Remove a recipe
+
+  Recipe.deleteOne({title: "Carrot Cake"})
+  .then((recipe) => console.log("Deleted"))
+
+
+
+  //Close the Database
+
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    console.log("allRecipes")
+    return mongoose.connection.dropDatabase();
+  })
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  

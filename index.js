@@ -28,13 +28,17 @@ mongoose
     //   creator: 'Dominika',
     // }
     // console.log(newRecipe.title)
-    // Recipe.create(newRecipe);
-    // Before adding any recipes to the database, let's remove all existing ones
+    // return Recipe.create(newRecipe);
+    // //Before adding any recipes to the database, let's remove all existing ones
 
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe.insertMany(data)
+  //   return Recipe.insertMany(data)
+  })
+  .then(() => {
+     Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+     console.log(`Hurray! Duration updated!`)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

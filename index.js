@@ -16,8 +16,21 @@ mongoose
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
+
+    const newRecipe = {
+      title: 'Cacio e pepe',
+      level: 'Amateur Chef',
+      ingredients: ['spaghetti', 'butter', 'pepper', 'pecorino cheese', 'salt' ],
+      cuisine: 'italian',
+      dishType: 'main_course',
+      image: 'https://www.giallozafferano.com/images/228-22822/Spaghetti-Cacio-e-Pepe-Pecorino-and-black-pepper-spaghetti_1200x800.jpg',
+      duration: 20,
+      creator: 'Dominika',
+    }
+    console.log(newRecipe.title)
+    Recipe.create(newRecipe);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    //return Recipe.deleteMany()
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made

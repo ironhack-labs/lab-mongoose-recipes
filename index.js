@@ -37,8 +37,16 @@ mongoose
   //   return Recipe.insertMany(data)
   })
   .then(() => {
-     Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
-     console.log(`Hurray! Duration updated!`)
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  })
+  .then(() => {
+    console.log(`Hurray! Duration updated!`)
+  })
+  .then(() => {
+    return Recipe.deleteOne({name: 'Carrot Cake'})
+  })
+  .then(() => {
+    console.log('Carrot cake successfully removed :(')
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -29,11 +29,14 @@ mongoose
     return Recipe.insertMany(data)
   })
   .then((allRecipes) => {
-    console.log(`We have now ${allRecipes} in the database`)
+    return console.log(`We have now ${allRecipes} in the database`)
   })
-  //.then(() => {
-  //   Recipe.insert(data)
-  // })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { $set: { duration: 100}}, {new: true})
+  })
+  .then( () => {
+    return console.log(`Youhuouuuu this worked!`)
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

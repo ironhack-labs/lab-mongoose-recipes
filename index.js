@@ -21,6 +21,23 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    const toast = {
+      title: "Toast",
+      level: "Easy Peasy",
+      ingredients: [
+        'bread',
+        'cheese',
+        'butter'
+      ],
+      cuisine: 'turkish',
+      dishType: 'breakfast',
+      image: 'https://images.media-allrecipes.com/images/75131.jpg',
+      duration: 5,
+      creator: 'zeynep',
+      created: '14-10-2021'
+    }
+    return Recipe.create(toast)
+    console.log(`title: ${toast.title}`);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

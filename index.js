@@ -20,14 +20,18 @@ mongoose
     return Recipe.deleteMany()
   })
   .then( () => {
-    // console.log(`we have recieved a new recipe ${data[0].title}`)
     return Recipe.create(data[0])
-    // Run your code here, after you have insured that the connection was made
   })
   .then(newRecipe => {
-    console.log(`we have recieved a new recipe ${newRecipe.title}`)
+    return console.log(`we have recieved a new recipe ${newRecipe.title}`)
   })
-  // .then(() => {
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+  .then((allRecipes) => {
+    console.log(`We have now ${allRecipes} in the database`)
+  })
+  //.then(() => {
   //   Recipe.insert(data)
   // })
   .catch(error => {

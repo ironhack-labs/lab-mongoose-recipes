@@ -5,6 +5,11 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
+let testRecipe = {
+name: "Mi Goreng"
+};
+
+
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
@@ -20,8 +25,16 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
+    Recipe
+    .create(testRecipe)
+    .then((testRecipe) =>{
+      console.log('our new recipe was successfully saved...testRecipe');
+    })
+    .catch((errorMsg) => {
+      console.log('ooops something went wrong')
+    });
+    })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

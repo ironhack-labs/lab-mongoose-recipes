@@ -20,9 +20,14 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
+    return Recipe.deleteMany();
+  })
+
+  .then (() => {
+
     const myRecipe = {
       title: "Tortilla de Patatas",
-      level:'Easy Peasy', 
+      level: 'Easy Peasy',
       ingredients: ["eggs", "potatoes", "onion"],
       cuisine: "Traditional",
       dishType: 'main_course',
@@ -30,26 +35,47 @@ mongoose
       duration: 30,
       creator: "Miss Morales",
       // created:  {default: Date.now},
-       
-    }
-    //console.log(myRecipe.title)
+    
+    };
 
-    Recipe.create(myRecipe);
+    return Recipe.create(myRecipe);
 
-
-    return Recipe.deleteMany()
+    
   })
 
  
-  .then(() => {
-    Recipe.insertMany(data)
-    // Run your code here, after you have insured that the connection was made
-    for(i = 0; i < data.length; i ++) {
+  .then((recipeDB) => {
+    function includeData() {
+      return Recipe.insertMany(data)
+    }
+    
+    console.log("this is", recipeDB.title);
+    return includeData();
+  })
+
+  .then ((data) => {
+    for(i=0; i<data.length; i ++) {
       console.log(data[i].title)
     }
+    function recipeUpdate(){
+      return Recipe.updateOne({title: "Rigatoni alla Genovese"},{duration: 100});
+    }
+    return recipeUpdate();
+  })
 
+  .then (() =>{
+    function removeRecipe () {
+      return Recipe.deleteOne ({title: "Carrot Cake"});
+    }
+    return removeRecipe();
+  })
+
+  .then(() => {
+    console.log("succesful result")
+    mongoose.connection.close();
 
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

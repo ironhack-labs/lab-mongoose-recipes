@@ -69,13 +69,19 @@ mongoose
 
     const promise4 = Promise.all([promise3])
       .then(() => {
-        Recipe.deleteOne({ name: "Carrot Cake" })
+        Recipe.deleteOne({ title: "Carrot Cake" })
           .then(console.log("Recipe deleted!"))
-          .catch(err => console.log("Recipe NOT deleted: ", err));
+          .catch((err) => console.log("Recipe NOT deleted: ", err));
       })
       .catch((err) => console.error(err));
 
     //-----------------------------    ITERATION 6    -------------------------------
+
+    Promise.all([promise4])
+      .then(setTimeout(() => {
+        mongoose.connection.close();        
+      }, 500))
+      .catch((err) => console.error(err));
 
     //-------------------------------------------------------------------------------
   })

@@ -19,9 +19,35 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then(() => Recipe.syncIndexes())
+  .then(() => {Recipe.create([{
+
+  title: "Fritata",
+  level: "UltraPro Chef",
+  ingredients: ["spaguettis", "carbonara souce", "eggs"],
+  cuisine: "yes",
+  dishType: "main_course",
+  image:
+    "https://es.wikipedia.org/wiki/Frittata#/media/Archivo:Frittata02.jpg",
+  duration: 90,
+  creator: "Virginia Majuelos in 2021",
+  
+
+  }])
+
   })
+
+  .then(() => Recipe.create(data))
+
+  .then(() => Recipe.updateOne({title:"Rigatoni alla Genovese"},{duration:100}))
+
+  .then(() => Recipe.deleteOne({title:"Carrot Cake"}))
+
+  .then(() => mongoose.connection.close())
+ 
+    // Run your code here, after you have insured that the connection was made
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

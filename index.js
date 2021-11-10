@@ -20,6 +20,7 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => Recipe.syncIndexes())
+
   .then(() => {
     // ITERATION 2
     return Recipe.create({
@@ -31,6 +32,9 @@ mongoose
       duration: 45,
     })
   })
+  .then((newRecipe) =>
+    console.log('The recipe you created is:', newRecipe.title)
+  )
   // ITERATION 3
   .then(() => Recipe.create(data))
   .then((recipes) =>
@@ -52,7 +56,12 @@ mongoose
   .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
   .then((info) => console.log('Success deleting item', info))
   // ITERATION 6
-
+  .then(() =>
+    mongoose.connection.close(() => {
+      console.log('Disconnected from server')
+      process.exit(0)
+    })
+  )
   .catch((error) => {
     console.error('Error connecting to the database', error)
   })

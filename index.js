@@ -24,16 +24,21 @@ mongoose
     // Run your code here, after you have insured that the connection was made
 
   .then(() => {
-    Recipe.create({ title: 'Arepa', level: 'Easy Peasy', ingredients: 'Harina de Maíz',
+    return Recipe.create({ title: 'Arepa', level: 'Easy Peasy', ingredients: 'Harina de Maíz',
     cuisine: 'Venezuelan', dishType: 'other', duration: 15}) 
   })
-  .then(theRecipe => console.log("Hemos creado una receta!", theRecipe))
+  .then(theRecipe => console.log(`Hemos creado una receta, ${theRecipe}`))
 
   .then(() => Recipe.create(data))
 
-  .then(theRecipe => console.log("Hemos creado todas las recetas!", theRecipe))
+  .then((recipes) => console.log("Hemos creado todas las recetas!", recipes))
   
-  .then(Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { $inc: { "duration": -120 } }))
+  .then(() => Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { $inc: { "duration": -120 } }))
+
+  .then(() => Recipe.deleteOne({ title : "Carrot Cake" }))
+  .then((deleted) => console.log("Adios, Carrot Cake :(", deleted))
+
+
 
   .catch(error => {
     console.error('Error connecting to the database', error);

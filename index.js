@@ -19,9 +19,32 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+  .then(() => Recipe.syncIndexes())
+  .then(() => {Recipe.create([{
+    title: 'Churrata',
+    level: 'Easy Peasy',
+    ingredients: [
+      '500grm churros',
+      '4 huevos',
+      'patata',
+      'cebolla'],
+    cuisine: 'Spanish',
+    dishType: 'breakfast',
+    image: 'https://images.media-allrecipes.com/userphotos/720x405/815964.jpg',
+    duration: 40,
+    creator: 'Jesús Sánchez Diezma',
+  }])
     // Run your code here, after you have insured that the connection was made
   })
+  .then((newRecipe => console.log (newRecipe)))
+  .then(()=> Recipe.create(data))
+  .then((newRecipe) => newRecipe.forEach(elm => console.log(elm.title)))
+  .then(()=> Recipe.findOneAndUpdate({duration: 220}, {duration:100}))
+  .then(()=>(console.log('Recetita creada')))
+  .then(()=> Recipe.deleteOne({ title:'Carrot Cake' }))
+  .then(()=>(console.log('Recetita eliminada')))
+  .then(()=> mongoose.connection.close())
+  .then(()=>(console.log('Venga un besi')))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

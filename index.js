@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
@@ -19,9 +20,21 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+  .then(() => Recipe.syncIndexes())
     // Run your code here, after you have insured that the connection was made
+
+  .then(() => {
+    Recipe.create({ title: 'Arepa', level: 'Easy Peasy', ingredients: 'Harina de Maíz',
+    cuisine: 'Venezuelan', dishType: 'other', duration: 15}) 
   })
+  .then(theRecipe => console.log("Hemos creado una receta!", theRecipe))
+
+  .then(() => Recipe.create(data))
+
+  .then(theRecipe => console.log("Hemos creado todas las recetas!", theRecipe))
+  
+  .then(Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { $inc: { "duration": -120 } }))
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

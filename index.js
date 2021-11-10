@@ -62,9 +62,11 @@ function getConection() {
 			}
 		)
 	}
+	//Return as it is :
+	return mongoose
 }
 function getAll() {
-	return getConnection().then((_) => Recipe)
+	return getConnection().then((_) => Recipe.find())
 }
 function resetAndFill() {
 	return getConection()

@@ -34,8 +34,8 @@ mongoose
 		return console.log(result.nModified === 1 ? "successfully Updated the target Recipe ['Rigatoni alla Genovese'] duration to 100" : 'Some thing wen wrong')
 	})
 	.then(() => {
-    //FIXME nested Promises :
-    //Sorry for nested promises, it  didnt work the other way
+		//FIXME nested Promises :
+		//Sorry for nested promises, it  didnt work the other way
 		mongoose.connection
 			.close()
 			.then(() => console.log('Connection Closed ending ....'))
@@ -47,19 +47,39 @@ mongoose
 	.catch((error) => {
 		console.error('Error connecting to the database', error)
 	})
-function getConection(){
-  if(mongoose.connection.readyState!==1)
-  {
-    return mongoose.connect.MONGODB_URI, {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  }
+/**
+ *
+ * @returns a live connection to Db
+ */
+function getConection() {
+	if (mongoose.connection.readyState !== 1) {
+		return (
+			mongoose.connect.MONGODB_URI,
+			{
+				useCreateIndex: true,
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+			}
+		)
+	}
+}
+function getAll() {
+	return getConnection().then((_) => Recipe)
+}
+function resetAndFill() {
+	return getConection()
+		.then(() => Recipe.deleteMany()) //Reset
+		.then(() => Recipe.create(data)) //ReFill
 }
 function update(expression, obj) {
-	return db.findOneAndUpdate(expression, obj)
+	//TODO : Add Validation handlers :
+	return getConection().then((_) => Recipe.updateOne(expression, obj))
 }
-function add(obj){
 
+function add(obj) {
+	//TODO Add Vaidation :
+	return getConection().then((_) => Recipe.create(obj))
+}
+function remove(expression) {
+	return getConnection().then((_) => Recipe.deleteOne(expression))
 }

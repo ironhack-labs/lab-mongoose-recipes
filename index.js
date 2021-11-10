@@ -59,7 +59,7 @@ mongoose
   // ITERATION 6
   .then(() =>
     mongoose.connection.close(() => {
-      console.log('Disconnected to the database')
+      console.log('Disconnected from the database')
       process.exit(0)
     })
   )

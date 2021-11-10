@@ -2,9 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const recipeSchema = new Schema({
-	// TODO: write the schema
-	title: String,
-
+	title: { type: String },
 	level: {
 		type: String,
 		enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'],
@@ -22,20 +20,19 @@ const recipeSchema = new Schema({
 	},
 	image: {
 		type: String,
-    default :'https://images.media-allrecipes.com/images/75131.jpg",
-
+		default: 'https://images.media-allrecipes.com/images/75131.jpg',
 	},
-  duration  :{
-    typ:Number,
-    min : 0
-  },
-  creator :{
-    type:String
-  },
-created :{
-  type : Date,
-  default: Date.now()
-}
+	duration: {
+		typ: Number,
+		min: 0,
+	},
+	creator: {
+		type: String,
+	},
+	created: {
+		type: Date,
+		default: Date.now(),
+	},
 })
 
 const Recipe = mongoose.model('Recipe', recipeSchema)

@@ -68,6 +68,9 @@ function getConection() {
 function getAll() {
 	return getConnection().then((_) => Recipe.find())
 }
+function getOne(expression) {
+	return getConnection().then(() => Recipe.find(expression))
+}
 function resetAndFill() {
 	return getConection()
 		.then(() => Recipe.deleteMany()) //Reset

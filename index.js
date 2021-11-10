@@ -13,6 +13,7 @@ mongoose
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`)
@@ -58,7 +59,7 @@ mongoose
   // ITERATION 6
   .then(() =>
     mongoose.connection.close(() => {
-      console.log('Disconnected from server')
+      console.log('Disconnected to the database')
       process.exit(0)
     })
   )

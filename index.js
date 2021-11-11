@@ -68,7 +68,10 @@ mongoose
      // Read -->> what it's inside the mongoDB after update and delete
      //const finalDb = await Recipe.find(); // the same as Recipe.find({});
      const finalDb = await Recipe.find({});
+     
      console.log(finalDb);
+     // close connection
+     mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -21,6 +21,16 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+     Recipe.create({
+      title: "Kimchi Fried Rice",
+      level: "Easy Peasy",
+      ingredients: ["kimchi", "rice", "carrot", "soy sauce", "sesame oil", "egg"],
+      cuisine: "korean",
+      dishType: "main_course",
+      duration: 15,
+      creator: "unknown",
+    })
+    console.log(Recipe.title)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

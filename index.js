@@ -54,13 +54,13 @@ mongoose
 function getConection() {
 	if (mongoose.connection.readyState !== 1) {
 		return (
-			mongoose.connect.MONGODB_URI,
+			mongoose.connect(MONGODB_URI,
 			{
 				useCreateIndex: true,
 				useNewUrlParser: true,
 				useUnifiedTopology: true,
 			}
-		)
+		))
 	}
 	//Return as it is :
 	return mongoose

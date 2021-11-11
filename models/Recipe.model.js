@@ -5,24 +5,24 @@ const recipeSchema = new Schema({
   // TODO: write the schema
   title: {
     type: String,
-    required: true, 
-    unique: true, // just an index
+    required: true,
+    unique: true,
   },
   level: {
     type: String,
-    enum: [ 'Easy Peasy', 'Amateur Chef', 'UltraPro Chef'],
+    enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"],
   },
   ingredients: {
-    type: [String], //Type Array of Strings (represented as [ String ])
-  }, 
-  cuisine: {
+    type: [String],
+  },
+  cuisine : {
     type: String,
     required: true,
   },
   dishType: {
     type: String,
-    enum: ['breakfast', 'main_course', 'soup', 'snack', 'drink', 'dessert', 'other'],
-  }, 
+    enum: ["breakfast", "main_course", "soup", "snack", "drink", "dessert", "other"],
+  },
   image: {
     type: String,
     default: "https://images.media-allrecipes.com/images/75131.jpg",
@@ -36,14 +36,13 @@ const recipeSchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now(), // milliseconds --> Date.now() 'or' --> new Date().getTime()
+    default: Date.now()
   }
+
 });
 
-// set Model
-// --> first argument: name of the new collection in singular
-// because Mongo is going to make it plural for us--> recipes in mongoDB compass
-// --> second argument: name of the Schema
+// Because we said the collection is-->'Recipe', 
+// Mongo is going to create a collection in plural --> "recipes"
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = Recipe;

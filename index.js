@@ -12,16 +12,47 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
-  .then(self => {
+  .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
+  })
+  // .then(() => {
+  //   return Recipe.create(data[1]);
+  // })
+  // .then((recipe) => console.log(recipe))
+  .then(() => {
+    return Recipe.insertMany(data);
+  })
+  .then((recipes) => {
+    recipes.forEach((recipe) => console.log(recipe.title));
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.updateOne(
+      { title: 'Rigatoni alla Genovese' },
+      {
+        $set: { duration: 100 },
+      }
+    );
   })
-  .catch(error => {
+  .then(() => {
+    console.log(`Rigattoni updated successfully`);
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: 'Carrot Cake' });
+  })
+  .then(() => {
+    console.log('Carrot Cake deleted');
+  })
+  .then(() => {
+    mongoose.connection.close(() => {
+      console.log(
+        'Mongoose default connection disconnected through app termination'
+      );
+    });
+  })
+  .catch((error) => {
     console.error('Error connecting to the database', error);
   });

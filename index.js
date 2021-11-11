@@ -19,8 +19,14 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then(async () => {
+    const recipe = await Recipe.create({ title: 'Kartoffelbrei' });
+    console.log(recipe.title)
+
+
+
+
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

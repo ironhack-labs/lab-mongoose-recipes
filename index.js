@@ -20,19 +20,22 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+      // iteration 2
     // Run your code here, after you have insured that the connection was made
-    return Recipe.create({
-      title: "Pancakes", 
-      level: "Easy Peasy", 
-      ingredients: ["Flour", "Oatmilk", "Honey", "Vanilla"],
-      cuisine: "German",
-      dishType: "breakfast",
-      duration: 20,
-      creator: "Micha"
-    })
+    // return Recipe.create({
+    //   title: "Pancakes", 
+    //   level: "Easy Peasy", 
+    //   ingredients: ["Flour", "Oatmilk", "Honey", "Vanilla"],
+    //   cuisine: "German",
+    //   dishType: "breakfast",
+    //   duration: 20,
+    //   creator: "Micha"
+    // })
+      // iteration 3
+    return Recipe.insertMany(data)
   })
   .then(() => {
-    return Recipe.find({title: "Pancakes"}, {title: 1})
+    return Recipe.find({}, {title: 1, _id: 0})
   })
   .then((allRecipesTitles) => {
     console.log(allRecipesTitles);

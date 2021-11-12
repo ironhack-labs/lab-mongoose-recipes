@@ -86,6 +86,19 @@ const MONGODB_URI = 'mongodb+srv://Aaron-Lopez:12345@cluster0.7ywow.mongodb.net/
     }
   } 
 
-  createAllRecipes()
+  // createAllRecipes()
 
-  
+const updateRecipe = async ()=>{
+  try {
+    const recipe = await Recipe.findOneAndUpdate(
+      {title: 'Rigatoni alla Genovese'},
+      {duration: 100},
+      {new :true}
+    )
+    console.log(chalk.bgGray(`Recipe update : ${recipe}`))
+  } catch(err) {
+    console.log(chalk.bgRed(err))
+  }
+}
+
+  updateRecipe()

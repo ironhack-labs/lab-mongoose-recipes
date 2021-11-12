@@ -41,10 +41,19 @@ mongoose
     console.log(allRecipesTitles);
   })
   .then(() => {
-    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {useFindAndModify: false})
+  })
+  .then((updatedRecipe) => {
+    console.log(`Updated ${updatedRecipe.title}`);
   })
   .then(() => {
-    console.log("Deleted Successfully");
+    Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then((deletedRecipe) => {
+    console.log("delete Successfull");
+  })
+  .then(() => {
+    mongoose.disconnect()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

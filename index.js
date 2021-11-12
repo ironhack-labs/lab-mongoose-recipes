@@ -31,26 +31,31 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    //return Recipe.deleteMany()
+    return Recipe.deleteMany()
   })
   .then(() => {
-    //Run your code here, after you have insured that the connection was made
-    //const recipeAdded = Recipe.create(newRecipe)
-    //.then(res => console.log(res))
-    //.catch(error=>console.log(error))
-    //const all = Recipe.insertMany(data)
-    //.then(res => {
-    //  res.forEach((a)=>console.log(a.title))
-    //})
-    //.catch(error => console.log(error))
-    //const update = Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {$set:{duration: 100}})
-    //.then(res => console.log("Success!!!"))
-    //.catch(err => console.log(err))
-    const deleted = Recipe.deleteOne({title: "Carrot Cake"})
+    return Recipe.create(newRecipe)
+  })
+  .then((res)=>{  
+    console.log(res.title)
+    return Recipe.insertMany(data)
+      .then(res => {
+        res.forEach((a)=>console.log(a.title))
+    })
+  })
+  .then((res)=>{
+    return Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {$set:{duration: 100}})
+    .then(res => console.log("Success!!!"))
+  })
+  .then(res => {
+    return Recipe.deleteOne({title: "Carrot Cake"})
     .then(res => console.log("Deleted!!"))
-    .catch(err => console.log(err))
+  })
+  .then(res => {
+    mongoose.disconnect()
+      .then(console.log("disconnected"))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-  mongoose.disconnect();
+  

@@ -40,6 +40,12 @@ mongoose
   .then((allRecipesTitles) => {
     console.log(allRecipesTitles);
   })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  })
+  .then(() => {
+    console.log("Deleted Successfully");
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -44,6 +44,12 @@ const MONGODB_URI = 'mongodb+srv://Aaron-Lopez:12345@cluster0.7ywow.mongodb.net/
 
   connectToMongo()
 
+  const closeMongoose = async ()=>{
+    mongoose.connection.close( () => {
+    console.log(chalk.bgYellow('Mongoose default connection closed'))
+  })
+}
+
   const createRecipe = async ()=>{
     try {
       await Recipe.deleteMany()
@@ -67,6 +73,7 @@ const MONGODB_URI = 'mongodb+srv://Aaron-Lopez:12345@cluster0.7ywow.mongodb.net/
         "creator": "Chef LePapu"
       })
       console.log(recipe.title)
+      await closeMongoose()
     } catch(err){
       console.log(chalk.bgRed(err))
     }
@@ -81,6 +88,7 @@ const MONGODB_URI = 'mongodb+srv://Aaron-Lopez:12345@cluster0.7ywow.mongodb.net/
       response.forEach((recipe)=>{
         console.log(chalk.yellow(recipe.title))
       })
+      await closeMongoose()
     }catch(err) {
       console.log(chalk.bgRed(err))
     }
@@ -96,9 +104,28 @@ const updateRecipe = async ()=>{
       {new :true}
     )
     console.log(chalk.bgGray(`Recipe update : ${recipe}`))
+    await closeMongoose()
   } catch(err) {
     console.log(chalk.bgRed(err))
   }
 }
 
-  updateRecipe()
+  // updateRecipe()
+
+  const deleteRecipe = async ()=>{
+    try {
+        await Recipe.deleteOne(
+        {title: 'Carrot Cake'},
+      )
+      console.log(chalk.bgGray('Recipe delete'))
+      await closeMongoose()
+    }catch(err) {
+      console.log(chalk.bgRed(err))
+    }
+  }
+
+  // deleteRecipe() 
+
+ 
+
+  

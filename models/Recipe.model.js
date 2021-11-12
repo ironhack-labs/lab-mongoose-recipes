@@ -11,8 +11,6 @@ const recipeSchema = new Schema({
   duration: {type: Number, min: 0},
   creator: {type: String},
   created: {type: Date, default: Date.now}
-})
+}, { versionKey: false})
 
-const Recipe = mongoose.model('Recipe', recipeSchema)
-
-module.exports = Recipe
+module.exports = mongoose.model('Recipe', recipeSchema)

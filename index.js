@@ -6,7 +6,6 @@ const Recipe = require('./models/Recipe.model');
 const data = require('./data');
 
 
-
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
@@ -28,7 +27,6 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-
   //Interaction 2 - Create a new Recipe
 
   const createRecipe = async()=>{
@@ -47,12 +45,10 @@ mongoose
       console.log('ERROR: ', err)
     }
   }
-
   // createRecipe()
 
   //Interaction 3 - Insert multiple recipes
 
-  
     const insertRecipes = async()=>{
     try{
       const recipes = await Recipe.insertMany(data)
@@ -61,17 +57,30 @@ mongoose
       console.log('ERROR: ', err)
     }
   }
-
   // insertRecipes()
 
-  //Interaction 4
+  //Interaction 4  -  Update recipe
 
   const updateRecipe = async ()=>{
     try{
-        const updateRecipe = await Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
-        console.log(updateRecipe)
+        const updatedRecipe = await Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+        console.log(`The recipe is already deleted` )
     }catch(err){
         console.log("error", err)
     }
 }
 //updateRecipe()
+
+//Iteration 5 - Remove a recipe
+
+const deleteRecipe = async ()=>{
+  try{
+    const deletedRecipe = await Recipe.findOneAndDelete({title: 'Carrot Cake'})
+    console.log(`The recipe Carrot Cake is already deleted`)
+  }catch(err){
+    console.log(err)
+  }
+}
+
+//deleteRecipe()
+

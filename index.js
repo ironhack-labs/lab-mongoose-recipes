@@ -67,4 +67,15 @@ const createRecipe = async () => {
     console.log('Error:', err);
   }
 };
-createRecipe();
+// createRecipe();
+
+//ITERATION 4
+const updateRecipe = async (id) => {
+  try {
+    const response = await Recipe.findByIdAndUpdate(id, {duration: 100}, {new: true})
+    console.log('Recipe update!')
+  } catch (err) {
+    console.log('Error:', err);
+  }
+};
+updateRecipe('618ec38f07777e0f58456e70');

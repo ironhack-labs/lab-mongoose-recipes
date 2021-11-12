@@ -47,6 +47,9 @@ connectToMongo();
 //       duration: 40,
 //       creator: 'Chef LePapu',
 //     });
+//     const closeMongoose = await mongoose.connection.close( () => {
+//     console.log('Mongoose default connection closed')
+//     });
 //     console.log(response.title);
 //   } catch (err) {
 //     console.log('Error:', err);
@@ -63,7 +66,10 @@ const createRecipe = async () => {
     response.forEach((recipe) => {
       console.log(recipe.title)
     })
-  } catch (err) {
+    const closeMongoose = await mongoose.connection.close( () => {
+      console.log('Mongoose default connection closed')
+    })
+  } catch(err) {
     console.log('Error:', err);
   }
 };
@@ -90,19 +96,26 @@ const updateRecipe = async (id) => {
   try {
     const response = await Recipe.findByIdAndUpdate(id, {duration: 100}, {new: true})
     console.log('Recipe update!')
+    const closeMongoose = await mongoose.connection.close( () => {
+      console.log('Mongoose default connection closed')
+    })
   } catch (err) {
     console.log('Error:', err);
   }
 };
-// updateRecipe('618ec38f07777e0f58456e70');
+// updateRecipe();
 
 //ITERATION 5
 const deleteRecipe = async () => {
   try {
     const response = await Recipe.deleteOne({title: 'Carrot Cake'})
     console.log('Carrot cake has been succefully deleted!')
+    const closeMongoose = await mongoose.connection.close( () => {
+      console.log('Mongoose default connection closed')
+    })
   } catch(err) {
     console.log('Error:', err)
   }
 }
-deleteRecipe();
+// deleteRecipe();
+

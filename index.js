@@ -21,6 +21,21 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: "Pancakes", 
+      level: "Easy Peasy", 
+      ingredients: ["Flour", "Oatmilk", "Honey", "Vanilla"],
+      cuisine: "German",
+      dishType: "breakfast",
+      duration: 20,
+      creator: "Micha"
+    })
+  })
+  .then(() => {
+    return Recipe.find({title: "Pancakes"}, {title: 1})
+  })
+  .then((allRecipesTitles) => {
+    console.log(allRecipesTitles);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

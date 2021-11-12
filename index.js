@@ -35,15 +35,24 @@ connectToMongo()
 const createRecipe = async()=>{
   try{
     const recipe = await Recipe.create({
-      title: "Carrot Cake",
-      level:"Easy Peasy",
-      ingredients:"flour, eggs, sugar, carrots, and baking powder ",
-      cuisine: "English",
-      dishType:"dessert",
-      image:"https://www.llopartec.com/sites/default/files/styles/12col169custom_user_lg_1x/public/imatges/blog/carrot-cake.jpg?itok=QKx6xn6q&timestamp=1620719367",
-      duration:120,
-      creator:"Antoine Beauvilliers",
-      created:08/05/1814,
+      title: "Pavlova",
+      level:"UltraPro Chef",
+      ingredients: [
+        "4 egg whites",
+        "250g caster sugar",
+        "1 tsp white wine vinegar",
+        "1 tsp cornflour",
+        "1 tsp vanilla extract",
+        "500g strawberries, hulled and halved",
+        "200g redcurrants, stalks removed",
+        "3 tbsp icing sugar",
+        "350ml double cream",
+      ],
+      cuisine:"New Zeland",
+      dishType: "dessert",
+      image:"https://i.blogs.es/2491a8/minipavlova-dap/1366_521.jpg",
+      duration:180,
+      creator: "Adriano",
     })
     console.log (recipe.title)
   } catch(error){
@@ -52,4 +61,18 @@ const createRecipe = async()=>{
 }
 
 // createRecipe()
+
+
+// Create multiple recipes
+
+const createMultipleRecipes = async()=>{
+  try{
+    const recipes = await Recipe.insertMany(data)
+    console.log (recipes.title)
+  } catch(error){
+    console.log ('Error connecting to the database', error)
+}
+}
+
+// createMultipleRecipes()
 

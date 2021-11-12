@@ -7,6 +7,7 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {

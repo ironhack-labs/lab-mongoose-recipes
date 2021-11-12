@@ -47,7 +47,18 @@ mongoose
       }
     }
   
-    createRecipe()
+    // createRecipe()
+
+    const createManyRecipes = async () => {
+      try{
+        const newRecipes = await Recipe.insertMany(data)
+        console.log(newRecipes)
+      } catch(err) {
+        console.log('err', err)
+      }
+    }
+
+    createManyRecipes();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

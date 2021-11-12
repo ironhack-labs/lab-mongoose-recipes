@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -20,8 +21,39 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    updateRecipe();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+async function updateRecipe() {
+
+const myRecipe = {
+  title: "Best Chocolate Cake",
+  level: "Easy Peasy",
+  ingredients: ["flour", "eggs", "chocolate", "sugar"],
+  cuisine: "Global",
+  dishType: "dessert",
+  image: "https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/vimdb/202685_0-803-5447-5447.jpg",
+  duration: 20
+}
+
+  const myRecipeCreated = await Recipe.create(myRecipe);
+  console.log(myRecipeCreated.title);
+
+  const insertedRecipeArr = await Recipe.insertMany(data);
+  insertedRecipeArr.forEach((recipe) => console.log(recipe.title))
+
+  await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},
+  {duration: 100}
+  );
+
+  console.log("Recipe has been updated!");
+
+  await Recipe.deleteOne({title: "Carrot Cake"});
+  console.log("Recipe has been deleted!");
+
+  await mongoose.connection.close();
+    console.log('connection closed!');
+}

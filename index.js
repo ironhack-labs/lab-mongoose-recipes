@@ -18,7 +18,7 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
   .then(() => {
     const createRecipe = async () => {
@@ -59,18 +59,29 @@ mongoose
       }
     };
 
-    createManyRecipes();
+    // createManyRecipes();
 
     const updateDuration = async (name, newDuration) => {
       try{
-        const updatedRecipe = await Recipe.findOneAndUpdate({title: name}, {duration: newDuration})
+        const updatedRecipe = await Recipe.findOneAndUpdate({title: name}, {duration: newDuration}, {new: true})
         console.log(updatedRecipe)
       } catch(err) {
         console.log('err', err)
       }
     };
 
-    updateDuration("Rigatoni alla Genovese", 100);
+    // updateDuration("Rigatoni alla Genovese", 100);
+
+    const removeRecipe = async (name) => {
+      try{
+        const remove = await Recipe.deleteOne({title: name})
+        console.log(`${remove.deletedCount} recipe removed => ${name}`)
+      } catch(err) {
+        console.log('err', err)
+      }
+    };
+
+    removeRecipe("Carrot Cake");
     
   })
   .catch(error => {

@@ -6,7 +6,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb+srv://Aaron-Lopez:12345@cluster0.7ywow.mongodb.net/recipe-app?retryWrites=true&w=majority';
 
 // Connection to the database "recipe-app"
 // mongoose
@@ -35,7 +35,7 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
       useUnifiedTopology: true
       })
       
-      console.log(`Connected to the database`)
+      console.log(chalk.bgBlue(`Connected to the database`))
     
     } catch(err) {
       console.log(chalk.bgRed('Error connecting to the database', err))
@@ -78,7 +78,9 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
     try {
       await Recipe.deleteMany()
       const response = await Recipe.create(data)
-      console.log(response)
+      response.forEach((recipe)=>{
+        console.log(chalk.yellow(recipe.title))
+      })
     }catch(err) {
       console.log(chalk.bgRed(err))
     }

@@ -76,3 +76,21 @@ const createMultipleRecipes = async()=>{
 
 // createMultipleRecipes()
 
+// Update recipe 
+
+const updateRecipe = async()=>{
+  try{
+    const recipe = await Recipe.findOneAndUpdate(
+      {title:'Rigatoni alla Genovese'}, //target 
+      {duration:100}, // elemento a cambiar 
+      {new:true} // para ver el documento después de haber sido actualizado
+    )
+
+    console.log ('Now we have the correct duration 🍾')
+
+  } catch(error){
+    console.log ('Error connecting to the database', error)
+}
+}
+
+updateRecipe()

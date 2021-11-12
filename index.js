@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    // useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -52,13 +53,25 @@ mongoose
     const createManyRecipes = async () => {
       try{
         const newRecipes = await Recipe.insertMany(data)
-        console.log(newRecipes)
+        // console.log(newRecipes)
       } catch(err) {
         console.log('err', err)
       }
-    }
+    };
 
     createManyRecipes();
+
+    const updateDuration = async (name, newDuration) => {
+      try{
+        const updatedRecipe = await Recipe.findOneAndUpdate({title: name}, {duration: newDuration})
+        console.log(updatedRecipe)
+      } catch(err) {
+        console.log('err', err)
+      }
+    };
+
+    updateDuration("Rigatoni alla Genovese", 100);
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

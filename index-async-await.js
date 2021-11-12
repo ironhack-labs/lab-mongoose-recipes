@@ -18,7 +18,8 @@ async function getRecipes(){
           useUnifiedTopology: true
         });
 
-        await mongoose.connection.db.dropDatabase();
+        await Recipe.deleteMany();
+        //await mongoose.connection.db.dropDatabase();
         console.log('Database dropped:', MONGODB_URI );
 
         const newRecipe = {

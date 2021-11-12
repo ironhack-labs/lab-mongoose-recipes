@@ -20,7 +20,7 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    return recipe = Recipe.create({
+    return Recipe.create({
       title: "Sopa de Ajo",
       level: "Amateur Chef",
       ingredients: [
@@ -39,6 +39,10 @@ mongoose
       duration: 40,
       creator: "Chef Sophie"
     });
+  })
+  .then(()=>{
+    return Recipe.insertMany(data);
+
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

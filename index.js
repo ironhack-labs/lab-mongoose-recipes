@@ -27,7 +27,7 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-  //Interaction 2 - Create a new Recipe
+//Interaction 2 - Create a new Recipe
 
   const createRecipe = async()=>{
     try{
@@ -45,7 +45,7 @@ mongoose
       console.log('ERROR: ', err)
     }
   }
-  // createRecipe()
+// createRecipe()
 
   //Interaction 3 - Insert multiple recipes
 
@@ -57,9 +57,9 @@ mongoose
       console.log('ERROR: ', err)
     }
   }
-  // insertRecipes()
+// insertRecipes()
 
-  //Interaction 4  -  Update recipe
+//Interaction 4  -  Update recipe
 
   const updateRecipe = async ()=>{
     try{
@@ -81,6 +81,8 @@ const deleteRecipe = async ()=>{
     console.log(err)
   }
 }
-
 //deleteRecipe()
 
+//Iteration 6 - Close the Database
+
+mongoose.connection.close()

@@ -31,22 +31,22 @@ mongoose
 
   //Interaction 2 - Create a new Recipe
 
-  // const createRecipe = async()=>{
-  //   try{
-  //     const recipe = await Recipe.create({
-  //       title: 'Pastel de natas',
-  //       level: 'UltraPro Chef',
-  //       ingredientes: ['leche', 'harina', 'azucar', 'huevos'],
-  //       cuisine: 'bakery',
-  //       image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.livingtours.com%2Fpt%2Fblog%2Fa-diferenca-entre-pastel-de-nata-e-pastel-de-belem.html&psig=AOvVaw0p5anKQ1-EGPGczyb9rVSr&ust=1636812152286000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjoy8n-kvQCFQAAAAAdAAAAABAD',
-  //       duration: 120,
-  //       creator: 'undefined',
-  //     })
-  //     console.log(recipe)
-  //   }catch(err){
-  //     console.log('ERROR: ', err)
-  //   }
-  // }
+  const createRecipe = async()=>{
+    try{
+      const recipe = await Recipe.create({
+        title: 'Pastel de natas',
+        level: 'UltraPro Chef',
+        ingredients: ['leche', 'harina', 'azucar', 'huevos'],
+        cuisine: 'bakery',
+        image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.livingtours.com%2Fpt%2Fblog%2Fa-diferenca-entre-pastel-de-nata-e-pastel-de-belem.html&psig=AOvVaw0p5anKQ1-EGPGczyb9rVSr&ust=1636812152286000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjoy8n-kvQCFQAAAAAdAAAAABAD',
+        duration: 120,
+        creator: 'undefined',
+      })
+      console.log(recipe)
+    }catch(err){
+      console.log('ERROR: ', err)
+    }
+  }
 
   // createRecipe()
 
@@ -62,4 +62,16 @@ mongoose
     }
   }
 
-  insertRecipes()
+  // insertRecipes()
+
+  //Interaction 4
+
+  const updateRecipe = async ()=>{
+    try{
+        const updateRecipe = await Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+        console.log(updateRecipe)
+    }catch(err){
+        console.log("error", err)
+    }
+}
+//updateRecipe()

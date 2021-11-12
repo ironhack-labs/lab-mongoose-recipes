@@ -5,6 +5,8 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
+
+
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
@@ -17,7 +19,7 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    //return Recipe.deleteMany()
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
@@ -47,3 +49,17 @@ mongoose
   // }
 
   // createRecipe()
+
+  //Interaction 3 - Insert multiple recipes
+
+  
+    const insertRecipes = async()=>{
+    try{
+      const recipes = await Recipe.insertMany(data)
+      console.log(recipes)
+    }catch(err){
+      console.log('ERROR: ', err)
+    }
+  }
+
+  insertRecipes()

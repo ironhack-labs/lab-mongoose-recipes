@@ -93,4 +93,21 @@ const updateRecipe = async()=>{
 }
 }
 
-updateRecipe()
+// updateRecipe()
+
+// Remove recipe 
+
+const deleteRecipe = async()=>{
+  try{
+    const recipe = await Recipe.findOneAndDelete(
+      {title:"Carrot Cake"} // borra todo el documento con el title Carrot Cake 
+    )
+
+    console.log ('Oh no! Carrot Cake has been removed 🥕')
+
+  } catch(error){
+    console.log ('Error connecting to the database', error)
+}
+}
+
+deleteRecipe()

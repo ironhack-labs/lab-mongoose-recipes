@@ -18,7 +18,7 @@ mongoose
   .then((self) => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    // return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
     const createRecipe = async () => {
@@ -60,8 +60,9 @@ mongoose
       }
     };
 
-    // createManyRecipes();
-
+    return createManyRecipes();
+  })
+  .then(() => {
     const updateDuration = async (name, newDuration) => {
       try {
         const updatedRecipe = await Recipe.findOneAndUpdate(
@@ -75,8 +76,9 @@ mongoose
       }
     };
 
-    // updateDuration("Rigatoni alla Genovese", 100);
-
+    return updateDuration("Rigatoni alla Genovese", 100);
+  })
+  .then(() => {
     const removeRecipe = async (name) => {
       try {
         const remove = await Recipe.deleteOne({ title: name });
@@ -86,7 +88,7 @@ mongoose
       }
     };
 
-    removeRecipe("Carrot Cake");
+    return removeRecipe("Carrot Cake");
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

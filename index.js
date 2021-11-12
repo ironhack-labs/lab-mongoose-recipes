@@ -66,11 +66,24 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
         "duration": 40,
         "creator": "Chef LePapu"
       })
-      console.log(recipe)
+      console.log(recipe.title)
     } catch(err){
       console.log(chalk.bgRed(err))
     }
   }
 
-  createRecipe()
+  // createRecipe()
+
+  const createAllRecipes = async ()=>{
+    try {
+      await Recipe.deleteMany()
+      const response = await Recipe.create(data)
+      console.log(response)
+    }catch(err) {
+      console.log(chalk.bgRed(err))
+    }
+  } 
+
+  createAllRecipes()
+
   

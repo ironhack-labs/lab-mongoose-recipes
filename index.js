@@ -44,6 +44,7 @@ const connectToMongo = async () => {
 
 connectToMongo()
 
+//Iteration 2
 const createRecipe = async() => {
   try{
     const recipe = await Recipe.create({
@@ -62,4 +63,19 @@ const createRecipe = async() => {
   }
 }
 
-createRecipe()
+// createRecipe()
+
+//Iteration 3
+const insertAllRecipes = async() => {
+  try{
+    const allRecipes = await Recipe.insertMany(data) 
+    allRecipes.forEach((recipe) => {
+      console.log(chalk.bgBlue('Recipe title:', recipe.title))
+    })
+  }
+  catch(err){
+    console.log(chalk.bgRed('Error:', err))
+  }
+}
+
+// insertAllRecipes()

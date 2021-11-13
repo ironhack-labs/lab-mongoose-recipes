@@ -42,11 +42,13 @@ mongoose
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {useFindAndModify: false})
   })
   
-  })*/
+  })
   return Recipe.deleteOne({title: "Carrot Cake"})
   })
   .then(() => {
     console.log("Deleted successfully :)");
+  })*/
+  mongoose.connection.close()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -38,13 +38,16 @@ mongoose
   })
   .then(() => {
     return Recipe.find({}, {title: 1, _id: 0})
-  })*/
+  })
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {useFindAndModify: false})
+  })
+  
+  })*/
+  return Recipe.deleteOne({title: "Carrot Cake"})
   })
   .then(() => {
     console.log("Deleted successfully :)");
   })
-
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

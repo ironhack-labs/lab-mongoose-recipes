@@ -79,3 +79,17 @@ const insertAllRecipes = async() => {
 }
 
 // insertAllRecipes()
+
+//Iteration 4
+const updateOneRecipe = async() => {
+  try{
+    await Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+    console.log(chalk.bgBlue('Updated succesfully'))
+  }
+  catch(err){
+    console.log(chalk.bgRed('Error:', err))
+  }
+}
+
+updateOneRecipe()
+

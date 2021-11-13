@@ -68,12 +68,6 @@ mongoose
   .then(() => {
     console.log('connection closed!');
   })
-  .catch((err) => {
-    console.log(err);
-  })
-
-
-
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -91,5 +91,17 @@ const updateOneRecipe = async() => {
   }
 }
 
-updateOneRecipe()
+// updateOneRecipe()
 
+//Iteration 5
+const deleteOneRecipe = async() => {
+  try{
+    await Recipe.deleteOne({title: 'Carrot Cake'})
+    console.log(chalk.bgBlue('Deleted succesfully'))
+  }
+  catch(err){
+    console.log(chalk.bgRed('Error:', err))
+  }
+}
+
+deleteOneRecipe()

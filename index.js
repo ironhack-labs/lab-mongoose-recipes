@@ -39,7 +39,7 @@ mongoose
   .then(() => {
     return Recipe.find({}, {title: 1, _id: 0})
   })*/
-    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {useFindAndModify: false})
   })
   .then(() => {
     console.log("Deleted successfully :)");

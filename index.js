@@ -9,24 +9,6 @@ const data = require('./data')
 const DB = 'recipe-app'
 
 // Connection to the database "recipe-app"
-// mongoose
-//   .connect(MONGODB_URI, {
-//     useCreateIndex: true,
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-//   })
-//   .then(self => {
-//     console.log(`Connected to the database: "${self.connection.name}"`);
-//     // Before adding any recipes to the database, let's remove all existing ones
-//     return Recipe.deleteMany()
-//   })
-//   .then(() => {
-//     // Run your code here, after you have insured that the connection was made
-//   })
-//   .catch(error => {
-//     console.error('Error connecting to the database', error);
-//   });
-
 const connectToMongo = async () => {
   try {
     await mongoose.connect(`mongodb://localhost:27017/${DB}`, {
@@ -104,4 +86,17 @@ const deleteOneRecipe = async() => {
   }
 }
 
-deleteOneRecipe()
+// deleteOneRecipe()
+
+//Iteration 6
+const closeConnection = async() => {
+  try{
+    await mongoose.connection.close()
+    console.log(chalk.bgBlue('Connection closed succesfully'))
+  }
+  catch(err){
+    console.log(chalk.bgRed('Error:', err))
+  }
+}
+
+closeConnection()

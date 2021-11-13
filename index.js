@@ -44,11 +44,6 @@ mongoose
   .then((insertedResults)=> {
     console.log(insertedResults);
 
-    const pr = Recipe.find({ tile: "The Rigatoni alla Genovese" });
-    return pr;
-  })
-  .then((foundRecipe)=>{
-    console.log(foundRecipe)
     const pr = Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},
     {duration: 100},{ new:true})
     return pr;

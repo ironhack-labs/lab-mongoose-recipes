@@ -64,7 +64,7 @@ const createRecipe = async () => {
     console.error("Error connecting to the database", error);
   }
 };
-
+// iteration 4
 const update = async () => {
   try {
     const recipe = await Recipe.findOneAndUpdate(
@@ -77,6 +77,7 @@ const update = async () => {
     console.error("Error connecting to the database", error);
   }
 };
+// iteration 5
 const remove = async () => {
   try {
     await Recipe.deleteOne({ title: `Carrot Cake` });
@@ -90,6 +91,7 @@ const init = async () => {
   await createRecipe();
   await update();
   await remove();
+  // iteration 6
   mongoose.connection.close();
 };
 

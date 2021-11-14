@@ -21,13 +21,18 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    updateRecipe();
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database", error);
+  });
+
+async function updateRecipe() {
+  try {
     const recipe1 = {
-      title: "Test Recipe",
+      title: "Test Recipe Async",
       level: "Amateur Chef",
-      ingredients: [
-        "1/2 onion sliced",
-      ],
+      ingredients: ["1/2 onion sliced"],
       cuisine: "Asian",
       dishType: "main_course",
       image:
@@ -35,44 +40,26 @@ mongoose
       duration: 10,
       creator: "Test Creator",
     };
-    // CREATE
-    return Recipe.create(recipe1);
-  })
-  .then((createdRecipe) => {
+
+    const createdRecipe = await Recipe.create(recipe1);
     console.log(createdRecipe.title);
-  })
-  .then(() => {
-    const recipes = Recipe.insertMany(data);
-    return recipes;
-  })
-  .then((createdRecipes) => {
-    console.log(createdRecipes);
-    const pr = Recipe.find({ title: "Rigatoni alla Genovese" });
-    return pr;
-  })
-  .then((updateRecipe) => {
-    const pr = Recipe.findByIdAndUpdate(
-      updateRecipe[0]._id,
+
+    const createdRecipes = await Recipe.insertMany(data);
+    createdRecipes.forEach((recipe) => console.log(recipe.title));
+
+    const updateRecipeInfo = await Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
       { duration: 100 },
       { new: true }
     );
 
-    return pr;
-  })
-  .then((updatedRecipe) => {
-    console.log(updatedRecipe);
+    const deletedRecipe = await Recipe.deleteOne({ title: "Carrot Cake" });
 
-    //Delete
-    const pr = Recipe.deleteOne({ title: "Carrot Cake" });
-    return pr;
-  })
-  .then((result) => {
-    console.log(`Successful deleted ${result.deletedCount} recipes `);
-    return mongoose.connection.close();
-  })
-  .then(() => {
-    console.log('connection closed');
-  })
-  .catch((error) => {
-    console.error("Error connecting to the database", error);
-  });
+    console.log(`Successful deleted ${deletedRecipe.deletedCount} recipes `);
+
+    await mongoose.connection.close();
+    console.log("connection closed!");
+  } catch (err) {
+    console.log(err);
+  }
+}

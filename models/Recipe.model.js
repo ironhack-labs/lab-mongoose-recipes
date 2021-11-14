@@ -13,10 +13,8 @@ const recipeSchema = new Schema({
       "Easy Peasy",
       "Amateur Chef",
       "UltraPro Chef"
-    ],
-    ingredients: {
-      type: [String],
-    },
+    ]},
+    ingredients: [String],
     cuisine: {
       type: String,
       required: true
@@ -31,7 +29,7 @@ const recipeSchema = new Schema({
         'drink',
         'dessert',
         'other'
-      ],
+      ]},
       image: {
         type: String,
         default: 'https://images.media-allrecipes.com/images/75131.jpg'
@@ -45,11 +43,9 @@ const recipeSchema = new Schema({
         type: Date,
         default: Date.now
       }
-    }
+})
 
-  }
 
-});
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 

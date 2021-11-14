@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "hb": "0.0.0",
+    "hb": "^0.0.0",
+    "mongo": "^0.1.0",
     "mongoose": "^5.13.13"
   },
   "devDependencies": {

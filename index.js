@@ -72,7 +72,7 @@ const update = async () => {
       { duration: 100 },
       { new: true }
     );
-    console.log(`Recipe update: success!"`);
+    console.log(`Recipe updated: success!"`);
   } catch (error) {
     console.error("Error connecting to the database", error);
   }

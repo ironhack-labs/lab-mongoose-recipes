@@ -24,16 +24,16 @@ mongoose
     const addRecipie = {
       title: "Recipie for Disaster",
     };
-    return Recipe.create(addRecipie);
+    // return Recipe.create(addRecipie);
     // Run your code here, after you have insured that the connection was made
   })
   .then((addNewRecipie) => {
-    console.log("addNewRecipie :>> ", addNewRecipie);
+    // console.log("addNewRecipie :>> ", addNewRecipie);
 
     return Recipe.insertMany(data);
   })
   .then((allRecipies) => {
-    console.log("allRecipies :>> ", allRecipies);
+    // console.log("allRecipies :>> ", allRecipies);
 
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
@@ -42,7 +42,7 @@ mongoose
     );
   })
   .then((updateRecipe) => {
-    console.log("updateRecipe :>> ", updateRecipe);
+    // console.log("updateRecipe :>> ", updateRecipe);
 
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })

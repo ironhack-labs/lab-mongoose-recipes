@@ -40,11 +40,12 @@ mongoose
     return Recipe.insertMany(data);
   })
   .then(()=>{
-     const recipeToUpdate = Recipe.findOneAndUpdate( { title: "Rigatoni alla Genovese"}, { duration: 100 } );
+     const recipeToUpdate = Recipe.findOneAndUpdate( { title: "Rigatoni alla Genovese"}, { duration: 100 }, {new: true} );
      return recipeToUpdate;
   })
   .then((updatedRecipe)=>{
     console.log("Recipe was updated:", updatedRecipe);
+    // added {new: true} otherwise it's not updated right away 
 
     const recipeToDelete = Recipe.deleteOne( {title: "Carrot Cake"} );
     return recipeToDelete

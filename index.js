@@ -17,7 +17,9 @@ mongoose
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    //mongoose.connection.db.dropDatabase() -- this is going to delete the db itself -- this is more severe
+    return Recipe.deleteMany() // removes all docs from one collection
+
   })
   .then(() => {
     const newRecipe = {
@@ -25,7 +27,7 @@ mongoose
       level: "Easy Peasy", 
       ingredients: ["Condensed milk", "Milk powder", "Strawberry essence", "Gelatin", "Heavy cream"],
       cuisine:  "Brazilian",
-      dishType: "Desserts",
+      dishType: "dessert",
       duration: 10, 
       creator: "Anne",
     };

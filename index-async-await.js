@@ -27,7 +27,7 @@ async function getRecipes(){
             level: "Easy Peasy", 
             ingredients: ["Condensed milk", "Milk powder", "Strawberry essence", "Gelatin", "Heavy cream"],
             cuisine:  "Brazilian",
-            dishType: "Desserts",
+            dishType: "dessert",
             duration: 10, 
             creator: "Anne",
         };

@@ -1,1 +1,15 @@
-MUCHA RECETAS
+<h1>YUMMY</h1>
+
+{{#each miReci}}
+    
+      <h1>{{this.title}}</h1>
+      <p>{{this.level}}</p>
+      <p>{{this.ingredients}}</p>
+      <p>{{this.cuisine}}</p>
+      <p>{{this.dishType}}</p>
+      <p><img src="{{this.image}}" alt="{{this.title}}"></p>
+      <p>{{this.duration}}</p>
+
+    <hr>
+
+{{/each}}

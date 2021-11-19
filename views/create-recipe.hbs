@@ -1,1 +1,12 @@
-MI RECETA
+RECETAS
+
+
+{{#with miReci}}
+<p><b>ID del gato creado: {{this.title}}</b></p>
+<p><b>Nombre del gato creado: {{this.level}}</b></p>
+<p><b>Color del gato creado: {{ingredients}}</b></p>
+<p><b>Edad del gato creado: {{cuisine}}</b></p>
+<p><b>Tipo de Plato: {{this.dishType}}<b></p>
+<p><b>Tiempo: {{this.duration}}<b></p>
+<p><b><img src="{{this.image}}" alt="{{this.title}}"><b></p>
+{{/with}}

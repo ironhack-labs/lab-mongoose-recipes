@@ -47,6 +47,12 @@ mongoose
       
       const recipeCreated = await Recipe.create(newRecipe)
         console.log (newRecipe.title)
+
+      const recipesCreated = await Recipe.insertMany(data)
+      data.forEach(recipes => {
+        console.log (recipes.title)
+      })
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

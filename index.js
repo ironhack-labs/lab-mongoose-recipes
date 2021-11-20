@@ -17,6 +17,7 @@ require("dotenv").config()            //<------------ LLAMAR A DOTENV
 
 
 //2. MIDDLEWARES----------------------------------------------------------------
+// Es una funcion que se ejecuta despues de recibir una peticion (request) y antes de dar una respuesta
 app.use(express.static("public"))
 
 app.set("views", __dirname + "/views")
@@ -89,7 +90,7 @@ app.get("/recetas", async (req,res) =>{
 
 //4. SERVIDOR
 app.listen(process.env.PORT, () => {
-	console.log(`Servidor escuchando en el puerto ${process.env.PORT}`)
+	console.log(`Servidor escuchando en el puerto http://localhost:${process.env.PORT}`)
 })
 
 

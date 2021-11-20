@@ -6,7 +6,7 @@ const mongoose          = require("mongoose")  //<-------------- LLAMAR A MONGO
 // Activan 👇 caracteristica de procesos asincronos
 const connectDB = async() => {
 
-  await mongoose.connect("mongodb://localhost:27017/lab-mongoose-recipes")
+  await mongoose.connect(process.env.MONGODB) // o se puede crear variable desde .env y poner await mongoose.connect(process.env.MONGODB "mongodb://localhost:27017/lab-mongoose-recipes")
     
   console.log("Base de datos VIVA")
 }

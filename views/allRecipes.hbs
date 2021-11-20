@@ -1,0 +1,23 @@
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {{#each recipe}}
+    <div class="col">
+      <div class="card">
+        <img src="{{image}}" class="card-img-top" alt="{{title}}" />
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p class="card-text">{{level}}</p>
+          <ul>
+            {{#each this.ingredients}}
+              <li class="card-text">{{this}}</li>
+            {{/each}}
+          </ul>
+          <p class="card-text">{{cuisine}}</p>
+          <p class="card-text">{{dishType}}</p>
+          <p class="card-text">{{duration}}</p>
+          <p class="card-text">{{creator}}</p>
+          <p class="card-text">{{_id}}</p>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>

@@ -3,7 +3,7 @@
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require('./data'); // <---- IMPORTA TODAS LAS RECETAS DE data.json
 
 
 // 1. IMPORTACIONES----------------------------------------------------------------
@@ -15,6 +15,11 @@ const connectDB   = require("./config/db") // trae el doc db.js //<------------ 
 
 require("dotenv").config()            //<------------ LLAMAR A DOTENV
 
+//Body es una libreria de npm que nos ayuda a leer los datos enviados por el cliente a travez de un metodo post o put (req params) - ver recipe controller (npm i body-parser)
+const bodyParser =  require("body-parser") // OJO linea 33 se llama al proyecto
+
+const recipesController     = require("./controllers/recipes.controllers")
+// console.log(recipesController) // <---- {getRecipes: [AsyncFunction: getRecipes], putRecipes: [AsyncFunction: putRecipes]}
 
 //2. MIDDLEWARES----------------------------------------------------------------
 // Es una funcion que se ejecuta despues de recibir una peticion (request) y antes de dar una respuesta
@@ -24,6 +29,9 @@ app.set("views", __dirname + "/views")
 app.set("view engine", "hbs")
 
 hbs.registerPartials(__dirname + "/views/partials")
+
+app.use(bodyParser.urlencoded({extended:true})) //ayuda a leer los datos del cliente
+
 
 connectDB()
 
@@ -67,20 +75,39 @@ app.get("/crear-receta", async(req, res) =>{
 
 //  --------------------------**CREAR MULTIPLES RECETA**-------------------(Array)---------
 
-app.get("/recetas", async (req,res) =>{
+// app.get("/recetas", async (req,res) =>{
 
-    const allRecipes = await Recipe.insertMany(data)
-      console.log(allRecipes)
-      res.render("recipes", {
-        miReci: allRecipes
-      })
+//     const allRecipes = await Recipe.insertMany(data)
+//       console.log("Base de Datos poblada con recetas")
+//       res.render("recipes", {
+//         miReci: allRecipes
+//       })
+// })
+
+app.put("/recetas", async (req,res) =>{
+
+  const allRecipes = await Recipe.insertMany(data)
+    console.log("Base de Datos poblada con recetas")
+    res.render("recipes", {
+      miReci: allRecipes
+    })
 })
 
 
 //  --------------------------**Update MULTIPLES RECETA**-------------------(Array)---------
 
+//getRecipes y putRecipes se crearon las funciones en Controllers
+app.get("/todas-recetas", recipesController.getRecipes)
+//id a travez de la url
+// app.put("/:id/update", recipesController.putRecipes)
 
-
+app.put("/:id/update", async (req,res) =>{
+    const {id} = req.params   // Destruccturacion de objetos (parametros de la url)
+    const { duration } = req.body  //(datos del formulario body-parser)
+                            // id que estamos buscando
+    await Recipe.findByIdAndUpdate(id, {duration}, {new:true})  // Documentacion de Mongoos - busca un id y lo modifica //que propiedades vas a
+    res.redirect("/todas-recetas")   
+})
 
 
 

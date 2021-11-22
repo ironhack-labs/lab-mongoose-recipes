@@ -9,6 +9,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "hbs": "^4.2.0",
     "mongoose": "^5.8.9"
   },
   "devDependencies": {

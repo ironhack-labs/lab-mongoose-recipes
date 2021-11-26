@@ -10,7 +10,6 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI, {
-    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -25,3 +24,18 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  const sandwichRecipe = {
+    title: "Sandwich de huebo",
+    level: "Easy Peasy",
+    ingredients: ["jam","cheese","bread"],
+    cuisine: "French",
+    dishType: "breakfast",
+    image:"https://images.media-allrecipes.com/images/75131.jpg",
+    creator: "Oswaldo",
+    created: "",
+  }
+
+  Recipe.create(sandwichRecipe)
+  .then(sandwich => console.log(sandwich.title))
+  .catch(error => console.log('An error happened while saving a new user:', error));

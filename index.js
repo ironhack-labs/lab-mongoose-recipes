@@ -36,6 +36,10 @@ mongoose
     created: "",
   }
 
-  Recipe.create(sandwichRecipe)
-  .then(sandwich => console.log(sandwich.title))
+  // Recipe.create(sandwichRecipe)
+  // .then(sandwich => console.log(sandwich.title))
+  // .catch(error => console.log('An error happened while saving a new user:', error));
+
+  Recipe.insertMany(data)
+  .then(recipe => console.log("All recipes added",data))
   .catch(error => console.log('An error happened while saving a new user:', error));

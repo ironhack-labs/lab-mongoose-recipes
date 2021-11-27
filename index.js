@@ -41,5 +41,9 @@ mongoose
   // .catch(error => console.log('An error happened while saving a new user:', error));
 
   Recipe.insertMany(data)
-  .then(recipe => console.log("All recipes added",data))
+  .then(handleRecipe => console.log("All recipes added"))
   .catch(error => console.log('An error happened while saving a new user:', error));
+
+// Recipe.updateOne({title:"Rigatoni alla Genovese"},{duration:"100"}).then(handleUpdate => console.log('Rigatoni alla Genovese duration HAS BEEN UPDATED')).catch(err=>console.log(err))
+
+Recipe.deleteOne({title:"Carrot Cake"}).then(handleSuccess =>console.log("Carrot cake has been deleted")).catch(err=>console.log(err))

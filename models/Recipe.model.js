@@ -21,7 +21,7 @@ const recipeSchema = new Schema({
 
 //3. MODELO
 
-const Recipe = mongoose.model('Recipe', recipeSchema);
+const Recipe = mongoose.model('Recipe.model', recipeSchema);
 
 //4. EXPORTACION
 module.exports = Recipe;

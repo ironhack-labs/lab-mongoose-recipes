@@ -34,12 +34,15 @@ mongoose
         'https://www.pexels.com/photo/delicious-spaghetti-with-bolognese-sauce-and-parmesan-cheese-7218637/',
       duration: 15,
       creator: 'Pietro Lauria',
-      created: 10 / 11 / 2021,
+      created: new Date(2021, 10, 10),
     };
     console.log(pastaPomodoro);
     return Recipe.create(pastaPomodoro);
   })
-  .then(() => Recipe.insertMany(data))
+  .then(newReceipe => {
+    console.log(newReceipe);
+    return Recipe.insertMany(data);
+  })
   .then(allrecipes => console.log(`allrecipes: ${allrecipes}`))
   .then(() =>
     Recipe.findOneAndUpdate(
@@ -47,7 +50,10 @@ mongoose
       { duration: 100 }
     )
   )
-  .then(() => console.log('Rigatoni alla genovese updated!'))
+  .then(updatedReceipe => {
+    console.log(updatedReceipe);
+    console.log('Rigatoni alla genovese updated!');
+  })
   .then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
   .then(() => mongoose.connection.close())
   .catch(error => {

@@ -20,7 +20,17 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const recipe1 = {
+      title: "Gobi Coliflower",
+      level: "Medium",
+      ingredients: ["coliflower", "peas", "potatoes", "curry"],
+      cuisine: "Indian",
+      dishType: "main_course",
+      duration: 60,
+      creator: "Monica",
+    };
+    Recipe.create(recipe1);
+    console.log("Iteration 1:", recipe1);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

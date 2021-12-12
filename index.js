@@ -21,3 +21,73 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+// Iteration 2
+
+  // const pizza = {
+  //   title: 'Pizza',
+  //   level: 'Amateur Chef',
+  //   ingredients: ['pizza dough', 'mozzarella cheese', 'tomato sauce'],
+  //   cuisine: 'Italian',
+  //   dishType: 'main_course',
+  //   duration: 30,
+  //   creator: 'Ryan'
+  // }
+
+
+  // Recipe.create(pizza).then((results) => {
+  //   console.log(results)
+  // })
+  // .then(() => {
+  //   mongoose.disconnect();
+  // })
+  // .catch((error) => {
+  //   console.log('Something Went Wrong', error)
+  // })
+
+
+// Iteration 3
+
+// Recipe.insertMany(data)
+//   .then((dataFromDB) => {
+//     console.log(dataFromDB);
+//     dataFromDB.forEach(recipe => {
+//       console.log(recipe.title);
+//     });
+//   })
+//   .then(() => {
+//     mongoose.disconnect();
+//   })
+//   .catch((error) => {
+//     console.log('Something Went Wrong', error);
+//   });
+
+
+
+// Iteration 4
+
+// Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, { duration: 100})
+//   .then(() => {
+//     console.log('Item was updated');
+//   })
+//   .then(() => {
+//     mongoose.disconnect();
+//   })
+//   .catch((error) => {
+//     console.log('Something Went Wrong', error);
+//   });
+
+
+// Iteration 5
+
+// Recipe.deleteOne({ title: "Carrot Cake"})
+//   .then(() => {
+//     console.log('Recipe was deleted!!');
+//   })
+//   .then(() => {
+//     mongoose.disconnect();
+//   })
+//   .catch((error) => {
+//     console.log('Something went wrong', error);
+//   });

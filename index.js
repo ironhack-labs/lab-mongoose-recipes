@@ -9,31 +9,6 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 
 
-
-// Connection to the database "recipe-app"
-        // mongoose
-        //   .connect(MONGODB_URI, {
-        //     useCreateIndex: true,
-        //     useNewUrlParser: true,
-        //     useUnifiedTopology: true
-        //   })
-          
-        //   .then(self => {
-        //     console.log(`Connected to the database: "${self.connection.name}"`);
-        //     // Before adding any recipes to the database, let's remove all existing ones
-        //     return Recipe.deleteMany()
-        //   })
-        //   .then(() => {
-        //     // Run your code here, after you have insured that the connection was made
-        //   })
-        //   .catch(error => {
-        //     console.error('Error connecting to the database', error);
-        //   });
-
-
-
-
-     
 //-------------------------------------------------------------------------------------
     const connectToMongo = async()=>{
       try {   
@@ -51,72 +26,95 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
   }
   connectToMongo()
 
-//---------------------------------------------------------------------------------------
-  
 
-// BORRAR LAS RECETAS
+  const closeMongoose = async ()=>{
+    mongoose.connection.close( () => {
+    console.log(chalk.bgYellow('Mongoose default connection closed'))
+  })
+  }
 
-// const deleteAllRecipes = async()=>{
-//   try {   
-//     await Recipe.deleteMany()  
+// closeMongoose()
+
+  const createRecipe = async () => {
+    try {
+      const firstRecipe = await Recipe.create({
+        title: "Asian Glazed Chicken Thighs",
+        level: "Amateur Chef",
+        ingredients: [
+          "1/2 cup rice vinegar",
+          "5 tablespoons honey",
+          "1/3 cup soy sauce (such as Silver Swan®)",
+          "1/4 cup Asian (toasted) sesame oil",
+          "3 tablespoons Asian chili garlic sauce",
+          "3 tablespoons minced garlic",
+          "salt to taste",
+          "8 skinless, boneless chicken thighs"
+        ],
+        cuisine: "Asian",
+        dishType: "main_course",
+        image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+        duration: 40,
+        creator: "Chef LePapu"
+      })
+      await closeMongoose()
+    } catch (err) {
+      console.log('ERROR: ', err)
+    }
+  }
+  // createRecipe()
+
+
+//-----------------------------------
+// const createRecipe = async()=>{
+//   try {
+//     const deleteAllRecipes = await Recipe.deleteMany()
+//     const createRecipe = await Recipe.create(data)
+//     console.log(Recipe)
 //   } catch(err){
-//       console.log(err);
-//   }
+//     console.log('Error', err);
+// }
 // }
 
-// deleteAllRecipes()
-
-//-------------------------------------------------
-
-// CREAR LAS RECETAS
-// const createRecipe = async()=>{
-//   try {   
-//     const deleteAllRecipes = await Recipe.deleteMany()
-//     const recipe = await Recipe.create({
-//       "title": "Asian Glazed Chicken Thighs",
-//       "level": "Amateur Chef",
-//       "ingredients": [
-//         "1/2 cup rice vinegar",
-//         "5 tablespoons honey",
-//         "1/3 cup soy sauce (such as Silver Swan®)",
-//         "1/4 cup Asian (toasted) sesame oil",
-//         "3 tablespoons Asian chili garlic sauce",
-//         "3 tablespoons minced garlic",
-//         "salt to taste",
-//         "8 skinless, boneless chicken thighs"
-//       ],
-//       "cuisine": "Asian",
-//       "dishType": "main_course",
-//       "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-//       "duration": 40,
-//       "creator": "Chef LePapu"
-
-//     });
-//     console.log(recipe.title)
-//   } catch(err){
-//       console.log(err);
-//   }
-
-// }  
-// console.log(createRecipe)
-
 // createRecipe()
+//---------------------------------------
 
-//---------------------------------------------------------------
-const createRecipe = async()=>{
+
+const multipleRecipes = async () => {
   try {
-    const deleteAllRecipes = await Recipe.deleteMany()
-    const createRecipe = await Recipe.create(data)
-    console.log(Recipe)
-  } catch(err){
-    console.log('Error', err);
+    await Recipe.deleteMany()
+    const allRecipes = await Recipe.create(data)
+    allRecipes.forEach((recipe)=>{
+    console.log(recipe.title)
+    })
+    await closeMongoose()
+  } catch (err) {
+    console.log('ERROR: ', err)
+  }
 }
+// multipleRecipes ()
+
+
+const UpdateRecipes = async() =>{
+  try {
+    const updatedRecipe = await Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{duration:100},{new: true})
+    console.log(updatedRecipe)
+    await closeMongoose()
+  }catch (err) {
+    console.log('ERROR: ', err)
+  }
 }
+// UpdateRecipes()
 
-createRecipe()
-
-
-
+const DeleteRecipe = async() =>{
+  try {
+    const deleteCarrot = await Recipe.deleteOne({title:'Carrot Cake'})
+    console.log('Carrot Cake has been deleted!')
+    await closeMongoose()
+  }catch (err) {
+    console.log('ERROR: ', err)
+  }
+}
+// DeleteRecipe()
 
 
 

@@ -1,3 +1,4 @@
+//jshint esversion:8
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -13,11 +14,24 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: 'Fejoun a Tina',
+      level: 'Easy Peasy',
+      ingredients: ['beans', 'peppar', 'salt'],
+      cuisine: 'French',
+      dishType: 'main_course',
+      image: '',
+      duration: 45,
+      creator: 'Tina Finb',
+      created: ''
+    })
+    .then(receita => console.log(receita.title))
+    .catch(err => console.log('Ops! Something went wrong - ',err));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

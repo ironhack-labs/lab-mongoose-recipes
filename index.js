@@ -16,20 +16,34 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
-  .then(() => {
+  
+  //ITERATION 2
+
+  /* .then(() => {
     Recipe.create({
       title: 'Fejoun a Tina',
       level: 'Easy Peasy',
       ingredients: ['beans', 'peppar', 'salt'],
       cuisine: 'French',
       dishType: 'main_course',
-      image: '',
       duration: 45,
       creator: 'Tina Finb',
-      created: ''
     })
-    .then(receita => console.log(receita.title))
+    .then(receita => console.log('Receipt name:', receita.title))
     .catch(err => console.log('Ops! Something went wrong - ',err));
+  }) */
+
+  // ITERATION 3 
+  
+  .then(() => { 
+    Recipe.insertMany(data)
+    .then(()=>{
+      Recipe.find()
+      .then((recipes) => {
+        recipes.forEach(element => console.log(element.title));
+      })
+      .catch(err => console.log(err));
+    });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

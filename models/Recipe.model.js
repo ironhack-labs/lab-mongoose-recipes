@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
+  
+  // ITERATION 1
 
   title: String,
   level: {

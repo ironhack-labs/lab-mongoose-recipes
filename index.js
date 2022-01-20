@@ -19,9 +19,9 @@ mongoose
   
   //ITERATION 2
 
-  /* .then(() => {
+  .then(() => {
     Recipe.create({
-      title: 'Fejoun a Tina',
+      title: 'Fejoun alla Tina',
       level: 'Easy Peasy',
       ingredients: ['beans', 'peppar', 'salt'],
       cuisine: 'French',
@@ -29,9 +29,9 @@ mongoose
       duration: 45,
       creator: 'Tina Finb',
     })
-    .then(receita => console.log('Receipt name:', receita.title))
-    .catch(err => console.log('Ops! Something went wrong - ',err));
-  }) */
+    .then(receita => console.log(`Receipt name: "${receita.title}" created successfully.`))
+    .catch(err => console.log('Ops! Something went wrong creating the recipe - ',err));
+  }) 
 
   // ITERATION 3 
   
@@ -42,9 +42,39 @@ mongoose
       .then((recipes) => {
         recipes.forEach(element => console.log(element.title));
       })
-      .catch(err => console.log(err));
-    });
+
+      // ITERATION 4
+
+      .then(()=> {
+        //the third parameter "new" set to true returns the doc after update is applied, otherwise it returns the doc before update was applied  
+        Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration : 100}, {new: true})
+        .then((doc)=>  console.log(`Recipe "${doc.title}" duration field successfully updated`, doc))
+        .catch(err => console.log('Ops! Something went wrong updating the document - ',err));
+      })
+
+      // ITERATION 5
+
+      .then(()=> {
+        //deletes user where the title contains "carrot cake" insensitive case
+        Recipe.deleteOne({title: /carrot cake/i})
+        .then((doc) => console.log(`${doc.deletedCount} successfully deleted document.`))
+
+        // ITERATION 6
+
+        .then(() => {
+          console.log('Disconnecting database...');
+          mongoose.connection.close();
+          
+        })
+        .catch(err => console.log('Ops! Something went wrong deleting the document - ',err));
+      })
+      .catch(err => console.log('Ops! Something went wrong - ',err));
+    })
+
+    
+    .catch(err => console.log('Ops! Something went wrong inserting the documents - ',err));
   })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -20,8 +20,34 @@ mongoose
       Recipe.create(recipe);
       console.log(recipe.title);
     });
-    // Run your code here, after you have insured that the connection was made
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
+  })
+  .then(() => {
+    Recipe.findByIdAndUpdate("61e9cb5a21b96eba3f49252b", { duration: 100 })
+      .then(() => {
+        console.log(
+          "You did it! Now you just have another 99.999.999 problems to solve ;D"
+        );
+      })
+      .catch((err) => {
+        console.log(err, "on updating");
+      });
+  })
+  .then(() => {
+    Recipe.deleteOne({ title: "Carrot Cake" })
+      .then((removed) => {
+        console.log(`${removed} is out! Choose another`);
+      })
+      .catch((notRemoved) => {
+        console.log(
+          `${notRemoved} was not removed, so it is still available :)`
+        );
+      });
+  })
+  .finally(() => {
+    mongoose.connection.on("disconnected", () => {
+      console.log("See ya later aligator :)");
+    });
   });

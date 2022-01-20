@@ -64,7 +64,7 @@ mongoose
         .then(() => {
           console.log('Disconnecting database...');
           mongoose.connection.close();
-          
+          console.log('Disconnected.');
         })
         .catch(err => console.log('Ops! Something went wrong deleting the document - ',err));
       })

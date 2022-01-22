@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Connection to the database "recipe-app"
 mongoose.connect('mongodb://localhost:27017/recipe-app', {
     useNewUrlParser: true,
 })

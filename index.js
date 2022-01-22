@@ -30,3 +30,5 @@ mongoose.connection.once('open', () => {
   .catch(err => console.log(err))
   .finally(() => mongoose.connection.close())
 })  
+
+Commit prueba

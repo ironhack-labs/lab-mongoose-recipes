@@ -14,12 +14,14 @@ mongoose.connection.once('open', () => {
       console.log(recipes[i].title)
     }
   })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration : 100}, {new: true})
+  })
+  .then(recipeUpdated => {
+    console.log(`Recipe ${recipeUpdated.title} has been updated with duration ${recipeUpdated.duration}`)
+  })
   .catch(err => console.log(err))
   .finally(() => mongoose.connection.close())
 })
 
-
-/* Recipe.create(AllRecipes)
-  .then(createdRecipes => console.log(createdRecipes[0].title))
-  .catch(err => console.log(err)) */
 

@@ -20,6 +20,12 @@ mongoose.connection.once('open', () => {
   .then(recipeUpdated => {
     console.log(`Recipe ${recipeUpdated.title} has been updated with duration ${recipeUpdated.duration}`)
   })
+  .then(() => {
+    return Recipe.findOneAndDelete({title: 'Carrot Cake'})
+  })
+  .then(recipeDeleted => {
+    console.log(`Recipe ${recipeDeleted.title} is no longer available`)
+  })
   .catch(err => console.log(err))
   .finally(() => mongoose.connection.close())
 })

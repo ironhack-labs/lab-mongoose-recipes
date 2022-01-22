@@ -7,8 +7,6 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
-
 mongoose.connection.once('open', () => {
   mongoose.connection.db.dropDatabase()
   .then(() => console.log('Database has been cleared'))

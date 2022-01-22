@@ -6,16 +6,10 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
+require('./config/db.config.js')
 
-// Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI)
-  .then((x) => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany();
-  })
+mongoose.connection.once('open', () => {
+  mongoose.connection.db.dropDatabase()
   .then(() => {
     return Recipe.create(data)
   })
@@ -39,3 +33,4 @@ mongoose
     console.error("Error connecting to the database", error);
   })
   .finally(() => mongoose.connection.close());
+})

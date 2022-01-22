@@ -9,18 +9,24 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
-// Connection to the database "recipe-app"
 mongoose.connection.once('open', () => {
   mongoose.connection.db.dropDatabase()
   .then(() => console.log('Database has been cleared'))
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create(data[0])
-      .then(recipe => console.log("The recipe is saved and its name is: ", recipe.title))
-      .catch(error => console.log("An error happened while saving a new recipe: ", error))
+  .then(() => Recipe.create(data))
+  .then((recipesCreated) => {
+    recipesCreated.forEach(recipe => {
+      console.log(recipe.title)
+    })
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then(result => {
+    console.log(`${result.title}'s duration has been updated.`)
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(() => console.log("Carrot Cake has been deleted."))  
+  .catch(error => console.error('Error connecting to the database', error))
+  .finally(() => mongoose.connection.close())
+  .then(() => console.log("Mongoose disconnected on app termination."))
 })
+
 

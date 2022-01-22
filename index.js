@@ -17,11 +17,11 @@ mongoose
   })
   .then(() => Recipe.create(data))
   .then(arrData => arrData.forEach(e => console.log(e.title)))
-  .then(()=>Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true}))
-  .then((value)=> console.log(value))
-  .then(()=>Recipe.findOneAndDelete({title: "Carrot Cake"}))
-  .then(value=> console.log(`${value.title} deleted!`))
+  .then(() => Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, { duration: 100 }, { new: true }))
+  .then((value) => console.log(value))
+  .then(() => Recipe.findOneAndDelete({ title: "Carrot Cake" }))
+  .then(value => console.log(`${value.title} deleted!`))
   .catch(error => console.error('Error connecting to the database', error))
-  .finally(()=> mongoose.connection.close())
+  .finally(() => mongoose.connection.close())
   
 

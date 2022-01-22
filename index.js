@@ -1,23 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+require("./config/db.config");
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require('./data.json');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
-
-// Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI)
-  .then(x => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+mongoose.connection.once("open", () => {
+  mongoose.connection.db
+    .dropDatabase()
+    .then(() => console.log("Database has been cleared"))
+    // .then(() => {
+    //   return Recipe.create(data)
+    //})
+    .then(() => {
+      return Recipe.insertMany(data);
+    })
+    .then((dataSaved) => {
+      dataSaved.forEach((recipe) => console.log(recipe.title));
+    })
+    .then(() => {
+      return Recipe.findOneAndUpdate(
+        { title: "Rigatoni alla Genovese" },
+        { duration: 100 }
+      );
+    })
+    .then((recipe) => {
+      console.log(`The ${recipe.title} has been updated`);
+    })
+    .then((deleteReceipe) => {
+      return Recipe.findOneAndDelete({ title: "Carrot Cake" });
+    })
+    .then((deleteRecipe) => {
+      console.log(`Oh oh! ${deleteRecipe.title} is no longer available`);
+    })
+    .catch((err) => console.log(err))
+    .finally(() => mongoose.connection.close());
+});

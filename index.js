@@ -30,4 +30,3 @@ mongoose.connection.once('open', () => {
   .finally(() => mongoose.connection.close())
 })
 
-

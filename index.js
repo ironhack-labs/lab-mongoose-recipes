@@ -32,19 +32,28 @@ mongoose.connection.once("open", () => {
       const promise2 = Recipe.insertMany(data);
 
       return Promise.all([promise1, promise2])
-      .then(
-        promise2.forEach = () => {
-          for(let i = 0; i < data.length; i++) {
-           console.log(`${data[i].title}`)
-          }
-          console.log(`New recipe ${newRecipe.title} sucessfully created`);
-        }
-        
-      )
-
-    .catch((err) => console.log(err))
-    .finally(() => mongoose.connection.close());
-  }) 
-
-})
-
+        .then(
+          (promise2.forEach = () => {
+            for (let i = 0; i < data.length; i++) {
+              console.log(`${data[i].title}`);
+            }
+            console.log(`New recipe ${newRecipe.title} sucessfully created`);
+            return Recipe.findOneAndUpdate(
+              { title: "Rigatoni alla Genovese" },
+              { duration: 100 }
+            ).then((recipe) => {
+              console.log(`Recipe ${recipe.title} sucessfully updated`);
+              return Recipe.findOneAndDelete({ title: "Carrot Cake" }).then(
+                (deletedRecipe) => {
+                  console.log(
+                    `Recipe ${deletedRecipe.title} sucessfully deleted`
+                  );
+                }
+              );
+            });
+          })
+        )
+        .catch((err) => console.log(err))
+        .finally(() => mongoose.connection.close());
+    });
+});

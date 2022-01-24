@@ -22,7 +22,7 @@ const recipeSchema = new mongoose.Schema({
       enum:["breakfast", "main_course", "soup", "snack", "drink", "dessert", "other"]
     },
     image: {
-c      default: "https://images.media-allrecipes.com/images/75131.jpg"
+      default: "https://images.media-allrecipes.com/images/75131.jpg"
     },
     duration: {
       type: Number,

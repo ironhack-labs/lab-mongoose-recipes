@@ -39,9 +39,9 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    Recipe.create(data[0])
-      .then((recipe) => console.log("the recipe is saved", recipe))
-      .catch((err) => console.log("error saving recipe", err));
+    Recipe.insertMany(data)
+      .then((recipes) => console.log("the recipes are saved", recipes))
+      .catch((err) => console.log("error saving recipes", err));
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

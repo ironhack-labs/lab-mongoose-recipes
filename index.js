@@ -55,8 +55,7 @@ mongoose
         for (let i = 0; i < insertedRecipies.length; i++) {
           console.log("those are the new recipes:" + insertedRecipies[i].title);
         }
-      }) //CLOSING INSERTMANY .THEN
-      //INSERT MANY CATCH
+      })
       .catch((error) => {
         console.log(`this is not working ${error}`);
       })
@@ -73,7 +72,7 @@ mongoose
             console.log(error);
           });
       })
-      //ITERATION 5 - waiting for all recipies to be added before deleting one
+      //ITERATION 5 - waiting for all recipies to be added/updated before deleting one
       .then(() => {
         Recipe.deleteOne({ title: "Carrot Cake" })
           .then(() => {

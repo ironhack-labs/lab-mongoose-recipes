@@ -19,42 +19,34 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-
     // Iteration 2
     const newRecipe = { title: "ourOwnRecipe", cuisine: "Italian" };
-    Recipe.create(newRecipe)
-      .then((rep) =>
-        console.log("The recipe is saved and its value is: ", rep.title)
-      )
-      .catch((error) =>
-        console.log("An error happened while saving a new recipe:", error)
-      );
-
+    return Recipe.create(newRecipe);
+  })
+  .then((returnedData) => {
+    console.log(returnedData.title);
     // Iteration 3
-    return Recipe.insertMany(data)
-      .then((rep) =>
-        rep.forEach((recipe) =>
-          console.log("Titles of the recipes are:", recipe.title)
-        )
-      )
-      .catch((error) =>
-        console.log("An error happened while saving a new recipes:", error)
-      );
+    return Recipe.insertMany(data);
   })
 
   // Iteration 4
-  .then(() => {
+  .then((returnedData) => {
+    returnedData.forEach((recipe) =>
+      console.log("Titles of the recipes are:", recipe.title)
+    );
+
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: "100" },
       { new: true }
     );
   })
+  // Iteration 5
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then(() => {
+    // Iteration 6
     mongoose.connection.close(() => {
       console.log(
         "Mongoose default connection disconnected through app termination"

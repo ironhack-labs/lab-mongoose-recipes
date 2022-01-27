@@ -7,7 +7,7 @@ const recipeSchema = new Schema({
     type: String,
     enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"],
   },
-  ingredients: { type: Array[String] },
+  ingredients: { type: [String] },
   cuisine: { type: String, required: true },
   dishType: {
     type: String,
@@ -27,7 +27,7 @@ const recipeSchema = new Schema({
   },
   duration: { type: Number, min: 0},
   creator: { type: String },
-  created: { type: Date, default: date.now}
+  created: { type: Date, default: Date.now}
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

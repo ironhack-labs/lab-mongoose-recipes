@@ -49,8 +49,32 @@ mongoose
     console.log(`My first recipe: ${recipe.title}`);
     return Recipe.insertMany(data);
   })
+  .then((allRecipes) => {
+    allRecipes.forEach((recipe) => {
+      console.log(`My recipe title: ${recipe.title}`);
+    })
+    //const query = { title: 'Rigatoni alla Genovese'};
+    //console.log(`Recipe duration ${recipe.duration}`);
+    Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    )
+      .then(() => console.log("It's updated"))
+      .catch(() => console.log("It's updated"));
+    //Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+  })
+    
+  
+
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
 
+/* 
+  Recipe.findById("61f2b3318be7a4992617f8f8")
+    .then((recipe) => {
+      recipe.duration = 100;
+    })
+    .catch((err) => console.log("An error occurred:", err)); */
 

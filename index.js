@@ -56,8 +56,11 @@ mongoose
           console.log("those are the new recipes:" + insertedRecipies[i].title);
         }
       }) //CLOSING INSERTMANY .THEN
+      //INSERT MANY CATCH
+      .catch((error) => {
+        console.log(`this is not working ${error}`);
+      })
       //ITERATION 4 - waiting for all recipies to be added before updating one
-
       .then(() => {
         Recipe.findOneAndUpdate(
           { title: "Rigatoni alla Genovese" },
@@ -73,13 +76,15 @@ mongoose
       //ITERATION 5 - waiting for all recipies to be added before deleting one
       .then(() => {
         Recipe.deleteOne({ title: "Carrot Cake" })
-          .then(() => console.log("carrot cake has been deleted"))
+          .then(() => {
+            console.log("carrot cake has been deleted");
+            //ITERATION 6
+          })
+          .then(() => {
+            mongoose.connection.close();
+            console.log(`connection closed`);
+          })
           .catch((error) => console.log(error));
-      })
-
-      //INSERT MANY CATCH
-      .catch((error) => {
-        console.log(`this is not working ${error}`);
       });
   }) //CLOSING .THEN AFTER DATABASE HAS CONNECTED
 

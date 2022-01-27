@@ -92,29 +92,32 @@ mongoose
 
     //ITERATION 3
 
-    Recipe.insertMany(data, { ordered: false })
-      .then((insertedRecipies) => {
-        for (let i = 0; i < insertedRecipies.length; i++) {
-          console.log("those are the new recipes:" + insertedRecipies[i].title);
-        }
-        //ITERATION 4 - waiting for all recipies to be added before updating one
+    Recipe.insertMany(data, { ordered: false }).then((insertedRecipies) => {
+      for (let i = 0; i < insertedRecipies.length; i++) {
+        console.log("those are the new recipes:" + insertedRecipies[i].title);
+      }
+      //ITERATION 4 - waiting for all recipies to be added before updating one
 
-        Recipe.findOneAndUpdate(
-          { title: "Rigatoni alla Genovese" },
-          { duration: 100 }
-        )
-          .then(() => {
-            console.log("Rigatoni has been updated");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
+      Recipe.findOneAndUpdate(
+        { title: "Rigatoni alla Genovese" },
+        { duration: 100 }
+      )
+        .then(() => {
+          console.log("Rigatoni has been updated");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-      //INSERT MANY CATCH
-      .catch((error) => {
-        console.log(`this is not working ${error}`);
-      });
+      //ITERATION 5 - waiting for all recipies to be added before deleting one
+      Recipe.deleteOne({ title: "Carrot Cake" })
+        .then(() => console.log("carrot cake has been deleted"))
+        .catch((error) => console.log(error))
+        //INSERT MANY CATCH
+        .catch((error) => {
+          console.log(`this is not working ${error}`);
+        });
+    });
   }) //CLOSING .THEN AFTER DATABASE HAS CONNECTED
 
   //CATCH FOR DATABASE CONNECTION FAILURE

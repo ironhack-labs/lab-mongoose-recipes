@@ -97,7 +97,21 @@ mongoose
         for (let i = 0; i < insertedRecipies.length; i++) {
           console.log("those are the new recipes:" + insertedRecipies[i].title);
         }
+        //ITERATION 4 - waiting for all recipies to be added before updating one
+
+        Recipe.findOneAndUpdate(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 }
+        )
+          .then(() => {
+            console.log("Rigatoni has been updated");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
+
+      //INSERT MANY CATCH
       .catch((error) => {
         console.log(`this is not working ${error}`);
       });

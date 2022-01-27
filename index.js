@@ -62,11 +62,19 @@ mongoose
       .then(() => console.log("It's updated"))
       .catch(() => console.log("It's updated"));
     //Recipe.updateOne({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+
+    Recipe.deleteOne({ title: "Carrot Cake" })
+      .then(() => console.log("Carrot Cake deleted"))
+      .catch(() => console.log("It's updated"));
   })
-    
-  
-
-
+  .then(() => {
+      mongoose.connection.close(() => {
+        console.log(
+          "Mongoose default connection disconnected through app termination"
+        );
+        process.exit(0);
+      });
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

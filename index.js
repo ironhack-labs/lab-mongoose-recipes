@@ -17,47 +17,11 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-
-    //ITERATION 2
-    // const newRecipe = {
-    //   title: "IronHack Pie2",
-    //   level: "Easy Peasy",
-    //   ingredients: ["Pie", "Pie filling", "Green Vegetables", "Eggs"],
-    //   cuisine: "Spanish",
-    //   dishType: "main_course",
-    //   duration: 60,
-    //   creator: "Team1",
-    // };
-
-    // Recipe.countDocuments({ title: newRecipe.title })
-    //   .then((count) => {
-    //     if (count === 0) {
-    //       Recipe.create(newRecipe)
-    //         .then((recipe) =>
-    //           console.log("this is added recipe: " + recipe.title)
-    //         )
-    //         .catch((error) =>
-    //           console.log("An error happened while saving a new recipe:", error)
-    //         );
-    //     } else {
-    //       console.log("recipe already exists");
-    //     }
-    //   })
-
-    //   .catch((error) => {
-    //     console.log(error);
-    // });
-
-    //ITERATION 3
-
-    Recipe.insertMany(data, { ordered: false })
+      Recipe.insertMany(data, { ordered: false })
       .then((insertedRecipies) => {
         for (let i = 0; i < insertedRecipies.length; i++) {
           console.log("those are the new recipes:" + insertedRecipies[i].title);
         }
-      })
-      .catch((error) => {
-        console.log(`this is not working ${error}`);
       })
       //ITERATION 4 - waiting for all recipies to be added before updating one
       .then(() => {
@@ -65,13 +29,11 @@ mongoose
           { title: "Rigatoni alla Genovese" },
           { duration: 100 }
         )
-          .then(() => {
-            console.log("Rigatoni has been updated");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .then(() => {
+          console.log("Rigatoni has been updated");
+        })
       })
+      
       //ITERATION 5 - waiting for all recipies to be added/updated before deleting one
       .then(() => {
         Recipe.deleteOne({ title: "Carrot Cake" })
@@ -83,7 +45,6 @@ mongoose
             mongoose.connection.close();
             console.log(`connection closed`);
           })
-          .catch((error) => console.log(error));
       });
   }) //CLOSING .THEN AFTER DATABASE HAS CONNECTED
 

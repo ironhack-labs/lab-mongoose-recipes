@@ -48,14 +48,21 @@ mongoose
     //  .catch(err => console.log(`Error while creating the new recipes: ${err}`));
 
     //Iteration 4
-    Recipe
-      .findOneAndUpdate({ title: "Carrot Cake" }, { duration: 100 })
-      .then(updatedRecipe => console.log(`A new recipe is updated: ${updatedRecipe.title}! The duration was: ${updatedRecipe.duration}`))
-      .catch(err => console.log(`Error while updating a recipe: ${err}`));
+
+    //Recipe
+    //  .findOneAndUpdate({ title: "Carrot Cake" }, { duration: 100 }) //return the changed object with the values of before the change
+    //  .then(updatedRecipe => console.log(`A new recipe is updated: ${updatedRecipe.title}! The duration was: ${updatedRecipe.duration}`))
+    //  .catch(err => console.log(`Error while updating the recipe: ${err}`));
     
     //Iteration 5
 
+    //Recipe
+    //  .deleteOne({title: "Carrot Cake"})
+    //  .then(deletedRecipe => console.log(`The recipe is deleted!`))
+    //  .catch(err => console.log(`Error while deleting the recipe: ${err}`));
+
     //Iteration 6
+    mongoose.connection.close(() => console.log("Disconnected from the database"));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

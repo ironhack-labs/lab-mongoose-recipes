@@ -17,6 +17,30 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    const recipe = new Recipe({ 
+      title: "Súper Banana Bread",
+      level: "Easy Peasy",
+      ingredients: ["3 riped bananas","76g butter", "1/2 teaspoon baking soda", "1 pinch salt", "100gr sugar", "1 large egg, beaten", "1 teaspoon vanilla extract", "205g all-purpose flour"],
+      cuisine: "universal",
+      dishType: "breakfast",
+      duration: 60,
+      creator: "Rick"
+    });
+
+    //Iteration 2:
+
+    //recipe
+    //  .save()
+    //  .then(newRecipe => console.log(`A new recipe is created: ${newRecipe.title}!`))
+    //  .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+
+    //Recipe
+    //  .create(recipe)
+    //  .then(newRecipe => console.log(`A new recipe is created: ${newRecipe.title}!`))
+    //  .catch(err => console.log(`Error while creating a new recipe: ${err}`));
+
+    
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

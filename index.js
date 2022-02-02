@@ -17,13 +17,42 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
     //iteracion 2
     Recipe
     .create(
-      data[4]
+      {
+      "title": "Krabby Patty",
+      "level": "Easy Peasy",
+      "ingredients": [
+        "Secret patty meal",
+        "Secret taste Onion rings",
+        "Hamburger buns (whatever you like) lightly toasted",
+        "Ketchup",
+        "Mustard",
+        "American Cheese",
+        "Dill Pickle slices",
+        "Lettuce",
+        "Tomato"
+      ],
+      "cuisine": "Undersea Bikini Bottom",
+      "dishType": "main_course",
+      "image": "https://www.keyingredient.com/media/57/23/f5d18ba112063839f18737e66cb7df76c0b3.jpg/rh/the-krabby-patty-yes-the-real-one-well-my-version.jpg",
+      "duration": 150,
+      "creator": "Mr. Eugene Krabbs, Cheff SpongeBob Squarepants"
+      }
     )
     .then((r) => console.log(r))
     .catch((e) => console.log(e));
+    
+    //iteracion 3
+    Recipe
+    .insertMany(
+      data
+    )
+    .then((r) => console.log(r))
+    .catch((e) => console.log(e));
+
 
   })
   .catch(error => {

@@ -37,3 +37,7 @@ mongoose
   Recipe
   .deleteOne({title: "Carrot Cake"})
   )
+  .then(() => {
+      mongoose.connection.close()
+  }
+  )

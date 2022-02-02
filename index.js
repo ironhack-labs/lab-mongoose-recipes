@@ -16,12 +16,17 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // console.log(Recipe.create({
+    // Recipe.create({
     //   title: "Chilaquiles",
     //   level: "Easy Peasy",
     //   cuisine: "Mexican",
     //   dishType: "breakfast"
-    // }))
+    // })
+    //   .then(response => console.log(response))
+    //   .catch(error => console.log(error));
+    Recipe.insertMany(data)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

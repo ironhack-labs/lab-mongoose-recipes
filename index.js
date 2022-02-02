@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { findByIdAndUpdate } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -13,11 +14,36 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    //return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes())
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+    
+
+    Recipe  
+    /*
+    .create({
+      title: 'pancakes',
+      level: 'Easy Peasy',
+      ingredients: '150 g de harina de trigo de todo uso, 2 huevos medianos, 25 g de azúcar blanquilla (también vale panela), 50 g de mantequilla, 200 ml. de leche entera, Unas gotas de esencia de vainilla, 12 g de levadura en polvo (levadura química o polvo de hornear), Una pizca de sal fina (2 gramos), Para acompañar: Miel, jarabe de Arce, mantequilla, crema de chocolate, Nutella, Nocilla...',
+      cuisine: 'Americana',
+      dishType: 'dessert',
+      image:'https://www.recetasderechupete.com/wp-content/uploads/2019/10/Bandeja-de-tortitas-768x527.jpg',
+      duration: 25,
+      creator: 'Laura',
+    }) 
+    */
+
+    //.insertMany(data,{ new: true })
+    // .then(allRecepies=> allRecepies.forEach (elm => console.log (`Hoy se sirve ${elm.title}`)))
+    //.findByIdAndUpdate('61fab4913de340b74f21f787', { duration: 100}, { new: true })
+    .deleteOne({ title: 'Carrot Cake' })
+    .then(postre => console.log ('la receta eliminada es:' ))
+    .catch(err=> console.log ('ERROR DE MONGOOSE ----', err))   
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

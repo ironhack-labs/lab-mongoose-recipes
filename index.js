@@ -1,23 +1,37 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require("./data");
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
-// Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
-  .then(x => {
+  .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes())
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: "brownies",
+      level: "Amateur Chef",
+      ingredients: "huevos, azucar, chocolate, arina, mantequilla, nueces",
+      cuisine: "americana",
+      dishType: "dessert",
+      duration: 40,
+      Creator: "angela"
+    })
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then((theNewRecipe) =>{
+    console.log(`Este es mi receta ${theNewRecipe.title}`)  // al ser un objeto puedo imprimir la porpiedad directamente. 
+    return Recipe.insertMany(data) // metodo que devuelve la promesa
+  })
+  .then(newrecipes => {
+    newrecipes.forEach((elem) => console.log(elem.title))   // funcion flecha que me devuelve un array y por eso puedo usar forEach
+    return Recipe.findOneAndUpdate ({title:"Rigatoni alla Genovese"}, {duration: 100})
+  })
+  .then(newtime => { console.log(newtime)})
+  
+  .catch((err) => {console.log("ERROR DE MONGOOSE ---- ", err)})       

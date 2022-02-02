@@ -38,8 +38,10 @@ mongoose
     Recipe.deleteOne({title: 'Carrot Cake'})
           .then(d => console.log(d))
           .catch(err => console.log(err))
+
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
+mongoose.connection.close();

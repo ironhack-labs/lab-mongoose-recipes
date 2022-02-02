@@ -19,21 +19,29 @@ mongoose
       console.error('Error connecting to the database', error);
     })
   })
+
   .then(() => Recipe.syncIndexes())
+
   .then(() => {
     Recipe
       .create({ title: 'Guacamole', cuisine: 'Mexican' })
       .then(elm => console.log(elm.title))
+      .catch(error => {
+        console.error('Error añadiendo nueva receta', error)})
   })
+
   .then(() => 
     Recipe
       .create(data)
       .then(elm => elm.forEach(element => console.log(element.title)))
+      .catch(error => {
+        console.error('Error añadiendo las recetas', error)})
 )
+
   .then(() => 
     Recipe
       .deleteOne({ title: "Carrot Cake" })
-      .then(elm => console.log("Modificado"))
+      .then(elm => console.log("Modificado!"))
       .catch(error => {
         console.error('Error 1', error);
       })

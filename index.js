@@ -27,6 +27,9 @@ mongoose
       creator: 'Moctezuma',
       // created: 1325
     }).then((r) => console.log(r)).catch((err) => console.log(err));
+    Recipe.insertMany(data, (err, docs) => {
+      console.log(docs);
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

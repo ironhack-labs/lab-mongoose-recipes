@@ -29,12 +29,15 @@ mongoose
 // 
     // Recipe.insertMany(data).then(res => console.log(res)).catch(err => console.log(err));
 
-    Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+    Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100}, {new: true})
           .then(res => {
             console.log(res)
           })
           .catch(err => console.log(err))
 
+    Recipe.deleteOne({title: 'Carrot Cake'})
+          .then(d => console.log(d))
+          .catch(err => console.log(err))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

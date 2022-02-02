@@ -27,7 +27,10 @@ mongoose
     // Recipe.insertMany(data)
     //   .then(response => console.log(response))
     //   .catch(error => console.log(error));
-    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+    // Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+    //   .then(response => console.log(response))
+    //   .catch(error => console.log(error));
+    Recipe.deleteOne({ title: "Carrot Cake" })
       .then(response => console.log(response))
       .catch(error => console.log(error));
   })

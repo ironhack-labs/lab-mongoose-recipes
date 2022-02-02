@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { find } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -16,7 +17,9 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe
+    .create({name: 'Guacamole', cuisine: 'Mexican' })
+    .then (elm => console.log(elm.name))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

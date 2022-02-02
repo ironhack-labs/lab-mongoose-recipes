@@ -44,9 +44,7 @@ mongoose
         console.log('Receta Actualizada', updateRecipe)
         return Recipe.deleteOne({title: "Carrot Cake"})
       })
-      .then(deletedRecipes => {
-        console.log("la receta cancelada es", deletedRecipes)
-      })
+      .then(deletedRecipes => console.log("la receta cancelada es", deletedRecipes))
 
   })
 

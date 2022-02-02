@@ -22,7 +22,7 @@ mongoose
     
 
     Recipe  
-    /*
+    
     .create({
       title: 'pancakes',
       level: 'Easy Peasy',
@@ -33,14 +33,14 @@ mongoose
       duration: 25,
       creator: 'Laura',
     }) 
-    */
+    .then((newDessert)=> console.log("Postre",newDessert.title))
 
-    //.insertMany(data,{ new: true })
-    // .then(allRecepies=> allRecepies.forEach (elm => console.log (`Hoy se sirve ${elm.title}`)))
-    //.findByIdAndUpdate('61fab4913de340b74f21f787', { duration: 100}, { new: true })
+    .then.insertMany(data,{ new: true })
+    .findByIdAndUpdate('61fab4913de340b74f21f787', { duration: 100}, { new: true })
     .deleteOne({ title: 'Carrot Cake' })
-    .then(postre => console.log ('la receta eliminada es:' ))
+    
     .catch(err=> console.log ('ERROR DE MONGOOSE ----', err))   
+    .connection.close()
 
   })
   .catch(error => {

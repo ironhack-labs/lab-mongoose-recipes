@@ -13,11 +13,33 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes())
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+    Recipe
+    // .create(
+    //   {
+    //     title: `tortitas`,
+    //     level: `Easy Peasy`,
+    //     ingredients: [`harina`, `huevos`, `azucar`, `motherfuckers`],
+    //     cuisine: `tipical my casa`,
+    //     dishType: `breakfast`,
+    //     durantion: 30,
+    //     creator: `Gsus`,
+    //     created: ``,
+    //   })
+
+    // })
+    //.then(theNewRecipe => console.log(`la nueva super receta ${theNewRecipe.title}`))
+    //.create(data)
+    // .then(theNewRecipe => theNewRecipe.forEach(elm => console.log(`la nueva super receta ${elm.title}`)))
+
+    //Recipe.findOneAndUpdate({title:`Rigatoni alla Genovese`},{duration:100})
+    Recipe
+      .findOneAndDelete({ title: 'Carrot Cake' })
+      .then(() =>
+        mongoose.connection.close())
+        
+      .catch(error => { console.error('Error connecting to the database', error) })
   });

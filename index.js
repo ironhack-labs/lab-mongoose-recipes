@@ -18,7 +18,7 @@ mongoose
   .then(() => Recipe.syncIndexes())
   .then(() => {
     // Iteracion 3
-    return Recipe.insertMany(data);
+    return Recipe.create(data);
   })
   .then(() => {
     // Iteracion 4

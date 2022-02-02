@@ -13,23 +13,28 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create({
-      title: 'Pozole',
-      level: 'Easy Peasy',
-      ingredients: ['Pork', 'corn', 'lettuce', 'chilli powder', 'radish', 'oregano', 'pork broth'],
-      cuisine: 'mexican',
-      dishType: 'main_course',
-      duration: 120,
-      creator: 'Moctezuma',
-      // created: 1325
-    }).then((r) => console.log(r)).catch((err) => console.log(err));
-    Recipe.insertMany(data, (err, docs) => {
-      console.log(docs);
-    })
+    // Recipe.create({
+    //   title: 'Pozole',
+    //   level: 'Easy Peasy',
+    //   ingredients: ['Pork', 'corn', 'lettuce', 'chilli powder', 'radish', 'oregano', 'pork broth'],
+    //   cuisine: 'mexican',
+    //   dishType: 'main_course',
+    //   duration: 120,
+    //   creator: 'Moctezuma',
+    // }).then((r) => console.log(r)).catch((err) => console.log(err));
+// 
+    // Recipe.insertMany(data).then(res => console.log(res)).catch(err => console.log(err));
+
+    Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => console.log(err))
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

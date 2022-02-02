@@ -12,6 +12,8 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
-    "mongoose": "^6.1.2"
+    "express": "^4.17.2",
+    "hbs": "^4.2.0",
+    "mongoose": "^6.1.10"
   }
 }

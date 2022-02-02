@@ -16,13 +16,20 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     // return Recipe.deleteMany()
   })
-  .then(() => {
+  .then(() => Recipe.syncIndexes())
+  // .then(() => {
+  //   Recipe
+  //     .create({ title: 'Guacamole', cuisine: 'Mexican' })
+  //     .then(elm => console.log(elm.title))
+  //   Recipe
+  //     .create(data)
+  //     .then(elm => elm.forEach(element => console.log(element.title)))
+  //     .catch(error => {
+  //       console.error('Error connecting to the database', error);
+
+  //     })
+  // })
+  .then(() =>
     Recipe
-    .create({title: 'Guacamole', cuisine: 'Mexican' })
-    .then (elm => console.log(elm.title))
-    Recipe
-      .create(data)
-      .then (elm => elm.forEach(element => console.log(element.title)))
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  })})
+    .findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration: 100})
+)

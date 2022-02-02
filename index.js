@@ -14,13 +14,15 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
   .then(() => {
     Recipe
-    .create({name: 'Guacamole', cuisine: 'Mexican' })
-    .then (elm => console.log(elm.name))
-  })
+    .create({title: 'Guacamole', cuisine: 'Mexican' })
+    .then (elm => console.log(elm.title))
+    Recipe
+      .create(data)
+      .then (elm => elm.forEach(element => console.log(element.title)))
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })})

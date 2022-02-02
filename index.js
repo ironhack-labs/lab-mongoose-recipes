@@ -18,6 +18,7 @@ mongoose
   .then(() => Recipe.syncIndexes())
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Iteration 2
     Recipe.create({
       title: "Natillas",
       level: "Easy Peasy",
@@ -27,17 +28,20 @@ mongoose
       duration: 20,
       creator: "Diego",
     }).then((newRecipe) => console.log("Nueva receta", newRecipe.title));
-    // Recipe.insertMany(data)
-    // .then((allrecipies) =>
-    //   allrecipies.forEach((elm) => console.log(elm.title))
-    // );
-    // Recipe.findOneAndUpdate(
-    //   { title: "Rigatoni alla Genovese" },
-    //   { duration: 100 }
-    // );
+    // Iteration 3
+    Recipe.insertMany(data).then((allrecipies) =>
+      allrecipies.forEach((elm) => console.log(elm.title))
+    );
+    // Iteration 4
+    Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    );
+    // Iteration 5
     // devuelve el objeto borrado
     Recipe.deleteOne({ title: "Carrot Cake" }).then(console.log("Deleted!"));
   })
+  // Iteration 6
   .connection.close(function () {
     console.log("Mongoose connection closed");
   })

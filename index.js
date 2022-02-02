@@ -14,24 +14,22 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    // return Recipe.deleteMany()
+    return Recipe.deleteMany()
+    .catch(error => {
+      console.error('Error connecting to the database', error);
+    })
   })
   .then(() => Recipe.syncIndexes())
-  // .then(() => {
-  //   Recipe
-  //     .create({ title: 'Guacamole', cuisine: 'Mexican' })
-  //     .then(elm => console.log(elm.title))
-  //     .catch(error => {
-  //       console.error('Error connecting to the database', error);
-  //     })
-  //   Recipe
-  //     .create(data)
-  //     .then(elm => elm.forEach(element => console.log(element.title)))
-  //     .catch(error => {
-  //       console.error('Error connecting to the database', error);
-  //     })
-  // })
-
+  .then(() => {
+    Recipe
+      .create({ title: 'Guacamole', cuisine: 'Mexican' })
+      .then(elm => console.log(elm.title))
+  })
+  .then(() => 
+    Recipe
+      .create(data)
+      .then(elm => elm.forEach(element => console.log(element.title)))
+)
   .then(() => 
     Recipe
       .deleteOne({ title: "Carrot Cake" })
@@ -57,3 +55,4 @@ mongoose
         console.error('Error 3', error);
       })
   })
+  

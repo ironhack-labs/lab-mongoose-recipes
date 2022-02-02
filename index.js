@@ -17,7 +17,18 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: 'Pozole',
+      level: 'Easy Peasy',
+      ingredients: ['Pork', 'corn', 'lettuce', 'chilli powder', 'radish', 'oregano', 'pork broth'],
+      cuisine: 'mexican',
+      dishType: 'main_course',
+      duration: 120,
+      creator: 'Moctezuma',
+      // created: 1325
+    }).then((r) => console.log(r)).catch((err) => console.log(err));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

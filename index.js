@@ -21,23 +21,39 @@ mongoose
   //   Recipe
   //     .create({ title: 'Guacamole', cuisine: 'Mexican' })
   //     .then(elm => console.log(elm.title))
+  //     .catch(error => {
+  //       console.error('Error connecting to the database', error);
+  //     })
   //   Recipe
   //     .create(data)
   //     .then(elm => elm.forEach(element => console.log(element.title)))
   //     .catch(error => {
   //       console.error('Error connecting to the database', error);
-
   //     })
   // })
+
+  .then(() => 
+    Recipe
+      .deleteOne({ title: "Carrot Cake" })
+      .then(elm => console.log("Modificado"))
+      .catch(error => {
+        console.error('Error 1', error);
+      })
+    )
+
   .then(() =>
     Recipe
-    .findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration: 100})
-)
-  .then(() =>
-  Recipe
-  .deleteOne({title: "Carrot Cake"})
-  )
+      .findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+      .then(elm => console.log("Eliminado!"))
+      .catch(error => {
+        console.error('Error 2', error);
+      })
+    )
+
   .then(() => {
-      mongoose.connection.close()
-  }
-  )
+    mongoose.connection.close()
+      .then(elm => console.log("Abajo!"))
+      .catch(error => {
+        console.error('Error 3', error);
+      })
+  })

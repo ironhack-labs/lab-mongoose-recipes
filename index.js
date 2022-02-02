@@ -33,3 +33,7 @@ mongoose
     Recipe
     .findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration: 100})
 )
+  .then(() =>
+  Recipe
+  .deleteOne({title: "Carrot Cake"})
+  )

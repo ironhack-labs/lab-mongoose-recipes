@@ -40,3 +40,7 @@ mongoose
 Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
   .then((result) => console.log(result.title + " is updated"))
   .catch((error) => console.log(error));
+
+Recipe.deleteOne({ title: "Carrot Cake" })
+  .then(() => console.log("recipe is successfully deleted"))
+  .catch((error) => console.log(error));

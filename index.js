@@ -35,13 +35,22 @@ mongoose
     };
     return Recipe.create(recipe);
   })
-  .then(recipe => console.log('The recipe is saved as: ', recipe))
+  // .then(recipe => console.log('The recipe is saved as: ', recipe))
   .then(() => {
     return Recipe.insertMany(data);
   })
   .then((recipesArray) => {
     recipesArray.forEach(recipe => console.log(recipe.title));
   })
+  .then(()=>{
+    const filter = {title: "Rigatoni alla Genovese"}
+    const update = {duration: 100}
+    return Recipe.findOneAndUpdate(filter, update);
+  })
+  .then(()=>{
+    return Recipe.findOne({title: "Rigatoni alla Genovese"})
+  })
+  .then((updatedrecipe) => console.log("Logging updated Riga: ", updatedrecipe))
   .catch(error => {
     console.error("Something went wrong, logging error: ", error);
   });

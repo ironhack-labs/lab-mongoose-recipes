@@ -20,45 +20,52 @@ mongoose
 
     //iteracion 2
     Recipe
-    .create(
-      {
-      "title": "Krabby Patty",
-      "level": "Easy Peasy",
-      "ingredients": [
-        "Secret patty meal",
-        "Secret taste Onion rings",
-        "Hamburger buns (whatever you like) lightly toasted",
-        "Ketchup",
-        "Mustard",
-        "American Cheese",
-        "Dill Pickle slices",
-        "Lettuce",
-        "Tomato"
-      ],
-      "cuisine": "Undersea Bikini Bottom",
-      "dishType": "main_course",
-      "image": "https://www.keyingredient.com/media/57/23/f5d18ba112063839f18737e66cb7df76c0b3.jpg/rh/the-krabby-patty-yes-the-real-one-well-my-version.jpg",
-      "duration": 150,
-      "creator": "Mr. Eugene Krabbs, Cheff SpongeBob Squarepants"
-      }
-    )
-    .then((r) => console.log(r))
-    .catch((e) => console.log(e));
+      .create(
+        {
+        "title": "Krabby Patty",
+        "level": "Easy Peasy",
+        "ingredients": [
+          "Secret patty meal",
+          "Secret taste Onion rings",
+          "Hamburger buns (whatever you like) lightly toasted",
+          "Ketchup",
+          "Mustard",
+          "American Cheese",
+          "Dill Pickle slices",
+          "Lettuce",
+          "Tomato"
+        ],
+        "cuisine": "Undersea Bikini Bottom",
+        "dishType": "main_course",
+        "image": "https://www.keyingredient.com/media/57/23/f5d18ba112063839f18737e66cb7df76c0b3.jpg/rh/the-krabby-patty-yes-the-real-one-well-my-version.jpg",
+        "duration": 150,
+        "creator": "Mr. Eugene Krabbs, Cheff SpongeBob Squarepants"
+        }
+      )
+      
+    })
+
+    .then(() => {
+      //iteracion 3
+      Recipe
+      .insertMany(
+        data
+      )
+      
+    })
+
+    .then(() => {
+      //iteracion 4
+      Recipe
+      .findOneAndUpdate(
+        { title:'Rigatoni alla Genovese' },
+        { duration:100 },
+        { new:true }
+      )
+      console.log("success");
+    })
     
-    //iteracion 3
-    Recipe
-    .insertMany(
-      data
-    )
-    .then((r) => console.log(r))
-    .catch((e) => console.log(e));
-
-
-  })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-
-
-  

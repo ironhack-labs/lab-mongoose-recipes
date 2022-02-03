@@ -23,13 +23,15 @@ mongoose
   });
 
 const recipeDetails = {
-  title: "name",
+  title: "Pizza Margherita",
+  level: "Easy Peasy",
+  cuisine: "Italian",
 };
 
-// Recipe.create(recipeDetails)
-//   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((err) => {
-//     console.log("screaaaam", err);
-//   });
+Recipe.create(recipeDetails)
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.log("screaaaam", err);
+  });

@@ -43,7 +43,7 @@ const recipeSchema = new Schema({
 
   created: {
     type:     Date,
-    default:  "02 de Febrero de 2022"
+    default:  0
   }
 });
 

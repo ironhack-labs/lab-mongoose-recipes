@@ -16,7 +16,7 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe.create(data, (error, recipe) => {
+    const prom1 = Recipe.create(data, (error, recipe) => {
       if (error) {
         console.log('An error happened:', error);
         return;
@@ -24,14 +24,22 @@ mongoose
       //console.log('The recipe Name is: ', recipe);
       recipe.forEach(re => console.log(` Recipe Name: : ${re.title}`));
 
-      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}).then().catch();
+      const prom2 = Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}).then().catch();
       console.log("update done");
 
-      Recipe.deleteOne({title: "Carrot Cake"}).then(() => {
+      const prom3 = Recipe.deleteOne({title: "Carrot Cake"}).then(() => {
         console.log("delete successful");
       }).catch(() => {
         console.log("delete failed");
       });
+
+      Promise.all([prom1, prom2, prom3])
+  .then(values => {
+
+
+    mongoose.connection.close();
+  })
+  .catch(err => console.error(err));
     });
   })
   .catch(error => {

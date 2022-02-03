@@ -15,23 +15,25 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch((error) => {
-    console.error("Error connecting to the database", error);
-  });
+  // .then(() => {
+  //   const recipeDetails = {
+  //     title: "Pizza Margherita",
+  //     level: "Easy Peasy",
+  //     cuisine: "Italian",
+  //   };
 
-const recipeDetails = {
-  title: "Pizza Margherita",
-  level: "Easy Peasy",
-  cuisine: "Italian",
-};
-
-Recipe.create(recipeDetails)
+  //   Recipe.create(recipeDetails)
+  //     .then((result) => {
+  //       console.log(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log("screaaaam", err);
+  //     });
+  // })
+  // .catch((error) => {
+  //   console.error("Error connecting to the database", error);
+  // });
   .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.log("screaaaam", err);
+    Recipe.insertMany(data).then().catch();
   });
+//

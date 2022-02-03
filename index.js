@@ -21,19 +21,33 @@ mongoose
   //     level: "Easy Peasy",
   //     cuisine: "Italian",
   //   };
-
-  //   Recipe.create(recipeDetails)
-  //     .then((result) => {
-  //       console.log(result);
-  //     })
-  //     .catch((err) => {
-  //       console.log("screaaaam", err);
-  //     });
+  //   Recipe.create(recipeDetails);
   // })
-  // .catch((error) => {
-  //   console.error("Error connecting to the database", error);
-  // });
+  // .then((result) => {
+  //   console.log(result);
+  // })
   .then((result) => {
-    Recipe.insertMany(data).then().catch();
+    return Recipe.insertMany(data);
+  })
+  .then((result) => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { returnOriginal: false }
+    );
+  })
+  .then(() => {
+    console.log("Rigatoni modified");
+  })
+  .then((result) => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("Minus Carrot Cake");
+  })
+  .then(() => {
+    mongoose.connection.close();
+  })
+  .catch((err) => {
+    console.log("oops", err);
   });
-//

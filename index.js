@@ -61,4 +61,7 @@ mongoose
   })
   .catch(error => {
     console.error("Something went wrong, logging error: ", error);
+  })
+  .then(() => {
+    mongoose.connection.close();
   });

@@ -47,7 +47,15 @@ mongoose
   })
   .then(() => {
     mongoose.connection.close();
+
+  // we had no trouble with closing the DB just in case if we needed an await
+  //
+  // .then(async() => {
+  //   await mongoose.connection.close();
+  //})
   })
   .catch((err) => {
     console.log("oops", err);
   });
+
+

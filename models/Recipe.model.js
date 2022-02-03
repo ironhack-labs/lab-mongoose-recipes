@@ -29,11 +29,8 @@ const recipeSchema = new Schema({
   duration: { type: Number, min: 0 },
   creator: { type: String },
   created: { type: Date, 
-    immutable : true,
-    default: ()=>Date.now },
-  uptadedAt:{
-    type: Date, default: ()=>Date.now 
-  }
+    default: Date.now },
+  
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

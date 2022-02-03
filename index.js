@@ -41,6 +41,25 @@ mongoose
     return Recipe.create(newRecipe);
   })
 
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    ).then(console.log("Recipe updated"));
+  })
+
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" }).then(
+      console.log("Recipe deleted")
+    );
+  })
+
+  // Iteration 6 - close mongoDB
+  .then(() => {
+    mongoose.connection.close()
+    .then(console.log('connection to mongoDB closed'))
+  })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

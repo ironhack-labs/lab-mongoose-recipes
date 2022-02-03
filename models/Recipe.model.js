@@ -39,10 +39,7 @@ const recipeSchema = new Schema({
   }
 });
 
-console.log("Logging recipeSchema: ", recipeSchema);
-
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-console.log("Logging Recipe: ", Recipe);
 
 module.exports = Recipe;

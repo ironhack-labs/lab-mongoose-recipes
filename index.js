@@ -16,8 +16,26 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    let recipe = {
+      "title": "Denise Delight",
+      "level": "Amateur Chef",
+      "ingredients": [
+        "1/3 cup soy sauce (such as Silver Swan®)",
+        "1/4 cup Asian (toasted) sesame oil",
+        "3 tablespoons Asian chili garlic sauce",
+        "3 tablespoons minced garlic",
+        "salt to taste",
+        "8 skinless, boneless chicken thighs",
+        "1 liter of mustard"
+      ],
+      "cuisine": "German",
+      "dishType": "main_course",
+      "duration": 40,
+      "creator": "Chef LePapu"
+    };
+    return Recipe.create(recipe);
   })
+  .then(recipe => console.log('The recipe is saved as: ', recipe))
   .catch(error => {
-    console.error('Error connecting to the database', error);
+    console.error("Something went wrong, logging error: ", error);
   });

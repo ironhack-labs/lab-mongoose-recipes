@@ -23,6 +23,9 @@ mongoose
       }
       //console.log('The recipe Name is: ', recipe);
       recipe.forEach(re => console.log(` Recipe Name: : ${re.title}`));
+
+      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}).then().catch();
+      console.log("update done");
     });
   })
   .catch(error => {

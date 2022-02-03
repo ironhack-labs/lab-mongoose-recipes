@@ -8,9 +8,6 @@ const data = require("./data");
 
 const MONGODB_URI = "mongodb://0.0.0.0:27017/recipe-app";
 
-//Recipe.insertMany()
-//const recipeData = Recipe.insertMany(data);
-
 // Create new recipe variable
 const newRecipe = {
   title: "Asian salad",
@@ -35,12 +32,13 @@ mongoose
     return Recipe.insertMany(data);
   })
 
-  //iteration 2 start here
+  // Iteration 2 - Create new recipe
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     return Recipe.create(newRecipe);
   })
 
+  // Iteration 4 - Update Rigatoni
   .then(() => {
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
@@ -48,6 +46,7 @@ mongoose
     ).then(console.log("Recipe updated"));
   })
 
+  // Iteration 5 - remove Carrot Cake
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" }).then(
       console.log("Recipe deleted")
@@ -56,8 +55,9 @@ mongoose
 
   // Iteration 6 - close mongoDB
   .then(() => {
-    mongoose.connection.close()
-    .then(console.log('connection to mongoDB closed'))
+    mongoose.connection
+      .close()
+      .then(console.log("connection to mongoDB closed"));
   })
 
   .catch((error) => {

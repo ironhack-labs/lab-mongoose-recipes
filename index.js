@@ -36,6 +36,12 @@ mongoose
     return Recipe.create(recipe);
   })
   .then(recipe => console.log('The recipe is saved as: ', recipe))
+  .then(() => {
+    return Recipe.insertMany(data);
+  })
+  .then((recipesArray) => {
+    recipesArray.forEach(recipe => console.log(recipe.title));
+  })
   .catch(error => {
     console.error("Something went wrong, logging error: ", error);
   });

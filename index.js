@@ -15,6 +15,7 @@ mongoose
     //Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
+  //Iteration 2
   .then(() => {
     const newRecipe = {
       title: "Mashed Potatoes",
@@ -25,6 +26,7 @@ mongoose
   .then((result) => {
     console.log(result.title);
   })
+  //Iteration 3
   .then(() => {
     const recipes = Recipe.insertMany(data);
     return recipes;
@@ -34,6 +36,7 @@ mongoose
       console.log(recipe.title);
     });
   })
+  //Iteration 4
   .then(() => {
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
@@ -43,14 +46,16 @@ mongoose
   .then((result) => {
     console.log(result.title + " is updated");
   })
+  //Iteration 5
   .then(() => {
     Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then(() => {
     console.log("Recipe is successfully deleted");
   })
+  //Iteration 6
   .then(() => {
-    return mongoose.connection.close();
+    mongoose.connection.close();
   })
   .then(() => {
     console.log("Mongoose was succesfully closed");

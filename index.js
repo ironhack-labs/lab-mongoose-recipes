@@ -16,12 +16,13 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe.create(data, (error, user) => {
+    Recipe.create(data, (error, recipe) => {
       if (error) {
         console.log('An error happened:', error);
         return;
       }
-      console.log('The user is saved and its value is: ', user);
+      //console.log('The recipe Name is: ', recipe);
+      recipe.forEach(re => console.log(` Recipe Name: : ${re.title}`));
     });
   })
   .catch(error => {

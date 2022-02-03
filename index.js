@@ -17,14 +17,28 @@ mongoose
   })
   .then(() => {
     
-    Recipe.create(data, (error, user) => {
+    const prom1 = Recipe.create(data, (error, recipe) => {
       if (error) {
         console.log('An error happened:', error);
         return;
       }
-      console.log('The user is saved and its value is: ', user);
-    });
+      recipe.forEach(re => console.log(` Recipe Name: : ${re.title}`));
+      console.log('The user is saved and its value is: ', recipe);
+      
+      const filter = {title: "Rigatoni alla Genovese"};
+      const duration = {duration: "100"};
+      const prom2 = Recipe.findOneAndUpdate(filter, duration)
+      .then(result => console.log("we updated it!!"))
+      .catch();
+      
+      const prom3 = Recipe.deleteOne({title: 'Carrot Cake'})
+      .then(result => console.log("it's deleted"))
+      .catch()
 
+      Promise.all([prom1, prom2, prom3])
+        .then ((values) => mongoose.connection.close())
+    });
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

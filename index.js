@@ -12,35 +12,49 @@ mongoose
   .connect(MONGODB_URI)
   .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    //   return Recipe.deleteMany();
-    // })
-    // .then(() => {
-    //   const recipe = Recipe.insertMany(data);
-    //   return recipe;
-    // })
-    // .then((result) => {
-    //   console.log(result.title);
-    // })
-    // .then(() => {
-    //   const newRecipe = {
-    //     title: "Mashed Potatoes",
-    //     cuisine: "American",
-    //   };
-    //   return Recipe.create(newRecipe);
-    //   // Run your code here, after you have insured that the connection was made
-    // })
-    // .then((result) => {
-    //   console.log(result.title);
+    //Before adding any recipes to the database, let's remove all existing ones
+    return Recipe.deleteMany();
+  })
+  .then(() => {
+    const newRecipe = {
+      title: "Mashed Potatoes",
+      cuisine: "American",
+    };
+    return Recipe.create(newRecipe);
+  })
+  .then((result) => {
+    console.log(result.title);
+  })
+  .then(() => {
+    const recipes = Recipe.insertMany(data);
+    return recipes;
+  })
+  .then((recipes) => {
+    recipes.forEach((recipe) => {
+      console.log(recipe.title);
+    });
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    );
+  })
+  .then((result) => {
+    console.log(result.title + " is updated");
+  })
+  .then(() => {
+    Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("Recipe is successfully deleted");
+  })
+  .then(() => {
+    return mongoose.connection.close();
+  })
+  .then(() => {
+    console.log("Mongoose was succesfully closed");
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-
-Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-  .then((result) => console.log(result.title + " is updated"))
-  .catch((error) => console.log(error));
-
-Recipe.deleteOne({ title: "Carrot Cake" })
-  .then(() => console.log("recipe is successfully deleted"))
-  .catch((error) => console.log(error));

@@ -43,14 +43,22 @@ mongoose
     recipesArray.forEach(recipe => console.log(recipe.title));
   })
   .then(()=>{
-    const filter = {title: "Rigatoni alla Genovese"}
-    const update = {duration: 100}
+    const filter = {title: "Rigatoni alla Genovese"};
+    const update = {duration: 100};
     return Recipe.findOneAndUpdate(filter, update);
   })
   .then(()=>{
-    return Recipe.findOne({title: "Rigatoni alla Genovese"})
+    return Recipe.findOne({title: "Rigatoni alla Genovese"});
   })
-  .then((updatedrecipe) => console.log("Logging updated Riga: ", updatedrecipe))
+  .then((updatedrecipe) => {
+    console.log("Logging updated Riga: ", updatedrecipe);
+  })
+  .then(() => {
+    return Recipe.deleteOne({title: "Carrot Cake"});
+  })
+  .then(() => {
+    console.log("successfully deleted document.");
+  })
   .catch(error => {
     console.error("Something went wrong, logging error: ", error);
   });

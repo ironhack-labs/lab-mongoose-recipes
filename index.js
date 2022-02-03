@@ -64,7 +64,17 @@ mongoose
       )
       console.log("success");
     })
+
+    .then(() => {
+      //iteracion 5
+      Recipe
+      .deleteOne(
+        { title:'Carrot Cake' },
+      )
+      console.log("success");
+    })
     
+    mongoose.connection.close()
   
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -16,8 +16,27 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    // return Recipe.create(data[0])
+    return Recipe.insertMany(data)
+    
     // Run your code here, after you have insured that the connection was made
   })
+  .then(arrayOfRecipes => {
+    arrayOfRecipes.forEach((recipe) =>{
+      
+      console.log(recipe.title)})
+      return Recipe.findOneAndUpdate( { title: "Rigatoni alla Genovese" }, { duration: 100 } )
+    }
+  )
+  .then(x => {
+    console.log(`changed duration`) // logs the found object before updating
+    return Recipe.deleteOne( { title: "Carrot Cake" } )
+  })
+  .then(x => {
+    console.log(`${x.title} removed!`);
+    mongoose.connection.close(() => console.log('Connection closed'));
+  }) // if undefined, then removed properly
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+  // .finally(mongoose.connection.close(() => console.log('Connection closed')));

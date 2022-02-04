@@ -31,6 +31,12 @@ mongoose
       .catch(error => {console.log(error)})
 
     })
+    .then(() => {
+      return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100},)
+        .then(console.log("Now the Rigatoni are properly cooked"))
+    }
+
+    )
   
   .catch(error => {
     console.error('Error connecting to the database', error);

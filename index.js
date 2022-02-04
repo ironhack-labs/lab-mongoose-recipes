@@ -14,45 +14,51 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
-    // Iteration 2: Insert single recipe
+
+    // Iteration 2
     return Recipe.create({
       title: 'Wurst',
       level: 'UltraPro Chef',
       cuisine: 'German'
+    })
+    .then(createdRecipe => {
+      console.log('Recipe successfully created: ' + createdRecipe.title);
     });
-  })
-  .then((createdRecipe) => {
-    // Iteration 2: Log single recipe
-    console.log('Recipe successfully created: ' + createdRecipe.title);
+
   })
   .then(() => {
-    // Iteration 3: Insert multiple recipes
-    return Recipe.insertMany(data);
-  })
-  .then((createdRecipes) => {
-    // Iteration 3: Log multiple recipes
-    createdRecipes.forEach(recipe => console.log('Recipe successfully created: ' + recipe.title));
 
-    // Iteration 4: Update one document
-    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100});
-  })
-  .then((recipeBeforeUpdate) => {
-    // Iteration 4: Log success message
-    console.log('Recipe successfully updated: ' + recipeBeforeUpdate.title)
+    // Iteration 3
+    return Recipe.insertMany(data)
+    .then(createdRecipes => {
+      createdRecipes.forEach(recipe => console.log('Recipe successfully created: ' + recipe.title));
+    });
 
-    // Iteration 5: Delete one document
+  })
+  .then(() => {
+
+    // Iteration 4
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+    .then(recipeBeforeUpdate => {
+      console.log('Recipe successfully updated: ' + recipeBeforeUpdate.title);
+    });
+
+  })
+  .then(() => {
+
+    // Iteration 5
     return Recipe.deleteOne({title: 'Carrot Cake'})
+    .then(() => console.log('One document was sucessfully deleted'));
+
   })
   .then(() => {
-    // Iteration 5: Log success message
-    console.log('One document was sucessfully deleted')
-  })
-  .then(() => {
-    // Iteration 6: Close connection
+
+    // Iteration 6
     mongoose.connection.close();
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

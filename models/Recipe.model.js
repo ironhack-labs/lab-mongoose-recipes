@@ -8,10 +8,10 @@ const recipeSchema = new Schema({
   },
   level: {
     type: String,
-    enum: ["_Easy Peasy_", "_Amateur Chef_", "_UltraPro Chef_"],
+    enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"],
   },
   ingredients: {
-    type: `[String]`,
+    type: [String],
   },
   cuisine: {
     type: String,
@@ -20,13 +20,13 @@ const recipeSchema = new Schema({
   dishType: {
     type: String,
     enum: [
-      "_breakfast_",
-      "_main_course_",
-      "_soup_",
-      "_snack_",
-      "_drink_",
-      "_dessert_",
-      "_other_",
+      "breakfast",
+      "main_course",
+      "soup",
+      "snack",
+      "drink",
+      "dessert",
+      "other",
     ],
   },
   image: {

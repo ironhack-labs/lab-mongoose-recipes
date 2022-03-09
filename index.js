@@ -30,15 +30,10 @@ mongoose
   .then(() => {
     return Recipe.deleteOne({title: 'Carrot Cake'})
   })
+  .then(() => {
+    return mongoose.connection.close()
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
 
-//  const showRecipes = async () => {
-//   const recipe = await Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {$set : {duration: 100}});
-//   console.log(recipe)
-// };
-
-// setTimeout(() => {
-//   showRecipes();
-// }, 10000);

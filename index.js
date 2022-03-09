@@ -21,11 +21,23 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.insertMany(data)
+    return Recipe.insertMany(data);
+  })
+  .then(() => {
+    // Run your code here, after you have insured that the connection was made
+    console.log('last step')
+    return Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {$set : {duration: 100}});
+
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-  
-  
-  
+
+//  const showRecipes = async () => {
+//   const recipe = await Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {$set : {duration: 100}});
+//   console.log(recipe)
+// };
+
+// setTimeout(() => {
+//   showRecipes();
+// }, 10000);

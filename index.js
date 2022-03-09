@@ -25,9 +25,10 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    console.log('last step')
     return Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {$set : {duration: 100}});
-
+  })
+  .then(() => {
+    return Recipe.deleteOne({title: 'Carrot Cake'})
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

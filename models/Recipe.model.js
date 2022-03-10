@@ -5,7 +5,8 @@ const recipeSchema = new Schema({
   // TODO: write the schema
   title: { type: String, required: true },
   level: { type: String, enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"] },
-  ingredients: { type: [String] }
+  ingredients: { type: [String] },
+  cuisine: { type: String, required: true }
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

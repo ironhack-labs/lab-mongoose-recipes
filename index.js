@@ -33,6 +33,7 @@ const addNewRecipe = RecipeObject => {
 addNewRecipe({
   title: "Maria",
   level: "Easy Peasy",
-  ingredients: "oi"
+  ingredients: "oi",
+  cuisine: "Brasil"
 });
 // */

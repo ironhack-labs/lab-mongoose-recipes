@@ -7,6 +7,34 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+const createRecipe = async recipe => {
+  try {
+    await Recipe.create(recipe);
+    console.log(`A new recipe was created: ${recipe.title}`);
+  } catch (error) {console.log(console.log(`Error while creating ${recipe.title}: ${error}`))};
+};
+
+const insertMultipleRecipes = async recipes => {
+  try {
+    await Recipe.insertMany(recipes);
+    recipes.forEach(recipe => console.log(`A new recipe was created: ${recipe.title}`));
+  } catch (error) {recipes.forEach(recipe => console.log(`Error while creating ${recipe.title}: ${error}`))};
+};
+
+const updateRecipeUsingTitle = async (recipeTitleToUpdate, updatedField) => {
+  try {
+    await Recipe.findOneAndUpdate({ title: recipeTitleToUpdate }, updatedField);
+    console.log(`${recipeTitleToUpdate} was updated!`);
+  } catch (error) {console.log(`Error while updating ${recipeTitleToUpdate}: ${error}`)};
+};
+
+const removeRecipeUsingTitle = async recipeTitleToRemove => {
+  try {
+    await Recipe.deleteOne({ title: recipeTitleToRemove });
+    console.log(`${recipeTitleToRemove} was removed from the database`);
+  } catch (error) {console.log(`Error while removing ${recipeTitleToRemove} from database: ${error}`)};
+};
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
@@ -17,9 +45,8 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    const iterations2To5 = async () => {
-      // Iteration 2 - Create a recipe
-      await Recipe.create({
+    (async () => {
+      await createRecipe({
         title: "Broccoli & Stilton soup",
         level: "Amateur Chef",
         ingredients: [
@@ -37,21 +64,12 @@ mongoose
         image: "https://www.themealdb.com/images/media/meals/tvvxpv1511191952.jpg",
         duration: 45,
         creator: "unknown"
-      }).then(newRecipe => console.log(`A new recipe is created: ${newRecipe.title}`))
-        .catch(error => console.log(`Error while creating a new recipe: ${error}`));
-      
-      // Iteration 3 - Insert multiple recipes
-      await Recipe.insertMany(data).then(newRecipes => {
-        newRecipes.forEach(recipe => console.log(`A new recipe is created: ${recipe.title}`))
-      }).catch(error => console.log(`Error while creating a new recipe: ${error}`));
-
-      // Iteration 4 - Update recipe
-      await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
-        .then(updatedRecipe => console.log(`${updatedRecipe.title} duration was updated to 100!`))
-        .catch(error => console.log(`Error while updating recipe: ${error}`))
-    };
-
-    iterations2To5();
+      });
+      await insertMultipleRecipes(data);
+      await updateRecipeUsingTitle("Rigatoni alla Genovese", { duration: 100 });
+      await removeRecipeUsingTitle("Carrot Cake");
+      await mongoose.connection.close()
+    })();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -34,6 +34,7 @@ addNewRecipe({
   title: "Maria",
   level: "Easy Peasy",
   ingredients: "oi",
-  cuisine: "Brasil"
+  cuisine: "Brasil",
+  dishType: "maria"
 });
 // */

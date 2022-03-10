@@ -17,27 +17,27 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Broccoli & Stilton soup",
+      level: "Amateur Chef",
+      ingredients: [
+        "2 tblsp Rapeseed Oil",
+        "1 finely chopped onion",
+        "1 celery", "1 sliced leek",
+        "1 medium potatoes",
+        "1 knob butter",
+        "1 litre hot vegetable stock",
+        "1 head chopped broccoli",
+        "140g stilton cheese"
+      ],
+      cuisine: "British",
+      dishType: "soup",
+      image: "https://www.themealdb.com/images/media/meals/tvvxpv1511191952.jpg",
+      duration: 45,
+      creator: "unknown"
+    }).then(newRecipe => console.log(`A new recipe is created: ${newRecipe.title}`))
+      .catch(error => console.log(`Error while creating a new recipe: ${error}`));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-// Test Schema
-const addNewRecipe = RecipeObject => {
-  const recipe = new Recipe(RecipeObject);
-
-  recipe.save().then(newRecipe => console.log(`A new recipe is created: ${newRecipe}!`))
-    .catch(err => console.log(`Error while creating a new user: ${err}`));
-};
-/*
-addNewRecipe({
-  title: "José",
-  level: "Easy Peasy",
-  ingredients: "4",
-  cuisine: "Brasil",
-  dishType: "breakfast",
-  image: "imageURL",
-  duration: 30,
-  creator: true,
-});
-// */

@@ -31,13 +31,13 @@ const addNewRecipe = RecipeObject => {
 };
 /*
 addNewRecipe({
-  title: "Pie",
+  title: "José",
   level: "Easy Peasy",
   ingredients: "4",
   cuisine: "Brasil",
   dishType: "breakfast",
   image: "imageURL",
   duration: 30,
-  creator: true
+  creator: true,
 });
 // */

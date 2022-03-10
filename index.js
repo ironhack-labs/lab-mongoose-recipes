@@ -13,10 +13,11 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    /* return Recipe.deleteMany() */
+    return Recipe.deleteMany()
   })
   .then(() => {
-    /* Recipe.create({
+
+    Recipe.create({
       title: "pão de queijo",
       level: "Ultra Pro Chef",
       ingredients: ["queijo", "ovo", "polvilho", "leite", "mais queijo", "sal"],
@@ -28,12 +29,24 @@ mongoose
       // created: "", não passa porque está como default o date.now
     }).then(result => console.log(result.title))
       .catch(err => console.log(err))
-    Recipe.insertMany(data)
-      .then(result => console.log(result.title))
-      .catch(error => console.log(error)) */
-    /* Recipe.findOneAndUpdate({ duration: 200 }, { duration: 100, }
-    ).then(result => console.log(result.duration)).catch(err => console.log(err)) */
-    /* Recipe.deleteOne({ title: "Carrot Cake" }).then(result => console.log("Deletado com sucesso.")).catch(err => console.log(err)) */
+
+      .then(async () => {
+        const recipes = await Recipe.insertMany(data);
+        return recipes.map(result => console.log(result.title))
+      }).catch(err => console.log(err))
+
+      .then(async () => {
+
+        const query = { title: 'Rigatoni alla Genovese' }
+
+        const result = await Recipe.findOneAndUpdate(query, { $set: { duration: 100 } });
+        return console.log(`Alterado com sucesso ${result.title}`);
+      }).catch(err => console.log(err))
+
+      .then(async () => {
+        await Recipe.deleteOne({ title: "Carrot Cake" })
+        return console.log('Deletado com sucesso')
+      }).catch(err => console.log(err))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

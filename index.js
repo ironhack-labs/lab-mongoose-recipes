@@ -31,10 +31,11 @@ const addNewRecipe = RecipeObject => {
 };
 /*
 addNewRecipe({
-  title: "Barbecue",
+  title: "Pie",
   level: "Easy Peasy",
   ingredients: "oi",
   cuisine: "Brasil",
   dishType: "breakfast",
+  duration: -1
 });
 // */

@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js",
-    "dev": "node ./index.js"
+    "start": "nodemon index.js",
+    "dev": "nodemon ./index.js"
   },
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.15"
   },
   "dependencies": {
     "mongoose": "^6.1.2"

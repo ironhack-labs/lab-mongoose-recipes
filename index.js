@@ -5,7 +5,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb+srv://atlasAbreu:Aa134625@cluster0.zhnvm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -13,11 +13,29 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    /* return Recipe.deleteMany() */
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    /* Recipe.create({
+      title: "pão de queijo",
+      level: "Ultra Pro Chef",
+      ingredients: ["queijo", "ovo", "polvilho", "leite", "mais queijo", "sal"],
+      cuisine: "mineira",
+      dishType: 'breakfast',
+      //image: "", não passa imagem caso não tenha nenhuma para substituir, porque está como default
+      duration: "25",
+      creator: "Mineiros",
+      // created: "", não passa porque está como default o date.now
+    }).then(result => console.log(result.title))
+      .catch(err => console.log(err))
+    Recipe.insertMany(data)
+      .then(result => console.log(result.title))
+      .catch(error => console.log(error)) */
+    /* Recipe.findOneAndUpdate({ duration: 200 }, { duration: 100, }
+    ).then(result => console.log(result.duration)).catch(err => console.log(err)) */
+    /* Recipe.deleteOne({ title: "Carrot Cake" }).then(result => console.log("Deletado com sucesso.")).catch(err => console.log(err)) */
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

@@ -26,37 +26,36 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    Recipe.create({
-    title: "Orange and Milk-Braised Pork Carnitas",
-    level: "UltraPro Chef",
-    ingredients: [
-      "3 1/2 pounds boneless pork shoulder, cut into large pieces",
-      "1 tablespoon freshly ground black pepper",
-      "1 tablespoon kosher salt, or more to taste",
-      "2 tablespoons vegetable oil",
-      "2 bay leaves",
-      "2 teaspoons ground cumin",
-      "1 teaspoon dried oregano",
-      "1/4 teaspoon cayenne pepper",
-      "1 orange, juiced and zested"
-    ],
-    cuisine: "American",
-    dishType: "main_course",
-    image: "https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg",
-    duration: 160,
-    creator: "Chef John"
-    });
+    return Recipe.insertMany(data);
     // Run your code here, after you have insured that the connection was made
     
   })
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    )
+  })
+  .then((recipe) => {
+    console.log(`The ${recipe.title} has been updated`);
+  })
+  .then((deleted) => {
+    return Recipe.deleteOne({ 
+      title: "Carrot Cake"
+    })
+  })
+  .then((deleted) => {
+    console.log(`Oh oh! ${deleted.title} is no longer available`);
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+  .finally(() => mongoose.connection.close());
 
-  const show = async () => {
-    const recipe = await Recipe.find({}, { title: 1, _id: 0});
-    console.log(recipe);
-  };
+  //const show = async () => {
+    //const recipe = await Recipe.find({}, { title: 1, _id: 0});
+    //console.log(recipe);
+  //};
   
-  show();
+  //show();
 

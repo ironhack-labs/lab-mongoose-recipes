@@ -31,6 +31,7 @@ const addNewRecipe = RecipeObject => {
 };
 /*
 addNewRecipe({
-  title: true
+  title: "Pie",
+  level: "Amateur Chef"
 });
 // */

@@ -33,9 +33,11 @@ const addNewRecipe = RecipeObject => {
 addNewRecipe({
   title: "Pie",
   level: "Easy Peasy",
-  ingredients: "oi",
+  ingredients: "4",
   cuisine: "Brasil",
   dishType: "breakfast",
-  duration: -1
+  image: "imageURL",
+  duration: 30,
+  creator: true
 });
 // */

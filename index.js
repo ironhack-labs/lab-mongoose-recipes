@@ -17,6 +17,7 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // Iteration 2 - Create a recipe
     Recipe.create({
       title: "Broccoli & Stilton soup",
       level: "Amateur Chef",
@@ -37,6 +38,11 @@ mongoose
       creator: "unknown"
     }).then(newRecipe => console.log(`A new recipe is created: ${newRecipe.title}`))
       .catch(error => console.log(`Error while creating a new recipe: ${error}`));
+    
+    // Iteration 3 - Insert multiple recipes
+    Recipe.insertMany(data).then(newRecipes => {
+      newRecipes.forEach(recipe => console.log(`A new recipe is created: ${recipe.title}`))
+    }).catch(error => console.log(`Error while creating a new recipe: ${error}`));
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

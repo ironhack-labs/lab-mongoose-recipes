@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -5,7 +7,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const createRecipe = async recipe => {
   try {

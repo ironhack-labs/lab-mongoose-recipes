@@ -32,7 +32,7 @@ const recipeSchema = new Schema({
   
   creator: {type: String},
 
-  created: {type: Date},
+  created: {type: Date, default: Date.now},
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

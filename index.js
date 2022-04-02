@@ -15,7 +15,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
-  .then(() => {
+   .then(() => {
     Recipe.create({
       title: "Brigadeiro",
       level: "Easy Peasy",
@@ -31,20 +31,20 @@ mongoose
     Recipe.insertMany(data)
       .then((result) => {
         result.forEach((item) => {
-          console.log(item.title);
+          console.log(item.title, item.duration);
         });
       })
       .catch((error) => console.log(error));
 
-    Recipe.findOneAndUpdate(
+    Recipe.updateOne(
       { title: "Rigatoni alla Genovese" },
-      { $set: { duration: 100 } 
-    })
-      .then((result) => console.log(result.title))
+      { duration: 100 } 
+    )
+      .then(() => console.log("success"))
       .catch((error) => console.log(error));
 
     Recipe.deleteOne({ title: "Carrot Cake" })
-      .then((result) => console.log(result.title))
+      .then(() => console.log("recipe deleted"))
       .catch((error) => console.log(error));
   })
 

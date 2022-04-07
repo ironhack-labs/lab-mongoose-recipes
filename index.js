@@ -29,7 +29,7 @@ mongoose
       {
         title: 'Food order',
         level: 'Easy Peasy',
-        ingredients: ['ingredient1', 'ingedient2', 'ingredient3'],
+        ingredients: ['GlovoApp', 'Bank Account', 'Hunger'],
         cuisine: 'Glovo',
         dishType: ['main_course'],
         duration: 20,

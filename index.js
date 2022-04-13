@@ -15,8 +15,24 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes()) 
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    
+    
+    return Recipe
+      // .create({title:'huevos',level:'Easy Peasy',ingredients:['patatas','chorizo'],cuisine:'cocina',dishType:'breakfast',duration:20,creator:'iñigo'})
+
+      .insertMany(data)
+      console.log('estoy en then',data)
+  })
+
+  .then(()=>{
+    return Recipe
+      .findOneAndUpdate({ title: 'Rigatoni alla Genovese' },{duration:20})
+  })
+  .then(()=>{
+    return Recipe
+      .deleteOne({ title: 'Carrot Cake' })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

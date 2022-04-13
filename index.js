@@ -15,9 +15,35 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(() => Recipe.syncIndexes())
+
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe
+      .create({ title: 'Lasaña', level: 'Amateur Chef', ingredients: ['Pasta', 'Pollo', 'Tomate'], cuisine: 'Española', dishType: 'main_course', duration: 90, creator: 'Master chef' })
   })
+
+  .then(() =>
+    Recipe
+      .insertMany(data)
+  )
+
+  .then(() =>
+    Recipe
+      .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  )
+
+  .then(() =>
+    Recipe
+      .deleteOne({ title: 'Carrot Cake' })
+  )
+
+  .then(() =>
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination')
+      process.exit(0)
+    })
+
+  )
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

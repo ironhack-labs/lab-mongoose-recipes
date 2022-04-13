@@ -15,6 +15,9 @@ mongoose
         // Before adding any recipes to the database, let's remove all existing ones
         return Recipe.deleteMany();
     })
+
+    // ITERACION 2
+
     .then(() => {
         return Recipe.create({
             title: "my recipe",
@@ -37,6 +40,8 @@ mongoose
         });
     })
 
+    // ITERACION 3
+
     .then(() => {
         return Recipe.insertMany(data);
     })
@@ -44,6 +49,8 @@ mongoose
     .then(() => {
         return Recipe.find();
     })
+
+    // ITERACION 4
 
     .then((newRecipes) => {
         newRecipes.forEach((element) => {
@@ -55,6 +62,7 @@ mongoose
             { new: true }
         );
     })
+    // ITERACION 5
 
     .then((rigatony) => {
         console.log("mi rigatoni ahora dura!!!!!!", rigatony.duration);
@@ -62,13 +70,11 @@ mongoose
         return Recipe.deleteOne({ title: "Carrot Cake" });
     })
 
+    // ITERACION 6
+
     .then(() => {
-
         mongoose.connection.close();
-        
     })
-
-
 
     .catch((error) => {
         console.error("Error connecting to the database", error);

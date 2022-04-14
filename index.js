@@ -72,8 +72,19 @@ mongoose
 // )
 //   .then((recipe) => console.log('success', recipe))
 //   .catch((error) => console.log('an error happened', error));
+
 // Recipe.deleteOne({ title: 'Carrot Cake' })
-//   .then((recipe) => console.log('success', recipe))
+//   .then((recipe) => {
+//     console.log('success', recipe);
+//     mongoose.connection.close();
+//   })
 //   .catch((error) => console.log('an error happened', error));
 
-Recipe.close();
+// process.on('SIGINT', () => {
+//   mongoose.connection.close(() => {
+//     console.log(
+//       'Mongoose default connection disconnected through app termination'
+//     );
+//     process.exit(0);
+//   });
+// });

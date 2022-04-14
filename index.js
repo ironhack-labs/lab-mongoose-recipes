@@ -31,6 +31,7 @@ mongoose
             .catch(err => console.log('Error deleting Carrot Cake'))
 
               .then(() => {mongoose.connection.close()})
+                .then(() => console.log('connection closed'))
   })
 
 

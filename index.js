@@ -51,7 +51,14 @@ mongoose
     Recipe.deleteOne({ name: 'Carrot Cake' })
     .then( console.log('The Carrot Cake recipe has been removed! '))
     .catch(error => console.log('An error happened while saving new recipes:', error));
+    mongoose.connection.close()
+    .then(() => console.log('connection closed!'))
+    .catch(() => console.log('error closing the connection'))
   })
+
+  //ALT SYNTAX WITH AWAITS
+  // await mongoose.connection.close()
+  //console.log('connection closed!')
 
   .catch(error => {
     console.error('Error connecting to the database', error);

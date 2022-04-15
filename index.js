@@ -7,25 +7,11 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
-// Connection to the database "recipe-app"
-
-// ASYNC/AWAIT APPROACH 
-
-async function recipeHandler() {
-  try {
-    await Recipe.deleteMany()
-      .then(() => console.log('recipes deleted'))
-    await Recipe.insertMany(data)
-      .then(() => console.log('All recipes have been created'))
-    await Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, { duration: 100 })
-      .then(() => console.log('Rigatoni has been amended'))
-    await Recipe.deleteOne({ title: 'Carrot Cake' })
-      .then(() => console.log('Cheesecake removed'))
-
-  } catch (err) {
-    console.log("Whoops, something went wrong", error);
-  }
-}
+// ONE WAY WITH ASYNC/AWAIT APPROACH... 
+//    From walkthrough with Jack - maybe avoid the .then's below.. but declare the return instead. 
+//      i.e 
+//       const newData = await Recipe.insertMany(data);
+//       newData.forEach(element => console.log(element.title));
 
 mongoose
   .connect(MONGODB_URI)
@@ -37,6 +23,25 @@ mongoose
   .catch(err => {
     console.error('Error connecting to the database', error);
   })
+
+async function recipeHandler() {
+  try {
+    await Recipe.deleteMany()
+      .then(() => console.log('All existing recipes deleted'))
+    await Recipe.insertMany(data)
+      .then(recipesCreated => {recipesCreated.forEach(element => console.log(`${element.title} has been created`))})
+    await Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, { duration: 100 })
+      .then(() => console.log('Rigatoni has been amended'))
+    await Recipe.deleteOne({ title: 'Carrot Cake' })
+      .then(deletedRecipe => console.log(`${deletedRecipe.deletedCount} recipe removed`))
+    await mongoose.connection.close();
+      console.log('connection closed')
+
+  } catch (err) {
+    console.log("Whoops, something went wrong", error);
+  }
+}
+
 
 // NESTED THEN APPROACH - WORKS BUT NOT THE CLEANEST
 
@@ -66,7 +71,7 @@ mongoose
 //                 .then(() => console.log('connection closed'))
 //   })
 
-// ITERATION 2 - Create one recipe//
+// ITERATION 2 - CREATE ONE RECIPE
 
 // .then(() => {                                                                 
 //   Recipe.create(data[0])

@@ -52,7 +52,7 @@ mongoose
   })
   .then(() =>{
     console.log("A receipe hasd been deleted")
-    mongoose.connection.close()
+    
   })
 
   .catch((error) => {
@@ -74,5 +74,6 @@ mongoose
 
 
 // Promise.all(promises).then(() => {
-
+  mongoose.connection.close()
+  .catch((error))
 // })

@@ -37,6 +37,27 @@ mongoose
       .catch((error) => {
         console.log("There was the following error creating the recipe:", error)
     })
+
+
+    Recipe.insertMany(data)
+      .then(response => {
+        response.forEach(recipe => {
+          console.log(recipe.title);
+        })
+      })
+      .catch((error)=>{
+        console.log("There was the following error importing the recipes:", error)
+      })
+
+      return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  })
+  .then(() => {
+    console.log("Updated Rigatoni duration successfuly");
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(() => {
+    console.log("Carrot Cake removed from database");
+    mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

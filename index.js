@@ -15,11 +15,12 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+//ITERATION 3
   .then(()=>{ 
     Recipe.insertMany(data);
     console.log(`Recipes loaded into the database`);
     })
-
+//ITERATION 2
   .then(() => {
     Recipe.create(
       {title:'French onion soup', 
@@ -41,8 +42,17 @@ mongoose
       creator: 'Jide',
       }) 
   .then(recipe => console.log('New recipe added:',recipe.title))
-
-
+//ITERATION 4
+  .then(()=>{
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese" },{duration:100})
+  })
+  .then(recipe => console.log('Recipe updated:',recipe.title))
+//ITERATION 5
+  .then(()=>{
+    return Recipe.deleteOne({title: "Carrot Cake" })
+  })
+  .then(() => console.log('Recipe deleted:'))
+//ITERATION 6
   .then(()=>{
     mongoose.connection.close()
   .then(()=>(console.log("connection closed")))
@@ -53,9 +63,4 @@ mongoose
     } else{
     console.log("Error connecting to the database",err)}
     });
-
 })
-
-
-
-  

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const schema = mongoose.Schema;
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
@@ -21,3 +22,22 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+  const ingredients = { ingredients: 
+    title
+
+  }
+  Recipe.create(ingredients, (error, recipe) => {
+    if (error) {
+      console.log('An error happened:', error);
+      return;
+    }
+    console.log('the recipe is:', recipe);
+  });
+
+  ///the same as above but with promise
+
+   Recipe.create(ingredients)
+  .then(recipe => console.log("the ingredient is saved and its title is:", title))
+  .catch(error => console.log("an error happened:", error));

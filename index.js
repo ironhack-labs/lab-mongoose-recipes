@@ -44,13 +44,35 @@ mongoose
       { duration: 100 },
       { returnDocument: "after" }
     );
-    return 
+    return;
   })
   .then(() => {
-     Recipe.deleteOne({ title: "Carrot Cake" });
-     return
+    Recipe.deleteOne({ title: "Carrot Cake" });
+    return;
+  })
+  .then(() =>{
+    console.log("A receipe hasd been deleted")
+    mongoose.connection.close()
   })
 
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
+
+  // const promiseOne = Recipe.deleteOne({ title: "Carrot Cake" })
+  // const promiseTwo =  Recipe.findByIdAndUpdate(
+  //   "62616db81b098b6c6554dd76",
+  //   { duration: 100 },
+  //   { returnDocument: "after" }
+  // )
+  
+  //   const promises = [
+  //   promiseOne, 
+  //   promiseTwo
+  // ]
+
+
+
+// Promise.all(promises).then(() => {
+
+// })

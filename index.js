@@ -26,6 +26,19 @@ mongoose
   .then((newestRecipe) => {
     console.log("A new receipe has been added called " + newestRecipe.title)
   })
+  .then(() => {
+    data.forEach((recipe) => {
+     Recipe.insertMany(recipe)
+    })
+    return   
+  })
+  .then(() => {
+    data.forEach((recipe) =>{
+    console.log("A new receipe has been added called " + recipe.title)
+  })
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+

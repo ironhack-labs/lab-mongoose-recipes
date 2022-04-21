@@ -15,11 +15,16 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(()=>{ 
+    Recipe.insertMany(data);
+    console.log(`Recipes loaded into the database`);
+    })
+
   .then(() => {
     Recipe.create(
       {title:'French onion soup', 
       level:'Amateur Chef', 
-      ingridients:['4 Onions',
+      ingredients:['4 Onions',
                   '25cl white wine',
                   '1tb olive oil',
                   '1tb veal stock',
@@ -35,12 +40,21 @@ mongoose
       duration:45,
       creator: 'Jide',
       }) 
-      .then(pizza => console.log('Recipe added',pizza))
+  .then(recipe => console.log('New recipe added:',recipe.title))
 
+
+  .then(()=>{
+    mongoose.connection.close()
+  .then(()=>(console.log("connection closed")))
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .catch((err)=>{
+    if (err.code === 11000){
+        console.log(`This recipe already exist with error number is ${err.code}`)
+    } else{
+    console.log("Error connecting to the database",err)}
+    });
+
+})
 
 
 

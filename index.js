@@ -53,6 +53,13 @@ Recipe.findOneAndUpdate(query, { $set: {duration: 100}}, options, callback )
   console.log(success);
 })
 
+.then(() => {
+  await Recipe.deleteOne( {title : 'Carrot Cake'})
+.then((success) =>
 
+  console.log(success)
 
+)
+})
 
+mongoose.connection.close();

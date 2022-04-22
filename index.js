@@ -27,53 +27,30 @@ mongoose
     console.log("A new receipe has been added called " + newestRecipe.title);
   })
   .then(() => {
-    data.forEach((recipe) => {
-      Recipe.insertMany(recipe);
-    });
-    return;
+    return Recipe.insertMany(data);
   })
-  .then(() => {
-    data.forEach((recipe) => {
+  .then((receipesFromDB) => {
+    receipesFromDB.forEach((recipe) => {
       console.log("A new receipe has been added called " + recipe.title);
     });
-    return;
-  })
-  .then(() => {
-    Recipe.findByIdAndUpdate(
-      "62616db81b098b6c6554dd76",
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
       { duration: 100 },
       { returnDocument: "after" }
     );
-    return;
   })
   .then(() => {
-    Recipe.deleteOne({ title: "Carrot Cake" });
-    return;
+    console.log("A receipe has been updated");
+    return Recipe.deleteOne({ title: "Carrot Cake" });
   })
-  .then(() =>{
-    console.log("A receipe hasd been deleted")
-    
+  .then(() => {
+    console.log("A receipe has been deleted");
+    return mongoose.connection.close();
+  })
+  .then(() => {
+    console.log("The connection has been closed successfully");
   })
 
   .catch((error) => {
-    console.error("Error connecting to the database", error);
+    console.error("Error updating the database", error);
   });
-
-  // const promiseOne = Recipe.deleteOne({ title: "Carrot Cake" })
-  // const promiseTwo =  Recipe.findByIdAndUpdate(
-  //   "62616db81b098b6c6554dd76",
-  //   { duration: 100 },
-  //   { returnDocument: "after" }
-  // )
-  
-  //   const promises = [
-  //   promiseOne, 
-  //   promiseTwo
-  // ]
-
-
-
-// Promise.all(promises).then(() => {
-  mongoose.connection.close()
-  .catch((error))
-// })

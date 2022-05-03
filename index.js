@@ -21,57 +21,54 @@ mongoose
     /**
      * Iteration 2 - Create a recipe
      */
+
     Recipe.create({    
-      title:'Paella',
+      title:"Paella",
       level:"Amateur Chef",
-      ingredients:['rice','bell peppers','paprika','garlic','artichoke'],
-      cuisine:'Mediterranean',
-      dishType:'main_course',
-      image:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/01_Paella_Valenciana_original.jpg/1024px-01_Paella_Valenciana_original.jpg',
+      ingredients:["rice","bell peppers","paprika","garlic","artichoke"],
+      cuisine:"Mediterranean",
+      dishType:"main_course",
+      image:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/01_Paella_Valenciana_original.jpg/1024px-01_Paella_Valenciana_original.jpg",
       duration:120,
-      creator:'unknown'
+      creator:"unknown"
     })
-      .then(()=>console.log('A new recipe is created: ',newRecipe.title))
-      .catch(err=>console.log('Error while creating a new recipe: ',newRecipe.title))
-  })
-  .catch(error=>{
-    console.error('Error connecting to the database', error)
-  })
+    .then(()=>console.log('A new recipe has been created.'))
+    .catch(err=>console.log('Error while creating a new recipe!'))
 
-  /**
-   * Iteration 3 - Insert multiple recipes
-   */
 
-  .then(()=>{
-    return Recipe.insertMany(data)
-    .then(productsArr=>{
-      productsArr.forEach(el=>console.log(el.title))
-    })
+    /**
+    * Iteration 3 - Insert multiple recipes
+    */
+
+    .then(()=>{
+      return Recipe.insertMany(data)
+      .then(productsArr=>{
+        productsArr.forEach(el=>console.log('Inserted recipe: ',el.title))
+      })
     .catch(err=>console.log(`An error happened:${err}`));
+    })
+
+    /**
+    * Iteration 4 - Update recipe
+    */
+
+    .then(()=>{
+      return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{$set:{duration:100}})
+      .then(()=>console.log(`Recipe was updated`))
+      .catch(err=>console.log('An error occurred while updating: ', err));
+    })
+
+    /**
+     * Iteration 5 - Remove a recipe
+     */
+
+    .then(()=>{
+      return Recipe.deleteOne({title:'Carrot Cake'})
+      .then(()=>console.log(`Recipe was deleted`))
+      .catch(err=>console.log('An error occurred while updating: ', err));
+    })
+
   })
-
-  /**
-   * Iteration 4 - Update recipe
-   */
-
-  .then(()=>{
-    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{$set:{duration:100}})
-    .then(()=>console.log(`The following recipe: ${Recipe.title} was updated`))
-    .catch(err=>console.log('An error occurred while updating: ', err));
-  })
-
-  /**
-   * Iteration 5 - Remove a recipe
-   */
-
-  .then(()=>{
-    return Recipe.deleteOne({title:'Carrot Cake'})
-    .then(()=>console.log(`The following recipe: ${Recipe.title} was deleted`))
-    .catch(err=>console.log('An error occurred while updating: ', err));
-  })
-
-  /**
-   * Iteration 6 - Close the Database
-   */
-
-  mongoose.connection.close(()=>console.log("Connection closed"))
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+  });

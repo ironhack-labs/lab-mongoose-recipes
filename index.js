@@ -49,9 +49,19 @@ mongoose
       createdRecipes.forEach((recipe) => {
         console.log(recipe.title);
       });
-      mongoose.connection.close();
     })
     .catch((e) => console.error(e));
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100});
+  })
+  .then(() => {
+    console.log('The recipe has been succesfully updated!');
+    return Recipe.deleteOne({title: "Carrot Cake"});
+  })
+  .then(() => {
+    console.log('The recipe has been succesfully deleted!');
+    mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

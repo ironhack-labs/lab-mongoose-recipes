@@ -54,5 +54,39 @@ Recipe.findOneAndUpdate(
   .catch((err) => console.log(err));
 
 Recipe.deleteOne({ title: "Carrot Cake" })
-  .then(() => console.log("Carrot Cake has been removed"))
+  .then(() => {
+    console.log("Carrot Cake has been removed");
+    mongoose.disconnect(() => console.log("Disconnected"));
+  })
   .catch((err) => console.log(err));
+
+//or better:
+mongoose
+  .connect(MONGODB_URI)
+  .then((x) => {
+    console.log(`Connected to the database: “${x.connection.name}“`);
+    // Before adding any recipes to the database, let’s remove all existing ones
+    return Recipe.deleteMany();
+  })
+  .then(() => {
+    Recipe.insertMany(data)
+      .then(
+        data.forEach((recipe) =>
+          console.log(`logging the recipe ${recipe.title}`)
+        )
+      )
+      .catch((err) => console.log(err))
+      .then(() =>
+        Recipe.findOneAndUpdate(filter, update).then(() =>
+          console.log("duration was updated!")
+        )
+      )
+      .then(() => {
+        Recipe.deleteOne({ title: "Carrot Cake" });
+        console.log("carrotcake was deleted");
+      })
+      .then(() => mongoose.disconnect(() => console.log("disconnected")));
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database", error);
+  });

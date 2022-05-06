@@ -89,8 +89,8 @@ updateRecipe({ title: "Rigatoni alla Genovese" }, { duration: 100 });
 
 const deleteRecipe = async (filter) => {
   try {
-    await Recipe.deleteOne(filter);
-    console.log(`Receipe ${filter.title} deleted!`);
+    const deletedItem = await Recipe.deleteOne(filter);
+    console.log(`Recipe ${deletedItem.title} deleted!`);
     await mongoose.disconnect();
   } catch (err) {
     console.log(err);

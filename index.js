@@ -77,7 +77,7 @@ const updateRecipe = async (filter, updateInfo) => {
       new: true,
     });
     console.log(`New duration ${result.duration}`);
-    mongoose.disconnect();
+    await mongoose.disconnect();
   } catch (err) {
     console.log(err);
   }
@@ -91,7 +91,7 @@ const deleteRecipe = async (filter) => {
   try {
     await Recipe.deleteOne(filter);
     console.log(`Receipe ${filter.title} deleted!`);
-    mongoose.disconnect();
+    await mongoose.disconnect();
   } catch (err) {
     console.log(err);
   }

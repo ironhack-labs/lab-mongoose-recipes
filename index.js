@@ -34,8 +34,18 @@ mongoose
     //   console.error("Error", error);
     // });
 
-    const allRecipes = Recipe.insertMany(data)
+    Recipe.insertMany(data)
     .then((response) => console.log('Recipe Title', response.map((element) => element.title)))
+    .catch(() => {
+        console.error("Error", error);
+    });
+
+    Recipe.findOneAndUpdate(
+      {title: "Rigatoni alla Genovese"},
+      {$set: {duration: 100}},
+      {new: true}
+      )
+      .then((response) => console.log('Recipe Updated', response))
     .catch(() => {
         console.error("Error", error);
     });

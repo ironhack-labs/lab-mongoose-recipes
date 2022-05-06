@@ -72,10 +72,10 @@ Recipe.insertMany(data)
 // Iteration 4
 
 const updateRecipe = async (filter, updateInfo) => {
-  const result = await Recipe.findOneAndUpdate(filter, updateInfo, {
-    new: true,
-  });
   try {
+    const result = await Recipe.findOneAndUpdate(filter, updateInfo, {
+      new: true,
+    });
     console.log(`New duration ${result.duration}`);
     mongoose.disconnect();
   } catch (err) {
@@ -88,8 +88,8 @@ updateRecipe({ title: "Rigatoni alla Genovese" }, { duration: 100 });
 // Iteration 5
 
 const deleteRecipe = async (filter) => {
-  await Recipe.deleteOne(filter);
   try {
+    await Recipe.deleteOne(filter);
     console.log(`Receipe ${filter.title} deleted!`);
     mongoose.disconnect();
   } catch (err) {

@@ -16,6 +16,9 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    
+    async function init() {
+
       const createRecipe = Recipe.create({
        title: "Risoto de camarão",
        level: "Amateur Chef",
@@ -40,23 +43,24 @@ mongoose
      });
      console.log("RecipeTitle", createRecipe)
 
-     const recipesList = Recipe.insertMany(data)
-     .then((response) => 
-     console.log("RecipleTitle", response.map((el) => el.title))) 
-
-     Recipe.findOneAndUpdate(
+     const recipesList = await Recipe.insertMany(data)
+      recipesList.map((el) => console.log("RecipleTitle" , el.title))
+    
+     const updateRecipe = await Recipe.findOneAndUpdate(
        {title: "Rigatoni alla Genovese"},
        {$set: {duration: 100}},
        {new: true}
-     )
-     .then((response) => console.log("updatedRecipe", response))
+     );
+     console.log("updatedRecipe", updateRecipe)
 
-     Recipe.deleteOne(
-       {title: "Carrot Cake"}
-       .then((response) => console.log("deletedRecipe", response))
-     )
-      mongoose.connection.close();
+     const deleteRecipe = await Recipe.deleteOne({title: "Carrot Cake"})
+       console.log("deletedRecipe", deleteRecipe)
+       
+       mongoose.connection.close();
+    }
+      init();
   })
+
   .catch(error => {
     console.error("Error connecting to the database", error);
   });

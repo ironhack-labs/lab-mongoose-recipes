@@ -39,7 +39,11 @@ mongoose
        creator: "chefe Valério de Fiandra",
      });
      console.log("Recipe Title", createRecipe)
-    // Run your code here, after you have insured that the connection was made
+
+     const recipesList = Recipe.insertMany(data)
+     .then((response) => 
+     console.log("Reciple Title", response.map((el) => el.title))) 
+
   })
   .catch(error => {
     console.error("Error connecting to the database", error);

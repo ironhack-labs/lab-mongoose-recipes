@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -16,7 +18,40 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Hot Cakes",
+      level: "Amateur Chef",
+      ingredients: [
+        "1/2 flour",
+        "2 eggs",
+        "1/2 milk",
+        "1/4 sugar",
+        "1/4 butter",
+        "1/2 vainilla essence",
+      ],
+      cuisine: "American",
+      dishType: "breakfast",
+      image: "https://img.taste.com.au/k1u7_o89/w720-h480-cfill-q80/taste/2016/11/american-hotcakes-98829-1.jpeg",
+      duration: 20,
+      creator: "Chef Roman"
+  
+    }).then((r) => {console.log(r)}).catch((e) =>{console.log(e)})
+  
+    Recipe.insertMany(data).then(function(){
+      console.log("Data inserted")
+    }).catch(function(error){
+      console.log(error)
+    })
+  
+    Recipe.updateOne({ title: "Rigatoni alla Genovese" }, {duration: 100 },{new:true})
+    .then((r) => console.log(r))
+    .catch((e) => console.log(e));
+  
+    Recipe.deleteOne({title: "Carrot Cake" })
+    .then((r) => console.log(r))
+    .catch((e) => console.log(e));
+  
+    mongoose.connection.close()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

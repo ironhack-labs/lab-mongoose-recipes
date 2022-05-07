@@ -27,7 +27,7 @@ const recipeSchema = new Schema({
   },
   duration: {type: Number, min: 0},
   creator: {type: String},
-  created: {type: Date, default: 'today'}
+  created: {type: Date, default: Date.now}
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

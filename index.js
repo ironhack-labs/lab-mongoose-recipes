@@ -35,21 +35,31 @@ mongoose
     // });
 
     Recipe.insertMany(data)
-    .then((response) => console.log('Recipe Title', response.map((element) => element.title)))
-    .catch(() => {
+      .then((response) =>
+        console.log(
+          "Recipe Title",
+          response.map((element) => element.title)
+        )
+      )
+      .catch(() => {
         console.error("Error", error);
-    });
+      });
 
     Recipe.findOneAndUpdate(
-      {title: "Rigatoni alla Genovese"},
-      {$set: {duration: 100}},
-      {new: true}
-      )
-      .then((response) => console.log('Recipe Updated', response))
-    .catch(() => {
+      { title: "Rigatoni alla Genovese" },
+      { $set: { duration: 100 } },
+      { new: true }
+    )
+      .then((response) => console.log("Recipe Updated", response))
+      .catch(() => {
         console.error("Error", error);
-    });
+      });
 
+    Recipe.deleteOne({ title: "Carrot Cake" })
+      .then((response) => console.log("Recipe Deleted", response))
+      .catch(() => {
+        console.error("Error", error);
+      });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

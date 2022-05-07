@@ -50,7 +50,10 @@ mongoose
               console.error("Error", error);
             }),
           Recipe.deleteOne({ title: "Carrot Cake" })
-            .then((response) => console.log("Recipe Deleted", response))
+            .then((response) => {
+              console.log("Recipe Deleted", response);
+              mongoose.connection.close();
+            })
             .catch(() => {
               console.error("Error", error);
             });
@@ -63,5 +66,3 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-
-mongoose.connection.close();

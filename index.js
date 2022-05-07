@@ -14,6 +14,7 @@ mongoose
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     // return Recipe.deleteMany();
+    return;
   })
   .then(() => {
     // const firstRecipe = Recipe.create({
@@ -40,15 +41,19 @@ mongoose
 
     // const manyRecipes = Recipe.insertMany(data);
 
-    const updatedRecipe = Recipe.findOneAndUpdate(
-      { title: "Rigatoni alla Genovese" },
-      { $set: { duration: 100 } }
-    );
-    // console.log(updatedRecipe, "was updated succesfully");
+    async function init() {
+      const updatedRecipe = await Recipe.findOneAndUpdate(
+        { title: "Rigatoni alla Genovese" },
+        { $set: { duration: 100 } },
+        { new: true }
+      );
+      console.log(updatedRecipe, "was updated succesfully");
+      const deletedRecipe = await Recipe.deleteOne({ title: "Carrot Cake" });
 
-    const deletedRecipe = Recipe.deleteOne({ title: "Carrot Cake" });
+      mongoose.connection.close();
+    }
 
-    mongoose.connection.close();
+    init();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

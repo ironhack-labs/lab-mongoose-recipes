@@ -36,20 +36,24 @@ mongoose
   .then(() => {
     const recipeList = Recipe.insertMany(data);
     console.log("Recipe list: ", recipeList);
+
+    async function init() {
+      const updateRigatoni = await Recipe.updateOne(
+        { title: "Rigatoni alla Genovese" },
+        { $set: { duration: 100 } }
+      );
+      console.log("You have successfully updated the recipe!");
+
+      const deleteRecipe = await Recipe.deleteOne({ title: "Carrot Cake" });
+      console.log("You have successfully deleted this recipe!");
+
+      mongoose.connection.close();
+    }
+
+    init();
   })
-  .then(() => {
-    const updateRigatoni = Recipe.updateOne(
-      { title: "Rigatoni alla Genovese" },
-      { $set: { duration: 100 } }
-    );
-    console.log("You have successfully updated the recipe!");
-  })
-  .then(() => {
-    const deleteRecipe = Recipe.deleteOne({ title: "Carrot Cake" });
-    console.log("You have successfully deleted this recipe!");
-  })
+  .then(() => {})
+  .then(() => {})
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-
-mongoose.connection.close();

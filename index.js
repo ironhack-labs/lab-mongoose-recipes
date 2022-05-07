@@ -38,12 +38,18 @@ mongoose
        duration: 35 ,
        creator: "chefe Valério de Fiandra",
      });
-     console.log("Recipe Title", createRecipe)
+     console.log("RecipeTitle", createRecipe)
 
      const recipesList = Recipe.insertMany(data)
      .then((response) => 
-     console.log("Reciple Title", response.map((el) => el.title))) 
+     console.log("RecipleTitle", response.map((el) => el.title))) 
 
+     Recipe.findOneAndUpdate(
+       {title: "Rigatoni alla Genovese"},
+       {$set: {duration: 100}},
+       {new: true}
+     )
+     .then((response) => console.log("updatedRecipe", response))
   })
   .catch(error => {
     console.error("Error connecting to the database", error);

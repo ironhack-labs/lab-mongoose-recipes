@@ -51,6 +51,10 @@ mongoose
             .then((updateDB) => {
                 console.log('The updating was successful!', updateDB)
             })
+            .then(() => {
+                //now I'm searching a specific recipe and delete it
+                return Recipe.deleteOne({ title: 'Carrot Cake' })
+            })
             .catch(error => {
                 console.error('Error connecting to the database', error);
             })

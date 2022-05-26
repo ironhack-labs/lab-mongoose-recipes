@@ -11,7 +11,7 @@ const options = {
 
 }
 
-//here I'm creating a new recipe
+//here I'm creating a new recipe directly in the index-file with the schema of data.json
 let newRecipe = {
     title: 'robertsTrying ;-)',
     level: 'Easy Peasy',
@@ -45,9 +45,13 @@ mongoose
                 return Recipe.insertMany(data)
             })
             .then(() => {
-                return Recipe.findOneAndUpdate({ title: 'Denis Brazilian Food' }, { duration: 100 })
+                //now I'm searching a specific recipe and change one field in it(==>duration)
+                return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+            })
+            .then((updateDB) => {
+                console.log('The updating was successful!', updateDB)
+            })
+            .catch(error => {
+                console.error('Error connecting to the database', error);
             })
     })
-    .catch(error => {
-        console.error('Error connecting to the database', error);
-    });

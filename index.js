@@ -71,6 +71,10 @@ mongoose
   // .then((removedCount) =>
   //   console.log(`You have succeffully delete ${removedCount.deletedCount} recipe`)
   // )
+  .then(()=> {
+    mongoose.connection.close()
+    console.log(`Connection closed`)
+  })
 
   .catch((error) => {
     console.error("Error connecting to the database", error);

@@ -16,16 +16,26 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create({
-      title: "Asian Glazed Chicken Thighs",
-      level: "Amateur Chef",
-      cuisine: "Asian",
-      dishType: "main_course",
-      image:
-        "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-      duration: 40,
-    });
+    return Recipe.insertMany(data);
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      {
+        title: "Rigatoni alla Genovese",
+      },
+      {
+        $set: { duration: 100 },
+      },
+      { overwrite: true, new: true }
+    );
+  })
+  .then((recipe) => {
+    console.log(`${recipe.title} has been successfuly updated`);
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((obj) => {
+    console.log(`${obj.deletedCount} recipe(s) has been successfuly deleted`);
+    return mongoose.connection.close();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

@@ -1,4 +1,27 @@
 [{
+    "title": "Chicken Tajin",
+    "level": "Amateur Chef",
+    "ingredients": [
+      "1 chicken breast per person",
+      "lemon juice",
+      "olive oil",
+      "green and black olives",
+      "coriander",
+      "bellpeppers",
+      "potatoes",
+      "garlic",
+      "onions",
+      "confit lemons",
+      "salt and black pepper",
+      "curcuma, saffron, powdered ginger"
+    ],
+    "cuisine": "Maghrebi",
+    "dishType": "main_course",
+    "image": "https://assets.afcdn.com/recipe/20180827/81947_w1024h576c1cx2886cy4330.jpg",
+    "duration": 40,
+    "creator": "Chef Michel Dumas"
+  },
+  {
     "title": "Asian Glazed Chicken Thighs",
     "level": "Amateur Chef",
     "ingredients": [

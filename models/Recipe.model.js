@@ -6,11 +6,11 @@ const recipeSchema = new Schema({
   title:String,
   level:{
   type:String,
-  enum:["Easy Peasy","Amateur Chef", "UltraPro Chef"]
+  enum:["Easy Peasy","Amateur Chef", "UltraPro Chef"],
   default: "Easy Peasy",
   },
   ingredients:{
-    type:[string],
+    type:[String],
   },
   cuisine:{
     type:String,

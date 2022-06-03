@@ -16,7 +16,20 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // iteration 2
+    const veganRecipe = new Recipe({
+      title: 'Green Power',
+      level: 'Easy Peasy',
+      ingredients: ['bananas','mango','pneapple chunks','spirulina powder'],
+      cuisine: 'International',
+      dishType: 'drink',
+      duration: 2,
+      creator: 'Scott Jurek',
+      created: '05/22/2015'
+    })
+    veganRecipe.save()
+    console.log(veganRecipe.title)
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

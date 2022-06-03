@@ -28,15 +28,22 @@ mongoose
       created: '05/22/2015'
     })
     vegan.save()
-    console.log(`Recipe title: ${vegan.title}`)
-
+    console.log(`Recipe: ${vegan.title}`)
     return Recipe.insertMany(data)
   })
   .then( allRecipies => {
-    allRecipies.forEach(recipe =>{console.log(`Recipe: ${recipe.title}`) })
+    return allRecipies.forEach(recipe =>{console.log(`Recipe: ${recipe.title}`) })
   })
-  .then(() =>{
-    
+  .then(() => {
+    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{duration:100})
+  })
+  .then(() => {
+    console.log('the rigatoni recipe is correct now')
+    return Recipe.deleteOne({title:'Carrot Cake'})
+  })
+  .then(() => {
+    console.log('Carrot Cake removed')
+    mongoose.disconnect();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

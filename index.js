@@ -15,21 +15,28 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // iteration 2
-    const veganRecipe = new Recipe({
+  .then( () => {
+
+    const vegan = new Recipe({
       title: 'Green Power',
       level: 'Easy Peasy',
-      ingredients: ['bananas','mango','pneapple chunks','spirulina powder'],
+      ingredients: ['bananas','mango','pineapple chunks','spirulina powder'],
       cuisine: 'International',
       dishType: 'drink',
       duration: 2,
       creator: 'Scott Jurek',
       created: '05/22/2015'
     })
-    veganRecipe.save()
-    console.log(veganRecipe.title)
+    vegan.save()
+    console.log(`Recipe title: ${vegan.title}`)
 
+    return Recipe.insertMany(data)
+  })
+  .then( allRecipies => {
+    allRecipies.forEach(recipe =>{console.log(`Recipe: ${recipe.title}`) })
+  })
+  .then(() =>{
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

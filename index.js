@@ -17,8 +17,16 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-	return Recipe.create(data[0]);
-  })
+	
+	  //ITERACION 1: return Recipe.create(data[0]);
+	Recipe.insertMany(data)
+	  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+	//ITERACION 3 linea 22 y 29-31
+Recipe.find({title:{$exists:true}},{title:1})
+	  .then(titulos=>console.log('Los titulos son: ',titulos))
+	  .catch(error=>console.log("Surgio un error: ",error))
+

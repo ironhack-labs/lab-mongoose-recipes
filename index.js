@@ -69,13 +69,13 @@ mongoose
       .catch(error => console.log(error))
   })
 
- /* .then(async () => {
+  .then(async () => {
     await mongoose.disconnect(MONGODB_URI)
       .then(console.log(`"Disconnected from database!", {${mongoose.connection.readyState}}`))
       .catch((error) =>
         console.log("An error happened while disconnecting:", error)
       );
-  }) */
+  }) 
 
   .catch(error => {
     console.error('Error connecting to the database', error);

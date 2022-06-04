@@ -13,20 +13,22 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    //return Recipe.deleteMany() ==> Comentado para la iteracion 4
   })
+Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{duration:100})
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-	
-	  //ITERACION 1: return Recipe.create(data[0]);
-	Recipe.insertMany(data)
+	  //ITERACION 2: return Recipe.create(data[0]);
+	  //ITERACION 3: Recipe.insertMany(data)
+	  //ITERACION 4: Linea 18 y linea 24
+		console.log('La base de datos ha sido actualizada exitosamente :D')
 	  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
 	//ITERACION 3 linea 22 y 29-31
-Recipe.find({title:{$exists:true}},{title:1})
+/* Recipe.find({title:{$exists:true}},{title:1})
 	  .then(titulos=>console.log('Los titulos son: ',titulos))
 	  .catch(error=>console.log("Surgio un error: ",error))
-
+*/

@@ -136,17 +136,25 @@ mongoose
   ]
     Recipe.insertMany(recipesArr)
     .then(recipe => {
-      console.log(recipesArr.forEach(recipe).title)}
+      recipesArr.forEach((recipe) =>console.log(recipe.title))
+      })
+      .catch(error => {
+        console.error('Error inserting recipes into the database', error);
+      })
     
     Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration:100})
-      .then(() =>{console.log(`${title} - recipe successfuly updated!`)}) 
-      
+      .then(recipe =>{recipe.title
+        console.log(`${recipe.title} recipe successfuly updated!`)}) 
+      .catch(error => {
+        console.error('Error updating recipe', error);
+      });
+
     Recipe.deleteOne({title: "Carrot Cake"})
-      .then(()=>console.log(`${title} - recipe successfuly deleted!`))  
+      .then(()=>{console.log(`${Recipe.title} - recipe successfuly deleted!`)})
+      .catch(error => {
+        console.error('Error deleting recipe', error);
+      });  
   })
-
-
-  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

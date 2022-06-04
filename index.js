@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
+//recipe es mi modelo.
 // Import of the data from './data.json'
 const data = require('./data');
 
@@ -16,8 +17,11 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create(data)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+

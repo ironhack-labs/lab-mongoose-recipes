@@ -21,3 +21,6 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  Recipe.create()
+  Recipe.insertMany("./data.json")

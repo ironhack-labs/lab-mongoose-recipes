@@ -36,6 +36,17 @@ mongoose
 
     // Run your code here, after you have insured that the connection was made
   }) */
+  //adding all recipies to the database
+  .then(()=> {
+   Recipe.insertMany(data)
+   .then(recipies =>  {
+     return recipies.map(recipe => console.log("Recipe:", recipe.title ))
+   })
+    .catch(err => console.log(err));
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration:100})
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   })

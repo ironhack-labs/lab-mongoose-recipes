@@ -15,7 +15,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  /* .then(() => {
+  .then(() => {
     const sojaCochinita = new Recipe({
       title: 'Soja Cochinita',
       level: 'Easy Peasy',
@@ -32,21 +32,39 @@ mongoose
     sojaCochinita.save();
 
     console.log(`Recipe "${sojaCochinita.title}" has been added to the database`)
-    return Recipe.insertMany(data);
+    // return Recipe.insertMany(data);
 
     // Run your code here, after you have insured that the connection was made
-  }) */
+  })
   //adding all recipies to the database
   .then(()=> {
-   Recipe.insertMany(data)
-   .then(recipies =>  {
+    Recipe
+    .insertMany(data)
+    .then(recipies =>  {
      return recipies.map(recipe => console.log("Recipe:", recipe.title ))
-   })
+    })
     .catch(err => console.log(err));
   })
+  //Update A Recipe
   .then(() => {
-    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration:100})
+    Recipe
+    .findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration:100})
+    .then(recipe => console.log(`Recipe Rigatoni alla Genovese has been updated`))
+    .catch(err => console.log(err));
   })
+  //delete a recipe from the database
+  .then(() => {
+    Recipe
+    .deleteOne({title:'Carrot Cake'})
+    .then(() =>  console.log('Recipe Carrot Cake has been deleted'))
+    .then(() => {
+    mongoose.connection.close()
+    console.log('Connection to the database closed');     
+    })
+    .catch(err => console.log(err))
+  })
+  //Close the connection to the database
   .catch(error => {
     console.error('Error connecting to the database', error);
   })
+   

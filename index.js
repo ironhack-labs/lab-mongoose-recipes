@@ -37,15 +37,15 @@ mongoose
   .then((deletedRecipe) => {
     console.log('Eliminada', deletedRecipe)
   })
+  .then(() => {
+
+    mongoose.connection.close()
+
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
 
 
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
-    console.log('Mongoose default connection disconnected through app termination')
-    process.exit(0)
-  })
-})
+

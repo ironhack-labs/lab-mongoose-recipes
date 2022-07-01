@@ -30,12 +30,6 @@ mongoose
     })
     
   })
-  // .then(newRecipe=>{
-  //   newRecipe.forEach(element =>{
-  //     console.log(element.title)
-  //   })
-  // })
-
   //4 - update recipe
   .then(() =>{
     return Recipe.findOneAndUpdate ({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
@@ -46,12 +40,17 @@ mongoose
 .then(() =>{
   return Recipe.deleteOne ({title: 'Carrot Cake'})
 })
-.then(()=> console.log(`Carror Cake is updated!`))
+.then(()=> console.log(`Carror Cake was deleted successfully!`))
+
+.then (() => {
+  return mongoose.connection.close()
+})
+console.log(`connection to mongoDB is now closed!`)
 
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-//close
-mongoose.connect.close()
-console.log(`connection closed!`)
+// //close
+// mongoose.connection.close()
+// console.log(`connection closed!`)

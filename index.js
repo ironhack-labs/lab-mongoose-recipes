@@ -16,7 +16,9 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    console.log("db erased")
+    Recipe.create(data)
+    console.log("recipe created")
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

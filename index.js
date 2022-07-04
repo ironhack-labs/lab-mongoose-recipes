@@ -17,7 +17,37 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    Recipe.create({title: "Blueberry Oatmeal", level: "Easy Peasy", ingredients: ["otameal", "bluberries", "milk", "cinnamon"], cuisine: "International", dishtype: "breakfast"})
+    .then(recipe => console.log(recipe))
+   .catch(error => console.log('An error happened while creating recipe:', error))
+
+    Recipe.insertMany(data)
+    .then(console.log("Data added"))
+    .catch(error => console.log('An error happened while creating recipe:', error))
+
+    Recipe.find({}, {title: 1})
+    .then(console.log)
+    .catch((err) => console.log(err))
+  
+    Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+    .then( recipe => console.log("Update successful"))
+    .catch((err) => console.log(err))
+  
+    Recipe.find({}, {title: 1, _id: 0})
+    .then(console.log)
+    .catch((err) => console.log(err))
+  
+    Recipe.deleteOne({title: "Carrot Cake"})
+    .then( recipe => {
+      console.log("Delete successful")
+      mongoose.connection.close(() => {
+        console.log('Mongoose default connection disconnected')
+        process.exit(0)
+        })
+    })
+    .catch((err) => console.log(err))
+
+})
+.catch(error => {
+  console.error('Error connecting to the database', error);
+})

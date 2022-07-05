@@ -22,33 +22,32 @@ mongoose
       cuisine: "Spanish", dishType: "dessert", duration: 10, creator: "Mrs Munoz"
         })
         .then(recipe => {
-        console.log(`Cretate new recipe: ${recipe}`)
+        console.info(`Cretate new recipe: ${recipe}`)
         })
-        .catch(err => console.log('Error creating recipe:', err))*/
+        .catch(err => console.error('Error creating recipe:', err))*/
 
-    //Iteration 3 - Insert multiple recipes
     Recipe.insertMany(data)
-        .then(data => console.log(`Insert ${data}`))
-        .catch(err => console.log('Error insert data:', err))
-    
-    //Iteration 4 - Update recipe
-    Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
-        .then(console.log(`Update correct `))
-        .catch(err => console.log(`Error updating`, err))
-
-    //Iteración 5 - Eliminar una receta
-    Recipe.deleteOne({title: "Carrot Cake"})
+        .then(data => console.info(`Insert ${data}`))
         .then(() => {
-          console.log(`Delete correct`)
-          mongoose.connection.close()
-      })
-        .catch(err => console.log(`Error delete`, err))
-    })
-
+          Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+            .then(console.info(`Update correct `))
+            .catch(err => console.error(`Error updating`, err))
+          })
+        .then(() => {
+          Recipe.deleteOne({title: "Carrot Cake"})
+            .then(console.info(`Delete correct`)
+            .then(() => mongoose.connection.close())
+        )
+          .catch(err => console.error(`Error delete`, err))
+         })
+        })
+        .catch(err => console.error('Error insert data:', err))
+    
   .catch(error => {
-  console.error('Error connecting to the database', error);
+    console.error('Error connecting to the database', error);
   });
 
   Recipe.find({title: {$exists:true}}, {title:1})
-    .then(titles => console.log('Los titulos son: ', titles))
-    .catch(err => console.log("Surgio un error: ", err))
+    .then(titles => console.info('Los titulos son: ', titles))
+    .catch(err => console.error("Surgio un error: ", err))
+

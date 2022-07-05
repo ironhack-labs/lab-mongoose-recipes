@@ -27,24 +27,27 @@ mongoose
         .catch(err => console.error('Error creating recipe:', err))*/
 
     Recipe.insertMany(data)
-        .then(data => console.info(`Insert ${data}`))
-        .then(() => {
+      .then(data => console.info(`Insert ${data}`))
+      .then(() => {
           Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
-            .then(console.info(`Update correct `))
+            .then(() => console.info(`Update correct `))
             .catch(err => console.error(`Error updating`, err))
           })
         .then(() => {
           Recipe.deleteOne({title: "Carrot Cake"})
-            .then(console.info(`Delete correct`))
+            .then(() => console.info(`Delete correct`))
             .catch(err => console.error(`Error delete`, err))
          })
-         .then(() => {
-            Recipe.find({title: {$exists:true}}, {title:1})
-              .then(titles => console.info('Los titulos son: ', titles))
-              .catch(err => console.error("Surgio un error: ", err))
+        .then(() => {
+          Recipe.find({title: {$exists:true}}, {title:1})
+            .then((titles) => console.info('Los titulos son: ', titles))
+
+            //iteration bonus
+            .then(() => mongoose.connection.close())
+            .catch(err => console.error("Surgio un error: ", err))
          })
-        })
-        .catch(err => console.error('Error insert data:', err))
+      })
+      .catch(err => console.error('Error insert data:', err))
     
   .catch(error => {
     console.error('Error connecting to the database', error);

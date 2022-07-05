@@ -15,7 +15,7 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe
+    return Recipe
       .create(
         {
           "title": "Potato Omelette",
@@ -33,31 +33,31 @@ mongoose
           "creator": "Cristian Arranz"
         }
       )
-      .then(recipe => console.log(recipe.title))
-      .then(() => {
-        Recipe
-          .insertMany(data)
-          .then(recipes => {
-            recipes.forEach(recipe => console.log(recipe.title))
-          })
-          .then(() => {
-            Recipe
-              .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
-              .then(() => {
-                console.log('Rigatoni alla Genovese success updated!')
-              })
-              .then(() => {
-                Recipe
-                  .deleteOne({ title: 'Carrot Cake' })
-                  .then(() => {
-                    console.log('Carrot Cake already deleted!');  
-                  })
-                  .then(() => {
-                    mongoose.connection.close();
-                  })
-              })
-          })
-      })
+  })
+  .then(recipe => console.log(recipe.title))
+  .then(() => {
+    return Recipe
+      .insertMany(data)
+  })
+  .then(recipes => {
+    recipes.forEach(recipe => console.log(recipe.title))
+  })
+  .then(() => {
+    Recipe
+      .findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  })
+  .then(() => {
+    console.log('Rigatoni alla Genovese success updated!')
+  })
+  .then(() => {
+    Recipe
+      .deleteOne({ title: 'Carrot Cake' })
+  })
+  .then(() => {
+    console.log('Carrot Cake already deleted!');  
+  })
+  .then(() => {
+    mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -35,10 +35,13 @@ mongoose
           })
         .then(() => {
           Recipe.deleteOne({title: "Carrot Cake"})
-            .then(console.info(`Delete correct`)
-            .then(() => mongoose.connection.close())
-        )
-          .catch(err => console.error(`Error delete`, err))
+            .then(console.info(`Delete correct`))
+            .catch(err => console.error(`Error delete`, err))
+         })
+         .then(() => {
+            Recipe.find({title: {$exists:true}}, {title:1})
+              .then(titles => console.info('Los titulos son: ', titles))
+              .catch(err => console.error("Surgio un error: ", err))
          })
         })
         .catch(err => console.error('Error insert data:', err))
@@ -47,7 +50,5 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-  Recipe.find({title: {$exists:true}}, {title:1})
-    .then(titles => console.info('Los titulos son: ', titles))
-    .catch(err => console.error("Surgio un error: ", err))
+
 

@@ -33,12 +33,12 @@ mongoose
     
     //Iteration 4 - Update recipe
     Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
-        .then(console.log(`Update correct`))
+        .then(console.log(`Update correct `))
         .catch(err => console.log(`Error updating`, err))
 
     //Iteración 5 - Eliminar una receta
     Recipe.deleteOne({title: "Carrot Cake"})
-        .then(recipe => {
+        .then(() => {
           console.log(`Delete correct`)
           mongoose.connection.close()
       })
@@ -49,4 +49,6 @@ mongoose
   console.error('Error connecting to the database', error);
   });
 
-
+  Recipe.find({title: {$exists:true}}, {title:1})
+    .then(titles => console.log('Los titulos son: ', titles))
+    .catch(err => console.log("Surgio un error: ", err))

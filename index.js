@@ -19,52 +19,52 @@ mongoose
     console.error("Error connecting to the database", error);
   });
 
-// Recipe.deleteMany()
-//   .then(() => {
-//     console.log("Recipes database deleted");
-//   })
-//   .catch((error) => {
-//     console.error("Error deleting the database", error);
-//   });
+Recipe.deleteMany()
+  .then(() => {
+    console.log("Recipes database deleted");
+  })
+  .catch((error) => {
+    console.error("Error deleting the database", error);
+  });
 
 // ITERATION 2
-// Recipe.create({
-//   title: "Spanish Omelette",
-//   level: "Easy Peasy",
-//   ingredients: ["Eggs", "Potatos", "Onions", "Olive oil", "Salt"],
-//   cuisine: "Spanish",
-//   dishType: "main_course",
-//   image:
-//     "https://cdn1.cocina-familiar.com/recetas/tortilla-de-patata-con-cebolla.jpg",
-//   duration: 30,
-//   creator: "Cristobal Colon",
-// })
-//   .then((recipe) => {
-//     console.log(`Recipe ${recipe.title} created`);
-//   })
-//   .catch((error) => {
-//     console.error("Error creating the database", error);
-//   });
+Recipe.create({
+  title: "Spanish Omelette",
+  level: "Easy Peasy",
+  ingredients: ["Eggs", "Potatos", "Onions", "Olive oil", "Salt"],
+  cuisine: "Spanish",
+  dishType: "main_course",
+  image:
+    "https://cdn1.cocina-familiar.com/recetas/tortilla-de-patata-con-cebolla.jpg",
+  duration: 30,
+  creator: "Cristobal Colon",
+})
+  .then((recipe) => {
+    console.log(`Recipe ${recipe.title} created`);
+  })
+  .catch((error) => {
+    console.error("Error creating the database", error);
+  });
 
 // // ITERATION 3
-// Recipe.insertMany(data)
-//   .then(
-//     data.forEach((recipe) => {
-//       console.log(`Recipe ${recipe.title} created`);
-//     })
-//   )
-//   .catch((error) => {
-//     console.error("Error creating the database", error);
-//   });
+Recipe.insertMany(data)
+  .then(
+    data.forEach((recipe) => {
+      console.log(`Recipe ${recipe.title} created`);
+    })
+  )
+  .catch((error) => {
+    console.error("Error creating the database", error);
+  });
 
 // ITERATION 4
-// Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {duration: 100})
-//   .then((recipe) => {
-//     console.log(`Recipe ${recipe.title} updated`)
-//   })
-//   .catch((error) => {
-//     console.error("Error updating the database", error);
-//   })
+Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {duration: 100})
+  .then((recipe) => {
+    console.log(`Recipe ${recipe.title} updated`)
+  })
+  .catch((error) => {
+    console.error("Error updating the database", error);
+  })
 
 // ITERATION 5
 Recipe.findOneAndDelete({ title: "Carrot Cake" })
@@ -74,3 +74,7 @@ Recipe.findOneAndDelete({ title: "Carrot Cake" })
   .catch((error) => {
     console.error("Error deleting the database", error);
   })
+
+  // ITERATION 6
+
+  mongoose.connection.close()

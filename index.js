@@ -21,11 +21,11 @@ mongoose
 
 Recipe.deleteMany()
   .then(() => {
-  console.log("Recipes database deleted");
+    console.log("Recipes database deleted");
   })
   .catch((error) => {
-  console.error("Error deleting the database", error);
-  })
+    console.error("Error deleting the database", error);
+  });
 
 // ITERATION 2
 Recipe.create({
@@ -38,6 +38,21 @@ Recipe.create({
     "https://cdn1.cocina-familiar.com/recetas/tortilla-de-patata-con-cebolla.jpg",
   duration: 30,
   creator: "Cristobal Colon",
-}).then((recipe) => {
-  console.log(`Recipe ${recipe.title} created`);
-});
+})
+  .then((recipe) => {
+    console.log(`Recipe ${recipe.title} created`);
+  })
+  .catch((error) => {
+    console.error("Error creating the database", error);
+  });
+
+// ITERATION 3
+Recipe.insertMany(data)
+  .then(
+    data.forEach((recipe) => {
+      console.log(`Recipe ${recipe.title} created`);
+    })
+  )
+  .catch((error) => {
+    console.error("Error creating the database", error);
+  });

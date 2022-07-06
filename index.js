@@ -58,11 +58,19 @@ mongoose
 //   });
 
 // ITERATION 4
-Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {duration: 100})
-  .then(() => {
-    console.log("Recipe updated")
+// Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, {duration: 100})
+//   .then((recipe) => {
+//     console.log(`Recipe ${recipe.title} updated`)
+//   })
+//   .catch((error) => {
+//     console.error("Error updating the database", error);
+//   })
+
+// ITERATION 5
+Recipe.findOneAndDelete({ title: "Carrot Cake" })
+  .then((recipe) => {
+    console.log(`Recipe ${recipe.title} deleted`)
   })
   .catch((error) => {
-    console.error("Error updating the database", error);
+    console.error("Error deleting the database", error);
   })
-

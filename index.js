@@ -29,11 +29,10 @@ mongoose
     return recipes})
   
     .then(recipes => {
-      Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {$set: {duration: 100}}, {new: true})
-      return recipes
+      return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {$set: {duration: 100}}, {new: true})
     })
     .then(recipes => {
-      Recipe.deleteOne({title: "Carrot Cake"})
+      return Recipe.deleteOne({title: "Carrot Cake"})
     })
     .then(() => {
       mongoose.connection.close();

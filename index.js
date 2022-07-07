@@ -15,9 +15,45 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  //Iteration 6: close connection
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return  mongoose.connection.close()
   })
+  .then(()=> {console.log("connection closed")})
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+          //Iteration 2: create single entry
+    // .then(() => {
+    //   return Recipe.create(data[2]) //Iteration 1: create single entry
+    // })
+    // .then((res) => {
+    //   console.log("It.1 --> created a single entry: " + res.title)
+    // })
+//---------------------------------------------------------------------------//
+          //Iteration 3: insert whole Array
+    // .then(() => {
+    //   return Recipe.insertMany(data)
+    // })
+    // .then((res)=> {
+    //   res.forEach(entry => console.log(entry.title))
+    // })
+//---------------------------------------------------------------------------//
+          //Iteration 4: update single recipe duration
+    // .then(() => {
+    //   return Recipe.insertMany(data)
+    // })
+    // .then(()=> {
+    //   return Recipe.findOneAndUpdate({title : "Rigatoni alla Genovese"}, {duration : 100})
+    // })
+    // .then(res => console.log("The '" + res.title + "' recipe have now a Doration of " + res.duration + " min"))
+//---------------------------------------------------------------------------//
+        //Iteration 5: remove single recipe
+    // .then(() => {
+    //   return Recipe.insertMany(data)
+    // })
+    // .then(()=> {
+    //   return Recipe.deleteOne({title : "Carrot Cake"})
+    // })
+    // .then(res => console.log("The Carrot Cake is out!! sorry!"))

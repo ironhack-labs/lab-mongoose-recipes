@@ -22,9 +22,16 @@ mongoose
   //.then((recipe) => console.log(recipe))    **commented to avoid repeted recipe**
   .then((recipes) => {
     recipes.forEach((r) => console.log(r.title))
-    return Recipe.findOneAndUpdate({
-      title : "Rigatoni alla Genovese"}, {duration: 100})}
-  ).then(() => console.log("update done"))
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  })
+  .then(() => {
+    console.log('update done')
+    return Recipe.deleteOne({ title: 'Carrot Cake' })
+  })
+  .then(() => {
+    console.log('erased Carrot Cake')
+    mongoose.connection.close()
+  })
   .catch((error) => {
     console.error('Error connecting to the database', error)
   })

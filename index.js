@@ -29,12 +29,16 @@ mongoose
     return recipes})
   
     .then(recipes => {
-      Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {duration: 100}, {new: true})
+      Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, {$set: {duration: 100}}, {new: true})
       return recipes
     })
-    .then(recipes => console.log(recipes))
-    
- 
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+    .then(recipes => {
+      Recipe.deleteOne({title: "Carrot Cake"})
+    })
+    .then(() => {
+      mongoose.connection.close();
+    })
+    .catch(error => {
+      console.error('Error connecting to the database', error);
   });
+

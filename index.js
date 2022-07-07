@@ -32,6 +32,18 @@ mongoose
     const update = { duration: 100 };
     return Recipe.findOneAndUpdate(filter, update);
   })
+  .then( () => {
+    console.log("Succes the recipe has been upadted !")
+  }) 
+  .then( () => {
+    return Recipe.deleteOne({title: 'Carrot Cake' })
+  }) 
+  .then( () => {
+    console.log("Succes the recipe was deleted")
+  }) 
+  .then( () => {
+    mongoose.connection.close()
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -12,12 +12,27 @@ mongoose
   .connect(MONGODB_URI)
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
+    
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    
+
+    // const newRecipe = [{
+    //   title: "Pizza margarita",
+    //   level: "Easy Peasy",
+    //   ingredients: ["pomodoro sauce", "cheese"],
+    //   dishType: "main_course",
+    //   duration: 40,
+    //   cuisine: "Italian"
+    // }]
+
+    return Recipe.create(newRecipe)
   })
+  .then( result => {
+    console.log(result[0].title);
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -15,7 +15,11 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {})
+  .then(() => {
+  Recipe.create(data[0])
+  .then( (recipe) => console.log(recipe.title))
+  .catch(err => console.log(err))
+  })
   .catch((error) => {
     console.error('Error connecting to the database', error)
   })

@@ -27,6 +27,16 @@ We've learned how to use Mongoose to create Schemas and then interact with our M
 
 ## Instructions
 
+
+### Iteration 0: Initial setup
+
+To run our application, the first thing you have to do is to install all of its dependencies. Run the following command:
+
+```shell
+$ npm install
+```
+
+
 ### Iteration 1 - Recipe Schema
 
 Create a `Recipe` model inside of the file `/models/Recipe.model.js`. The schema should have the following fields:

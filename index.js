@@ -12,11 +12,10 @@ mongoose
   .connect(MONGODB_URI)
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    
+
     return Recipe.deleteMany()
   })
   .then(() => {
-    
 
     // const newRecipe = [{
     //   title: "Pizza margarita",
@@ -27,12 +26,30 @@ mongoose
     //   cuisine: "Italian"
     // }]
 
-    return Recipe.create(newRecipe)
+    // return Recipe.create(newRecipe)
   })
-  .then( result => {
-    console.log(result[0].title);
-  })
+  .then(() => {
+    // console.log(result[0].title);
 
+    return Recipe.insertMany(data)
+  })
+  .then(result => {
+    data.forEach((e) => {
+      console.log(e.title)
+    })
+
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { returnDdocument: 'after' })
+  })
+  .then(() => {
+    console.log("success message!")
+
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+  })
+  .then(() => {
+    console.log("success message 2!")
+
+    mongoose.connection.close()
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

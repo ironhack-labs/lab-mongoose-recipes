@@ -19,12 +19,12 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    const newRecipe = data[0]
-    return Recipe.create(newRecipe);
+    // const newRecipe = data[0]
+    // return Recipe.create(newRecipe);
 
-
+    return Recipe.insertMany(data)
   })
-  .then(recipe => console.log(recipe.title))
+  .then(recipes => recipes.forEach(recipe => console.log(recipe.title)))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

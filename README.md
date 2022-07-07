@@ -43,7 +43,7 @@ Create a `Recipe` model inside of the file `/models/Recipe.model.js`. The schema
 
 ### Iteration 2 - Create a recipe
 
-In `index.js`, after the connection to the database has been established, you should add a new recipe document to the database by calling the [`Model.create`](https://mongoosejs.com/docs/api.html#model_Model.create) static, passing it the recipe details as an object. After inserting the recipe, you should `console.log` the `title` of the recipe.
+In `index.js`, after the connection to the database has been established, you should add a new recipe document to the database by calling the [`Model..`](https://mongoosejs.com/docs/api.html#model_Model.create) static, passing it the recipe details as an object. After inserting the recipe, you should `console.log` the `title` of the recipe.
 
 You can use MongoDB Compass to double check that everything is working as intended.
 

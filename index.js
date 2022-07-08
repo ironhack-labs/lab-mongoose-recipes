@@ -40,13 +40,26 @@ mongoose
   })
   .then((recipes) => {
     // console.log(recipes);
-    Recipe.findOneAndUpdate(
+    console.log("The faulty recipe was successfully changed!");
+
+    return Recipe.findOneAndUpdate(
       {
         title: "Rigatoni alla Genovese",
       },
-      { duration: 100 }
+      { duration: 100 },
+      { returnDocument: "after" }
     );
-    console.log("The faulty recipe was successfully changed!");
+  })
+  .then((recipeToRemove) => {
+    console.log("A recipe was removed successfully!");
+
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((result) => {
+    console.log("The database was closed.");
+    return mongoose.end(MONGODB_URI);
+
+    // How do you close a DB?
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

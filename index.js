@@ -17,7 +17,50 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: "Cereal con leche",
+      level: "UltraPro Chef",
+      ingredients: ["lechita", "cereal", "azucar"],
+      cuisine: "Mex",
+      dishType: "breakfast",
+      Image: "https://comprarcereales.com/img/cms/cereales-americanos-con-leche.jpg",
+      duration: "15",
+      creator: "Chef Moises Vargas",
+      created: "",
+   })
+      .then(recipe => 
+        console.log(recipe))
+      .catch(err =>
+        console.log("ERROR / CREATE"))
+  
+  Recipe.insertMany(data)
+      .then(console.log("Se agregaron datos nene!"))
+      .catch(err =>
+        console.log("ERROR / INSERT"))    
   })
+
+
+
+  Recipe.updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
+  .then(
+    recipe => console.log("changes"))
+  .catch((err) =>
+      console.log("ERROR / UPDATE"))
+
+
+
+      Recipe.deleteOne({ title: "Carrot Cake" })
+      .then(doc => {
+        console.log(`Deleted the recipe: ${doc.title}`);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+});
+
+
+
+ 

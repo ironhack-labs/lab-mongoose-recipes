@@ -16,8 +16,49 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: "Japchae",
+      level: "Amateur Chef",
+      ingredients: [
+        "Carrots",
+        "Spring onions",
+        "Minced Meat",
+        "Shitake mushrooms",
+        "Sweet potato noodles",
+        "Japchae sauce",
+        "Neutral oil",
+        "Sesame seeds"
+      ],
+      cuisine: "Asian",
+      dishType: "main_course",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Korean.food-Chapchae-01.jpg/800px-Korean.food-Chapchae-01.jpg",
+      duration: 40,
+      creator: "Chef Roms"
+    }) 
+  })
+  .then(() => {
+      return Recipe.insertMany(data) 
+  })
+  .then(recipes => {
+  
+    recipes.forEach(recipe => {
+      console.log(recipe.title)
+    })
+
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+  })
+  .then(recipesUpdated => {
+    console.log(recipesUpdated)
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+  })
+  .then((deletedRecipe) => {
+    console.log("Success!", deletedRecipe);
+  })
+  .then(() => {
+    mongoose.disconnect()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+

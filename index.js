@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { insertMany } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -15,6 +16,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  // Iteration 2
   .then(() => {
     const receta = {
       title:"Empanadas",
@@ -26,22 +28,25 @@ mongoose
       creator:"violeta",
       created:new Date(),
     }
-
     // receta es la constasnte que contiene todos los datos
     const newRecipe = new Recipe(receta);
 
-    newRecipe
-    .save() // esto la guarda
-    .then((recipe) => {
-      console.log(recipe.title);
-    })
-    
+    return newRecipe.save() // esto la guarda
     // Run your code here, after you have insured that the connection was made
+  })
+
+// Iteration 3 - Insert multiple recipes
+  .then((recipe) => {
+    console.log(recipe.title);
+    // hacemos el return asi lo tenemos al mismo nivel
+    return Recipe.insertMany(data)
+  })
+  .then(all => {
+    all.forEach((recipes) => {
+      console.log(recipes.title)
+    })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
 
-
-
-    

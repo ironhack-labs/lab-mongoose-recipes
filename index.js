@@ -41,11 +41,31 @@ mongoose
     // hacemos el return asi lo tenemos al mismo nivel
     return Recipe.insertMany(data)
   })
+  // esto tiene que devolver algo para que el then pueda agarrarlo
   .then(all => {
     all.forEach((recipes) => {
       console.log(recipes.title)
     })
-  })
+    //Iteration 4 - Update recipe
+    return Recipe.findOneAndUpdate(
+      {title:"Rigatoni alla Genovese"},
+      {duration: 100},
+      {new:true})
+    })
+    .then(result => {
+      console.log('Update done!')
+      //Iteration 5 - Remove a recipe
+      return Recipe.deleteOne({title: "Carrot Cake"})
+    })
+    .then(result => {
+      console.log('Carrot Cake has been deleted')
+      
+      //Iteration 6 - Close the Database
+      mongoose.connection.close(function () {
+        console.log("Mongoose disconnected on app termination");
+        process.exit(0)}
+      )
+    })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

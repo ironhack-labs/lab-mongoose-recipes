@@ -1,23 +1,59 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require("./data");
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
+const recipe = {
+	title: "muffins",
+	level: "Easy Peasy",
+	ingredients: ["sugar", "flour", "eggs", "blueberries"],
+	cuisine: "english",
+	dishType: "breakfast",
+	image:
+		"https://www.inspiredtaste.net/wp-content/uploads/2016/10/Easy-Blueberry-Muffin-Recipe-1-1200.jpg",
+	duration: 40,
+	creator: "Joao",
+};
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI)
-  .then(x => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+.connect(MONGODB_URI)
+.then((x) => {
+  console.log(`Connected to the database: "${x.connection.name}"`);
+  // Before adding any recipes to the database, let's remove all existing ones
+  // return Recipe.deleteMany();
+})
+.then(() => {
+  Recipe.create(recipe)
+    .then((rec) => console.log(`recipe has been created: ${rec.title}`))
+    .catch((err) => `an error has happended: ${err}`);
+})
+.catch((error) => {
+  console.error("Error connecting to the database", error);
+});
+
+Recipe.insertMany(data)
+.then((recipes) => {
+  recipes.forEach((recipe) => {
+    console.log(recipe.title);
   });
+})
+.catch((err) => console.log(err));
+
+Recipe.findOneAndUpdate(
+{ title: "Rigatoni alla Genovese" },
+{ duration: 100 },
+{ new: true }
+)
+.then(() => console.log("successfully updated"))
+.catch((err) => console.log("error", err));
+
+Recipe.findOneAndDelete({ title: "Carrot Cake" })
+.then(() => {
+  console.log("successfully deleted!");
+  mongoose.connection.close();
+})
+.catch((err) => console.log("something went wrong", err));

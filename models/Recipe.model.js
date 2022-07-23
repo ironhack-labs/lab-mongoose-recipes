@@ -39,8 +39,8 @@ const recipeSchema = new Schema({
   },
   creator: String,
   created: {
-    tape: Date,
-    default: new Date(),
+    type: Date,
+    default: Date.now,
   },
 });
 

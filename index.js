@@ -17,33 +17,33 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    // return Recipe.create({
-    //   title: "The best vegan cheese cake",
-    //   level: "Easy Peasy",
-    //   ingredients: [
-    //     "300 g flour",
-    //     "150 g sugar",
-    //     "180 g margarine",
-    //     "8 g vanilla sugar",
-    //     "9 g baking powder",
-    //     "1/4 t salt",
-    //     "2 cups Alpro Skyr Vanilla",
-    //     "74 g vanilla pudding",
-    //     "200 g sugar",
-    //     "100 g margarine",
-    //     "30 g lemon juice",
-    //     "lemon zest",
-    //   ],
-    //   cuisine: "yummie",
-    //   dishType: "dessert",
-    //   image:
-    //     "https://veggie-einhorn.de/wp-content/uploads/Veganer-Kaesekuchen-serviert-mit-Himbeeren.jpg",
-    //   duration: 85,
-    //   creator: "Karen Wilkening",
-    //   dreated: 2019 - 10 - 14,
-    // }).then((newRecipe) => {
-    //   console.log("Title of recipe: ", newRecipe.title);
-    // });
+    return Recipe.create({
+      title: "The best vegan cheese cake",
+      level: "Easy Peasy",
+      ingredients: [
+        "300 g flour",
+        "150 g sugar",
+        "180 g margarine",
+        "8 g vanilla sugar",
+        "9 g baking powder",
+        "1/4 t salt",
+        "2 cups Alpro Skyr Vanilla",
+        "74 g vanilla pudding",
+        "200 g sugar",
+        "100 g margarine",
+        "30 g lemon juice",
+        "lemon zest",
+      ],
+      cuisine: "yummie",
+      dishType: "dessert",
+      image:
+        "https://veggie-einhorn.de/wp-content/uploads/Veganer-Kaesekuchen-serviert-mit-Himbeeren.jpg",
+      duration: 85,
+      creator: "Karen Wilkening",
+      dreated: 2019 - 10 - 14,
+    }).then((newRecipe) => {
+      console.log("Title of recipe: ", newRecipe.title);
+    });
   })
   .then(() => {
     return Recipe.insertMany(data);
@@ -52,6 +52,14 @@ mongoose
     manyRecipes.forEach((recipe) => {
       console.log("Title of recipe: ", recipe.title);
     });
+  })
+  .then(() => {
+    const filter = { title: "Rigatoni alla Genovese" };
+    const update = { duration: 100 };
+    return Recipe.findOneAndUpdate(filter, update);
+  })
+  .then(() => {
+    console.log("Successfully updated the duration of Rigatoni alla Genovese!");
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

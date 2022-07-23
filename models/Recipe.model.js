@@ -15,7 +15,7 @@ const recipeSchema = new Schema(
     image: String,
     duration: Number,
     creator: String,
-    created: Date,
+    created: { type: Date, default: Date.now },
   },
   {
     timestamps: true,

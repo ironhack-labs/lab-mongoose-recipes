@@ -67,6 +67,9 @@ mongoose
   .then(() => {
     console.log("Carrot Cake was deleted.");
   })
+  .then(() => {
+    mongoose.connection.close();
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

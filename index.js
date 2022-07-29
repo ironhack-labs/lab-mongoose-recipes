@@ -15,9 +15,56 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  // Iteration 2
+  .then((createdRecipe) => {
+    
+    createdRecipe = new Recipe ({
+      title: "Raquel's famous pad thai",
+      level: "UltraPro Chef",
+      ingredients: [
+        "whatever",
+        "goes in",
+        "a",
+        "pad thai",
+        "chicken",
+        "noodles",
+        "those crispy things"
+      ],
+      cuisine: "Asian",
+      dishType: "main_course",
+      image: "https://cjeatsrecipes.com/wp-content/uploads/2022/04/Pad-Thai-Final-scaled.jpg",
+      duration: 70,
+      creator: "Chef Poletto"
+    });
+
+    return Recipe.create(createdRecipe);
+    console.log(`the recipe title is: ${createdRecipe.title}`);
   })
+// Iteration 3
+  .then(() => {
+    return Recipe.insertMany(data)
+    .then((response) => {
+      response.forEach((recipe) => {
+        console.log(recipe.title)
+      })
+    })
+  })
+  // Iteration 4
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    .then((response) => {
+      console.log(`old duration is: ${response.duration}`)
+    })
+  })
+  // Iteration 5
+  .then(() => {
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  // Iteration 6
+  .then(() => {
+    return mongoose.connection.close()
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

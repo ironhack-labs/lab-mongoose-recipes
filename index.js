@@ -51,35 +51,45 @@ mongoose
     });
 
     console.log(newRecipe.title);
+    const createdRecipes = await Recipe.create(data);
+    const titles = createdRecipes.map((recipe) => recipe.title);
+    console.log(titles);
+
+    const updatedRecipe = await Recipe.findOneAndUpdate(
+      { title: `Rigatoni alla Genovese` },
+      { duration: 100 },
+      { new: true }
+    )
+
+
   })
 
-  .then((x) => {
-    Recipe.insertMany(data)
-      .then((createdRecipes) => {
-        const titles = createdRecipes.map((recipe) => recipe.title);
-        console.log(titles);
-      })
-      .then(() => {
-        return Recipe.findOneAndUpdate(
-          { title: `Rigatoni alla Genovese` },
-          { duration: 100 },
-          { new: true }
-        );
-      })
-      .then(({ title, duration }) => {
-        console.log(`${title}'s duration was updated to ${duration}.`);
-      })
-      .then(() => {
-        return Recipe.deleteOne({ title: `Carrot Cake` });
-      })
-      .then((deleteMsg) => {
-        console.log(deleteMsg);
-      })
-      .then(() => {
-        mongoose.disconnect();
-      })
+  // .then((x) => {
+  //   // Recipe.insertMany(data)
+  //   //   .then((createdRecipes) => {
+  //   //     const titles = createdRecipes.map((recipe) => recipe.title);
+  //   //     console.log(titles);
+  //   //   })
+  //   //   .then(() => {
+  //   //     return Recipe.findOneAndUpdate(
+  //   //       { title: `Rigatoni alla Genovese` },
+  //   //       { duration: 100 },
+  //   //       { new: true }
+  //   //     );
+  //   //   })
+  //   //   .then(({ title, duration }) => {
+  //   //     console.log(`${title}'s duration was updated to ${duration}.`);
+  //   //   })
+  //   //   .then(() => {
+  //   //     return Recipe.deleteOne({ title: `Carrot Cake` });
+  //   //   })
+  //   //   .then((deleteMsg) => {
+  //   //     console.log(deleteMsg);
+  //   //   })
+  //   //   .then(() => {
+  //   //     mongoose.disconnect();
+  //     })
 
-      .catch((error) => {
-        console.error("Error connecting to the database", error);
-      });
+  .catch((error) => {
+    console.error("Error connecting to the database", error);
   });

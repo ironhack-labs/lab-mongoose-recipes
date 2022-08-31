@@ -54,7 +54,7 @@ mongoose
     console.log(updated);
   })
   .then(() => {
-    return Recipe.deleteOne({ title: "Carrot Cake" }, { new: true });
+    return Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then((deleted) => {
     console.log("Success deleting", deleted);

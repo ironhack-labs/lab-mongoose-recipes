@@ -17,7 +17,42 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    const recipeOne = new Recipe({
+      title: 'Arepas',
+      level: 'Easy Peasy',
+      ingredients: [
+        'water',
+        'harina pan',
+        'salt'
+      ],
+      cuisine: 'venezuelan',
+      dishType: 'dessert',
+      image: 'https://www.pequerecetas.com/wp-content/uploads/2019/10/arepas-receta.jpg',
+      duration: 15,
+      creator: 'venezuelans',
+    });
+    console.error('First Recipe', recipeOne);
+    return recipeOne.save()
+  })
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+  .then((recipes) => {
+    return console.log(recipes)
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: { $eq: 'Rigatoni alla Genovese' } }, { duration: 100 }, { new: true })
+  })
+  .then(() => {
+    return Recipe.findOneAndDelete({ title: 'Carrot Cake' })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+  .finally(() => {
+    mongoose
+      .disconnect()
+      .then(() => { })
+  })
+
+mongoose.disconnect()

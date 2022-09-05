@@ -17,7 +17,60 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    let receta ={
+      title: "Asian Glazed Chicken Thighs",
+      level: "Amateur Chef",
+      ingredients: [
+      "1/2 cup rice vinegar",
+      "5 tablespoons honey",
+      "1/3 cup soy sauce (such as Silver Swan®)",
+      "1/4 cup Asian (toasted) sesame oil",
+      "3 tablespoons Asian chili garlic sauce",
+      "3 tablespoons minced garlic",
+      "salt to taste",
+      "8 skinless, boneless chicken thighs"
+    ],
+    cuisine: "Asian",
+    dishType: "main_course",
+    image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+    duration: 40,
+    creator: "Chef LePapu"
+    }
+    Recipe.create(receta)
+    .then((datos) =>{
+      console.log(receta.title)
+    })
+    .catch(err => {console.log(err)})
+
+    Recipe.insertMany(data)
+      .then(recipes =>{
+        recipes.forEach(recipe => {console.log(recipe.title);});
+
+        
+        Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {duration:100})
+        .then(console.log("datos actualizados"))
+        .catch(err => {console.log(err)})
+
+        Recipe.deleteOne({title:"Carrot Cake"})
+        .then(console.log("eliminar receta"))
+        .catch((err) => console.log(err))
+        
+      })
+      .catch((err) => console.log(err)); 
+
+      
+    
+      
+
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
+  });
+
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
   });

@@ -21,3 +21,44 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+// Iteration 2
+/*Recipe
+.create({
+  title: 'Vegan Tacos',
+  level: 'Easy Peasy',
+  ingredients: ['corn tortillas', 'onions', 'guacamole', 'jalapeno'],
+  cuisine: 'Mexican',
+  dishType: 'snack',
+  image: 'https://lovingitvegan.com/wp-content/uploads/2019/02/Vegan-Tacos-15.jpg',
+  duration: 25,
+  creator: 'Camila Yokoo',
+  created: 08-18-2022
+}) 
+.then(createRecipe => console.log(createRecipe.title))
+.catch(err => console.log(err)) */
+
+// Iteration 3
+/*Recipe
+.insertMany(data)
+.then((data) => {
+  data.map((copiedRecipes) => {
+    console.log(copiedRecipes.title)
+  })
+})
+.catch((err) => console.log(err));*/
+
+
+// Iteration 4
+Recipe.findOneAndUpdate(
+	{title: 'Rigatoni alla Genovese'},
+	{duration: 100},
+	{new: true}
+)
+	.then((updated) => console.log('Recipe updated!'))
+	.catch((err) => console.log(err));
+
+// Iteration 5
+Recipe.deleteOne({title: 'Carrot Cake'})
+.then(() => console.log('succesfully deleted'));

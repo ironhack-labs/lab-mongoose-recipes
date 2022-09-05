@@ -13,7 +13,7 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
@@ -21,3 +21,23 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  // Recipe.create({title : 'Barszcz', cuisine: 'Polsih'})
+  //   .then(creatRecipe => console.log(creatRecipe.title))
+  //   .catch(err => console.log(err))
+    
+  // Recipe.insertMany(data)
+  //    .then()
+  //    .catch(err => console.log(err))
+
+  //  Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100}, {new: true})
+  //      .then(udatedRecipe => console.log(udatedRecipe ))
+  //      .catch(err => console.log(err))
+
+  //  Recipe.deleteOne({title: 'Carrot Cake'})
+  //   .then(deletedRecipe => console.log(deletedRecipe))
+  //    .catch(err => console.log(err))
+
+ mongoose.disconnect() 
+  //  .then(x => console.log(`Disconnected from the database: "${x.connection.name}"`))
+  //  .catch(err => console.log(err))

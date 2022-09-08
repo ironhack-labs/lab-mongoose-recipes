@@ -25,8 +25,8 @@ async function main() {
 
   const NewRecipe = mongoose.model('Recipe', Recipe.recipeSchema);
 
-  await Recipe.create(data[0]);
-  // await Recipe.insertMany(data);
+  // await Recipe.create(data[0]);
+  await Recipe.insertMany(data);
 }
 
 main();

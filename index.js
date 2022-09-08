@@ -5,19 +5,31 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://localhost/recipe-app';
 
-// Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI)
-  .then(x => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+async function myRecipeSetter(){
+  await mongoose.connect(MONGODB_URI)
+  await Recipe.deleteMany();
+  let tomatoRecipe = await Recipe.create({
+    title: "Tomato Tofu",
+    level: "Easy Peasy",
+    ingredients: ['Extra Firm Tofu','Tomato','Onion','Fish Sauce','Tomato Paste'],
+    cuisine: 'Vietnamese',
+    dishType: 'main_course',
+    duration: 30,
+    creator: 'Amanda',
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    console.log(tomatoRecipe.title);
+  let myRecipeArray = await Recipe.insertMany(data);
+    for(let i = 0; i < myRecipeArray.length; i++){
+      console.log(myRecipeArray[i].title)
+  }
+  let updateRigatoni = await Recipe.findOneAndUpdate({'title': 'Rigatoni alla Genovese'}, {'duration': 100});
+    console.log(`Updated Rigatoni`);
+  let deleteCake = await Recipe.deleteOne({title: 'Carrot Cake'});
+    console.log('No more Carrot Cake!');
+}
+
+mongoose.connection.close();
+
+myRecipeSetter();

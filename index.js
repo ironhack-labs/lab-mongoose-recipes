@@ -25,21 +25,21 @@ async function main() {
 
   const NewRecipe = mongoose.model('Recipe', Recipe.recipeSchema);
 
-  const recipeOne = new Recipe({
-    title: data[0].title,
-    level: data[0].level,
-    ingredients: data[0].ingredients,
-    cuisine: data[0].cuisine,
-    dishType: data[0].dishType,
-    image: data[0].image,
-    duration: data[0].duration,
-    creator: data[0].creator,
-  });
-
-  await recipeOne.save();
+  await Recipe.create(data[0]);
+  // await Recipe.insertMany(data);
 }
 
 main();
+
+// User.insertMany([
+//   { name: 'Gourav', age: 20},
+//   { name: 'Kartik', age: 20},
+//   { name: 'Niharika', age: 20}
+// ]).then(function(){
+//   console.log("Data inserted")  // Success
+// }).catch(function(error){
+//   console.log(error)      // Failure
+// });
 
 // const pikachu = new Pokemon({
 //   name: 'Pikachu',

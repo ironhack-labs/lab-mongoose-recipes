@@ -24,11 +24,19 @@ async function main() {
     });
 
   const NewRecipe = mongoose.model('Recipe', Recipe.recipeSchema);
-
+  // Iteration II
   // await Recipe.create(data[0]);
+
+  // Iteration III
   await Recipe.insertMany(data);
 
+  // Iteration IV
   await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
+
+  // Iteration V
+  const carrotCake = Recipe.findOne({ name: 'Carrot Cake' });
+  await Recipe.deleteOne(carrotCake).then(() => console.log('Success!'));
+  // await Recipe.findOneAndDelete({ name: 'Carrot Cake' }).then(() => console.log('Success!'));
 }
 
 main();

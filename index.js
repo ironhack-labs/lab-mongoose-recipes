@@ -27,25 +27,8 @@ async function main() {
 
   // await Recipe.create(data[0]);
   await Recipe.insertMany(data);
+
+  await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
 }
 
 main();
-
-// User.insertMany([
-//   { name: 'Gourav', age: 20},
-//   { name: 'Kartik', age: 20},
-//   { name: 'Niharika', age: 20}
-// ]).then(function(){
-//   console.log("Data inserted")  // Success
-// }).catch(function(error){
-//   console.log(error)      // Failure
-// });
-
-// const pikachu = new Pokemon({
-//   name: 'Pikachu',
-//   hp: 30,
-//   greeting: 'Pika Pika Pikachu!',
-//   pokeType: 'electro',
-// });
-
-// await pikachu.save();

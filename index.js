@@ -1,23 +1,59 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require("./data");
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
-// Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI)
-  .then(x => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+//Connection to the database "recipe-app"
+// mongoose
+//   .connect(MONGODB_URI)
+//   .then((x) => {
+//     console.log(`Connected to the database: "${x.connection.name}"`);
+//     // Before adding any recipes to the database, let's remove all existing ones
+//     return Recipe.deleteMany();
+//   })
+//   .then(() => {
+//     // Run your code here, after you have insured that the connection was made
+//   })
+//   .catch((error) => {
+//     console.error("Error connecting to the database", error);
+//   });
+
+async function main() {
+  await mongoose.connect(MONGODB_URI);
+  await mongoose.connection.db.dropDatabase();
+  await mongoose.connection.close();
+
+  await mongoose.connect(MONGODB_URI);
+
+  Recipe.insertMany(data, function (error, res) {
+    if (error) {
+      console.log("Error");
+    } else {
+      let [title] = data;
+      console.log(data.map((x) => x.title));
+    }
   });
+
+  await Recipe.findOneAndDe/lete({ title: "Carrot Cake" });
+
+  // await Recipe.updateOne(
+  //   { title: "Rigatoni alla Genovese" },
+  //   { duration: 100 },
+  //   { runValidators: true }
+  // );
+
+  //this doesn't work? returns 0
+  // console.log(await Recipe.countDocuments());
+}
+
+// async function updateAndDelete() {
+//   await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+
+//   await Recipe.findOneAndDelete({ title: "Carrot Cake" });
+// }
+
+main();

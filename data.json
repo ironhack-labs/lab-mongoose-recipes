@@ -1,4 +1,5 @@
-[{
+[
+  {
     "title": "Asian Glazed Chicken Thighs",
     "level": "Amateur Chef",
     "ingredients": [
@@ -12,7 +13,7 @@
       "8 skinless, boneless chicken thighs"
     ],
     "cuisine": "Asian",
-    "dishType": "main_course",
+    "dishType": "main course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
     "duration": 40,
     "creator": "Chef LePapu"
@@ -32,7 +33,7 @@
       "1 orange, juiced and zested"
     ],
     "cuisine": "American",
-    "dishType": "main_course",
+    "dishType": "main course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg",
     "duration": 160,
     "creator": "Chef John"
@@ -71,7 +72,7 @@
       "2 tablespoons freshly grated Parmigiano-Reggiano cheese"
     ],
     "cuisine": "Italian",
-    "dishType": "main_course",
+    "dishType": "main course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg",
     "duration": 220,
     "creator": "Chef Luigi"

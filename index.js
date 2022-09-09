@@ -34,9 +34,12 @@ async function main() {
   await Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
 
   // Iteration V
-  const carrotCake = Recipe.findOne({ name: 'Carrot Cake' });
-  await Recipe.deleteOne(carrotCake).then(() => console.log('Success!'));
   // await Recipe.findOneAndDelete({ name: 'Carrot Cake' }).then(() => console.log('Success!'));
+  await mongoose.connection.close();
+  const carrotCake = Recipe.findOne({ name: 'Carrot Cake' });
+  await Recipe.deleteOne(carrotCake)
+    .then(() => console.log('Success!'))
+    .then(() => mongoose.connection.close());
 }
 
 main();

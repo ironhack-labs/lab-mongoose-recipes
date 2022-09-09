@@ -65,4 +65,10 @@ await Recipe.findOneAndUpdate(
   { duration: 100 }
 ).then(() => console.log("Duration uptated with success!"));
 
+const carrotCake = await Recipe.findOne({ title: "Carrot Cake" });
+// console.log(carrotCake);
+await Recipe.deleteOne(carrotCake).then(() =>
+  console.log(`${carrotCake.title} recipe deleted with success!`)
+);
+
 await mongoose.connection.close();

@@ -56,8 +56,13 @@ await mongoose.connect(MONGODB_URI);
 
 await Recipe.insertMany(data);
 
-data.forEach((data) => {
+await data.forEach((data) => {
   console.log(data.title);
 });
+
+await Recipe.findOneAndUpdate(
+  { title: "Rigatoni alla Genovese" },
+  { duration: 100 }
+).then(() => console.log("Duration uptated with success!"));
 
 await mongoose.connection.close();

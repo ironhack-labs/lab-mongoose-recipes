@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Recipe from "./models/Recipe.model.js";
-// import data from "./data";
+import data from "./data.json" assert { type: "json" };
 // const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -53,5 +53,11 @@ await mongoose.connect(MONGODB_URI);
 
 // await paella.save();
 // console.log(paella.title);
+
+await Recipe.insertMany(data);
+
+data.forEach((data) => {
+  console.log(data.title);
+});
 
 await mongoose.connection.close();

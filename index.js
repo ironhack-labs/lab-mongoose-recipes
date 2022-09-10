@@ -24,36 +24,31 @@ const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
 async function main() {
   await mongoose.connect(MONGODB_URI);
-  // await mongoose.connection.db.dropDatabase();
-  // await mongoose.connection.close();
+  await mongoose.connection.db.dropDatabase();
+  await mongoose.connection.close();
 
-  // await mongoose.connect(MONGODB_URI);
+  await mongoose.connect(MONGODB_URI);
 
-  // Recipe.insertMany(data, function (error, res) {
-  //   if (error) {
-  //     console.log("Error");
-  //   } else {
-  //     let [title] = data;
-  //     console.log(data.map((x) => x.title));
-  //   }
-  // });
+  Recipe.insertMany(data, function (error, res) {
+    if (error) {
+      console.log("Error");
+    } else {
+      let [title] = data;
+      console.log(data.map((x) => x.title));
+    }
+  });
 
-  await Recipe.deleteOne({ title: "Carrot Cake" });
+  // await Recipe.deleteOne({ title: "Carrot Cake" });
 
-  await Recipe.updateOne(
-    { title: "Rigatoni alla Genovese" },
-    { duration: 100 },
-    { runValidators: true }
-  );
+  // await Recipe.updateOne(
+  //   { title: "Rigatoni alla Genovese" },
+  //   { duration: 100 },
+  //   { runValidators: true }
+  // );
 
   //this doesn't work? returns 0
   // console.log(await Recipe.countDocuments());
 }
 
-// async function updateAndDelete() {
-//   await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 });
-
-//   await Recipe.findOneAndDelete({ title: "Carrot Cake" });
-// }
 
 main();

@@ -27,7 +27,6 @@ We've learned how to use Mongoose to create Schemas and then interact with our M
 
 ## Instructions
 
-
 ### Iteration 0: Initial setup
 
 To run our application, the first thing you have to do is to install all of its dependencies. Run the following command:
@@ -35,7 +34,6 @@ To run our application, the first thing you have to do is to install all of its 
 ```shell
 $ npm install
 ```
-
 
 ### Iteration 1 - Recipe Schema
 
@@ -63,13 +61,12 @@ You can use MongoDB Compass to double check that everything is working as intend
 $ node index.js
 ```
 
-Tip: When you have successfully created a new recipe (you see it in the database using Compass tool), you might want to comment out this step. The reason for this is that next time when you run `$ node index.js`, it will try to create a new recipe with the same name and you will get an error in the terminal related to the *duplicate keys* - the title should be unique, and the dish with that title already exists in the database.
+There are two main ways to complete this lab: using async await or chaining the .then method.
+We encourage you to use async await but if you want to also train the other method you can uncomment the starter code.
 
 ### Iteration 3 - Insert multiple recipes
 
 We are importing an array of recipes form the `data.json` file. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) static, you should add the entire array to the database. After inserting the documents, print the title of each recipe to the console.
-
-Tip: Follow the same tip as in the previous step.
 
 ### Iteration 4 - Update recipe
 
@@ -77,7 +74,7 @@ Now you should have six different recipes in the database, but there was a mista
 
 ### Iteration 5 - Remove a recipe
 
-Oh oh! The `Carrot Cake` is no longer available, so we need to remove it from the database. Using the [`Model.deleteOne`](https://mongoosejs.com/docs/api.html#model_Model.deleteOne) static, remove that recipe from the database and display a success message after doing it!
+Oh no! The `Carrot Cake` is no longer available, so we need to remove it from the database. Using the [`Model.deleteOne`](https://mongoosejs.com/docs/api.html#model_Model.deleteOne) static, remove that recipe from the database and display a success message after doing it!
 
 ### Iteration 6 - Close the Database
 

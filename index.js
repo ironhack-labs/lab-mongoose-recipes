@@ -61,9 +61,7 @@ mongoose
     } else {
       console.log("There was a problem");
     }
-    console.log("1", mongoose.connection);
     mongoose.connection.close();
-    console.log("2", mongoose.connection);
   })
 
   .catch((error) => {

@@ -16,7 +16,7 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    //iteration 2
+    // Iteration 2
     // const recipeOne = {
     //   title: "Asian Glazed Chicken Thighs",
     //   level: "Amateur Chef",
@@ -43,9 +43,16 @@ mongoose
     return Recipe.insertMany(data);
   })
   .then((recipesfromDB) => {
-    console.log(recipesfromDB);
-    recipesfromDB.forEach((recipe) => console.log(recipe.title));
+    // Iteration 3
+    // recipesfromDB.forEach((recipe) => console.log(recipe.title));
+
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { returnDocument: "after" }
+    );
   })
+  .then((recipe) => console.log(recipe))
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

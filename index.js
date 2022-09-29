@@ -15,12 +15,12 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  /*
+  
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     
     const recepe1 = {
-      title: "Asian Glazed Chicken Thighs",
+      title: "Asian Chicken Thighs",
       level: "Amateur Chef",
       ingredients: [
         "1/2 cup rice vinegar",
@@ -42,7 +42,7 @@ mongoose
     return Recipe.create(recepe1);
     
   })
-  */
+  
   .then (() => {
     
     return Recipe.insertMany(data)
@@ -54,6 +54,11 @@ mongoose
   })
   .then ((updated) => {
     console.log("Updated sucsessfully!");
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then ((updated) => {
+    console.log("Deleted sucsessfully!");
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

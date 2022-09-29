@@ -15,8 +15,10 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  /*
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    
     const recepe1 = {
       title: "Asian Glazed Chicken Thighs",
       level: "Amateur Chef",
@@ -36,8 +38,19 @@ mongoose
       duration: 40,
       creator: "Chef LePapu"
     }
-    Recipe.create(recepe1)
+
+    return Recipe.create(recepe1);
+    
   })
+  */
+  .then (() => {
+    
+    return Recipe.insertMany(data)
+  })
+  .then ((recepeFromData) => {
+    console.log(recepeFromData);
+  })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -46,12 +46,11 @@ mongoose
   })
   .then(()=>{
     console.log("successful deletion")
-    // mongoose.connection.close();
-    mongoose.disconnect()
+    return mongoose.connection.close();
   })
   .then(()=> {
+    console.log("DB closed")
     console.log(mongoose.connection.readyState);
-    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

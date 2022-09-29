@@ -55,7 +55,6 @@ mongoose
     return Recipe.find({title: "Carrot Cake"});
   })
   .then((dataToBeDeleted) => {
-    console.log(dataToBeDeleted[0].title);
     return Recipe.deleteOne(dataToBeDeleted[0])
   })
   .then(()=>{

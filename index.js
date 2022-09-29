@@ -35,7 +35,9 @@ mongoose
   })
   .then(data => {
     console.log('carrot cake was successfully deleted')
+    mongoose.connection.close();
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

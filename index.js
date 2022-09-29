@@ -48,9 +48,13 @@ mongoose
     return Recipe.insertMany(data)
   })
   .then ((recepeFromData) => {
-    console.log(recepeFromData);
+    //console.log(recepeFromData);
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {returnDocument: "after"})
+
   })
-  
+  .then ((updated) => {
+    console.log("Updated sucsessfully!");
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

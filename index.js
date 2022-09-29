@@ -30,6 +30,11 @@ mongoose
   })
   .then(data => {
     console.log('updating rigatoni was a success!')
+
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(data => {
+    console.log('carrot cake was successfully deleted')
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

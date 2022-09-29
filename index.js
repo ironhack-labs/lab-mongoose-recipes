@@ -15,9 +15,47 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  // .then((response) => {
+  //   // Run your code here, after you have insured that the connection was made
+  //   const recipeOne = { 
+  //     title: "vegetable soup",
+  //     level: "Easy Peasy",
+  //     ingredients: ["carrots", "celery", "tomatoes", "green beans"],
+  //     cuisine: "international",
+  //     dishType: "soup",
+  //     image: "https://www.cookingclassy.com/wp-content/uploads/2014/10/vegetable-soup-6-768x1152.jpg",
+  //     duration: 40,
+  //     creator: "unknown"
+  //     // created: new Date("2014-10-22")
+  //   }
+  //   console.log("is working", response)
+  //   return Recipe.create(recipeOne)
+  // })
+  .then(()=> {
+    return Recipe.insertMany(data)
+  })
+  .then((response) => {
+    response.forEach((recipe)=> {
+      console.log(recipe.title)
+    })
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  })
+  .then(()=> {
+    console.log("successful update")
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(()=>{
+    console.log("successful deletion")
+    // mongoose.connection.close();
+    mongoose.disconnect()
+  })
+  .then(()=> {
+    console.log(mongoose.connection.readyState);
+    
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+
   });
+
+

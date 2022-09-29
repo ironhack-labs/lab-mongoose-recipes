@@ -25,6 +25,11 @@ mongoose
   })
   .then((data) => {
     data.forEach(recipe => console.log(recipe.title))
+
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {returnDocument: 'after'});
+  })
+  .then(data => {
+    console.log('updating rigatoni was a success!')
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

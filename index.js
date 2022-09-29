@@ -13,10 +13,10 @@ mongoose
   .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    //return Recipe.deleteMany();
+    return Recipe.deleteMany();
   })
   .then(() => {
-    Recipe.create({
+    const newRecipe = Recipe.create({
       title: "Pasta Funghi & Panna",
       level: "Amateur Chef",
       ingredients: [
@@ -33,17 +33,29 @@ mongoose
       duration: 40,
       creator: "Serhii & Jose",
     });
+    return newRecipe
+  }) 
 
-    Recipe.insertMany(data)
+  .then(() =>{
+    return Recipe.insertMany(data)
     .then( () => {
       console.log (data)
     })
-    
-  }) 
+  })
   .then( () => {
-    Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration: 100})
+    console.log ('update succesful')
+    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration: 100})
      })
 
-  .catch((error) => {
+  .then( () => {
+   
+    console.log('Delete Carrot Cake successful')
+    return Recipe.deleteOne({title: 'Carrot Cake'})
+  } )
+  .then( () =>{
+    mongoose.connection.close()
+  })
+     
+     .catch((error) => {
     console.error("Error connecting to the database", error);
   });

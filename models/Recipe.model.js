@@ -5,7 +5,7 @@ const recipeSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   level: {
     type: String,
@@ -16,7 +16,7 @@ const recipeSchema = new Schema({
   },
   cuisine: {
     type: String,
-    required: true
+    required: true,
   },
   dishType: {
     type: String,

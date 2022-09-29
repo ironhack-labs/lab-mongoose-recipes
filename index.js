@@ -52,7 +52,20 @@ mongoose
       { returnDocument: "after" }
     );
   })
-  .then((recipe) => console.log(recipe))
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((response) => {
+    if (response.deletedCount > 0) {
+      console.log("Recipe successfully deleted");
+    } else {
+      console.log("There was a problem");
+    }
+    console.log("1", mongoose.connection);
+    mongoose.connection.close();
+    console.log("2", mongoose.connection);
+  })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

@@ -1,0 +1,14 @@
+{
+    "title": "Cheeseburguer",
+      "level": "Amateur Chef",
+      "ingredients": [
+        "1 slice of cheese",
+        "2 slices of bread",
+        "1 hamburguer",
+        "salt to taste"
+      ],
+      "cuisine": "American",
+      "dishType": "main_course",
+      "duration": 10,
+      "creator": "Chef Renata"
+  }

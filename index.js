@@ -32,14 +32,25 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe.create(myRecipe)
     console.log(myRecipe.title)
+    return Recipe.create(myRecipe)
   })
   .then(() => {
-    Recipe.insertMany(data)
     for(let i = 0; i < data.length; i++) {
       console.log(data[i].title)
     }
+    return Recipe.insertMany(data)
+  })
+  .then(() => {
+    console.log('atualizado')
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  })
+  .then(() => {
+    return Recipe.deleteOne({title: 'Carrot Cake'})
+  })
+  .then(() => {
+    console.log('database closed')
+    mongoose.connection.close()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

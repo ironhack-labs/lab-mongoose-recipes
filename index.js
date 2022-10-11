@@ -20,10 +20,20 @@ mongoose
     // Recipe.create(data[0])
     //   .then((recipe) => console.log("The recipe save is: ", recipe.title))
     //   .catch((error) => console.log("error: ", error));
-
-    Recipe.insertMany(data)
+    Recipe.create(data)
       .then((recipe) => recipe.map((r) => console.log(r.title)))
+
+      // iteration 4 update
+      .then(() => {
+        Recipe.findOneAndUpdate(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 }
+        )
+          .catch((error) => console.log(error))
+          .then(() => console.log("updated"));
+      })
       .catch((error) => console.log("error: ", error));
+    // .then(() => {Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 } })
   })
 
   .catch((error) => {

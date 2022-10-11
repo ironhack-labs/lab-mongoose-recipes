@@ -21,7 +21,7 @@ const myRecipe = {
     creator: "Chef Barbabram"
 }
 
-const MONGODB_URI = 'mongodb+srv://abramwhas:555200@cluster0.uooc2pi.mongodb.net/recipe-app';
+const MONGODB_URI = 'mongodb+srv://@cluster0.uooc2pi.mongodb.net/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose

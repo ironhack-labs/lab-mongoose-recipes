@@ -17,8 +17,12 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create(data[0])
-      .then((recipe) => console.log("The recipe save is: ", recipe.title))
+    // Recipe.create(data[0])
+    //   .then((recipe) => console.log("The recipe save is: ", recipe.title))
+    //   .catch((error) => console.log("error: ", error));
+
+    Recipe.insertMany(data)
+      .then((recipe) => recipe.map((r) => console.log(r.title)))
       .catch((error) => console.log("error: ", error));
   })
 

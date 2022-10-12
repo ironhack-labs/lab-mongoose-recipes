@@ -18,10 +18,17 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     //Interation 2
-    Recipe.create(data[0])
-    .then((recipe) => console.log("The recipe save is: ", recipe.title))
-    .catch((error) => console.log("error: ", error))
-    })
+   //Recipe.create(data[0])
+   // .then((recipe) => console.log("The recipe save is: ", recipe.title))
+   // .catch((error) => console.log("error: ", error))
+  
+   //Interation 3
+   Recipe.create(data)
+   .then((recipe) => recipe.modifiedPaths((r) => console.log(r.title)))
+  
+  })
+
+
 
 
   

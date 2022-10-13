@@ -39,12 +39,17 @@ mongoose
       console.log(eachRecipe.title)
     })
   })
-  */
+  
   .then(() => {
     console.log("duración modificada")
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
     
   })
+  */
+ .then(() => {
+  console.log("eliminando Carrot Cake")
+  return Recipe.deleteOne({title: "Carrot Cake"})
+ })
 
   .catch(error => {
     console.error('Error connecting to the database', error);

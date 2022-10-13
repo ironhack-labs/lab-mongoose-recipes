@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
+const { db } = require('./models/Recipe.model');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
@@ -26,7 +27,7 @@ mongoose
         image: "https://img2.rtve.es/i/?w=1600&i=1606754179280.jpg",
         duration: 30,
         creator: "Yago",
-        created: "2002/02/05"
+        created: Date("2002/02/05")
     })
   })
   .then((response) => {
@@ -45,12 +46,20 @@ mongoose
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
     
   })
-  */
+  
  .then(() => {
   console.log("eliminando Carrot Cake")
   return Recipe.deleteOne({title: "Carrot Cake"})
  })
+ */
+.then(() => {
+  console.log("Cerrando base de datos")
+  //db.close() //?????
+   mongoose.connection.close() 
+
+})
 
   .catch(error => {
     console.error('Error connecting to the database', error);
+    
   });

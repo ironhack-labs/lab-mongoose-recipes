@@ -27,11 +27,15 @@ mongoose
    //.then((data) => data.forEach(recipe => console.log(recipe.title)))
   
     //Interation 4
-    Recipe.findOneAndUpdate({title: "Rigatoni ala Genovese"}, {duration: 100})
-    .catch(error => console.log("error"))
-    .then(()=> console.log("Recipe Updated"))
-  })
+    //Recipe.findOneAndUpdate({title: "Rigatoni ala Genovese"}, {duration: 100})
+    //.catch(error => console.log("error"))
+    //.then(()=> console.log("Recipe Updated"))
+    //})
 
+    //Interation 5
+    Recipe.deleteOne({title: "Carrot Cake"})
+    .then(() => console.log("Recipe Removed"))
+    .catch(() => console.log("Error to remove the recipe"))
 
 
 

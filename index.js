@@ -5,7 +5,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb+srv://heliodcf:OLevita21@cluster0.vsv4xuz.mongodb.net/recipe-app?retryWrites=true&w=majority';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -19,12 +19,12 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     //Interation 2
    //Recipe.create(data[0])
-   // .then((recipe) => console.log("The recipe save is: ", recipe.title))
-   // .catch((error) => console.log("error: ", error))
+    //.then((recipe) => console.log("The recipe save is: ", recipe.title))
+    //.catch((error) => console.log("error: ", error))
   
    //Interation 3
    Recipe.create(data)
-   .then((recipe) => recipe.modifiedPaths((r) => console.log(r.title)))
+   .then((data) => data.forEach(recipe => console.log(recipe.title)))
   
   })
 

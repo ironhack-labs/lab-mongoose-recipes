@@ -28,18 +28,18 @@ mongoose
   
     //Interation 4
     //Recipe.findOneAndUpdate({title: "Rigatoni ala Genovese"}, {duration: 100})
-    //.catch(error => console.log("error"))
+    //.catch(error => console.log("error", error))
     //.then(()=> console.log("Recipe Updated"))
     //})
 
     //Interation 5
     Recipe.deleteOne({title: "Carrot Cake"})
     .then(() => console.log("Recipe Removed"))
-    .catch(() => console.log("Error to remove the recipe"))
+    .catch(error => console.log("Error to remove the recipe", error))
 
 
 
   
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+  //.catch(error => {
+    //console.error('Error connecting to the database', error);
   });

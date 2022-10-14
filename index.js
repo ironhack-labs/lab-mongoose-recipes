@@ -23,9 +23,13 @@ mongoose
     //.catch((error) => console.log("error: ", error))
   
    //Interation 3
-   Recipe.create(data)
-   .then((data) => data.forEach(recipe => console.log(recipe.title)))
+   //Recipe.create(data)
+   //.then((data) => data.forEach(recipe => console.log(recipe.title)))
   
+    //Interation 4
+    Recipe.findOneAndUpdate({title: "Rigatoni ala Genovese"}, {duration: 100})
+    .catch(error => console.log("error"))
+    .then(()=> console.log("Recipe Updated"))
   })
 
 

@@ -23,14 +23,15 @@ mongoose
       title: "Bombom de travessa",
       level:"Easy Peasy",
       ingredients:["250 g de chocolate ao leite","250 g de chocolate meio amargo","2 latas de leite condensado","2 latas de creme de leite","2 colheres de margarina","2 caixas de morango"],
-      cuisine:"cuisine",
+      cuisine:"brazilian",
       dishType:"dessert",
       duration:35,
       creator:"Shania"
      }
-   Recipe.create(newRecipe,()=> console.log(newRecipe.title))
-   Recipe.insertMany(data,()=> data.forEach((recipe)=> console.log(recipe.title)))
-   Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100},()=> console.log("update done sucessfully"))
+    Recipe.create(newRecipe,()=> console.log(newRecipe.title))
+    Recipe.insertMany(data,()=> data.forEach((recipe)=> console.log(recipe.title)))
+    Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100},()=> console.log("update done sucessfully"))
+    Recipe.deleteOne({title:"Carrot Cake"},()=>console.log("Data deleted sucessfully"))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

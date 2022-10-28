@@ -1,6 +1,6 @@
 /*const mongoose = require('mongoose');
 const Schema = mongoose.Schema;*/
-import {mongoose,Schema} from "mongoose"
+import {Schema,model} from "mongoose";
 
 
 const recipeSchema = new Schema({
@@ -14,6 +14,6 @@ const recipeSchema = new Schema({
     creator:{type: String},
 },{timestamps: true});
 
-const Recipe = mongoose.model('Recipe', recipeSchema);
-
-module.exports = Recipe;
+const Recipe = model('Recipe', recipeSchema);
+export default Recipe
+//module.exports = Recipe;

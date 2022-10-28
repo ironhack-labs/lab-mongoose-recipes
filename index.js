@@ -30,6 +30,7 @@ mongoose
      }
    Recipe.create(newRecipe,()=> console.log(newRecipe.title))
    Recipe.insertMany(data,()=> data.forEach((recipe)=> console.log(recipe.title)))
+   Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{duration: 100},()=> console.log("update done sucessfully"))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

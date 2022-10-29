@@ -16,8 +16,13 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
+    Recipe.insertMany(data)
+    .then(recipe => console.log('title'))
+    Recipe.findByIdAndUpdate('635d0a7d4d7cfdc3d4d4a842', {duration: 100})
+    .then(recipe => console.log('Duration changed!'))
+    Recipe.deleteOne({title: 'Carrot Cake'})
+    .then(recipe => console.log('86 Carrot Cake!'))
+    })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

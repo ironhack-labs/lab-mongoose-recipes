@@ -19,7 +19,7 @@ mongoose
     return Recipe.insertMany(data)
     // Run your code here, after you have insured that the connection was made
   })
-  .then ( user => console.log(user))
+  .then ( recipeData => console.log(recipeData))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

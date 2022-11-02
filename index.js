@@ -26,6 +26,9 @@ mongoose
   .then(() => {
     return Recipe.findOneAndUpdate({ duration: 220 }, { duration: 100 });
   })
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
   .then(() => mongoose.connection.close())
   .catch((error) => {
     console.error("Error connecting to the database", error);

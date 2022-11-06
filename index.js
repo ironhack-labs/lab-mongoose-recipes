@@ -1,5 +1,8 @@
 const mongoose = require("mongoose"); // connect to mongoose
 
+// Import of the model Recipe from './models/Recipe.model.js'
+//const Recipe = require("./models/Recipe.model");
+
 // Import of the data from './data.json'
 const data = require("./data");
 
@@ -65,7 +68,7 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create({
+    return Recipe.create({
       title: "Asian Glazed Chicken Thighs",
       level: "Amateur Chef",
       ingredients: [

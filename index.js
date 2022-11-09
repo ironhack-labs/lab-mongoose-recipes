@@ -16,8 +16,14 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe
+      .create(data)
+      .then(theNewRecipe => console.log(theNewRecipe))
+    return Recipe.theNewRecipe
   })
+  .updateOne({ title: 'Rigatoni alla Genovese' }, { duration: 100 })
+  .then(info => console.log("el detalle modificado es la duración", info))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

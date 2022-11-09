@@ -16,8 +16,29 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const Brigadeiros = new Recipe(
+      {
+        title: 'Brigadeiros',
+        level: 'Easy Peasy',
+        ingredients: ['leche condensada', 'colacao', 'mantequilla'],
+        cusine: 'Brasilian',
+        dishType: 'dessert',
+        duration: '20',
+        creator: 'Jadde',
+      }
+    )
+    return Recipe.create(Brigadeiros)
+  })
+  .then(() => {
+
+    const recepies = new Recipe(data)
+    return Recipe.create(recepies)
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+

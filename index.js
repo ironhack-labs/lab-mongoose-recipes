@@ -21,3 +21,8 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+Recipe
+  .create({ title: "Spagetti", ingredients: ["pasta", "salt", "water"], cuisine: "Italian", level: "Amateur Chef", dishType: "breakfast", duration: 15, creator: "Chef Deivid", })
+  .then(theNewRecipe => console.log("se ha creado una nueva receta", theNewRecipe))
+  .catch(err=> console.log(err))

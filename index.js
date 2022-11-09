@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
+const express = require('express');
+
+const app = express()
+const recipes = require("./data.json")
+
+
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
@@ -21,3 +27,18 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+Recipe.create({ title: "macarrones", ingredients: ["tomatito", "pasta"], cuisine: "italian", level: "Easy Peasy", dishType: "snack", duration: 1 })
+Recipe.insertMany(recipes)
+  .then(recipesCreated => {
+    recipesCreated.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } }, { new: true })
+  }
+
+
+  )
+Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {
+  console.log("Hemos borrado algo")
+})
+  .catch((err) => console.log(err))
+
+app.listen(5005, () => console.log('listener on port 5005'));

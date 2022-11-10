@@ -19,17 +19,35 @@ const manageRecipes = async () => {
     await Recipe.deleteMany();
 
     // Run your code here, after you have insured that the connection was made
+    const inseredData = await Recipe.insertMany(data)
+    inseredData.forEach((obj) => {
+      console.log(obj.title)
+    })
+
+    const condition = { title: "Rigatoni alla Genovese" };
+
+    await Recipe.findOneAndUpdate(condition, { duration: 100 })
+    console.log('Success!')
+
+    const toDelete = { title: "Carrot Cake" }
+    await Recipe.deleteOne(toDelete)
+    console.log('Success!')
+
   } catch (error) {
     console.log(error);
+  } finally {
+    await mongoose.connection.close();
+    console.log('Connection Closed!')
   }
 };
 
-manageRecipes();
+// manageRecipes();
+
+
 
 //Method 2: Using .then() method
 //If you want to use this method uncomment the code below:
-
-/* mongoose
+mongoose
   .connect(MONGODB_URI)
   .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
@@ -38,7 +56,24 @@ manageRecipes();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create(data)
+  })
+  .then((res) => {
+    res.forEach((obj) => {
+      console.log(obj.title)
+    })
+    const condition = { title: "Rigatoni alla Genovese" };
+    return Recipe.findOneAndUpdate(condition, { duration: 100 })
+  }).then(() => {
+    console.log('Success!')
+    const toDelete = { title: "Carrot Cake" }
+    return Recipe.deleteOne(toDelete)
+  }).then(() => {
+    console.log('Successful Delete!')
   })
   .catch((error) => {
     console.error('Error connecting to the database', error);
-  }); */
+  }).finally(() => {
+    mongoose.connection.close()
+    console.log('Connection Closed!')
+  })

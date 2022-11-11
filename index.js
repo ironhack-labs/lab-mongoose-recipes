@@ -32,4 +32,11 @@ mongoose
     return Recipe.deleteOne({title: "Carrot Cake"})
   })
 
-  mongoose.connection.close();
+  .then(()=>{
+    mongoose.connection.close();
+  })
+
+  .then(()=>{
+    console.log("Connection closed")
+  }
+  )

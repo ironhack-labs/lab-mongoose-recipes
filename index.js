@@ -15,7 +15,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
-  // Iteration 1
+  // Iteration 2
   // .then(() => {
   //   return Recipe.create({
   //     title: "Asian Glazed Chicken Thighs",

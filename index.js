@@ -27,12 +27,11 @@ mongoose
   .then (() => {
     return Recipe.deleteOne({title: "Carrot Cake"})
   })
+  .then(() => {
+    mongoose.connection.close()
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
- 
-  mongoose.connection.close()
-  .then(() => {console.log("connection close")})
-  .catch ((error) => console.log(error))
   
 

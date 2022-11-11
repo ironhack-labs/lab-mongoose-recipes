@@ -38,21 +38,21 @@ mongoose
 /*   Recipe.insertMany(data)
   .then((response) => {
     console.log(response.title)
-      mongoose.connection.close()
-  })
+    })
   .catch(err => console.log(err))
    */
 /* 
   Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
   .then((response) => {
   console.log("this is a success message: ", response)  
-    mongoose.connection.close()
     })
     .catch(err => console.log(err)) */
 
 /*     Recipe.deleteOne({title: "Carrot Cake"})
     .then((response) => {
       console.log("this is another success message: ", response)
-          mongoose.connection.close()
     })
     .catch(err => console.log(err)) */
+
+
+    mongoose.connection.close()

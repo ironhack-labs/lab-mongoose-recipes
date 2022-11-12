@@ -42,7 +42,7 @@ const manageRecipes = async () => {
 
     const condition = { title: "Rigatoni alla Genovese" };
 
-    await Recipe.findOneAndUpdate(condition, { duration: 100 })
+    await Recipe.findOneAndUpdate(condition, { duration: 100 }, {new:true}) // {new:true } we will not receive the updated one! 
     console.log('Success!')
 
     const toDelete = { title: "Carrot Cake" }

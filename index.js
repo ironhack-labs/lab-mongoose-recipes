@@ -19,6 +19,22 @@ const manageRecipes = async () => {
     await Recipe.deleteMany();
 
     // Run your code here, after you have insured that the connection was made
+    // insert one 
+    const myReceipe = {
+      title: 'xxxxx',
+      level: 'Amateur Chef',
+      ingredients: ['chocolate', 'yougurt'],
+      cuisine: 'Chinese',
+      dishType: 'snack',
+      duration: 15,
+      creator: 'José'
+    }
+    const createReceipe = await Recipe.create(myReceipe);
+    console.log(createReceipe.title);
+
+
+
+    // inset Multiple 
     const inseredData = await Recipe.insertMany(data)
     inseredData.forEach((obj) => {
       console.log(obj.title)
@@ -53,8 +69,20 @@ mongoose
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
+  }).then(() => {
+    const myReceipe = {
+      title: 'xxxxx',
+      level: 'Amateur Chef',
+      ingredients: ['chocolate', 'yougurt'],
+      cuisine: 'Chinese',
+      dishType: 'snack',
+      duration: 15,
+      creator: 'José'
+    }
+    return Recipe.create(myReceipe);
   })
-  .then(() => {
+  .then((myRecipe) => {
+    console.log(myRecipe.title);
     // Run your code here, after you have insured that the connection was made
     return Recipe.create(data)
   })

@@ -16,8 +16,47 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Iteration 2
+    Recipe.create({
+      title: "Mojito",
+      level: "Easy Peasy",
+      ingredients: [
+        "1 cup mineral water",
+        "60mL white rum",
+        "4 Limes - juice only",
+        "2 teaspons sugar",
+        "A few leaves fresh mint"
+      ],
+      cuisine: "Cuban",
+      dishType: "drink",
+      image: "https://cookieandkate.com/images/2020/08/best-mojito-recipe-2.jpg",
+      duration: 10,
+      creator: "Sir Richard Drake",
+      created: "1586"
+    })
+    .then(recipe => console.log(recipe.title))
+    .catch(err => console.log)
+
+    // Iteration 3
+    Recipe.insertMany(data)
+      .then( result => {
+        result.forEach(recipe => {
+          console.log(recipe.title)
+        })
+      })
+      .catch(err => console.log)
+      .then(() => { // Iteration 4
+        Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+          .then(result => console.log(`Successfully updated ${result.title}`))
+          .catch(err => console.log)
+      })
+      .then(() => { // Iteration 5
+        Recipe.deleteOne({title: "Carrot Cake"})
+          .then(() => console.log("Sucessfully deleted Carrot Cake"))
+          .catch(err => console.log)
+          .then(() => mongoose.connection.close()) // Iteration 6
+      })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })

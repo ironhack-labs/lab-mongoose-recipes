@@ -21,9 +21,9 @@ mongoose
             .then(createdRecipe => console.log(createdRecipe))
             .catch(error => {
                 console.error('Error connecting to the database', error);
-        
+
             })
-            
+
         // Run your code here, after you have insured that the connection was made
     })
     .then(() => {
@@ -36,22 +36,22 @@ mongoose
             .then(updateRecipe => console.log(updateRecipe, "updated sucesfull!"))
             .catch(error => {
                 console.error('Error connecting to the database', error);
-        
+
             })
     })
     .then(() => {
         return Recipe.deleteOne(
             { title: "Carrot Cake" }
         )
-            .then(deleteRecipe => console.log(deleteRecipe, "Carrot cake deleted sucesfull!"))
+            .then(deleteRecipe => console.log(deleteRecipe, "Carrot cake deleted sucesfull"))
             .catch(error => {
                 console.error('Error connecting to the database', error)
             });
     })
-    // .then(() => {
-    //     mongoose.connection.close()
-    //     console.log("close")
-    // })
+    .then(() => {
+        mongoose.connection.close()
+        console.log("close")
+    })
     .catch(error => {
         console.error('Error connecting to the database', error);
 

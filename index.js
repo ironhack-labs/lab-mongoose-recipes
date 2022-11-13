@@ -33,7 +33,7 @@ mongoose
             },
             { duration: 100 },
             { new: true })
-            .then(updateRecipe => console.log(updateRecipe, "updated sucesfull!"))
+            .then(updateRecipe => console.log(updateRecipe, "updated sucesfull!!"))
             .catch(error => {
                 console.error('Error connecting to the database', error);
 

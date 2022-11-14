@@ -22,17 +22,18 @@ mongoose
   })
 
   .then(() => {
-    return Recipe.insertmMany(data)
+    return Recipe.insertMany(data)
   })
 
+  
   .then(() => {
     return Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {duration: 100})
   })
-
+  
   .then(() => {
     return Recipe.deleteOne({title: "carrot cake"})
   })
-
+  
   .then(() => {
     mongoose.connection.close()
   })

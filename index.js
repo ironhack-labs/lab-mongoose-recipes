@@ -16,8 +16,43 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    let savedRecipe = Recipe.create( {
+      title: "Borscht",
+      level: "Easy Peasy",
+      ingridients: ["Onion", "Beet", "Beef", "Cabbage", "Carrot", "Potato", "Tomato sauce", "Basil leave", "Salt & Pepper", "Fresh dill"],
+      cuisine: "Ukrainian",
+      dishType: "soup",
+      image: "https://instantpoteats.com/wp-content/uploads/2017/06/instant-pot-borscht-beet-soup-feature.jpg",
+      duration: 2,
+      creator: "Ukrainians"
+    })
+    console.log(savedRecipe)
   })
+  .then((savedRecipe) => {
+    console.log(`New recipe ${savedRecipe} was added to database`)
+    return Recipe.insertMany(data);
+  })
+  .then((RecipeList) => {
+        RecipeList.forEach((r) => {
+          console.log(r.title)
+        });
+        return Recipe.findOneAndUpdate(
+          {title: "Rigatoni alla Genovese"},
+          {duration: 100}
+        )
+  })
+.then(() => {
+  console.log("The Rigatoni alla Genovese Recipe had been updated successfully!")
+  return Recipe.deleteOne({title: "Carrot Cake"})
+})
+.then(() => {
+  console.log("Carrot Cake recipe was deleted successfully!")
+  return mongoose.connection.close()
+})
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+ 

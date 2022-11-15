@@ -25,10 +25,23 @@ mongoose
 
   index.get ('/:title', async (req, res) => {
     const {title} = req.params
-    const newRecipe = await Recipe.create ({title: 'Ovo Frito', level: 'Easy Peasy', ingredients: ['Ovo', 'Sal'], cuisine: 'Brazilian', dishType: 'breakfast', duration: '2' })
-    res.json(newRecipe)
+    try{
+        const newRecipe = await Recipe.create ({title: 'Ovo-Frito', level: 'Easy Peasy', ingredients: ['Ovo', 'Sal'], cuisine: 'Brazilian', dishType: 'breakfast', duration: '2' })
+        res.json(newRecipe)
+    } catch (err){
+      res.json(err)
+    }
   })
 
+  index.get ('/all-recipes', async (req, res) => {
+    try{
+      const allRecipes = await Recipe.insertMany (data)
+      res.json(allRecipes)
+    } catch (err){
+      res.json(err.message)
+    }
+  })
+  
   index.listen(5000, () => {
     console.log ('server running')
   })

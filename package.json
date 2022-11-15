@@ -1,17 +1,32 @@
 {
   "name": "lab-mongoose-recipes",
   "version": "1.0.0",
-  "description": "",
+  "description": "![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)",
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
-    "dev": "node ./index.js"
+    "dev": "nodemon index.js"
   },
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.20"
   },
   "dependencies": {
-    "mongoose": "^6.1.2"
-  }
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.7.2",
+    "morgan": "^1.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoxanieFernandes/lab-mongoose-recipes.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/RoxanieFernandes/lab-mongoose-recipes/issues"
+  },
+  "homepage": "https://github.com/RoxanieFernandes/lab-mongoose-recipes#readme"
 }

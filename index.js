@@ -46,6 +46,11 @@ mongoose
     let recipe = await Recipe.findOneAndUpdate ({title: "Rigatoni alla Genovese"}, {duration: 100})
     res.json(recipe)
   })
+
+  index.get ('/delete', async (req, res) => {
+    const recipe = await Recipe.deleteOne ({title: "Carrot Cake"})
+    res.json(recipe)
+  })
   
   index.listen(5000, () => {
     console.log ('server running')

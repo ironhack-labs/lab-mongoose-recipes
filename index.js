@@ -35,11 +35,16 @@ mongoose
 
   index.get ('/all-recipes', async (req, res) => {
     try{
-      const allRecipes = await Recipe.insertMany (data)
+      let allRecipes = await Recipe.insertMany (data)
       res.json(allRecipes)
     } catch (err){
       res.json(err.message)
     }
+  })
+
+  index.get ('/find', async (req, res) => {
+    let recipe = await Recipe.findOneAndUpdate ({title: "Rigatoni alla Genovese"}, {duration: 100})
+    res.json(recipe)
   })
   
   index.listen(5000, () => {

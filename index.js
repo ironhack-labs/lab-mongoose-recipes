@@ -17,7 +17,53 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title:"palomitas de pollo",
+      level:"Easy Peasy",
+      ingredients: ["chicken", "huebo"],
+      cuisine:"Mexico",
+      dishType:"snack",
+      duration: 30,
+      creator:"yo",
+    }).then((recipe)=>{
+      console.log(recipe.title)
+    })
+  ///
+  Recipe.insertMany(data)
+  .then((recipes)=>{
+    recipes.forEach((recipe)=>{
+      console.log(recipe.title)
+    })
+
+
+    
+  }).finally(()=>{
+    Recipe.findOneAndUpdate({
+      title:"Rigatoni alla Genovese"
+    }, {
+      duration:100,
+    }).then(()=>{
+      console.log("updated")
+    })
+
+
+    Recipe.deleteOne({
+      title:"Carrot Cake"
+    }).then(()=>{
+      console.log("deleted")
+    }).finally(()=>{
+      mongoose.connection.close()
+    })
+  
+  })
+  ////
+
+
+
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+

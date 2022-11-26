@@ -18,6 +18,16 @@
     "creator": "Chef LePapu"
   },
   {
+  "title": "Chicken Noodle Soup ",
+  "level": "Amateur Chef",
+  "indredients":["Butter", "1 Onion", "2 Carrots", "Chicken", "Noodles", "Lemon juice"],
+  "cuisine": "American",
+  "dishType": "soup",
+  "image": "https://images.media-allrecipes.com/images/75131.jpg",
+  "duration": 60,
+  "creator": "Mar Molina"
+  },
+  {
     "title": "Orange and Milk-Braised Pork Carnitas",
     "level": "UltraPro Chef",
     "ingredients": [

@@ -30,7 +30,7 @@ We've learned how to use Mongoose to create Schemas and then interact with our M
 
 ### Iteration 0: Initial setup
 
-To run the application, the first thing you have to do is to install all of its dependencies. Run the following command:
+To run the application, the first thing you have to do is install all of its dependencies. Run the following command:
 
 ```shell
 npm install
@@ -56,7 +56,7 @@ Create a `Recipe` model inside of the file `/models/Recipe.model.js`. The schema
 
 ### Iteration 2 - Create a recipe
 
-In the `index.js`, we first connect to the database useing `mongoose.connect()` and following the connection we call the method `Recipe.deleteMany()` to remove any existing documents from the recipes collection:
+In the `index.js`, we first connect to the database using `mongoose.connect()` and following the connection we call the method `Recipe.deleteMany()` to remove any existing documents from the recipes collection:
 
 ```js
 // ...
@@ -75,7 +75,7 @@ mongoose
 
 Then, you should add a new recipe document to the database by calling the [`Model.create`](https://mongoosejs.com/docs/api.html#model_Model.create) method and passing it the recipe details as an object. After inserting the recipe, you should `console.log` the `title` of the recipe.
 
-You can use MongoDB Compass to double check that everything is working as intended.
+You can use MongoDB Compass to double-check that everything is working as intended.
 
 **To run your code, remember you should use:**
 
@@ -87,7 +87,7 @@ node index.js
 
 ### Iteration 3 - Insert multiple recipes
 
-We are importing an array of recipes form the `data.json` file. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) method, you should add the entire array to the database. After inserting the documents, print the title of each recipe to the console.
+We are importing an array of recipes from the `data.json` file. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) method, you should add the entire array to the database. After inserting the documents, print the title of each recipe to the console.
 
 Tip: Follow the same tip as in the previous step.
 

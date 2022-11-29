@@ -23,7 +23,7 @@ We've learned how to use Mongoose to create Schemas and then interact with our M
   git push origin master
   ```
 
-- Create Pull Request so that the TAs can check your work.
+- Create Pull Request so your TAs can check up your work.
 
 ## Instructions
 

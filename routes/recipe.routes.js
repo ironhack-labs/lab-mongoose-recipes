@@ -23,7 +23,7 @@ recipeRoute.post("/create-many", async (req, res) => {
 
 //Iteration 4 - Update recipe
 
-//findOneAndUpdate()
+//findOneAndUpdate();
 /* recipeRoute.put("/edit/:id", async (req, res) => {
   const { id } = req.params;
   try {

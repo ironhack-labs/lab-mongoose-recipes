@@ -1,55 +1,93 @@
-const mongoose = require('mongoose');
-const express = require("express");
+//importar o express
+import express from "express";
 
-const router = express.Router();
+//o roteador
+const recipeRoute = express.Router();
 
-const data = require("../data.json")
-const Recipe = require('../models/Recipe.model');
-const { json } = require('express/lib/response');
+//importar o Model:
+import RecipeModel from "../model/recipe.model.js";
 
-// no insomnia: http://localhost:8080/recipes/create-recipe
-router.post('/create-recipe', async (req, res) => {
-    try {
-        const newRecipe = await Recipe.create(req.body);        
-        return res.status(201).json(newRecipe)
-    } catch (err) {
-        return res.status(500).json(err);
-    }
+//Iteration 2 - Create a recipe
+recipeRoute.post("/create", async (req, res) => {
+  const recipe = await RecipeModel.create({ ...req.body });
+
+  return res.status(201).json(recipe.title);
 });
 
-// no insomnia: http://localhost:8080/recipes/create-posts
-router.post("/create-posts", async (req, res) => {
-    try {        
-        const newRecipes = await Recipe.insertMany(data);        
-        return res.status(201).json(newRecipes);
-    } catch (err) {
-        return res.status(500).json(err);
-    }     
+//Iteration 3 - Insert multiple recipes -
+//insertMany() -> ver na documentação que precisa receber um array!
+recipeRoute.post("/create-many", async (req, res) => {
+  const recipes = await RecipeModel.insertMany([...req.body]);
+  return res.status(200).json(recipes);
 });
 
+//Iteration 4 - Update recipe
 
-// no insomnia: http://localhost:8080/recipes/update/Carrot%20Cake/100
-router.put('/update/:title/:duration', async (req, res) => {
-    const { title, duration } = req.params;
-    try {
-        const updateRecipe = await Recipe.findOneAndUpdate({ title: title }, {duration: Number(duration)})
-        return res.status(200).json(updateRecipe)
-    } catch (error) {
-        return res.status(500).json(error);
-    }
+//findOneAndUpdate()
+/* recipeRoute.put("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updateRecipe = await Recipe.findOneAndUpdate(
+      { _id: id }
+    );
+    return res.status(200).json(updateRecipe);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}); */
+
+//findByIdAndUpdate()
+recipeRoute.put("/edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    //findByIdAndUpdate recebe 3 parâmetros:
+    //o filtro -> id
+    //as modificações -> {...req.body}
+    //um objeto de configuração {new: true, runValidators: true}
+    //new: true → retorna o documento atualizado
+    //runValidators → roda as validações definidas no schema
+    const updatedRecipe = await RecipeModel.findByIdAndUpdate(
+      id,
+      { ...req.body },
+      { new: true, runValidators: true }
+    );
+    return res.status(200).json(updatedRecipe);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error.errors);
+  }
 });
 
-// no insomnia: http://localhost:8080/recipes/delete/Carrot%20Cake
-router.delete('/delete/:title', async (req, res) => {
-    const { title } = req.params;
+//Iteration 5 - Remove a recipe
+/* 
+// deleteOne()
+router.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-        const deleteRecipe = await Recipe.deleteOne({ title: title });
+        const deleteRecipe = await Recipe.deleteOne({ _id: id });
         return res.status(200).json(deleteRecipe);
     } catch (error) {
         return res.status(500).json(error);
     }
 });
+*/
 
+// findByIdAndDelete()
+recipeRoute.delete("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedRecipe = await RecipeModel.findByIdAndDelete(id);
 
+    //caso o id não exista na coleção
+    if (!deletedRecipe) {
+      return res.status(400).json({ msg: "Recipe not found." });
+    }
 
-module.exports = router;
+    return res.status(200).json(deletedRecipe);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error.errors);
+  }
+});
+
+export default recipeRoute;

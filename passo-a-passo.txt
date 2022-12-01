@@ -1,0 +1,17 @@
+1. Criar a pasta do projeto
+2. No terminal: $npm init -y
+3. Instalar as dependências: 
+    $npm install express dotenv mongoose
+    $npm install nodemon -D
+4. Alterar no package.json:
+    "type": "module" -> adicionar
+    "dev": "nodemon index.js" -> alterar
+5. Criar o arquivo index.js
+6. Configurar o express;
+7. Configurar as variáveis de ambiente:
+    .env ->  PORT=8080 e MONGODB_URI=mongodb://127.0.0.1:27017/recipes
+    .gitignore -> /node_modules  e  .env
+    .example.env -> PORT=  e  MONGODB_URI=
+8. Configurar o banco de dados -> pasta config e arquivo db.config.js com a função assíncrona connect()
+9. Criar os Schemas -> pasta model e arquivo recipe.model.js
+10. Criar as rotas -> pasta routes e arquivo recipe.routes.js

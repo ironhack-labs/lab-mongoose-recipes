@@ -1,15 +1,20 @@
-const mongoose = require('mongoose');
-const Recipe = require('../models/Recipe.model');
+//AQUI VÃO AS CONFUGURAÇÕES DO BANCO DE DADOS
 
+//importar o mongoose
+import mongoose from "mongoose";
+
+//O Mongoose é ima biblioteca de programação orientada a objeros JAvascript que cria uma conexão entre o MongoDB e o ambiente de execução NodeJS. Cria uma solução baseada em esquemas para modular os dados da aplicação. Possui sistema de conversão de tipos, validação, criação de consultas e hooks para lógica de negóscios. Ou seja, é um tradutor entre objetos no código e a representação desses objetos no MongoDB
+
+//criar função assíncrona de conexão (porque vai sair do server, ir até o banco de dados e depois voltar - retornará uma promise, e temos que aguardar o retorno dela)
 async function connect() {
-    const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
-    try{
-        const connection = await mongoose.connect(MONGODB_URI);
-        console.log(`Connected to the database: "${connection.connection.name}`)
-        //Recipe.deleteMany();
-    } catch (error) {
-        console.error("Database connection error:", error)
-    }
+  try {
+    //para se conectar ao banco de dados através do mongoose, usando o método .connect() do próprio mongoose
+    const dbConnection = await mongoose.connect(process.env.MONGODB_URI);
+    console.log(`Connected to the database: ${dbConnection.connection.name}`);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-module.exports = connect;
+//exportar a função de conexão, para invocá-la no momento em que a aplicação for executada, ou seja, no index.js!
+export default connect;

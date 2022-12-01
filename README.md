@@ -17,7 +17,7 @@ We've learned how to use Mongoose to create Schemas and then interact with our M
 
 - Upon completion, run the following commands:
 
-  ```
+  ```shell
   git add .
   git commit -m "Completed lab"
   git push origin master
@@ -26,6 +26,17 @@ We've learned how to use Mongoose to create Schemas and then interact with our M
 - Create Pull Request so your TAs can check up your work.
 
 ## Instructions
+
+
+### Iteration 0: Initial setup
+
+To run the application, the first thing you have to do is install all of its dependencies. Run the following command:
+
+```shell
+npm install
+```
+
+
 
 ### Iteration 1 - Recipe Schema
 
@@ -41,36 +52,61 @@ Create a `Recipe` model inside of the file `/models/Recipe.model.js`. The schema
 - **creator** - Type `String`.
 - **created** - Type `Date`. By default, today.
 
+
+
 ### Iteration 2 - Create a recipe
 
-In `index.js`, after the connection to the database has been established, you should add a new recipe document to the database by calling the [`Model.create`](https://mongoosejs.com/docs/api.html#model_Model.create) static, passing it the recipe details as an object. After inserting the recipe, you should `console.log` the `title` of the recipe.
+In the `index.js`, we first connect to the database using `mongoose.connect()` and following the connection we call the method `Recipe.deleteMany()` to remove any existing documents from the recipes collection:
 
-You can use MongoDB Compass to double check that everything is working as intended.
+```js
+// ...
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(x => {
+    console.log(`Connected to the database: "${x.connection.name}"`);
+    // Before adding any recipes to the database, let's remove all existing ones
+    return Recipe.deleteMany();
+  })
+// ...
+```
+
+
+
+Then, you should add a new recipe document to the database by calling the [`Model.create`](https://mongoosejs.com/docs/api.html#model_Model.create) method and passing it the recipe details as an object. After inserting the recipe, you should `console.log` the `title` of the recipe.
+
+You can use MongoDB Compass to double-check that everything is working as intended.
 
 **To run your code, remember you should use:**
 
 ```shell
-$ node index.js
+node index.js
 ```
 
-Tip: When you have successfully created a new recipe (you see it in the database using Compass tool), you might want to comment out this step. The reason for this is that next time when you run `$ node index.js`, it will try to create a new recipe with the same name and you will get an error in the terminal related to the *duplicate keys* - the title should be unique, and the dish with that title already exists in the database.
+
 
 ### Iteration 3 - Insert multiple recipes
 
-We are importing an array of recipes form the `data.json` file. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) static, you should add the entire array to the database. After inserting the documents, print the title of each recipe to the console.
+We are importing an array of recipes from the `data.json` file. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) method, you should add the entire array to the database. After inserting the documents, print the title of each recipe to the console.
 
 Tip: Follow the same tip as in the previous step.
 
+
+
 ### Iteration 4 - Update recipe
 
-Now you should have six different recipes in the database, but there was a mistake in one of them. The **Rigatoni alla Genovese** does not take that long. You should update the `duration` field and set it to **100**. You might want to use the [`Model.findOneAndUpdate`](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) static. After updating it, print a success message!
+Now you should have six different recipes in the database, but there was a mistake in one of them. The **Rigatoni alla Genovese** does not take that long. You should update the `duration` field and set it to **100**. You might want to use the [`Model.findOneAndUpdate`](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) method. After updating it, print a success message!
+
+
 
 ### Iteration 5 - Remove a recipe
 
-Oh oh! The `Carrot Cake` is no longer available, so we need to remove it from the database. Using the [`Model.deleteOne`](https://mongoosejs.com/docs/api.html#model_Model.deleteOne) static, remove that recipe from the database and display a success message after doing it!
+Oh oh! The `Carrot Cake` is no longer available, so we need to remove it from the database. Using the [`Model.deleteOne`](https://mongoosejs.com/docs/api.html#model_Model.deleteOne) method, remove that recipe from the database and display a success message after doing it!
+
+
 
 ### Iteration 6 - Close the Database
 
-After completing every task, you need to close the database. Otherwise, the connection will stay open until the node.js process dies. Pay attention to the asynchronicity of the operation. You should only close the connection after everything is done! :wink:
+As the last step, you need to close the database. Otherwise, the connection will stay open until the Node.js process dies. Pay attention to the asynchronicity of the operation. You should only close the connection after everything is done! :wink:
 
 Happy coding! 💙

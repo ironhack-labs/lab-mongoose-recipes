@@ -43,9 +43,10 @@ const recipeSchema = new Schema(
 );
 
 //modelo da collection:
-//.model(1º parâmetro: "nome do modelo"(nome do arquivo), 2º Parâmetro: o schema)
-// = exportando um modelo (.model), que tem o nome "Recipe" (1º parâmetro), e segue a receita do recipeSchema (2º parâmetro)
+//Models são construtores de ordem superior, que utilizam um esquema e instanciam um documento equivalente aos registros de banco de dados relacional
+//.model(1º parâmetro: "nome do modelo"(nome do arquivo - no singular e primeira letra em maiúsculo), 2º Parâmetro: o schema)
 const RecipeModel = model("Recipe", recipeSchema);
 
 //exportar!
+// = exportando um modelo (.model), que tem o nome "Recipe" (1º parâmetro), e segue a receita do recipeSchema (2º parâmetro)
 export default RecipeModel;

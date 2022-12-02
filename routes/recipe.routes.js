@@ -8,7 +8,7 @@ const recipeRoute = express.Router();
 import RecipeModel from "../model/recipe.model.js";
 
 //Iteration 2 - Create a recipe, recebeo i ID do Usuario que esta criando
-router.post("/create/:id", async (req, res) => {
+recipeRoute.post("/create/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const newRecipe = await Recipe.create({ ...req.body, creator: id });

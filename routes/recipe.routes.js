@@ -7,11 +7,25 @@ const recipeRoute = express.Router();
 //importar o Model:
 import RecipeModel from "../model/recipe.model.js";
 
-//Iteration 2 - Create a recipe
-recipeRoute.post("/create", async (req, res) => {
-  const recipe = await RecipeModel.create({ ...req.body });
-
-  return res.status(201).json(recipe.title);
+//Iteration 2 - Create a recipe, recebeo i ID do Usuario que esta criando
+router.post("/create/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const newRecipe = await Recipe.create({ ...req.body, creator: id });
+    const addFav = await User.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          recipes: newRecipe._id,
+        },
+      },
+      { new: true }
+      
+    );
+    return res.status(200).json(newRecipe)
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //Iteration 3 - Insert multiple recipes -
@@ -77,8 +91,17 @@ router.delete('/delete/:id', async (req, res) => {
 recipeRoute.delete("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedRecipe = await RecipeModel.findByIdAndDelete(id);
-
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
+    console.log(deletedRecipe)
+     await User.findByIdAndUpdate(
+      deletedRecipe.creator,
+      {
+        $pull: {
+          recipes: recipeId,
+        },
+      },
+      { new: true }
+      );
     //caso o id não exista na coleção
     if (!deletedRecipe) {
       return res.status(400).json({ msg: "Recipe not found." });

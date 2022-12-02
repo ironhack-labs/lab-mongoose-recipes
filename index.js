@@ -8,6 +8,7 @@ import * as dotenv from "dotenv"; //pq a documentação manda importar dessa man
 
 //9. importar as rotas
 import recipeRoute from "./routes/recipe.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 //3. habilitar o servidor a ter variáveis de ambiente
 dotenv.config();
@@ -27,6 +28,7 @@ connect();
 
 //10. CRIAR AS ROTAS NA PASTA ROUTE E IMPORTAR:
 app.use("/recipe", recipeRoute);
+app.use("/user", userRoutes);
 
 //NO FINAL DO ARQUIVO
 //6. Servirdor subindo para o ar: .listen() recebe dois parâmetros: 1. porta (que está definida no .env: process.env entra no arquivo .env, e PORT é a key do arquivo), 2. callback com console.log

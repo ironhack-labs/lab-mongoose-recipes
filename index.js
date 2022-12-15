@@ -40,7 +40,13 @@ mongoose
         duration: 100
       })
   })
-  .then(()=>console.log("success!"))
+  .then(() => console.log("Update the duration of Rigatoni alla Genovese successfully!"))
+  .then(() => {
+    return Recipe.deleteOne({
+      title: "Carrot Cake"
+      })
+  })
+  .then(() => console.log("Remove the Carrot cake successfully!"))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

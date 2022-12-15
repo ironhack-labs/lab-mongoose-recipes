@@ -17,6 +17,24 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    Recipe.create({
+      title: "Spaghetti alla Carbonara",
+      level: "Easy Peasy",
+      ingredients: [
+        "350g of spaghetti",
+        "200g of guanciale",
+        "4 whole medium eggs (1 egg per serving)",
+        "100g of grated Pecorino Romano cheese",
+        "Ground black pepper",
+      ],
+      cuisine: "Italian",
+      dishType: "main_course",
+      duration: 25,
+      creator: "Italians from within Rome",
+    })
+    .then(recipe => console.log(recipe.title))
+    .catch(error => console.log(error))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

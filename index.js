@@ -35,10 +35,17 @@ return Recipe.insertMany(data)
   }
    )
 .then((responseFromDB)=>{
-console.log(responseFromDB.title);
-console.log("Successfully updated")
+//console.log(responseFromDB.title);
+//console.log("Successfully updated")
+return Recipe.deleteOne({title: "Carrot Cake"})
 })
- 
+.then((responseFromDB)=>{
+  //console.log("Success")
+  return mongoose.disconnect()
+}) 
+.then((responseFromDB) => {
+  console.log("disconnected")
+})
 .catch(error => {
     console.error('Error connecting to the database', error);
   });

@@ -17,7 +17,7 @@ mongoose
   })
   .then(() => {
     // iteration 2: create a recipe
-    Recipe.create({
+    const newRecipe = {
       title: "Spaghetti alla Carbonara",
       level: "Easy Peasy",
       ingredients: [
@@ -30,20 +30,37 @@ mongoose
       cuisine: "Italian",
       dishType: "main_course",
       duration: 25,
-      creator: "Italians from within Rome",
+      creator: "Chef Thalita",
+    }
+
+    return Recipe.create(newRecipe);
+  })
+  .then((newRecipe) => {
+    console.log(newRecipe)
+  })
+  .then(() => {
+    return Recipe.insertMany(data) // iteration 3: insert multiple recipes
+  })
+  .then((data) => {
+    data.forEach(recipe => {
+      console.log(recipe.title)
     })
-    .then(recipe => console.log(recipe.title))
-    .catch(error => console.log(error))
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: '100'}) //iteration 4: update recipe
+  })
+  .then(() => {
+    console.log('Updated the duration of Rigatoni alla Genovese')
+  })
+  .then(() => {
+    return Recipe.deleteOne({title: "Carrot Cake"}) //iteration 5: remove carrot cake
+  })
+  .then(() => {
+    console.log("Carrot Cake has been deleted.")
+  })
+  .then(() => {
+    mongoose.disconnect(); //iteration 6: close the database
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-  // iteration 3: insert multiple recipes
-  Recipe.insertMany(data)
-  .then(recipe => {
-    recipe.forEach(recipe => {
-      console.log(recipe.title)
-    })
-  })
-  .catch(error => console.log(error))

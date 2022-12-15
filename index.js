@@ -16,8 +16,7 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-
+    // iteration 2: create a recipe
     Recipe.create({
       title: "Spaghetti alla Carbonara",
       level: "Easy Peasy",
@@ -39,3 +38,12 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  // iteration 3: insert multiple recipes
+  Recipe.insertMany(data)
+  .then(recipe => {
+    recipe.forEach(recipe => {
+      console.log(recipe.title)
+    })
+  })
+  .catch(error => console.log(error))

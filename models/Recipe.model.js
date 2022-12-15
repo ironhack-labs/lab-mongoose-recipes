@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
+  // TODO: write the schema
   title: {
     type: String,
     required: true,
@@ -9,7 +10,7 @@ const recipeSchema = new Schema({
   },
   level: {
     type: String,
-    enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef "]
+    enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"]
   },
   ingredients: {
     type: [String],
@@ -36,6 +37,7 @@ const recipeSchema = new Schema({
     type: Date,
     default: 12/15/2022
   }
+
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

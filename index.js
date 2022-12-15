@@ -26,7 +26,15 @@ mongoose
     return Recipe.create(newRecipe)
   })
   .then((responseFromDB) => {
-    console.log(responseFromDB.title)
+    //console.log(responseFromDB.title)
+return Recipe.insertMany(data)
+
+  })
+  .then((responseFromDB)=>{
+    responseFromDB.forEach(elm =>{
+      console.log(elm.title);
+    })
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

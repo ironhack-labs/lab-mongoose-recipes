@@ -16,7 +16,20 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const newRecipe = {
+      title: "Tiarmisu",
+      level: "Amateur Chef",
+      ingredients:["eggs","sugar","ladyfingers","coffee","marscapone","rum","vanille","cream"],
+      cuisine: "Italian",
+      dishType: "dessert",
+      image: "https://www.sandravalvassori.com/wp-content/uploads/2022/04/Tiramisu-11484.jpg",
+      duration: 240,
+      creator: "Ado Campeol"
+    }
+    return Recipe.create(newRecipe)
+  })
+  .then((newRecipe) => {
+    console.log(newRecipe.created);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

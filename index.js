@@ -5,7 +5,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -16,8 +16,49 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: 'Chicken Parmi',
+      level: 'Amateur Chef',
+      ingredients: ['Chicken Breast', 'Bread Crumbs', 'Egg', 'Ham', 'Cheese', 'Tomato Puree', 'Garlic'],
+      cuisine: 'Australian Pub',
+      dishType: 'main_course',
+      image: 'recipes-chickenparmi.jpg',
+      duration: 60,
+      creator: 'Matt Hamilton'
   })
+  }) 
+  .then((recipe) => {
+    console.log(recipe.title)
+  })
+
+  .then((crocodile) => {
+    return Recipe.insertMany(data)
+  })
+
+  .then((crocodile) => {
+    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'},{duration:100})
+  })
+  .then(() => {
+    console.log('SUCCESS')
+  })
+
+  .then(() => {
+    return Recipe.deleteOne({title:'Carrot Cake'})
+  })
+  .then(() => {
+    console.log('SUCCESS!!!!')
+  })
+
+  .then(() => {
+    mongoose.disconnect();
+  })
+
+  .then(() => {
+    console.log('we disconnected')
+  })
+
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+

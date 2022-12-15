@@ -49,4 +49,8 @@ mongoose
   .then(() => console.log("Remove the Carrot cake successfully!"))
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
+  .then(()=> {
+    mongoose.disconnect();
+  })
+

@@ -26,11 +26,21 @@ mongoose
       duration: 240,
       creator: "Ado Campeol"
     }
+    console.log(newRecipe.title);
     return Recipe.create(newRecipe)
   })
-  .then((newRecipe) => {
-    console.log(newRecipe.created);
+  .then(() => {
+    return Recipe.insertMany(data);
   })
+  .then(() => {
+    return Recipe.findOneAndUpdate({
+      title: "Rigatoni alla Genovese"
+      },
+      {
+        duration: 100
+      })
+  })
+  .then(()=>console.log("success!"))
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

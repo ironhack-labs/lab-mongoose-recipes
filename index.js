@@ -15,9 +15,41 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+  .then(() => 
     // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
+    //ITERATION 2
+    Recipe.create({
+      title: "Spaghetti Carbonara",
+      level: "Easy Peasy",
+      ingredients: ["spaghetti", "eggs", "pancetta", "parmesan cheese", "black pepper"],
+      cuisine: "italian",
+      dishType: "main_course",
+      image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-1001491_11-2e0fa5c.jpg?resize=768,574",
+      duration: 15,
+      creator: "Gustavo"})
+      )
+    .then(Recipe => console.log("title of recipe", Recipe.title))
+    .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+    });
+
+    //ITERATION 3
+    Recipe.deleteMany()
+
+    .then(() => Recipe.insertMany(data)) 
+    .then(recipe => console.log("title of recipes", Recipe.title))
+    .catch(error => {
+    console.error('Error insert many', error);
+    });
+    //ITERATION 4
+    Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    .then(Recipe => console.log('updated Recipe: '))
+
+    //ITERATION 5
+    Recipe.deleteOne({title: "Carrot Cake"})
+    .then(Recipe => console.log('deleted recipe'))
+
+
+    //ITERATION 6
+    // .then(() => mongoose.disconnect())
+    // .catch(err => {console.log(err)})

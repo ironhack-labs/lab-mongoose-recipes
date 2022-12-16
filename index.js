@@ -18,7 +18,7 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     return Recipe.create({title: "Palak Paneer", level: "UltraPro Chef", ingredients: ["spinach", "paneer", "tomatoes", "onion", "ghee", "masalas"], cuisine: "main_course", image: "https://images.media-allrecipes.com/images/75131.jpg", duration: 120, creator: "Chef India", created: "2016-05-18T16:00:00Z"})
-    .then(newRecipe => console.log(`Your recipe is: ${newRecipe}`))
+    .then(newRecipe => console.log(`Your recipe is: ${newRecipe.title}`))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -17,7 +17,9 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create({
+    // Iteration 2 - Create a recipe
+    // console.log(`You've just added new recipe to you database`);
+    return Recipe.create({
       title: "Pelmeni",
       level: "Amateur Chef",
       ingredients: [
@@ -32,24 +34,36 @@ mongoose
       ],
       cuisine: "Russian",
       dishType: "main_course",
-      // image: "https://images.media-allrecipes.com/images/75131.jpg",
-      duration: 90,
+      // image: "https://img.delo-vcusa.ru/2020/04/pelmeni-moskovskie.jpg",
+      duration: 60,
       creator: "Olga",
     });
   })
+  .then((newRecipeAdded) => {
+    console.log(newRecipeAdded.title);
+  })
+  // Iteration 3 - Insert multiple recipes
   .then(() => {
     Recipe.insertMany(data);
+  })
+  // Iteration 4 - Update recipe
+  .then(() => {
+    console.log("Success. Document has been updated");
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    );
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
 
-Recipe.findOneAndUpdate(
-  { title: "Rigatoni alla Genovese" },
-  { creator: "Omar" },
-  { new: true }
-)
-  .then((result) => {
-    console.log(`Success. Document has ben updated: ${result}`);
-  })
-  .catch((err) => console.log(err));
+// Recipe.findOneAndUpdate(
+//   { title: "Rigatoni alla Genovese" },
+//   { creator: "Omar" },
+//   { new: true }
+// )
+//   .then((result) => {
+//     console.log(`Success. Document has ben updated: ${result}`);
+//   })
+//   .catch((err) => console.log(err));

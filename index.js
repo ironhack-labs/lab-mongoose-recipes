@@ -44,14 +44,21 @@ mongoose
   })
   // Iteration 3 - Insert multiple recipes
   .then(() => {
-    Recipe.insertMany(data);
+    return Recipe.insertMany(data);
   })
   // Iteration 4 - Update recipe
   .then(() => {
-    console.log("Success. Document has been updated");
+    // console.log("Success. Document has been updated");
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
-      { duration: 100 }
+      { duration: 100 },
+      // in order to see updates in the terminal!!!
+      { new: true }
+    );
+  })
+  .then((recipeUpdated) => {
+    console.log(
+      `Success. Document has been updated with duration: ${recipeUpdated.duration}`
     );
   })
   .catch((error) => {

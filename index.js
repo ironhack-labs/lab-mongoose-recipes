@@ -43,9 +43,7 @@ mongoose
     console.log(newRecipeAdded.title);
   })
   // Iteration 3 - Insert multiple recipes
-  .then(() => {
-    return Recipe.insertMany(data);
-  })
+  .then(() => Recipe.insertMany(data))
   // Iteration 4 - Update recipe
   .then(() => {
     // console.log("Success. Document has been updated");
@@ -61,16 +59,17 @@ mongoose
       `Success. Document has been updated with duration: ${recipeUpdated.duration}`
     );
   })
+  // ### Iteration 5 - Remove a recipe
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("Success. Your recipe was deleted");
+  })
+  // ### Iteration 6 - Close the Database
+  .then(() => {
+    return mongoose.disconnect();
+  })
   .catch((error) => {
-    console.error("Error connecting to the database", error);
+    console.error("Error connecting to the database:", error);
   });
-
-// Recipe.findOneAndUpdate(
-//   { title: "Rigatoni alla Genovese" },
-//   { creator: "Omar" },
-//   { new: true }
-// )
-//   .then((result) => {
-//     console.log(`Success. Document has ben updated: ${result}`);
-//   })
-//   .catch((err) => console.log(err));

@@ -25,8 +25,7 @@ mongoose
       dishType: "soup",
       duration: 60,
       creator: "Heinrich",
-    });
-  )
+  }))
   .then((recipe) => console.log(recipe.title))
 
   //ITERATION 3
@@ -39,8 +38,7 @@ mongoose
   .then(() => Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }
-    );
-  )
+  ))
   .then(() => console.log('Recipe updated successfully!'))
 
   //ITERATION 5

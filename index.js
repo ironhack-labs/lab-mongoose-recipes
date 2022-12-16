@@ -44,13 +44,17 @@ mongoose
   })
   // Iteration 3 - Insert multiple recipes
   .then(() => Recipe.insertMany(data))
+  .then((allRecipes) => {
+    for (let i = 0; i < allRecipes.length; i++) {
+      console.log(allRecipes[i].title);
+    }
+  })
   // Iteration 4 - Update recipe
   .then(() => {
-    // console.log("Success. Document has been updated");
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 },
-      // in order to see updates in the terminal!!!
+      // in order to see updates in the terminal
       { new: true }
     );
   })
@@ -59,14 +63,14 @@ mongoose
       `Success. Document has been updated with duration: ${recipeUpdated.duration}`
     );
   })
-  // ### Iteration 5 - Remove a recipe
+  // Iteration 5 - Remove a recipe
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then(() => {
     console.log("Success. Your recipe was deleted");
   })
-  // ### Iteration 6 - Close the Database
+  // Iteration 6 - Close the Database
   .then(() => {
     return mongoose.disconnect();
   })

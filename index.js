@@ -15,6 +15,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
+
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     return Recipe.create({
@@ -35,6 +36,7 @@ mongoose
       created: "2016-05-18T16:00:00Z",
     }).then((newRecipe) => console.log(`Your recipe is: ${newRecipe.title}`));
   })
+
   .then(() => {
     return Recipe.insertMany(data).then((recipesFromDB) => {
       recipesFromDB.forEach((oneRecipe) =>
@@ -42,6 +44,7 @@ mongoose
       );
     });
   })
+
   .then(() => {
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
@@ -50,16 +53,19 @@ mongoose
       console.log("Recipe successfully updated! Details: ", updateDetails)
     );
   })
+
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" }).then((deleteDetails) =>
       console.log("Recipe successfully deleted! Details: ", deleteDetails)
     );
   })
+
   .then(() => {
     mongoose
       .disconnect()
       .then(() => console.log("Disconnected from the database"));
   })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

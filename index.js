@@ -17,7 +17,24 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+  
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+  Recipe.model.create(data, (error, recipe) => {
+    if(error) {
+      console.log('An error happened:', error);
+      return;
+    }
+    console.log('The recipe is saved and its value is: ', recipe);
+  });
+
+  Recipe.model.create(data)
+  .then(Recipe => console.log('The recipe is saved and its value is: ', Recipe))
+  .catch(error => console.log('An error happened while saving a new recipe:', error));
+
+

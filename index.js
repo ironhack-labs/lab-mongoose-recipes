@@ -16,8 +16,47 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    //It2
+    const myRecipe = {
+        "title": "Muestra",
+        "level": "Amateur Chef",
+        "ingredients": [
+          "1/2 cup rice vinegar",
+          "5 tablespoons honey",
+          "1/3 cup soy sauce (such as Silver Swan®)",
+          "1/4 cup Asian (toasted) sesame oil",
+          "3 tablespoons Asian chili garlic sauce",
+          "3 tablespoons minced garlic",
+          "salt to taste",
+          "8 skinless, boneless chicken thighs"
+        ],
+        "cuisine": "Asian",
+        "dishType": "main_course",
+        "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+        "duration": 40,
+        "creator": "Chef LePapu"
+    };
+    console.log(myRecipe.title) //--- ES OK
+    return Recipe.create(myRecipe);
+  })
+  .then(() => {
+    return Recipe.insertMany(data);
+  })
+  .then(()=>{
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100});
+  })
+  .then(()=>{
+    console.log("La Duración de los Rigatoni se ha cambiado")
+  })
+  .then(()=>{
+    return Recipe.deleteOne({title:"Carrot Cake"})
+  })
+  .then(()=>{
+    mongoose.connection.close();
+    console.log("Aparcao")
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  

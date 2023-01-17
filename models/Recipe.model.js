@@ -48,4 +48,14 @@ const recipeSchema = new Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
+/*
+Recipe.find({})
+.then(recipes => {
+  console.log(recipes.title)
+})
+.catch(err => {
+  console.log(err)
+})
+
+*/
 module.exports = Recipe;

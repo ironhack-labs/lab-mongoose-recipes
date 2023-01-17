@@ -28,8 +28,9 @@ const recipeNew = {
     }
     console.log('the recipe is saved and its value is: ', recipe);
 });
-*/
+
 
 Recipe.create(recipeNew)
 .then(recipe => console.log('The recipe is  saved and its value is:', recipe))
 .catch(err => console.log('An err happened while saving a new recipe:', err))
+*/

@@ -19,7 +19,7 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     //return Recipe.deleteMany()
   })
-  .then((data) => {
+  .then(() => {
     // Run your code here, after you have insured that the connection was made
     //console.log("title:")
 

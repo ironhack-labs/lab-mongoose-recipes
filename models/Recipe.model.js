@@ -48,14 +48,21 @@ const recipeSchema = new Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-/*
-Recipe.find({})
-.then(recipes => {
-  console.log(recipes.title)
-})
-.catch(err => {
-  console.log(err)
-})
-
-*/
 module.exports = Recipe;
+
+//********TITULO DE LAS RECETAS********
+
+
+Recipe.find({}, (err, recipes) => {
+  if (err) {
+    console.log(`Error occurred during getting recipes from DB: ${err}`);
+    return;
+  }
+  console.log('Got all the TITLES!');
+  // Titles is an array of title instances
+  recipes.forEach(recipe => console.log(` --> titles: ${recipe.title}`));
+});
+
+
+
+

@@ -21,16 +21,17 @@ const recipeNew = {
 }
 
 
-/*Recipe.create(recipeNew, (err, recipe) => {
+//************INTERACTION 1*****************
+/*
+Recipe.create(recipeNew, (err, recipe) => {
     if(err) {
         console.log('An err happened:', err);
         return;
     }
     console.log('the recipe is saved and its value is: ', recipe);
 });
-
+*/
 
 Recipe.create(recipeNew)
 .then(recipe => console.log('The recipe is  saved and its value is:', recipe))
 .catch(err => console.log('An err happened while saving a new recipe:', err))
-*/

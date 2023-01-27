@@ -6,12 +6,13 @@
   "scripts": {
     "start": "node ./index.js",
     "dev": "node ./index.js"
+    
   },
   "license": "MIT",
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
   "dependencies": {
-    "mongoose": "^6.1.2"
+    "mongoose": "^6.9.0"
   }
 }

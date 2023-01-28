@@ -41,10 +41,10 @@ mongoose.connect(MONGODB_URI)
   })
     // Iteration 4
   .then(() => {
-    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {$set: { duration: 100 }})
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { $set: { duration: 100 }})
   })
   .then (() => {
-    console.log('Duration updated successfully!')
+    console.log('Recipe updated successfully!')
   })
     // Iteration 5
   .then(() => {
@@ -56,7 +56,7 @@ mongoose.connect(MONGODB_URI)
   .catch(error => {
     console.error('Error connecting to the database', error);
   })
-    // Iteration 6
+   // Iteration 6
   .finally(() => {
     mongoose.connection.close(() => {
       console.log('Closing the connection')

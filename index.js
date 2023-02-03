@@ -16,13 +16,13 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe.create({title: "Kartoffelsalat", cuisine: "Deutsch"})
-    .then(createdRecipe => console.log(createdRecipe))
-    .catch(err => console.log(err))
+    Recipe.create({ title: "Kartoffelsalat", cuisine: "Deutsch" })
+      .then(createdRecipe => console.log(createdRecipe))
+      .catch(err => console.log(err))
 
-    Recipe.create({title: "Pasta Pesto", cuisine: "German-Italian"})
-  .then(createdRecipe => console.log(createdRecipe))
-    .catch(err => console.log(err))
+    Recipe.create({ title: "Pasta Pesto", cuisine: "German-Italian" })
+      .then(createdRecipe => console.log(createdRecipe))
+      .catch(err => console.log(err))
 
     Recipe.insertMany(
       [{
@@ -119,15 +119,16 @@ mongoose
         "duration": 30,
         "creator": "Chef Jennifer"
       }
-    ]
+      ]
     )
-    .then(createdRecipes => console.log(createdRecipes))
-    .catch(err => console.log(err))
-  })
-  
+      .then(createdRecipes => console.log(createdRecipes))
+      .catch(err => console.log(err))
 
+    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+      .then(createdRecipe => console.log(createdRecipe))
+      .catch(err => console.log(err))
+
+    })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-

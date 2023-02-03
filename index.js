@@ -7,7 +7,7 @@ mongoose
   .connect(MONGODB_URI)
   .then(() => {
     return Recipe.deleteMany()
-      .then((recipes) => console.log("The recipes are deleted and their value is: ", recipes))
+      .then((recipes) => console.log("Existing recipes were deleted: ", recipes))
       .catch((error) => console.log("An error happened while deleting existing recipes:", error));
   })
   .then(() => {

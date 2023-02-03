@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const today = new Date().toLocaleDateString()
+const today = new Date()
 
 const recipeSchema = new Schema({
   title: {
@@ -11,7 +11,7 @@ const recipeSchema = new Schema({
   },
   level: {
     type: String,
-    enum: ["Easy Peasy", "Amateur Chef ", "UltraPro Chef"],
+    enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"],
   },
   cusine: {
     type: [String],

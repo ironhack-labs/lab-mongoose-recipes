@@ -46,15 +46,15 @@ mongoose
 
   // Iteration 4
   .then(() => Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }))
-  .then(record => console.log(`Updated "${record.title}"`))
+  .then(() => console.log(`Updated item successfully`))
 
   // Iteration 5
   .then(() => Recipe.deleteOne({ title: "Carrot Cake" }))
-  .then(record => console.log(`Removed item`))
+  .then(() => console.log(`Removed item successfully`))
 
   // Iteration 6
   .then(() => mongoose.connection.close())
-  .then(() => console.log(`Closed connection`))
+  .then(() => console.log(`Closed connection successfully`))
 
   .catch(error => {
     console.error('Error connecting to the database', error);

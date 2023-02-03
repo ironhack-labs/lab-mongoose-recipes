@@ -15,9 +15,49 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
+  // Iteration 2
+  .then(() => Recipe.create(
+    {
+      "title": "Soupe à l'oignon",
+      "level": "Amateur Chef",
+      "ingredients": [
+        "2 quarts (64 oz or 1.9 litres) beef stock (or water with beef bouillon)",
+        "about 5 cups (1.5 lbs or 680 g) of thinly sliced yellow onions (do not use sweet onions)",
+        "1 Tbsp olive oil",
+        "1 tsp Kosher salt",
+        "1/4 tsp sugar",
+        "3 Tbsp flour",
+        "3 Tbsp butter",
+        "4 oz (118 ml) dry white wine or dry Vermouth"
+      ],
+      "cuisine": "French",
+      "dishType": "soup",
+      "image": "https://source.unsplash.com/FjxEnioTNs0",
+      "duration": 45,
+      "creator": "Julia Child"
+    }
+  ))
+  .then(recipe => console.log(recipe))
+  
+  // Iteration 3
+  .then(() => Recipe.insertMany(data))
+  .then(() => Recipe.find())
+  .then(recipes => recipes.forEach(recipe => console.log(recipe.title)))
+
+  // Iteration 4
+  .then(() => Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }))
+  .then(record => console.log(`Updated "${record.title}"`))
+
+  // Iteration 5
+  .then(() => Recipe.deleteOne({ title: "Carrot Cake" }))
+  .then(record => console.log(`Removed item`))
+
+  // Iteration 6
+  .then(() => mongoose.connection.close())
+  .then(() => console.log(`Closed connection`))
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  

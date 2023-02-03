@@ -128,7 +128,11 @@ mongoose
       .then(createdRecipe => console.log(createdRecipe))
       .catch(err => console.log(err))
 
-    })
+    Recipe.findOneAndDelete({ title: "Carrot Cake" })
+      .then(deletedRecipe => console.log(deletedRecipe))
+      .catch(err => console.log(err))
+
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

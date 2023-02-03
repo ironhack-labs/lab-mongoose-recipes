@@ -16,8 +16,18 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    Recipe.create({title: "Kartoffelsalat", cuisine: "Deutsch"})
+    .then(createdRecipe => console.log(createdRecipe))
+    .catch(err => console.log(err))
+
+    Recipe.create({title: "Pasta Pesto", cuisine: "German-Italian"})
+  .then(createdRecipe => console.log(createdRecipe))
+    .catch(err => console.log(err))
   })
+  
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+

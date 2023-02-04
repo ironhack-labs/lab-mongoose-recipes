@@ -27,14 +27,17 @@ mongoose
             .catch(err => console.log(err))
 
 
-      Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration:100})
+      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration:100})
           .then(console.log("We Did It!!!"))
           .catch(err => console.log(err))
           
 
-      Recipe.deleteOne({title:"Carrot Cake"})
+      Recipe.deleteOne({title: "Carrot Cake"})
           .then(console.log("Is no longer available"))
           .catch(err => console.log(err))
+
+
+      mongoose.connection.off('disconected', ()=> console.log("Disconected"))
 
   })      
   .catch(error => {

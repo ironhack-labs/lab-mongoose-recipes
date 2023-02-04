@@ -31,10 +31,31 @@ mongoose
           .catch(err => console.log(err))
 
     Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {$inc:{duration: 100}})
-          .then(console.log)
+          .then(data => {
+            console.log(data)
+          })
           .catch(err => console.log(err))
 
+    // Recipe.deleteOne({title:"Carrot Cake"})
+    //       .then(data => {
+    //         console.log(data)
+    //       })
+    //       .catch(err => console.log(err))
+
   })
+
+
+  const borrarDato = async () => {
+    try {
+      const datoBorrado = await Recipe.deleteOne({title:"Carrot Cake"})
+      console.log (datoBorrado) 
+    } catch (err) {
+      console.log (err) 
+    }
+  }
+
+  borrarDato()
+
 
   .catch(error => {
     console.error('Error connecting to the database', error);

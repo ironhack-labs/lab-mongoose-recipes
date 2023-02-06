@@ -27,22 +27,36 @@ mongoose
     Recipe.insertMany(data)
           .then(data => {
             data.forEach(data => console.log(data.title))
+            // encontrarDato()
+            borrarDato()
           })
-          .catch(err => console.log(err))
-
-    Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {$inc:{duration: 100}})
+          .then(()  => {
+           return Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {duration: 100})
+          })
           .then(data => {
-            console.log(data)
+          console.log(data)
           })
           .catch(err => console.log(err))
 
-    // Recipe.deleteOne({title:"Carrot Cake"})
+    // Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {$inc:{duration: 100}})
     //       .then(data => {
     //         console.log(data)
     //       })
     //       .catch(err => console.log(err))
 
+ 
   })
+
+  let encontrarDato = async () => {
+    try{
+      const actualizarDato = await  Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"}, {duration: 100})
+      console.log(actualizarDato)
+    } catch (err) {
+      console.log (err) 
+    }
+  }
+
+  // encontrarDato()
 
 
   const borrarDato = async () => {
@@ -53,10 +67,10 @@ mongoose
       console.log (err) 
     }
   }
+  // borrarDato()
 
-  borrarDato()
+  mongoose.connection.close()
 
-
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  // .catch(error => {
+  //   console.error('Error connecting to the database', error);
+  // });

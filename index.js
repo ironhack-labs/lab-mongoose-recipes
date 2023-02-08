@@ -5,6 +5,8 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
+const data = require('./data.json');
+
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
@@ -33,7 +35,8 @@ mongoose
   cuisine: 'Italian',
   dishType: 'main_course',
   duration: 60,
-  creator: 'John Doe'
+  creator: 'Fernanda'
+
   };
   // Save the recipe to the database
   return Recipe.create(newRecipe);
@@ -87,4 +90,44 @@ mongoose
   })
   .catch(err => {
     console.error(`An error occured while closing the database connection: ${err}`);
+  });
+  ////////////////
+  mongoose
+  .connect(MONGODB_URI)
+  .then(x => {
+  console.log(`Connected to the database: "${x.connection.name}"`);
+  return Recipe.deleteMany();
+  })
+  .then(() => Recipe.insertMany(data))
+  .then(docs => {
+  console.log('Recipes added:');
+  docs.forEach(doc => console.log(doc.title));
+  })
+  .catch(error => console.error(error));
+  /////////////
+  Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 } }, { new: true })
+  .then(recipe => {
+    console.log(`The duration of the recipe "${recipe.title}" has been updated to ${recipe.duration} minutes.`);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+  ////
+  Recipe.deleteOne({ title: "Carrot Cake" })
+  .then(() => {
+    console.log("Successfully removed Carrot Cake recipe from the database");
+  })
+  .catch(error => {
+    console.error(`Error while removing Carrot Cake recipe: ${error}`);
+  });
+  // ...
+.then(() => {
+  console.log("All recipes have been removed, added, updated, and checked.");
+  return mongoose.connection.close();
+  })
+  .then(() => {
+  console.log("The database connection has been closed.");
+  })
+  .catch(error => {
+  console.error(error);
   });

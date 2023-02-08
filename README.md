@@ -79,11 +79,7 @@ You can use MongoDB Compass to double-check that everything is working as intend
 node index.js
 ```
 
-### Iteration 3 - Insert multiple recipes
-
-We are importing an array of recipes from the `data.json` file. Using the [`Model.insertMany`](https://mongoosejs.com/docs/api.html#model_Model.insertMany) method, you should add the entire array to the database. After inserting the documents, print the title of each recipe to the console.
-
-Tip: Follow the same tip as in the previous step.
+### npm i moongo
 
 
 ### Iteration 4 - Update recipe

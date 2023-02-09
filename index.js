@@ -19,7 +19,7 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
 
-/*     Recipe.create({
+    /*     Recipe.create({
       "title": "Asian Glazed Chicken Thighs",
       "level": "Amateur Chef",
       "ingredients": [
@@ -39,12 +39,14 @@ mongoose
       "creator": "Chef LePapu"
     }) */
 
-    Recipe.insertMany(data).then(res => {
-      console.log("All recipes inserted")
-    })
-
+    return Recipe.insertMany(data)
 
   })
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  })
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

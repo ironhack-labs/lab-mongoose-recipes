@@ -45,7 +45,9 @@ mongoose
   .then(() => {
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
   })
-
+  .then(() =>{
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
 
   .catch(error => {
     console.error('Error connecting to the database', error);

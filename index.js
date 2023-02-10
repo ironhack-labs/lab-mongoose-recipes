@@ -18,8 +18,8 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    let newRecipe = Recipe.create(data[0]).then(() => {
-      console.log(newRecipe.title)
+    let newRecipe = Recipe.create(data[0]).then(() =>{
+      console.log(data[0].title)
     })
   })
   .catch((error) => {

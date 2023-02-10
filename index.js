@@ -1,20 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require("./models/Recipe.model");
+const Recipe = require('./models/Recipe.model')
 // Import of the data from './data.json'
-const data = require("./data");
+const data = require('./data')
 
-const MONGODB_URI = "mongodb://127.0.0.1:27017/recipe-app";
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app'
 
 // Connection to the database "recipe-app"
 mongoose
-  .set("strictQuery", true)
+  .set('strictQuery', true)
   .connect(MONGODB_URI)
   .then((x) => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
+    console.log(`Connected to the database: "${x.connection.name}"`)
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany();
+    return Recipe.deleteMany()
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
@@ -26,42 +26,41 @@ mongoose
     Recipe.insertMany(data).then(() => {
       Recipe.find({}, { title: 1, _id: 0 }, (err, result) => {
         if (err) {
-          console.log(err);
+          console.log(err)
         } else {
-          console.log(result);
+          console.log(result)
         }
-      });
+      })
 
-      let opts = { new: true };
+      let opts = { new: true }
       Recipe.findOneAndUpdate(
-        { title: "Rigatoni alla Genovese" },
+        { title: 'Rigatoni alla Genovese' },
         { duration: 100 },
         opts,
         (err, docs) => {
           if (err) {
-            console.log(err);
+            console.log(err)
           } else {
-            console.log(docs);
+            console.log(docs)
           }
         }
-      );
-      Recipe.deleteOne({ title: "Carrot Cake" })
+      )
+      Recipe.deleteOne({ title: 'Carrot Cake' })
         .then(() => {
-          console.log("Carrot Cake deleted");
+          console.log('Carrot Cake deleted')
+          mongoose.connection.close(() => {
+            console.log(
+              'Mongoose default connection disconnected through app termination'
+            )
+            process.exit(0)
+          })
         })
         .catch((error) => {
-          console.log(error);
-        });
-    });
-  }).then(()=>{
-    mongoose.connection.close(() => {
-      console.log(
-        "Mongoose default connection disconnected through app termination"
-      );
-      process.exit(0);
-    });
+          console.log(error)
+        })
+    })
   })
+
   .catch((error) => {
-    console.error("Error connecting to the database", error);
+    console.error('Error connecting to the database', error)
   })
-  

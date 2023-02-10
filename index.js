@@ -19,58 +19,46 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    let soup = {title: "Soup",
-    level: "Easy Peasy",
-    ingredients: ["zuchini", "cream", "potato"],
-    cuisine: "World",
-    dishType: "soup",
-    image: "",
-    duration: 20,
-    creator: "Soloong"}
-
-    let parmentier = {title: "Parmentier",
-    level: "Amateur Chef",
-    ingredients: ["meat", "potato"],
-    cuisine: "French",
-    dishType: "main_course",
-    image: "",
-    duration: 60,
-    creator: "Parmentier"}
-
-    let quiche = {title: "quiche",
-    level: "Amateur Chef",
-    ingredients: ["eggs", "cheese", "ham"],
-    cuisine: "French",
-    dishType: "main_course",
-    image: '',
-    duration: 90,
-    creator: "Robuchon"}
-
-    Recipe.create(soup)
-
-    Recipe.insertMany([quiche, parmentier])
-
-    Recipe.findOneAndUpdate({title: "Soup"}, {duration: 17} , {new : true})
-
-    Recipe.deleteOne(soup).then(function(){
-      console.log("Data deleted"); // Success
-
-      
-  }).catch(function(error){
-      console.log(error); // Failure
-  });
-    console.log(soup.title , quiche.title)
-  
+Recipe.create({
+      title: "Soup",
+      level: "Easy Peasy",
+      ingredients: [
+        "expired Chicken",
+        "Rat Poison",
+      ],
+      cuisine: "French",
+      dishType: "main_course",
+      image: "https://images.media-allrecipes.com/images/75131.jpg",
+      duration: 20,
+      creator: "Soloong"
+    })
   })
-
-
-  
   .then(() => {
-    // connection.stop
+    Recipe.insertMany(data)
+    .then((recipe) => {
+      for(let item of recipe){
+        console.log(item.title)
+      }
+    })
+    .then(()=>{
+      Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 90})
+      .then(() => {
+        console.log("update successful")
+      })
+    })
+    .then(()=>{
+      Recipe.deleteOne({title: "Carrot Cake"})
+      .then(() => {
+        console.log("deletion successful")
+        mongoose.connection.close();
+      })
+    })
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
 
 
 

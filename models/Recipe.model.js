@@ -1,6 +1,8 @@
+//mongooseをインポート
 const mongoose = require('mongoose')
+//mongooseで”Schema”という名前の雛形を作成する
 const Schema = mongoose.Schema
-
+//雛形を使って新しいスキーマ"recipeSchema"を作成する
 const recipeSchema = new Schema({
   title: {
     type: String,
@@ -36,7 +38,7 @@ const recipeSchema = new Schema({
     default: Date.now,
   },
 })
-
+//”recipeSchema”から新しいRecipeモデルを生成する
 const Recipe = mongoose.model('Recipe', recipeSchema)
-
+//"Recipe"モデルのモジュールをエキスポート
 module.exports = Recipe

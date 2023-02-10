@@ -30,11 +30,15 @@ mongoose
 		};
 
 		Recipe.create(couscous).then(console.log(couscous.title));
-		Recipe.insertMany(data).then(
-			data.forEach((element) => {
-				console.log(element.title);
-			})
-		);
+		Recipe.insertMany(data)
+			.then(
+				data.forEach((element) => {
+					console.log(element.title);
+				})
+			)
+			.then(() =>
+				Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }).then(console.log('Success'))
+			);
 	})
 	.catch((error) => {
 		console.error('Error connecting to the database', error);

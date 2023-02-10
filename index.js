@@ -30,6 +30,11 @@ mongoose
 		};
 
 		Recipe.create(couscous).then(console.log(couscous.title));
+		Recipe.insertMany(data).then(
+			data.forEach((element) => {
+				console.log(element.title);
+			})
+		);
 	})
 	.catch((error) => {
 		console.error('Error connecting to the database', error);

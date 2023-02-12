@@ -9,7 +9,7 @@ const Recipe = require('./models/Recipe.model')
 const data = require('./data')
 const { findOne } = require('./models/Recipe.model')
 
-//mongodbのポートの読み込みと、mongoDBのコレクション名(recipe-app)をつける
+//mongodbのポートの読み込みと、mongoDBのコレクション名(recipe-app)を探す。ない場合は新規に作成する
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app'
 
 // データベース"recipe-app"と接続設定

@@ -41,14 +41,13 @@ mongoose
     })
     //Iteration 3 - Insert multiple recipes//JSONデータからデータを取り込もう
     const allRecipe = await Recipe.insertMany(data)
-    //console.log(allRecipe)
+    console.log(allRecipe)
 
     //Iteration 4 - Update recipe//データを更新しよう
-    const rigatoniDocument = await Recipe.findOne({
-      title: 'Rigatoni alla Genovese',
-    })
     const rigatoniDurationUpdate = await Recipe.findOneAndUpdate(
-      rigatoniDocument,
+      {
+        title: 'Rigatoni alla Genovese',
+      },
       {
         duration: 100,
       },
@@ -62,7 +61,7 @@ mongoose
       title: 'Carrot Cake',
     })
     await Recipe.deleteOne(carrotCake)
-    console.log(allRecipe)
+    // console.log(allRecipe)
   })
   .catch((error) => {
     console.error('Error connecting to the database', error)

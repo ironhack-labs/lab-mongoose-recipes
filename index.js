@@ -15,9 +15,27 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+  .then((recipe) => {
+    console.log(recipe)
     // Run your code here, after you have insured that the connection was made
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  //Iteration 3 //INsert multiple recipes//
+
+  Recipe.insertMany ([
+    {title: ""}
+  ])
+  .then(createRecipes => console.log(createdRecipes))
+  .catch(err => console.log(err))
+
+  //Iteration 4 //Update the File
+
+  Recipe.findOneAndUpdate ({duration: 100})
+  .then(recipe => console.log(recipe))
+  .catch(err => console.log(err))
+
+
+

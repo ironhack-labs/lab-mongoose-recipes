@@ -19,7 +19,7 @@ mongoose
   .then(() => {
     const newRecipe= [
     {
-      title: "Asian Glazed Chicken Thighs",
+      title: "Not your average chicken",
       level: "Amateur Chef",
       ingredients: [
           "1/2 cup rice vinegar",
@@ -43,7 +43,25 @@ mongoose
 
   })
   .then((createdRecipe)=> {
-    console.log(createdRecipe.title)
+    //console.log(createdRecipe)
+    return Recipe.insertMany(data)
+  })
+  .then((recipeArr)=>{
+    recipeArr.forEach(elm=>{
+      console.log(elm.title)
+    })
+    }
+  )
+  .then (()=>{
+  return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: "100"}, )
+  
+  })
+  .then ((updateRecipe)=>{
+      return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then ((removeCarrotCake)=>{
+    console.log("connection is being closed")
+    return mongoose.connection.close()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -33,12 +33,18 @@ mongoose
 	})
 
 	.then(() => {
-		Recipe.insertMany(data);
+		return Recipe.insertMany(data);
 	})
 
 	.then(() => {
-		Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }).then(() => {
-			console.log('Updated Successfuly');
+		return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }).then(() =>
+			console.log('Updated Successfuly'),
+		);
+	})
+	.then(() => {
+		return Recipe.findOneAndDelete({ title: 'Carrot Cake' }).then(() => {
+			console.log('Deleted Successfuly');
+			mongoose.connection.close();
 		});
 	})
 

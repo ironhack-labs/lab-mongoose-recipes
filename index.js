@@ -40,6 +40,11 @@ mongoose
     for (let i = 0; i < recipesArrFromDB.length; i++) {
       console.log(recipesArrFromDB[i].title);
     }
+
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    );
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

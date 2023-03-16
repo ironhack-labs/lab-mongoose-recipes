@@ -49,6 +49,12 @@ mongoose
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
+  .then(() => {
+    return mongoose.connection.close();
+  })
+  .then(() => {
+    console.log("Connection to DB properly STOPPED!");
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

@@ -17,7 +17,19 @@ mongoose
 		return Recipe.deleteMany();
 	})
 	.then(() => {
-		// Run your code here, after you have insured that the connection was made
+		const newRecipe = Recipe.create({
+			title: 'Baklava',
+			level: 'UltraPro Chef',
+			ingredients: [
+				'1 pound chopped nuts (almonds, walnuts, or pistachios are best, or use a combination of them)',
+				'1 pound phyllo dough, thawed',
+				'1 cup butter, melted',
+				'1/3 cup sugar',
+				'1 teaspoon ground cinnamon',
+				'1/3 teaspoon ground cloves',
+			],
+			cuisine: 'Bosnian',
+		});
 	})
 	.catch((error) => {
 		console.error('Error connecting to the database', error);

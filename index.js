@@ -7,6 +7,8 @@ const data = require("./data");
 
 const MONGODB_URI = "mongodb://127.0.0.1/recipe-app";
 
+const pathToData = require("./data.json");
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
@@ -31,6 +33,13 @@ mongoose
   })
   .then((createdRecipe) => {
     console.log(createdRecipe.title);
+
+    return Recipe.insertMany(pathToData);
+  })
+  .then((recipesArrFromDB) => {
+    for (let i = 0; i < recipesArrFromDB.length; i++) {
+      console.log(recipesArrFromDB[i].title);
+    }
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

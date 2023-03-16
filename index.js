@@ -31,9 +31,17 @@ mongoose
 			cuisine: 'Bosnian',
 		});
 	})
+
 	.then(() => {
 		Recipe.insertMany(data);
 	})
+
+	.then(() => {
+		Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }).then(() => {
+			console.log('Updated Successfuly');
+		});
+	})
+
 	.catch((error) => {
 		console.error('Error connecting to the database', error);
 	});

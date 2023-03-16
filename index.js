@@ -31,6 +31,9 @@ mongoose
 			cuisine: 'Bosnian',
 		});
 	})
+	.then(() => {
+		Recipe.insertMany(data);
+	})
 	.catch((error) => {
 		console.error('Error connecting to the database', error);
 	});

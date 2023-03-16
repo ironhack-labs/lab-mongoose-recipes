@@ -5,19 +5,61 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
-  .then(x => {
+  .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
+  .then((responseFromMongoose) => {
+
+  const myNewRecipe = {
+    title: "Sotiris and Danial Cake",
+    level: "Amateur Chef",
+    ingredients: [
+      "6 cups grated carrots",
+      "1 cup brown sugar",
+      "1 cup raisins",
+      "4 eggs",
+      "1 1/2 cups white sugar",
+      "1 cup vegetable oil",
+      "2 teaspoons vanilla extract",
+      "1 cup crushed pineapple, drained",
+      "3 cups all-purpose flour",
+      "1 1/2 teaspoons baking soda",
+      "1 teaspoon salt",
+      "4 teaspoons ground cinnamon"
+    ],
+    cuisine: "International",
+    dishType: "dessert",
+    image: "https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg",
+    duration: 130,
+    creator: "Chef Nadia"
+  }; console.log(`This is my new recipe ${myNewRecipe.title}`)
+  return Recipe.create(myNewRecipe)
+  
+})
+.then((recipesFromDB) => {
+  return Recipe.insertMany(data);
+})
+.then ((recipesFromDB) => {
+  return Recipe.findByIdAndUpdate(
+    "64135548d4db66c66ed96b8e",
+     {duration: 100},
+     { returnDocument: "after"}
+);
+})
+.then(()=> {
+  console.log("duration has been changed");
+})
+.then((recipesFromDB) => {
+  return Recipe.deleteOne({title: "Orange and Milk-Braised Pork Carnitas"});
+})
+mongoose.connection.close()
+.catch(error => {
     console.error('Error connecting to the database', error);
   });
+

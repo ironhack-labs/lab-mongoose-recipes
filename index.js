@@ -18,7 +18,7 @@ mongoose
   .then(() => {
     const spaghettiBolognese = {
       title: "Spaghetti Bolognese",
-      level: "easy peasy",
+      level: "Easy Peasy",
       ingredients: ["pasta", "tomato sauce", "minced meat"],
       cuisine: "Italian",
       dishType: "main_course",
@@ -26,6 +26,28 @@ mongoose
       creator: "The italian people",
     };
     return Recipe.create(spaghettiBolognese);
+  })
+  .then(() => {
+    return Recipe.insertMany(data);
+  })
+
+  .then((newRecipies) => {
+    newRecipies.forEach((recipe) => console.log(recipe.title));
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { returnDocument: "after" }
+    );
+  })
+  .then((updatedRecipe) => {
+    console.log(
+      `We updated ${updatedRecipe.title} to new duration of ${updatedRecipe.duration}`
+    );
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((del) => {
+    console.log(`We deleted successfully ${del.deletedCount} document.`);
+    mongoose.connection.close();
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

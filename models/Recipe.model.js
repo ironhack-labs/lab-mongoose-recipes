@@ -27,7 +27,7 @@ const recipeSchema = new Schema({
   creator:String,
   created:{
     type:Date,
-    default:???,
+    default:Date.now(), // not correct
   }
 
 });

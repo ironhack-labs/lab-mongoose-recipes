@@ -22,17 +22,41 @@ const hotChocolate = {
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
-  .then(x => {
+  .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    return Recipe.create(hotChocolate);
+    console.log(`Connected to the database: "${x.connection.name}"`);
+    return Recipe.create(hotChocolate), console.log(hotChocolate.title);
+  })
+
+  // then import all
+  .then(() => {
+    function logAllRecipeTitles(arr) {
+      for(let i=0; i<arr.length; i++) {
+        console.log(arr[i].title);
+      }
+    }
+    return Recipe.insertMany(data), logAllRecipeTitles(data);
+  })
+
+  // then update
+  .then(() => {
+    const query = { title: 'Rigatoni alla Genovese' };
+    return Recipe.findOneAndUpdate(query, { duration: 100 }), console.log('successfully updated');
   })
   .then(() => {
-    console.log(hotChocolate.title);
+    return Recipe.deleteOne({ title: 'Carrot Cake' }), console.log('successfully deleted');
+
+  })
+  .then(() => {
+
+  })
+  .then(() => {
+    mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

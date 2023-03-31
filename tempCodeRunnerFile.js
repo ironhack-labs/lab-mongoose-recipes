@@ -25,15 +25,12 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    console.log(scrambledEggs.title)
     return Recipe.create(scrambledEggs);
   })
   .then(() => {
-    data.forEach((element)=>console.log(element.title));
     return Recipe.insertMany(data);
   })
   .then(() => {
-    console.log("the recipe of Rigatoni alla Genovese was updated");
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 },
@@ -41,11 +38,7 @@ mongoose
     );
   })
   .then(() => {
-    console.log("the recipe of Carrot Cake was deleted");
-    return Recipe.deleteOne({ title: "Carrot Cake" });
-  })
-  .then(() => {
-    return mongoose.connection.close();
+    return Recipe.deleteOne({ title: "Carrot Cake" }), "recipe was removed!";
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

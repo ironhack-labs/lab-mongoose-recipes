@@ -21,3 +21,28 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  Recipe.create({
+    title: 'Pasta Carbonara',
+    level: 'Easy Peasy',
+    ingredients: ['spaghetti', 'bacon', 'eggs', 'parmesan cheese', 'black pepper', 'salt'],
+    cuisine: 'Italian',
+    dishType: 'main_course',
+    duration: 30,
+    creator: 'Chef Giovanni',
+  })
+    .then(recipe => {
+      console.log(`New recipe added: ${recipe.title}`);
+      return Recipe.insertMany(data);
+    })
+    .then(recipes => {
+      recipes.forEach(recipe => {
+        console.log(`Inserted recipe: ${recipe.title}`);
+      });
+      
+  })
+ .catch(error => {
+      console.error(error);
+    });
+
+    

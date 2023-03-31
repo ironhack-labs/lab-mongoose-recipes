@@ -30,7 +30,6 @@ const recipeSchema = new Schema({
   created:{
     type:Date,
     
-    default:Date.now, // not correct
   }
 
 });

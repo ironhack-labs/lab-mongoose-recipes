@@ -21,6 +21,9 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  const today = new Date();
+
   Recipe.create({                          //iteration 2 create a recipe
     title: 'Pasta Carbonara',
     level: 'Easy Peasy',
@@ -29,11 +32,18 @@ mongoose
     dishType: 'main_course',
     duration: 30,
     creator: 'Chef Giovanni',
+    created: today,                  //todays date.
   }) 
+  
   .then(recipe => {             
-    console.log(`New recipe added: ${recipe.title}`);
-    return Recipe.insertMany(data);    //Iteration 3:Insert multiple recipes
+    console.log(`New recipe added: ${recipe.title}  created on ${recipe.created}`);  
   })
+
+  Recipe.insertMany(data)  //iteration 3:insert many
+.then(() => {
+  data.forEach((recipe) => console.log('Inserted recipe:', recipe.title));
+  return data;
+})
   .then (() => {                     //Iteration 4 :Update receipe
     console.log('Rigatoni alla Genovese recipe was updated');
     Recipe.findOneAndUpdate(
@@ -44,7 +54,7 @@ mongoose
     return data;
   })
   .then (() => {
-    console.log('Carrot Cake recipe deleted Successfully');    //Iteration 5:Remove a receipe with success message
+    console.log('No more Carrot cakes! Carrot Cake deleted Successfully');    //Iteration 5:Remove a receipe with success message
    return Recipe.deleteOne({ title: 'Carrot Cake' } );
   })
   .then(() => {

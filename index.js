@@ -49,38 +49,40 @@ mongoose
   })
   .then((oneNewRecipe) => {
     console.log("Recipe title: ", oneNewRecipe.title);
-    // console.log() from interation 2
+  })
+
+  //Iteration 3
+  .then(() => {
     return Recipe.insertMany(data);
+  })
+  .then((allRecipes) => {
+    allRecipes.forEach((element) => {
+      console.log(`Recipes titles: ${element.title}`);
+    });
   })
 
   // // //  interation 4
-  .then((allRecipes) => {
-    let titles = allRecipes.forEach((element) => {
-      console.log(`Recipes titles: ${element.title}`);
-    });
-    // console.log() from interation 3  (it´s working, but I´m sure they have a better way to deal with it...)
-
+  .then(() => {
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }
     );
   })
-
-  // // // interation 5
   .then((updateRecipe) => {
-    console.log(`Recipe ${updateRecipe} update successfully!`);
-    //console.log() interation 4
-
-    return Recipe.deleteOne({ title: "Carrot Cake" });
+    console.log(`Recipe ${updateRecipe.title} update successfully!`);
   })
 
-  // // interation 6 (not finished)
-
+  //  interation 5
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
   .then((deleteRes) => {
-    console.log(`Recipe ${deleteRes} removed successfully!`);
-    // console.log() interation 5
+    console.log(`Recipe ${deleteRes.title} removed successfully!`);
+  })
 
-    return;
+  //Iteration 6
+  .then(() => {
+    mongoose.connection.close();
   })
 
   .catch((error) => {

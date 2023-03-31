@@ -21,8 +21,7 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
-
-  Recipe.create({
+  Recipe.create({                          //iteration 2 create a recipe
     title: 'Pasta Carbonara',
     level: 'Easy Peasy',
     ingredients: ['spaghetti', 'bacon', 'eggs', 'parmesan cheese', 'black pepper', 'salt'],
@@ -30,19 +29,28 @@ mongoose
     dishType: 'main_course',
     duration: 30,
     creator: 'Chef Giovanni',
+  }) 
+  .then(recipe => {             
+    console.log(`New recipe added: ${recipe.title}`);
+    return Recipe.insertMany(data);    //Iteration 3:Insert multiple recipes
   })
-    .then(recipe => {
-      console.log(`New recipe added: ${recipe.title}`);
-      return Recipe.insertMany(data);
-    })
-    .then(recipes => {
-      recipes.forEach(recipe => {
-        console.log(`Inserted recipe: ${recipe.title}`);
-      });
-      
+  .then (() => {                     //Iteration 4 :Update receipe
+    console.log('Rigatoni alla Genovese recipe was updated');
+    Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
+    return data;
   })
- .catch(error => {
-      console.error(error);
-    });
-
-    
+  .then (() => {
+    console.log('Carrot Cake recipe deleted Successfully');    //Iteration 5:Remove a receipe with success message
+   return Recipe.deleteOne({ title: 'Carrot Cake' } );
+  })
+  .then(() => {
+    console.log('Connection closed');    //Iteration 6:Close the  database connection
+    return mongoose.connection.close();
+  })
+  .catch(error => {
+    console.error(error);
+  });

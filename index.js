@@ -43,7 +43,7 @@ mongoose
     return Recipe.deleteMany();
   })
 
-  // interation 2
+  // iteration 2
   .then(() => {
     return Recipe.create(newRecipe);
   })
@@ -51,7 +51,7 @@ mongoose
     console.log("Recipe title: ", oneNewRecipe.title);
   })
 
-  //Iteration 3
+  // iteration 3
   .then(() => {
     return Recipe.insertMany(data);
   })
@@ -61,7 +61,7 @@ mongoose
     });
   })
 
-  // // //  interation 4
+  // iteration 4
   .then(() => {
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
@@ -72,7 +72,7 @@ mongoose
     console.log(`Recipe ${updateRecipe.title} update successfully!`);
   })
 
-  //  interation 5
+  //  iteration 5
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
@@ -80,7 +80,7 @@ mongoose
     console.log(`Recipe ${deleteRes.title} removed successfully!`);
   })
 
-  //Iteration 6
+  // iteration 6
   .then(() => {
     mongoose.connection.close();
   })

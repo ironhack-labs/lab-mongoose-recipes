@@ -32,6 +32,30 @@ mongoose
   creator: "difficult to trace back XD",
 }
 
-  Recipe.create(newRecipe)
+Recipe.create(newRecipe)
   .then(recipe => console.log('New saved recipe:', recipe.title))
   .catch(error => console.log('Something went wrong. Here is why:', error))
+
+Recipe.insertMany(data)
+.then(() => {
+  data.forEach((recipe) => console.log('New saved recipes:', recipe.title));
+  return data;
+})
+.then (() => {
+  console.log('Rigatoni alla Genovese recipe was updated');
+  Recipe.findOneAndUpdate(
+    { title: "Rigatoni alla Genovese" },
+    { duration: 100 },
+    { new: true }
+  );
+  return data;
+})
+.then (() => {
+  console.log('Carrot Cake recipe was deleted');
+ return Recipe.deleteOne({ title: 'Carrot Cake' } );
+})
+.then(() => {
+  return mongoose.connection.close();
+})
+.catch(error => console.log('Something went wrong. Here is why:', error));
+

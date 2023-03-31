@@ -21,3 +21,17 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  const newRecipe = {
+    title: "TEA",
+  level: "Easy Peasy",
+  ingredients: ["boiling water", "tea bag"],
+  cuisine: "intercontinental",
+  dishType: 'drink',
+  duration: 1,
+  creator: "difficult to trace back XD",
+}
+
+  Recipe.create(newRecipe)
+  .then(recipe => console.log('New saved recipe:', recipe.title))
+  .catch(error => console.log('Something went wrong. Here is why:', error))

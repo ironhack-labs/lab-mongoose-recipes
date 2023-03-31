@@ -1,3 +1,5 @@
+//Work from: Ronny Skaraboto and Lena Imdahl
+
 const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'

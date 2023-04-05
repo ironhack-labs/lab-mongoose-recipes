@@ -18,29 +18,50 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-
-    return Recipe.create(data[0]);
+    const recipe1 = {
+      title: "Asian Glazed Chicken Thighs 1",
+      level: "Amateur Chef",
+      ingredients: [
+        "1/2 cup rice vinegar",
+        "5 tablespoons honey",
+        "1/3 cup soy sauce (such as Silver Swan®)",
+        "1/4 cup Asian (toasted) sesame oil",
+        "3 tablespoons Asian chili garlic sauce",
+        "3 tablespoons minced garlic",
+        "salt to taste",
+        "8 skinless, boneless chicken thighs",
+      ],
+      cuisine: "Asian",
+      dishType: "main_course",
+      image:
+        "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      duration: 40,
+      creator: "Chef LePapu",
+    };
+    return Recipe.create(recipe1);
   })
   .then((recipe1) => {
     console.log(recipe1.title);
-    Recipe.insertMany(data);
+    return Recipe.insertMany(data);
   })
-  .then(() => {
-    console.log(Recipe.find({}, { title: 1, _id: 0 }));
-    Recipe.findOneAndUpdate(
+  .then((data) => {
+    data.forEach((eachRecipe) => {
+      console.log(eachRecipe.title);
+    });
+    return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }
     );
   })
   .then((recipe) => {
     console.log(`Well done, ${recipe.title} has been updated 🫡`);
-    Recipe.deleteOne({ title: "Carrot Cake" });
+    return Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then((recipe) => {
     console.log(`Congrats, ${recipe.title} has been deleted 👎`);
   })
   .then(() => {
-    connection.end();
+    mongoose.connection.close();
   })
   .catch((error) => {
     console.error(error);

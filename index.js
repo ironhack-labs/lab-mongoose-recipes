@@ -7,17 +7,36 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
-// Connection to the database "recipe-app"
+const newRecipe = { title: 'arroz a la cubana' ,
+    level: 'Easy Peasy' ,
+    ingredients: [ 'arroz', 'tomate', 'huevo' ] ,
+    cuisine: 'supervivencia' ,
+    dishType: 'main_course' ,
+    image: 'https://cookpad.com/es/recipe/images/1fd87e5f9bc8b674' ,
+    duration: 20 , 
+    creator : 'Karlos Arguiñano' , };
+
+
+console.log (data.json)
+
+// Connection to the database "recipe-app"  
 mongoose
+  .set('strictQuery', true)
   .connect(MONGODB_URI)
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then((recipeclean) => {
+    return Recipe.create(newRecipe)
+  .then(rec => console.log('The user is saved and its value is: ', Recipe))
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  // .then(() => {
+  //   Recipe.insertMany()
+  // })
+  .catch(error => console.log('An error happened while saving a new user:', error));
+
+
+
+  
+

@@ -16,14 +16,14 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    Recipe.create(data[0]).then((recipe) =>
-      console.log("The recipe is saved and its title is: ", recipe.title)
-    );
-    return Recipe.deleteMany({ title: "Asian Glazed Chicken Thighs" }).then(
-      (recipes) => {
-        console.log("No documents: ", recipes);
-      }
-    );
+    return Recipe.create(data[0]).then((recipe) => {
+      console.log("The recipe is saved and its title is: ", recipe.title);
+      Recipe.deleteMany({ title: "Asian Glazed Chicken Thighs" }).then(
+        (recipes) => {
+          console.log("No documents: ", recipes);
+        }
+      );
+    });
   })
   .then(() => {
     console.log("All the recipes are saved");
@@ -36,8 +36,13 @@ mongoose
     ).then(() => {
       console.log("The duration has been updated!");
     });
-    console.log("Sorry! Carrot Cake is no longer avaible...");
     return Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {});
+  })
+  .then(() => {
+    console.log("Sorry! Carrot Cake is no longer avaible...");
+    mongoose.connection.close(() => {
+      console.log("DISCONNECTED!");
+    });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

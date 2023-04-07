@@ -19,24 +19,25 @@ mongoose
     Recipe.create(data[0]).then((recipe) =>
       console.log("The recipe is saved and its title is: ", recipe.title)
     );
-    return Recipe.deleteOne({ title: "Asian Glazed Chicken Thighs" }).then(
+    return Recipe.deleteMany({ title: "Asian Glazed Chicken Thighs" }).then(
       (recipes) => {
         console.log("No documents: ", recipes);
       }
     );
   })
   .then(() => {
-    return Recipe.insertMany(data).then(() => {
-      console.log("All the recipes are saved");
-    });
+    console.log("All the recipes are saved");
+    return Recipe.insertMany(data).then(() => {});
   })
   .then(() => {
-    return Recipe.findOneAndUpdate(
+    Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }
     ).then(() => {
       console.log("The duration has been updated!");
     });
+    console.log("Sorry! Carrot Cake is no longer avaible...");
+    return Recipe.deleteOne({ title: "Carrot Cake" }).then(() => {});
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

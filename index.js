@@ -12,31 +12,27 @@ const newRecipe = { title: 'arroz a la cubana' ,
     ingredients: [ 'arroz', 'tomate', 'huevo' ] ,
     cuisine: 'supervivencia' ,
     dishType: 'main_course' ,
-    image: 'https://cookpad.com/es/recipe/images/1fd87e5f9bc8b674' ,
+    image: 'https://images.media-allrecipes.com/images/75131.jpg' ,
     duration: 20 , 
-    creator : 'Karlos Arguiñano' , };
+    creator : 'Karlos Arguiñano' , }
 
-
-console.log (data.json)
-
-// Connection to the database "recipe-app"  
+// Connection to the database "recipe-app"
 mongoose
-  .set('strictQuery', true)
   .connect(MONGODB_URI)
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
+    // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then((recipeclean) => {
-    return Recipe.create(newRecipe)
-  .then(rec => console.log('The user is saved and its value is: ', Recipe))
+  .then(() => {
+  Recipe.create(newRecipe)
   })
-  // .then(() => {
-  //   Recipe.insertMany()
-  // })
-  .catch(error => console.log('An error happened while saving a new user:', error));
-
-
+  .then(recipe => console.log('The recipe is saved and its value is: ', Recipe))
+  .then(() => {
+    Recipe.insertMany(data)
+  .then(recipe => console.log('isertMany has inserted: ', data))
+  .catch(error => console.log('An error happened while saving a new recipe:', error));
+    // Run your code here, after you have insured that the connection was made
+  })
 
   
-

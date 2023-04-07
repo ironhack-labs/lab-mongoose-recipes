@@ -16,9 +16,19 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    return Recipe.create(data[0]).then((recipe) =>
+    Recipe.create(data[0]).then((recipe) =>
       console.log("The recipe is saved and its title is: ", recipe.title)
     );
+    return Recipe.deleteOne({ title: "Asian Glazed Chicken Thighs" }).then(
+      (recipes) => {
+        console.log("No documents: ", recipes);
+      }
+    );
+  })
+  .then(() => {
+    Recipe.insertMany(data).then(() => {
+      console.log("All the recipes are saved");
+    });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

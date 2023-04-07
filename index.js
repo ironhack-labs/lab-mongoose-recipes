@@ -26,8 +26,16 @@ mongoose
     );
   })
   .then(() => {
-    Recipe.insertMany(data).then(() => {
+    return Recipe.insertMany(data).then(() => {
       console.log("All the recipes are saved");
+    });
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 }
+    ).then(() => {
+      console.log("The duration has been updated!");
     });
   })
   .catch((error) => {

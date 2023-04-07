@@ -30,9 +30,17 @@ mongoose
   .then(recipe => console.log('The recipe is saved and its value is: ', Recipe))
   .then(() => {
     Recipe.insertMany(data)
-  .then(recipe => console.log('isertMany has inserted: ', data))
+  .then(recipe => console.log('insertMany has inserted: ', data))
+  // No me sale el finondeandupdate:
+  .then (() => {
+    Recipe.findOneAndUpdate( { title: 'Rigatoni alla Genovese' }, { duration: 100}, { new: true } )
+  } )
+  .then ((newData) =>
+   Recipe.deleteOne({ title: 'Carrot Cake' }))
   .catch(error => console.log('An error happened while saving a new recipe:', error));
-    // Run your code here, after you have insured that the connection was made
-  })
+  });
+
+
+  // Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100},  )
 
   

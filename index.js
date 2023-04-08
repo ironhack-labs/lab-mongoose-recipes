@@ -17,7 +17,7 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create({
+    return Recipe.create({
       title: "Crepe",
       level: "Easy",
       ingredients: ["Farine", "Oeuf", "L'eau", "Sugres"],
@@ -49,11 +49,11 @@ mongoose
   })
 
   .then(() => {
-    Recipe.findOneAndUpdate(
+    return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
-      {$set: { duration: 100 }},
+      { $set: { duration: 100 } },
 
-      {new: true}
+      { new: true }
     )
       .then(function (updateRecipe) {
         console.log(
@@ -67,13 +67,17 @@ mongoose
   })
 
   .then(() => {
-    Recipe.deleteOne({ title: "Carrot Cake" })
+    return Recipe.deleteOne({ title: "Carrot Cake" })
       .then(function (deleteRecipe) {
-        console.log("Recipe deleted=", deleteRecipe.title);
+        console.log("Recipe deleted");
       })
       .catch((error) => {
         console.log("Error reciepe deletion", error);
       });
+  })
+
+  .then(values => {
+    mongoose.connection.close()
   })
 
   .catch((error) => {

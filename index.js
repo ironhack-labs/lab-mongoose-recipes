@@ -42,8 +42,10 @@ mongoose
       creator: "Chef Nadia"
     })
   })
-  .then((responseFromMongoose) => {
-    console.log(responseFromMongoose.title)
+  .then(recipe => console.log(recipe.title))
+
+  .then(() => {
+    return Recipe.insertMany([])
   })
   
   .then(() => {
@@ -52,16 +54,18 @@ mongoose
       { duration: 100 }
     )
   })
-  .then(recipe => console.log('Successfully updated', recipe))
+  .then(recipe => console.log('Successfully updated', recipe.title))
 
   .then(() => {
     return Recipe.deleteOne(
       { title: 'Carrot Cake' }
     )
   })
-  .then(recipe => console.log('Successfully deleted', recipe))
+  .then(recipe => console.log('Successfully deleted', recipe.title))
 
-  // .connection.close()
+  .then(() => {
+    mongoose.connection.close()
+  })
 
   .catch(error => {
     console.error('Error connecting to the database', error);

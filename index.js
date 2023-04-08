@@ -33,9 +33,9 @@ mongoose
   .then(recipe => console.log('insertMany has inserted: ', data))
   // No me sale el finondeandupdate:
   .then (() => {
-    Recipe.findOneAndUpdate( { title: 'Rigatoni alla Genovese' }, { duration: 100}, { new: true } )
+    Recipe.findOneAndUpdate( { title: 'Rigatoni alla Genovese' }, { duration: 100} )
   } )
-  .then ((newData) =>
+  .then (() =>
    Recipe.deleteOne({ title: 'Carrot Cake' }))
   .catch(error => console.log('An error happened while saving a new recipe:', error));
   });

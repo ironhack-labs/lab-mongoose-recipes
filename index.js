@@ -18,7 +18,12 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    try{
+      main(data)
+    }
+    catch(error){
+      console.error(error)
+    }
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
@@ -26,10 +31,9 @@ mongoose
 
 async function main(data){
     //Iteration 3: introduce the data from data.js
-    let introducedRecipes = await Recipe.insertMany(data)
-    console.log('The recipes that has been introduced are', introducedRecipes)
-
-    
+    await Recipe.insertMany(data)
+    console.log('The recipes that has been introduced')
+ 
     const recipesTitles = await Recipe.find({},{title:1, _id:0})
     console.log('The title of the recipe are', recipesTitles)
 
@@ -48,9 +52,4 @@ async function main(data){
     // await Recipe.find({}).then(FinalData => console.log(FinalData)) //→uncomment this line to see the final data
     mongoose.connection.close(()=>console.log('The connection to the database has ended'))
 }
-try{
-  main(data)
-}
-catch(error){
-  console.error(error)
-}
+

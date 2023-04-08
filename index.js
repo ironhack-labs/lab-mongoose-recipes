@@ -7,7 +7,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://0.0.0.0:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -37,11 +37,35 @@ mongoose
       duration: 40,
       creator: "Chef LePapu"
       }
-    Recipe.create(firstrecipe)
-    .then( recipe=>console.log("myfirst recipe:",recipe))
-    .catch(error=> console.log('Error creatin recipe', error));
-    
+    return Recipe.create(data)
+    //Recipe.create(fistrecipe)
+      //.then(recipe=>console.log("myfirst recipe:",recipe.title))
+      //.catch(error=> console.log('Error creatin recipe', error));
+  })
+  .then( () =>{
+    console.log("recipes created ✅");
+    const promise1= Recipe.findOneAndUpdate({ name: 'Rigatoni alla Genovese' })
+      .then(recipe=> {
+        recipe.duration =100;
+        console.log("Rigatoni",recipe)
+      })
+      .catch(error=> console.log('Error finding recipe', error));
+
+    const promise2 = Recipe.deleteOne({ name: 'Carrot Cake' })
+      .then( () => console.log("deleted Carrot Cake" ))
+      .catch(error=> console.log("Couldn't find Carrot Cake", error));
+
+    Promise.all([promise1,promise2])
+      .then( () => {
+        console.log("all promises resolved")
+        mongoose.connection.close();
+      })
+      .catch(err => console.error(err))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+  

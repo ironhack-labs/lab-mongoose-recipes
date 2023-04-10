@@ -25,22 +25,17 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-  Recipe.create(newRecipe)
+  return Recipe.create(newRecipe)
   })
-  .then(recipe => console.log('The recipe is saved and its value is: ', Recipe))
+  .then(() => console.log('The recipe is saved and its value is: ', newRecipe))
   .then(() => {
     Recipe.insertMany(data)
-  .then(recipe => console.log('insertMany has inserted: ', data))
+  .then(() => console.log('insertMany has inserted: ', data))
   // No me sale el finondeandupdate:
   .then (() => {
-    Recipe.findOneAndUpdate( { title: 'Rigatoni alla Genovese' }, { duration: 100} )
+    Recipe.findOneAndUpdate( { title: "Rigatoni alla Genovese" }, { duration: 100} )
   } )
   .then (() =>
    Recipe.deleteOne({ title: 'Carrot Cake' }))
   .catch(error => console.log('An error happened while saving a new recipe:', error));
   });
-
-
-  // Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100},  )
-
-  

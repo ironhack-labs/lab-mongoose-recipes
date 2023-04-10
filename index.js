@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // porque vamos a usar Mongo
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require("./models/Recipe.model");
@@ -30,14 +30,14 @@ mongoose
     console.log("New recipe title", newRecipe.title);
     return Recipe.insertMany(data);
   })
-  .then((newRecipes) => {
-    newRecipes.forEach((recipe) => {
+  .then((allRecipes) => {
+    allRecipes.forEach((recipe) => {
       console.log("All recipes title", recipe.title);
     });
     return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true });
   })
-  .then(() => {
-    console.log("Recipe duration updated correctly!");
+  .then((recipe) => {
+    console.log(`${recipe.title} duration updated correctly!`);
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
   .then(() => {

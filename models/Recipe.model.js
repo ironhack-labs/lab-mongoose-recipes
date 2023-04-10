@@ -13,7 +13,8 @@ duration: { type: Number, min: 0 } ,
 creator : { Type: String} ,
 created: {
   type: Date,
-  default: Date.now
+  // default: Date.now --> Devuelve el número de milisegundos desde una fecha(1970). new Date devuelve una fecha.
+  default: new Date ()
 }
 });
 

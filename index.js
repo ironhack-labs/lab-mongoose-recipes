@@ -5,7 +5,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://0.0.0.0:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -16,8 +16,30 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    Recipe.create({
+      title: "guacamole",
+      level: "Easy",
+      ingredients: ["avocado", "oignons", "citron"],
+      cuisine: "mexicano",
+      dishType: "entrée",
+      image: "https://www.simplyrecipes.com/thmb/7SLGIKmCSMifkxT9WuGAc3Ozg-4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2018__07__Guacamole-LEAD-1-47de4e6e47464daba88a7f42155a2af3.jpg",
+      duration: 13,
+      creator: "Jose",
+      created: 04/12/2000,
+    })
+      .then((recipeFromDB)=>console.log("titre=", recipeFromDB.title))
     // Run your code here, after you have insured that the connection was made
   })
+  .then(function(){
+
+    Recipe.insertMany(data).then(function(){
+      Recipe.forEach(element => {
+        console.log("title=",Recipe.title)
+      });
+    })
+    .catch()  
+  }   
+  )
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

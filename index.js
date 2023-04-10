@@ -40,28 +40,29 @@ mongoose
       image: "https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg",
       duration: 130,
       creator: "Chef Nadia"
-    })
+    }).then(recipe => console.log(recipe.title))
   })
-  .then(recipe => console.log(recipe.title))
+  
 
   .then(() => {
-    return Recipe.insertMany([])
+    return Recipe.insertMany(data).then(() => {
+      console.log('Added recipes:');
+      console.log(data.map(e => e.title).join('/n'));
+    })
   })
   
   .then(() => {
     return Recipe.findOneAndUpdate(
       { title: 'Rigatoni alla Genovese' },
       { duration: 100 }
-    )
+    ).then(recipe => console.log('Successfully updated', recipe.title))
   })
-  .then(recipe => console.log('Successfully updated', recipe.title))
 
   .then(() => {
     return Recipe.deleteOne(
       { title: 'Carrot Cake' }
-    )
+    ).then(recipe => console.log('Successfully deleted', recipe.title))
   })
-  .then(recipe => console.log('Successfully deleted', recipe.title))
 
   .then(() => {
     mongoose.connection.close()

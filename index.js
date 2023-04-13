@@ -25,21 +25,51 @@ mongoose
       image: "https://www.simplyrecipes.com/thmb/7SLGIKmCSMifkxT9WuGAc3Ozg-4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2018__07__Guacamole-LEAD-1-47de4e6e47464daba88a7f42155a2af3.jpg",
       duration: 13,
       creator: "Jose",
-      created: 04/12/2000,
+      created: 04 / 12 / 2000,
     })
-      .then((recipeFromDB)=>console.log("titre=", recipeFromDB.title))
+      .then((recipeFromDB) => console.log("titre=", recipeFromDB.title))
     // Run your code here, after you have insured that the connection was made
   })
-  .then(function(){
+  .then(function () { Recipe.insertMany(data) })
 
-    Recipe.insertMany(data).then(function(){
-      Recipe.forEach(element => {
-        console.log("title=",Recipe.title)
-      });
-    })
-    .catch()  
-  }   
-  )
+  .then(function (dataFromDB) {
+    data.forEach(element => {
+      console.log("title=", element.title)
+    });
+  })
+  .then(function(){
+    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+    .then(()=>console.log("update OOK"))
+    .catch((err)=>console.log(err));
+  })
+  .then((dataFromDB) => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .catch(error => {
+    console.error('Error', error);
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+console.log(data);
+
+/*
+Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 });
+
+Recipe.create(data)
+.then(function (dataFromDB) {
+  console.log("all books created !!")
+})
+.catch(function (err) { console.log(err) })
+
+
+Recipe.find()
+.then(function(dataFromDB){
+  console.log("all data", dataFromDB)
+  console.log("title: ", dataFromDB.title)
+})
+.catch(function(err){err})
+
+*/

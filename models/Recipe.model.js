@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Esto es el modelo
+// Esto es el schema, el modelo
 const recipeSchema = new Schema({
   title: {
     type: String,

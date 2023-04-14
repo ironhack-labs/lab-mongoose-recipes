@@ -16,33 +16,29 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create({
-      "title": "Carrot Cake",
-      "level": "Amateur Chef",
-      "ingredients": [
-        "6 cups grated carrots",
-        "1 cup brown sugar",
-        "1 cup raisins",
-        "4 eggs",
-        "1 1/2 cups white sugar",
-        "1 cup vegetable oil",
-        "2 teaspoons vanilla extract",
-        "1 cup crushed pineapple, drained",
-        "3 cups all-purpose flour",
-        "1 1/2 teaspoons baking soda",
-        "1 teaspoon salt",
-        "4 teaspoons ground cinnamon"
-      ],
-      "cuisine": "International",
-      "dishType": "dessert",
-      "image": "https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg",
-      "duration": 130,
-      "creator": "Chef Nadia"
-    })
-      .then(createdRecipe => console.log(createdRecipe.title))
+    return Recipe.create({title:"Test Recipe", cuisine:"Test Cusiine"})
+    .then(recipe => console.log(Recipe.title))
+    .catch(err => console.log(err))
   })
-
+  .then(() => {
+  return Recipe.insertMany(data)
+    .then(Recipes => console.log(Recipes.title)) 
+    .catch(err => console.log(err))
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+    .then(Recipe => console.log("updated successfully"))
+    .catch(err => console.log(err))
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+    .then(() => console.log("Deleted successfully"))
+    .catch(err => console.log(err))
+  })
+      
   .catch(error => {
-    console.error('Error connecting to the database', error);
+    console.error('Error connecting to the database', error)
+      .finally(() => {
+        mongoose.Connection.close()
+      })
   });

@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
-console.log(data)
 
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
@@ -18,16 +17,27 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create({ title: 'Test Recipe', cuisine: 'Fabian'})
+    Recipe.create({ title: 'Test Recipe', cuisine: 'Test'})
       .then(recipe => console.log(recipe.title))
       .catch(err => console.log(err))
 
     Recipe.insertMany(data)
       .then(recipes => {
-        recipes.forEach(recipe => console.log(recipe.title));
+        recipes.forEach(recipe => console.log(recipe.title))
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+
+    Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+      .then(recipe => console.log('Success'))
+      .catch(err => console.log(err))
+
+    Recipe.deleteOne({title: 'Carrot Cake'})
+      .then(recipe => console.log('Recipe Deleted'))
+      .catch(err => console.log(err))
   })
   .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    console.error('Error connecting to the database', error)
+  })
+  .finally(() =>{
+    mongoose.connection.close()
+  })

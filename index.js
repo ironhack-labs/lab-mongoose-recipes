@@ -5,9 +5,14 @@ const Recipe = require("./models/Recipe.model.js");
 // Import of the data from './data.json'
 const data = require("./data");
 
+const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
+
+mongoose.connect(MONGODB_URI);
+
 then(() => {
-  // Run your code here, after you have insured that the connection was made
-  //Iteration 2
+  return Recipe.deleteMany();
+});
+then(() => {
   return Recipe.create({
     title: "Cheesecake",
     level: "Easy Peasy",
@@ -31,8 +36,9 @@ then(() => {
     console.log(result.title);
   })
 
+  //Iteration 3
+
   .then(() => {
-    //Iteration 3
     return Recipe.insertMany(data);
   })
 
@@ -42,8 +48,9 @@ then(() => {
     });
   })
 
+  //Iteration 4
+
   .then(() => {
-    //Iteration 4
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 }
@@ -51,7 +58,7 @@ then(() => {
   })
 
   .then((result) => {
-    console.log("LETS GO!", result.duration);
+    console.log(result.duration);
   })
 
   .then(() => {
@@ -63,10 +70,7 @@ then(() => {
   })
 
   .then(() => {
-    mongoose.connection.close(() => {
-      console.log("close!");
-      process.exit(0);
-    });
+    mongoose.connection.close(() => {});
   })
 
   .catch((error) => {

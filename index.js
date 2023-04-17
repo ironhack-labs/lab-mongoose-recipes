@@ -9,26 +9,28 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
-    .connect(MONGODB_URI)
-    .then( x => {
-        console.log(`Connected to the database: "${x.connection.name}"`);
-        // Before adding any recipes to the database, let's remove all existing ones
-        return Recipe.deleteMany()
-    })
-    .then( () => { runActions() })
-    .catch( error => { console.error('Error connecting to the database', error) })
-        
-async function runActions() {
-    try{
-        await Recipe.create( { title: 'pasta', cuisine: 'italian' } );        
-        await Recipe.insertMany( data );            
-        await Recipe.findOneAndUpdate( {title:'Rigatoni alla Genovese'}, { duration: 100 }, { new: true } );
-        await Recipe.findOneAndDelete( {title:'Carrot Cake'} );
+  .connect(MONGODB_URI)
+  .then( x => {
+    console.log(`Connected to the database: "${x.connection.name}"`);
+    // Before adding any recipes to the database, let's remove all existing ones
+    return Recipe.deleteMany()
+  })
+  .then( () => { return runActions() })
+  .catch( error => { console.error('Error connecting to the database', error) })
+  .finally( () => {
+    mongoose.connection.close(); 
+    console.log( 'Disconnected from database.' ); 
+  });
 
-        mongoose.connection.close();
-        console.log( 'Disconnected from database.' );
-    }
-    catch (error) {
-        console.log( error )
-    }
+async function runActions() {
+  try{
+    await Recipe.create( { title: 'pasta', cuisine: 'italian' } );        
+    await Recipe.insertMany( data );            
+    await Recipe.findOneAndUpdate( {title:'Rigatoni alla Genovese'}, { duration: 100 }, { new: true } );
+    await Recipe.findOneAndDelete( {title:'Carrot Cake'} );
+    console.log('Completed: created one recipe, inserted many, updated one, deleted one.');
+  }
+  catch (error) {
+    console.log( error )
+  }
 }

@@ -724,6 +724,26 @@ Let's break down the above example and the steps in creating a mongoose model:
 </details>
 
 <details>
+  <summary>When I try to run the app, I get an error "command not found: nodemon"</summary>
+
+  <br>
+
+  Make sure you have `nodemon` installed globally:
+  
+
+  ```bash
+  npm install -g nodemon
+  ```
+
+  This will install nodemon globally on your system, making it available to all of your projects.
+
+  <br>
+
+  [Back to top](#faqs)
+
+</details>
+
+<details>
   <summary>I am unable to push changes to the repository. What should I do?</summary>
 
   <br>

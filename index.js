@@ -17,7 +17,49 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+
+    // iteration 2
+const recipeDoc = {
+  title: 'Ramadan',
+  cuisine: 'Expert chef'
+}
+return Recipe.create(recipeDoc)
   })
+
+  // async await method for iteration 2
+
+
+// iteration 3
+.then((recipes) => {
+  console.log(recipes.title)
+  return Recipe.insertMany(data)
+  .catch(err => console.log(err))
+})
+
+
+//iteration 4
+.then((updatePasta) => {
+  console.log('Successfully Updated!')
+  return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese' }, {duration: 100}, {new: true})
+  .catch(err => console.log(err))
+})
+
+
+//iteration 5
+.then((removeCarrots) => {
+  console.log('No More Carrots')
+  return Recipe.deleteOne({title: 'Carrot Cake'})
+  .catch(err => console.log(err))
+})
+
   .catch(error => {
     console.error('Error connecting to the database', error);
+  })
+
+
+  // iteration 6
+  .then((closing) => {
+    console.log('Connection Closed')
+    mongoose.connection.close()
+    .catch(err => console.log(err))
   });

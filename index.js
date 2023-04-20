@@ -23,7 +23,9 @@ const recipeDoc = {
   title: 'Ramadan',
   cuisine: 'Expert chef'
 }
+console.log(recipeDoc.title)
 return Recipe.create(recipeDoc)
+.catch(err => console.log(err))
   })
 
 
@@ -45,7 +47,7 @@ return Recipe.create(recipeDoc)
 
 // Iteration 5
 .then((removeCarrots) => {
-  console.log('No More Carrots')
+  console.log('No More Carrots!')
   return Recipe.deleteOne({title: 'Carrot Cake'})
   .catch(err => console.log(err))
 })
@@ -57,7 +59,7 @@ return Recipe.create(recipeDoc)
 
   // Iteration 6
   .then((closing) => {
-    console.log('Connection Closed')
+    console.log('Connection Closed!')
     mongoose.connection.close()
     .catch(err => console.log(err))
   });

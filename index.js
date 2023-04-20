@@ -39,12 +39,19 @@ mongoose
       duration: 40,
       creator: "Chef LePapu",
     };
-    console.log(newRecipe.title);
     return Recipe.create(newRecipe);
+  })
+  .then((recipe) => {
+    console.log("Title : " + recipe.title);
   })
   .then(() => {
     // Iteration 3 - Insert multiple recipes
     return Recipe.insertMany(data);
+  })
+  .then((recipes) => {
+    recipes.map((recipe, index) => {
+      console.log(`Recipe ${index} : ${recipe.title}`);
+    });
   })
   .then(() => {
     const filterTitle = { title: "Rigatoni alla Genovese" };

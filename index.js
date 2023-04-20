@@ -18,7 +18,7 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
 
-    // iteration 2
+    // Iteration 2
 const recipeDoc = {
   title: 'Ramadan',
   cuisine: 'Expert chef'
@@ -26,10 +26,8 @@ const recipeDoc = {
 return Recipe.create(recipeDoc)
   })
 
-  // async await method for iteration 2
 
-
-// iteration 3
+// Iteration 3
 .then((recipes) => {
   console.log(recipes.title)
   return Recipe.insertMany(data)
@@ -37,7 +35,7 @@ return Recipe.create(recipeDoc)
 })
 
 
-//iteration 4
+// Iteration 4
 .then((updatePasta) => {
   console.log('Successfully Updated!')
   return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese' }, {duration: 100}, {new: true})
@@ -45,7 +43,7 @@ return Recipe.create(recipeDoc)
 })
 
 
-//iteration 5
+// Iteration 5
 .then((removeCarrots) => {
   console.log('No More Carrots')
   return Recipe.deleteOne({title: 'Carrot Cake'})
@@ -57,7 +55,7 @@ return Recipe.create(recipeDoc)
   })
 
 
-  // iteration 6
+  // Iteration 6
   .then((closing) => {
     console.log('Connection Closed')
     mongoose.connection.close()

@@ -28,14 +28,12 @@ mongoose
 
   // Iteration 3
   .then((recipe) => {
-    console.log(recipe.title);
+    console.log("here is the res", recipe);
     return Recipe.insertMany(data);
   })
 
   .then((allRecipes) => {
-    allRecipes.forEach((recipe) =>
-      console.log(`recipe for ${recipe.title} uploaded succefully`)
-    );
+      console.log(`recipe for ${allRecipes} uploaded succefully`)
     return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },
       { duration: 100 },
@@ -45,13 +43,13 @@ mongoose
 
   // Iteration 4
   .then((updatePasta) => {
-    console.log("Successfully Updated!");
+    console.log("Successfully Updated!", updatePasta);
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
 
   // Iteration 5
   .then((removeCarrots) => {
-    console.log("No More Carrots!");
+    console.log("No More Carrots!", removeCarrots);
     mongoose.connection.close();
   })
 
@@ -63,3 +61,38 @@ mongoose
     console.error("Error connecting to the database", error);
     console.log("Connection Closed!");
   });
+
+
+  //Josh's solution for Async/Await
+//   const handleRecipes = async() => {
+//     try {
+//       //delete mongoose.connect(MONGODB_URI) till Recipce.deletemany
+//       await mongoose.connect(MONGODB_URI)
+//       console.log('connected!');
+//       await Recipe.deleteMany();
+//       console.log('DB cleaned');
+
+//       const newRecipe = await Recipe.create(recipeDoc);
+//       console.log("New recipe added", newRecipe)
+
+//       const manyRecipes = await Recipe.insertMany(data);
+//       console.log("Many recipes added", manyRecipes);
+
+//       const updatedRecipe = await Recipe.findOneAndUpdate(
+//         { title: "Rigatoni alla Genovese" },
+//         { duration: 100 },
+//         { new: true }
+//       );
+//       console.log('Recipe updated', updatedRecipe);
+
+//       await Recipe.deleteOne({ title: "Carrot Cake" });
+//       console.log('Recipe was deleted');
+
+//       await mongoose.connection.close();
+//       console.log('Connection closed!')
+//     }
+// catch(err){
+//   console.log('There was an error', err)
+// }
+//   }
+//   handleRecipes();

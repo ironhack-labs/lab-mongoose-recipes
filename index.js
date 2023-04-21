@@ -8,14 +8,18 @@ const data = require("./data");
 
 const MONGODB_URI = "mongodb://0.0.0.0:27017/recipe-app";
 
-mongoose
-  .connect(MONGODB_URI)
-  .then((x) => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    return Recipe.deleteMany();
-  })
-  .then(() => {
-    return Recipe.create({
+(async () => {
+  try {
+    // Connect to MongoDB
+    const { connection } = await mongoose.connect(MONGODB_URI);
+    console.log(`Connected to the database: "${connection.name}"`);
+
+    // Delete all existing recipes
+    await Recipe.deleteMany();
+    console.log("All existing recipes deleted");
+
+    // Create a new recipe
+    const newRecipe = {
       title: "test",
       level: "Amateur Chef",
       ingredients: ["test"],
@@ -23,38 +27,38 @@ mongoose
       dishType: "main_course",
       duration: 30,
       creator: "Chef Test",
-    });
-  })
-  .then((recipe) => {
-    console.log(`Recipe created: ${recipe.title}`);
-    return Recipe.insertMany(data);
-  })
-  .then((recipes) => {
-    recipes.forEach((recipe) => {
-      console.log(`Recipe created: ${recipe.title}`);
+    };
+    const createdRecipe = await Recipe.create(newRecipe);
+    console.log(`Recipe created: ${createdRecipe.title}`);
+
+    // Insert many recipes from data.json
+    const insertedRecipes = await Recipe.insertMany(data);
+    insertedRecipes.forEach(({ title }) => {
+      console.log(`Recipe created: ${title}`);
     });
 
-    return Recipe.findOneAndUpdate(
-      { title: "Rigatoni alla Genovese" },
-      { duration: 100 },
-      { new: true }
+    // Update the duration of a recipe
+    const filter = { title: "Rigatoni alla Genovese" };
+    const update = { duration: 100 };
+    const options = { new: true };
+    const updatedRecipe = await Recipe.findOneAndUpdate(
+      filter,
+      update,
+      options
     );
-  })
-  .then((updatedRecipe) => {
     console.log(
       `Recipe: ${updatedRecipe.title} Duration: ${updatedRecipe.duration}`
     );
 
-    return Recipe.deleteOne({ title: "Carrot Cake" });
-  })
-  .then((deleteResult) => {
+    // Delete a recipe
+    const deleteFilter = { title: "Carrot Cake" };
+    const deleteResult = await Recipe.deleteOne(deleteFilter);
     console.log("Carrot Cake removed successfully:", deleteResult);
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error("Error connecting to the database", error);
-  })
-  .finally(() => {
-    mongoose.connection.close().then(() => {
-      console.log("Database connection closed.");
-    });
-  });
+  } finally {
+    // Close the database connection
+    await mongoose.connection.close();
+    console.log("Database connection closed.");
+  }
+})();

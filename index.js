@@ -8,6 +8,16 @@ const data = require("./data");
 
 const MONGODB_URI = "mongodb://0.0.0.0:27017/recipe-app";
 
+const newRecipe = {
+  title: "test",
+  level: "Amateur Chef",
+  ingredients: ["test"],
+  cuisine: "test",
+  dishType: "main_course",
+  duration: 30,
+  creator: "Chef Test",
+};
+
 (async () => {
   try {
     // Connect to MongoDB
@@ -19,15 +29,6 @@ const MONGODB_URI = "mongodb://0.0.0.0:27017/recipe-app";
     console.log("All existing recipes deleted");
 
     // Create a new recipe
-    const newRecipe = {
-      title: "test",
-      level: "Amateur Chef",
-      ingredients: ["test"],
-      cuisine: "test",
-      dishType: "main_course",
-      duration: 30,
-      creator: "Chef Test",
-    };
     const createdRecipe = await Recipe.create(newRecipe);
     console.log(`Recipe created: ${createdRecipe.title}`);
 

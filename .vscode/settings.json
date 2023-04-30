@@ -1,0 +1,4 @@
+{
+    "workbench.cloudChanges.autoResume": "onReload",
+    "workbench.cloudChanges.continueOn": "off"
+}

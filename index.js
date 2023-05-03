@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require('./data.json');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -16,8 +16,23 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+    return Recipe.create({ title: 'los noodles de Manu', level: 'Easy Peasy', ingredients: ['water', 'yatekomo'], cuisine: "hola", dishType: "snack", duration: 5, creator: "Manu" })
+
   })
+  .then(() => {
+    return Recipe.insertMany(data)
+
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+
+
+
+
+
+

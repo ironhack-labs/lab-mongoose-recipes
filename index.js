@@ -17,6 +17,13 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    console.log("estoy aqui", data)
+    Recipe.insertMany(data)
+    return Recipe.find()
+  })
+  .then(() => {
+    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+    return Recipe.find()
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

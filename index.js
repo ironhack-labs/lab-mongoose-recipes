@@ -20,12 +20,12 @@ mongoose
     return Recipe.create({ title: 'hello there', level: 'easy', ingredients: ['cheese', 'chocolate', 'salt'], cuisine: 'Asian', dishType: 'Dessert', image: 'hello there', duration: 5, creator: "anita", created: ('2020-03-01') })
       .then(newRecipe => console.log(newRecipe.title))
   })
-  .then(arrayRecipes => {
-    Recipe.create({ array })
-    arrayRecipes.array.forEach(recipe => {
-      console.log('Titulo de cada recete:', recipe.title)
+  .then(() => {
+    return Recipe.create(data)
+    // arrayRecipes.array.forEach(recipe => {
+    //   console.log('Titulo de cada recete:', recipe.title)
 
-    })
+    // })
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

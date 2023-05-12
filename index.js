@@ -49,6 +49,16 @@ const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
       console.log(`Recipe title: ${element.title}`)
     })
   })
+  .then(() => {
+return Recipe.findOneAndUpdate(
+  {title: 'Rigatoni alla Genovese'},
+  {duration: 100},
+  {new: true}
+)
+  })
+  .then((recipe) => {
+    console.log(`The ${recipe.title} has been updated!`);
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

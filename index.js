@@ -13,7 +13,7 @@ const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    // return Recipe.deleteMany()
   })
   // .then(() => {
   //   return Recipe.create(
@@ -41,23 +41,31 @@ const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
   // .then(recipe => {
   //   console.log(`The recipe ${recipe.title} has been added`)
   // })
+//   .then(() => {
+//     return Recipe.insertMany(data);
+//   })
+//   .then((recipes) => {
+//     recipes.forEach(element => {
+//       console.log(`Recipe title: ${element.title}`)
+//     })
+//   })
+//   .then(() => {
+// return Recipe.findOneAndUpdate(
+//   {title: 'Rigatoni alla Genovese'},
+//   {duration: 100},
+//   {new: true}
+// )
+//   })
+//   .then((recipe) => {
+//     console.log(`The ${recipe.title} has been updated!`);
+//   })
   .then(() => {
-    return Recipe.insertMany(data);
-  })
-  .then((recipes) => {
-    recipes.forEach(element => {
-      console.log(`Recipe title: ${element.title}`)
-    })
-  })
-  .then(() => {
-return Recipe.findOneAndUpdate(
-  {title: 'Rigatoni alla Genovese'},
-  {duration: 100},
-  {new: true}
-)
+    return Recipe.deleteOne(
+      {title: 'Carrot Cake'}
+    )
   })
   .then((recipe) => {
-    console.log(`The ${recipe.title} has been updated!`);
+    console.log(`The ${recipe.title} deleted!`);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

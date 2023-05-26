@@ -57,18 +57,20 @@ mongoose
 
   .then((createdMultipleRecipes) => {
     createdMultipleRecipes.forEach((recipe) => {
-      console.log(`Recipe sucessfully added: ${recipe.title}`)
-    })
+    console.log(`Recipe sucessfully added: ${recipe.title}`)})
   })
   
   .then(() => { return Recipe.findOneAndUpdate(query, update, {new: true}) })
 
   .then((updatedRecipe) => console.log(`${updatedRecipe.duration}`))
-
-  .then(() => { 
-    return Recipe.findByIdAndRemove('647128d4d0373b238dfe5d75')
-  })
-
-  .then(deletedRecipe => console.log('Deleted carrot cake', deletedRecipe))
   
-  .catch(err => console.log('Error generating a recipe', err));
+  .then(() => { return Recipe.deleteOne({ title: "Carrot Cake"}) })
+
+  .then(deletedRecipe => console.log('Sucessfully deleted recipe from database', deletedRecipe))
+
+  .catch(err => console.log('Err', err))
+
+  .then(() => {
+    return mongoose.connection.close()
+})
+.then(()=> console.log('Mongoose connection has closed'))

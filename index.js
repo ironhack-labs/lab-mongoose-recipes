@@ -17,20 +17,20 @@ mongoose
   })
   .then(() =>  Recipe.create ({
     title: "Rote Linsel-Dal", 
-    level: "intermediate", 
+    level: "Easy Peasy", 
     ingredients: "Zwiebeln, Knoblauchzehen, Ingwer, rote Linsen, Koriander oder Petersilie, Kurkuma gemahlen, Koriander gemahlen, Kreuzkümmel gemahlen, Garam Masala, Rapsöl, gehackte Tomaten, Kokosmilch, Limettensaft, Pfeffer",
     cuisine: "Orientalish",
     dishType: "main_course",
     image: "https://images.media-allrecipes.com/images/75131.jpg",
     duration: 30,
     creator: "EatBetter",
-    created: 25-05-2023,
-  }))
-  .then(() => {
-  console.log(`Recipe created`)
-  })
+    created: Date.now()
+  }) )
 
-  .catch(error => {
-    console.error('Error connecting to the database', error)
-  })
-  
+  .then((printTitle => { 
+  console.log(`Recipe created: ${printTitle.title}`);
+}))
+
+.catch(error => {
+  console.error('Error generating a recipe', error);
+});

@@ -18,7 +18,7 @@ mongoose
   .then(() =>  Recipe.create ({
     title: "Rote Linsel-Dal", 
     level: "intermediate", 
-    ingredients: "[Zwiebeln, Knoblauchzehen, Ingwer, rote Linsen, Koriander oder Petersilie, Kurkuma gemahlen, Koriander gemahlen, Kreuzkümmel gemahlen, Garam Masala, Rapsöl, gehackte Tomaten, Kokosmilch, Limettensaft, Pfeffer]",
+    ingredients: "Zwiebeln, Knoblauchzehen, Ingwer, rote Linsen, Koriander oder Petersilie, Kurkuma gemahlen, Koriander gemahlen, Kreuzkümmel gemahlen, Garam Masala, Rapsöl, gehackte Tomaten, Kokosmilch, Limettensaft, Pfeffer",
     cuisine: "Orientalish",
     dishType: "main_course",
     image: "https://images.media-allrecipes.com/images/75131.jpg",

@@ -7,6 +7,10 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+const query = { title: "Rigatoni alla Genovese" };
+const update = { duration: 100 };
+
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
@@ -27,7 +31,7 @@ mongoose
       "250g rote Linsen",
       "1 Bd. Koriander oder Petersilie", 
       "1 TL Kurkuma gemahlen",
-      "1 TL Koriander gemahlen",
+      "1 TL Curry gemahlen",
       "1 TL Kreuzkümmel gemahlen",
       "1TL Garam Masala",
       "2 EL Rapsöl", 
@@ -35,6 +39,7 @@ mongoose
       "200 ml Kokosmilch",
       "2 EL Limettensaft", 
       "Pfeffer und salz",
+      "Chili"
     ],
     cuisine: "Orientalish",
     dishType: "main_course",
@@ -50,6 +55,20 @@ mongoose
   return Recipe.insertMany(data)
   })
 
-  .then((createdmultipleRecipes) => console.log('Multiple recipes added'))
+  .then((createdMultipleRecipes) => {
+    createdMultipleRecipes.forEach((recipe) => {
+      console.log(`Recipe sucessfully added: ${recipe.title}`)
+    })
+  })
+  
+  .then(() => { return Recipe.findOneAndUpdate(query, update, {new: true}) })
 
+  .then((updatedRecipe) => console.log(`${updatedRecipe.duration}`))
+
+  .then(() => { 
+    return Recipe.findByIdAndRemove('647128d4d0373b238dfe5d75')
+  })
+
+  .then(deletedRecipe => console.log('Deleted carrot cake', deletedRecipe))
+  
   .catch(err => console.log('Error generating a recipe', err));

@@ -15,9 +15,22 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  .then(() =>  Recipe.create ({
+    title: "Rote Linsel-Dal", 
+    level: "intermediate", 
+    ingredients: "[Zwiebeln, Knoblauchzehen, Ingwer, rote Linsen, Koriander oder Petersilie, Kurkuma gemahlen, Koriander gemahlen, Kreuzkümmel gemahlen, Garam Masala, Rapsöl, gehackte Tomaten, Kokosmilch, Limettensaft, Pfeffer]",
+    cuisine: "Orientalish",
+    dishType: "main_course",
+    image: "https://images.media-allrecipes.com/images/75131.jpg",
+    duration: 30,
+    creator: "EatBetter",
+    created: 25-05-2023,
+  }))
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  console.log(`Recipe created`)
   })
+
   .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    console.error('Error connecting to the database', error)
+  })
+  

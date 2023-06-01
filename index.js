@@ -30,6 +30,59 @@ mongoose
   .then(recipe => {
     console.log("Recipe created:", recipe.title);
   })
+  .then(() => {
+    // Run your code here, after you have insured that the connection was made
+    return Recipe.insertMany([{
+      title: "Rendang",
+      level: "Easy Peasy",
+      ingredients: ["Meat", "Coconut Essence", "Chilli", "Garlic"],
+      cuisine: "INA",
+      dishType: "main_course",
+      duration: 60,
+      creator: "everyone"
+    },
+    {
+      title: "Blanquette de veau",
+      level: "UltraPro Chef",
+      ingredients: ["Calf", "Wheat flour", "Carrots", "Rice", "Butter", "Oignons"],
+      cuisine: "France",
+      dishType: "main_course",
+      duration: 60,
+      creator: "A french guy in old times"
+    },{
+      title: "Sate",
+      level: "Easy Peasy",
+      ingredients: ["Meat", "Coconut Essence", "Chilli", "Garlic"],
+      cuisine: "INA",
+      dishType: "main_course",
+      duration: 30,
+      creator: "everyone"
+    },
+    {
+      title: "Bouchée à la reine",
+      level: "UltraPro Chef",
+      ingredients: ["Wheat flour", "Seafoods", "Rice", "Butter"],
+      cuisine: "France",
+      dishType: "main_course",
+      duration: 60,
+      creator: "A french guy in old times (also)"
+    },
+    {
+      title: "Croque Monsieur",
+      level: "Easy Peasy",
+      ingredients: ["Bread", "Ham", "Cheese", "Butter"],
+      cuisine: "France",
+      dishType: "main_course",
+      duration: 15,
+      creator: "Michel Lunarca"
+    }])
+  })
+  .then(recipes => {
+    recipes.forEach(recipe => {
+      console.log("Recipe created:", recipe.title);
+    });
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

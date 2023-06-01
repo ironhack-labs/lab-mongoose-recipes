@@ -43,7 +43,24 @@ mongoose
   })
   .then ((result) => {
     console.log(result);
+    // Iteration 4
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"},{
+       duration: 100
+    })
   })
+  .then (() => {
+    console.log("Rigatoni is done faaaast")
+    //Iteration 5
+    return Recipe.deleteOne({title: "Carrot Cake"})
+})
+  .then (() => {
+  console.log("Carrot cake all gone")
+  //Iteration 6
+  mongoose.connection.close()
+}) 
+.then (() => {
+  console.log("We are closed, come by tomorrow")
+})
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

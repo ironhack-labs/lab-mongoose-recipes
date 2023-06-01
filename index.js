@@ -15,9 +15,21 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
+  .then((response) => {
+    console.log("connected yaay", response)
+    const recipeOne = {
+      title: "Turkish Dolma",
+      cuisine: "Turkish" 
+    }
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create(recipeOne)
   })
+  .then ((firstRecipe)=>{
+    console.log(firstRecipe.title)
+
+    return Recipe.insertMany(data)
+  })
+  .then(()=>{})
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

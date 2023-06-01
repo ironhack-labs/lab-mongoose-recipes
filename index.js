@@ -19,8 +19,8 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     Recipe
       .create({
-        title: 'Chocolate Chip Cookies',
-        level: 'Easy Peasy',
+        title: 'Chocolate Cookies',
+        level: 'Amateur Chef',
         ingredients: [
           'Chocolate',
           'Butter',
@@ -36,6 +36,14 @@ mongoose
       })
       .then(recipe => console.log('Title:', recipe.title)) 
       .catch(err => console.log('Error in Cookies recipe:', err))
+  })
+  .then(() => {
+    Recipe
+      .insertMany(data)
+      .then(recipes => {
+        recipes.forEach(recipe => console.log('Title:', recipe.title))
+      })
+      .catch(err => console.log('Error in data import:', err))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

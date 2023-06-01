@@ -17,6 +17,22 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    //Iteration 2
+    const recipeOne = {
+      title: "Curry Chicken",
+      level: "UltraPro Chef",
+      ingredients: ["curry sauce", "chicken", "rice", "basil", "pepper", "salt", "onion", "carrots"],
+      cuisine: "India",
+      dishType: "main_course",
+      image: "/public/images/currychicken.jpeg",
+      duration: 60,
+      creator: "Jamie Oliver",
+      created: '2023-06-01',
+    }
+    return Recipe.create(recipeOne);
+  })
+  .then((recipeOne) => {
+    console.log(recipeOne.title)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -183,6 +183,10 @@ mongoose
   })
   .then(recipe => {
     console.log("Recipe updated successfully:", recipe.title);
+    return Recipe.deleteOne({title: "Carrot Cake"});
+  })
+  .then(deleteResult => {
+    console.log("Deleted successfully", deleteResult);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

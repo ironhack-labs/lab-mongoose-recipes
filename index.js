@@ -43,7 +43,7 @@ mongoose
         recipes.forEach((recipe) => console.log(recipe.title, 'recipe added'))
       })
       .then(() => {
-        Recipe
+        const prom1 = Recipe
           .findOneAndUpdate(
             { title: "Rigatoni alla Genovese", creator: "Chef Luigi" },
             { duration: 100 }
@@ -51,14 +51,22 @@ mongoose
           .then((recipe) => console.log(`${recipe?.title} duration update succeeded`))
           .catch((err) => console.log("Error in duration of Rigatoni update:", err))
 
-        Recipe
+        const prom2 = Recipe
           .findOneAndRemove({
             name: "Carrot Cake",
             creator: "Chef Nadia",
           })
           .then((recipe) => console.log(`${recipe?.title} removed successfully`))
           .catch((err) => console.log("Error in remove:", err))
-          .finally(() => mongoose.connection.close()) // Close the Mongoose connection
+        // .finally(() => mongoose.connection.close()) // Close the Mongoose connection
+        
+        // CLose mongoose connection
+        Promise
+          .all([prom1, prom2])
+          .then(() => {
+            console.log('All done')
+            mongoose.connection.close()
+          })
       })
       .catch((err) => console.log("Error in data import:", err))
   })

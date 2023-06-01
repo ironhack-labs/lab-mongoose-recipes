@@ -38,12 +38,22 @@ mongoose
       .catch(err => console.log('Error in Cookies recipe:', err))
   })
   .then(() => {
-    Recipe
-      .insertMany(data)
-      .then(recipes => {
-        recipes.forEach(recipe => console.log('Title:', recipe.title))
+    Recipe.insertMany(data)
+      .then((recipes) => {
+        recipes.forEach((recipe) => console.log("Title:", recipe.title))
       })
-      .catch(err => console.log('Error in data import:', err))
+      .then(() => {
+        Recipe.findOneAndUpdate(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 }
+        )
+          // @ts-ignore
+          .then((recipe) => console.log(`${recipe.title} duration update succeeded`))
+          .catch((err) =>
+            console.log("Error in duration of Rigatoni update:", err)
+          )
+      })
+      .catch((err) => console.log("Error in data import:", err))
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

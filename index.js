@@ -187,6 +187,8 @@ mongoose
   })
   .then(deleteResult => {
     console.log("Deleted successfully", deleteResult);
+    mongoose.connection.close();
+    console.log("Connection closed", obj);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

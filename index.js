@@ -29,7 +29,20 @@ mongoose
 
     return Recipe.insertMany(data)
   })
-  .then(()=>{})
+  .then(()=>{
+    console.log(data)
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'},{duration: 100}, {returnDocument:'after'})
+
+  })
+  .then((updatedRecipe)=>{
+    console.log(updatedRecipe)
+
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then((noCake)=>{
+    console.log("Carrot cake was successfully removed!")
+    mongoose.connection.close()
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

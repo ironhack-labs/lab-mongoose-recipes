@@ -63,7 +63,7 @@ mongoose
 	.then((deleted) => {
 		console.log(`We don't like Carrot Cake anymore. That's ENOUGH`, deleted);
 
-		// MONGODB_URI.connection.close();
+		mongoose.connection.close();
 	})
 
 	.catch((error) => {

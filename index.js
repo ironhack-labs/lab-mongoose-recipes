@@ -60,7 +60,7 @@ mongoose
           .catch((err) => console.log("Error in remove:", err))
         // .finally(() => mongoose.connection.close()) // Close the Mongoose connection
         
-        // CLose mongoose connection
+        // Close mongoose connection
         Promise
           .all([prom1, prom2])
           .then(() => {

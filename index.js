@@ -16,7 +16,22 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Run your code here, after you have insured that the connection was made 
+    const recipeOne = {
+        title: "Lasagne",
+        level: "Amateur Chef",
+        ingredients: ["tomato sauce", "cheese","bechamel", "minced beef", "pasta plates"],
+        cuisine: "Italian",
+        dishType: "main_course",
+        duration: 45,
+        creator: "Juan y Marco"
+    };
+
+    return Recipe.create(recipeOne);
+  })
+  .then((recipeOne) => {
+    console.log("we have a new recipe added to the DB");
+    console.log(recipeOne.title);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

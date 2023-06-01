@@ -34,31 +34,32 @@ mongoose
         duration: 35,
         creator: 'John Favreau'
       })
-      .then(recipe => console.log('Title:', recipe.title)) 
+      .then(recipe => console.log('Personal recipe of', recipe.title, 'added')) 
       .catch(err => console.log('Error in Cookies recipe:', err))
-  })
-  .then(() => {
-    Recipe.insertMany(data)
+    
+    Recipe
+      .insertMany(data)
       .then((recipes) => {
-        recipes.forEach((recipe) => console.log("Title:", recipe.title))
+        recipes.forEach((recipe) => console.log(recipe.title, 'recipe added'))
       })
       .then(() => {
         Recipe
           .findOneAndUpdate(
-            { title: "Rigatoni alla Genovese" },
+            { title: "Rigatoni alla Genovese", creator: "Chef Luigi" },
             { duration: 100 }
           )
           .then((recipe) => console.log(`${recipe?.title} duration update succeeded`))
           .catch((err) => console.log("Error in duration of Rigatoni update:", err))
-      })
-      .then(() => {
+
         Recipe
-          .findOneAndRemove({ name: "Carrot Cake", creator: "Chef Nadia" })
-          .then(recipe => console.log(`${recipe?.title} removed successfully`))
-          .catch(err => console.log("Error in remove:", err))
+          .findOneAndRemove({
+            name: "Carrot Cake",
+            creator: "Chef Nadia",
+          })
+          .then((recipe) => console.log(`${recipe?.title} removed successfully`))
+          .catch((err) => console.log("Error in remove:", err))
+          .finally(() => mongoose.connection.close()) // Close the Mongoose connection
       })
       .catch((err) => console.log("Error in data import:", err))
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .catch(error => console.error('Error connecting to the database', error))

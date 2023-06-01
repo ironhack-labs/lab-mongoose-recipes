@@ -33,6 +33,26 @@ mongoose
   .then((manyRecipes) => {
     return Recipe.insertMany(data);
   })
+  .then((titleRecipe) => {
+    return Recipe.collection.distinct("title");
+  })
+  .then((updateRecipe) => {
+    console.log(updateRecipe);
+    return Recipe.findOneAndUpdate(
+      {
+        title: "Rigatoni alla Genovese",
+      },
+      { duration: 100 }
+    );
+  })
+  .then((removeRecipe) => {
+    console.log("Update success");
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((closeMongoDB) => {
+    console.log("Remove success");
+    return mongoose.connection.close();
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

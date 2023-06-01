@@ -19,7 +19,7 @@ cuisine: {
     type: String,
     required: true
 },
-dish: {
+dishType: {
     type: [String],
     enum: ["breakfast", "main_course", "soup", "snack", "drink", "dessert"]
 },

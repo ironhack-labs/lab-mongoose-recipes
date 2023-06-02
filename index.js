@@ -31,6 +31,15 @@ mongoose
 		return Recipe.insertMany(data);
 	})
 	.then(() => {
+		return Recipe.find();
+	})
+	.then((allRecipesDB) => {
+		console.log("Titles of all recipes in DB");
+		return allRecipesDB.forEach((recipe, index) => {
+			console.log(`${index + 1}: `, recipe.title);
+		});
+	})
+	.then(() => {
 		return Recipe.findOneAndUpdate(
 			{ title: "Rigatoni alla Genovese" },
 			{ duration: 100 },

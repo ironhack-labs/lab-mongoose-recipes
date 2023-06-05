@@ -12,11 +12,30 @@ mongoose
   .connect(MONGODB_URI)
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
+    //Remove all existing recipes
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    console.log('All Recipes removed.');
+    // Insert the recipes from data.json
+    return Recipe.insertMany(data);
+  })
+  .then(recipes => {
+    recipes.forEach(recipe => {
+      console.log(`Inserted recipe: ${recipe.title}`);
+    });
+    //Update the rigatoni duraton
+    return Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration:100}, {new:true})
+  })
+  .then(recipe => {
+    console.log(`Updated recipe: ${recipe.title}, Duration: ${recipe.duration}`);
+    //Delete Carrot Cake
+    return Recipe.deleteOne({ title: 'Carrot Cake' });
+  })
+  .then(() => {
+    console.log('Carrot Cake recipe deleted.');
+    // Close the DB connection when done
+    mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

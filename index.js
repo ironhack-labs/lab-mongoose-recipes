@@ -38,6 +38,8 @@ mongoose
   .then(recipe => recipe.forEach(element => {
     console.log('Recipe created', element.title)
   }))
+  .then(() => Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, { "duration": 100}))
+  .then(recipe => console.log('Recipe updating!!!', recipe))
   .catch(error => console.log('Error creating recipe', error))
 
 .catch(error => {

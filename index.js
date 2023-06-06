@@ -39,7 +39,9 @@ mongoose
     console.log('Recipe created', element.title)
   }))
   .then(() => Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, { "duration": 100}))
-  .then(recipe => console.log('Recipe updating!!!', recipe))
+  .then(recipe => console.log('Updated recipe!!!', recipe))
+  .then(() => Recipe.deleteOne({ title: "Carrot Cake"}))
+  .then(recipe => console.log('Recipe removed from database!!!!', recipe))
   .catch(error => console.log('Error creating recipe', error))
 
 .catch(error => {

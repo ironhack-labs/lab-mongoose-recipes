@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
-  tittle: {
+  title: {
     type: String,
     require: true,
     unique: true

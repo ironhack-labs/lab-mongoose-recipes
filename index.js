@@ -16,8 +16,25 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
+
+    return Recipe.create({
+      title: 'Chilaquiles verdes',
+      level: 'UltraPro Chef',
+      ingredients: [
+        'Tortilla',
+        'Chile serrano',
+        'Cebolla',
+        'Ajo',
+        'Tomate verde',
+      ],
+      cuisine: 'Mexican',
+      dishType: 'breakfast',
+      duration: 20,
+      creator: 'unknown',
+    })
+  }).then(recipe => console.log('Recipe created', recipe.title))
+  .catch(error => console.log('Error creating recipe', error))
+
+.catch(error => {
     console.error('Error connecting to the database', error);
-  });
+});

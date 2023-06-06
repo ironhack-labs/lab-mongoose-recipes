@@ -32,7 +32,12 @@ mongoose
       duration: 20,
       creator: 'unknown',
     })
-  }).then(recipe => console.log('Recipe created', recipe.title))
+  })
+  .then(recipe => console.log('Recipe created', recipe.title))
+  .then(() => {return Recipe.insertMany(data)})
+  .then(recipe => recipe.forEach(element => {
+    console.log('Recipe created', element.title)
+  }))
   .catch(error => console.log('Error creating recipe', error))
 
 .catch(error => {

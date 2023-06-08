@@ -13,21 +13,28 @@ mongoose.connect(MONGODB_URI)
                 Recipe.deleteMany()
         .catch(err => {console.error('Error connecting to the database', err)});
 
+  Recipe.create({
+  title:'Amêijoas', 
+  level:'Easy Peasy', 
+  ingredients:['Amêijoa', 'Alho', 'Azeite', 'Malagueta', 'Louro', 'Sal'], 
+  cuisine: 'Portuguesa', 
+  dishType: 'other', 
+  duration: 20, 
+  creator: 'Viviane'})
+  .then (title => {console.log(title)})
+  
 
   Recipe.insertMany(data)
     .then(data => {console.log(data)})
     .then(recipes => console.log(recipes))
-    .catch(error => console.log('no recipes added'));
 
   
   Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration: 100}, {new:true})
     .then(updatetime => console.log('updatetime', updatetime))
-    .catch(error => console.log('Not updated recipe'));
 
 
-  Recipe.deleteOne({title: 'Carrot Cake'})
+  return Recipe.deleteOne({title: 'Carrot Cake'})
     .then(deleted => console.log('deleted', deleted))
+    
+    
     .catch(error => console.log('Not deleted recipe'));
-  
-// It is not updating the Rigatoni recipe duration on MongoDB
-// And neather deleting the carrot Cake 

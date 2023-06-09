@@ -15,9 +15,17 @@ mongoose
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
+    return Recipe.insertMany(data);
+  })
+  .then((createdRecipes) => {
+    console.log('Inserted recipes:');
+    createdRecipes.forEach((recipe) => {
+      console.log(recipe.title);
+    });
+
     const myNewRecipe = new Recipe({
       title: 'Delicious Pancakes',
       level: 'Easy Peasy',
@@ -30,9 +38,31 @@ mongoose
       return Recipe.create(myNewRecipe);
   })
   .then((createdRecipe) => {
-    console.log(`Created recipe: ${createdRecipe.title}`);
-    mongoose.connection.close();
+    console.log(createdRecipe.title);
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: 'Rigatoni alla Genovese' },
+      { duration: 100 },
+      { new: true });
+    })
+    .then((updatedRecipe) => {
+    console.log('Recipe updated successfully!');
+  })
+  .then(() => {
+    return Recipe.findOneAndDelete({ title: 'Carrot Cake' });
+    })
+  .then(() => {
+    console.log('Recipe removed successfully!');
+  })
+  .then(() => {
+    Recipe.find()
+    .then((recipes) => {
+      console.log('Final Recipes:', recipes);
+      mongoose.connection.close();
+    });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+    mongoose.connection.close();
   });

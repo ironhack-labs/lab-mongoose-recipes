@@ -27,7 +27,11 @@ mongoose
       duration: 20,
       creator: 'John Doe',
     });
-      return myNewRecipe.save();
+      return Recipe.create(myNewRecipe);
+  })
+  .then((createdRecipe) => {
+    console.log(`Created recipe: ${createdRecipe.title}`);
+    mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

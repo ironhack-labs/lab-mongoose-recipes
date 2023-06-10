@@ -22,5 +22,3 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-
-  db.prueba.find()

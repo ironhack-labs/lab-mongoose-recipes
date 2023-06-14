@@ -15,9 +15,35 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    console.log(`Recipe created: ${Recipe.title} `)
+  .then(() => {    
+    return Recipe.create({
+    title: 'Pabellon Criollo',
+    level: 'UltraPro Chef',
+    ingredients: ['Arroz Blanco', 'Carne para Desmechar', 'Caraotas Negras', 'Platano Maduro Frito'],
+    cuisine: 'Venezolana',
+    dishType: 'main_course',
+    duration: 60,
+    creator: 'Desconocido',
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+
+}).then(recipe => {
+  console.log(`Recipe created: ${recipe.title}`);
+})
+.catch(error => console.log('Error creating recipe', error))
+
+// 3ra Iteration
+.then(() => {return Recipe.insertMany(data)})
+.then(recipe => recipe.forEach(element => {
+  console.log('Recipe created', element.title)
+}))
+
+// Recipe.create(data)
+//   .then((docs) => {
+//     console.log('The following recipes have been added to the database:');
+//     docs.forEach((recipe) => console.log(recipe.title));
+//   })
+//   .catch((err) => console.error(err))
+
+.catch(error => {
+  console.error('Error connecting to the database', error);})
+

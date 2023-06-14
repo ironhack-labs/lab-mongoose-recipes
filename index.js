@@ -5,7 +5,7 @@ const Recipe = require('./models/Recipe.model');
 // Import of the data from './data.json'
 const data = require('./data');
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
@@ -15,9 +15,52 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then(() => {    
+    return Recipe.create({
+    title: 'Pabellon Criollo',
+    level: 'UltraPro Chef',
+    ingredients: ['Arroz Blanco', 'Carne para Desmechar', 'Caraotas Negras', 'Platano Maduro Frito'],
+    cuisine: 'Venezolana',
+    dishType: 'main_course',
+    duration: 60,
+    creator: 'Desconocido',
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+
+}).then(recipe => {
+  console.log(`Recipe created: ${recipe.title}`);
+})
+.catch(error => console.log('Error creating recipe', error))
+
+// 3ra Iteration
+.then(() => {return Recipe.insertMany(data)})
+.then(recipe => recipe.forEach(element => {
+  console.log('Recipe created', element.title)
+}))
+
+// Recipe.create(data)
+//   .then((docs) => {
+//     console.log('The following recipes have been added to the database:');
+//     docs.forEach((recipe) => console.log(recipe.title));
+//   })
+//   .catch((err) => console.error(err))
+
+// iteration 4
+
+.then(() => Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration: 100}))
+.then(recipe => console.log('Recipe successfully updated', recipe))
+.catch(err => console.error(err))
+
+// iteration 5
+
+.then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
+  .then(() => console.log('Recipe successfully deleted'))
+  .catch(error => console.error(error))
+
+
+
+.catch(error => {
+  console.error('Error connecting to the database', error);})
+
+    // iteration 6
+
+  .finally(()=>mongoose.connection.close())

@@ -44,6 +44,23 @@ mongoose
 //   })
 //   .catch((err) => console.error(err))
 
+// iteration 4
+
+.then(() => Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration: 100}))
+.then(recipe => console.log('Recipe successfully updated', recipe))
+.catch(err => console.error(err))
+
+// iteration 5
+
+.then(() => Recipe.deleteOne({ title: 'Carrot Cake' }))
+  .then(() => console.log('Recipe successfully deleted'))
+  .catch(error => console.error(error))
+
+
+
 .catch(error => {
   console.error('Error connecting to the database', error);})
 
+    // iteration 6
+
+  .finally(()=>mongoose.connection.close())

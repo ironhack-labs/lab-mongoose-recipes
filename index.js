@@ -1,3 +1,5 @@
+
+
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -12,12 +14,38 @@ mongoose
   .connect(MONGODB_URI)
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: 'Fish Stew',
+      level: 'Easy Peasy',
+      ingredients: ['carrot', 'pumpkin', 'fish', 'apple', 'pinecone'],
+      cuisine: 'Mystic Trails',
+      dishType: 'main_course',
+      image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpotion-permit.fandom.com%2Fwiki%2FMeat_Stew&psig=AOvVaw1tdgoWxgDCqCVuIVC1w08m&ust=1687611712434000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPj8iuC52f8CFQAAAAAdAAAAABAD',
+      duration: 480,
+      creator: 'Sensei'
+    })
+  })
+  .then((result) => {
+    console.log("new recipe created", result);
+    return Recipe.insertMany(data);
+  })
+  .then((result) => {
+    console.log("succes, 5 recipes added", result);
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { duration: 100 }}, { new: true });
+  })
+  .then((result) => {
+    console.log("recipe updated", result);
+    return Recipe.deleteOne({ title: 'Carrot Cake' });
+  })
+  .then((result) => {
+    console.log('recipe deleted', result);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
+  })
+  .finally(() => {
+    mongoose.connection.close();
   });

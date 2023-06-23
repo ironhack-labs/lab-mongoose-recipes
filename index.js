@@ -56,7 +56,7 @@ async function update(filter, update) {
       console.log("Update Successful");
     }
   } catch (error) {
-    console.log("Update Insuccessful", error);
+    console.log("Update Unsuccessful", error);
   }
 }
 

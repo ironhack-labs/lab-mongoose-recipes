@@ -1,0 +1,19 @@
+const recipeDetails = {
+  title: "New Recipe",
+  description: "Delicious Egusi",
+  cuisine: "italian",
+  ingredients: [
+    "Redoil",
+    "water",
+    "fish",
+    "meat",
+    "pepper",
+    "spices",
+    "Egusi",
+    "salt",
+  ],
+  instructions: "put water in the pot, mix the egusi with pepper and salt",
+  creator: "Francis",
+};
+
+("mongodb://127.0.0.1:27017/recipe-app");

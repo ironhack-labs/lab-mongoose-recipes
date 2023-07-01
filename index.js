@@ -53,7 +53,7 @@ mongoose
 
   .then(() => {
     console.log("Recipe modified!");
-    return Recipe.Model.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
   })
 
   .catch((error) => {

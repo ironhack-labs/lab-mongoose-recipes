@@ -12,27 +12,20 @@
       "8 skinless, boneless chicken thighs"
     ],
     "cuisine": "Asian",
-    "dishType": "main_course",
+    "dishType": "Dish",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
     "duration": 40,
     "creator": "Chef LePapu"
   },
   {
-    "title": "Orange and Milk-Braised Pork Carnitas",
-    "level": "UltraPro Chef",
+    "title": "Orange and Milk-Braised Pork Carnita",
+    "level": "Easy Peasy",
     "ingredients": [
       "3 1/2 pounds boneless pork shoulder, cut into large pieces",
-      "1 tablespoon freshly ground black pepper",
-      "1 tablespoon kosher salt, or more to taste",
-      "2 tablespoons vegetable oil",
-      "2 bay leaves",
-      "2 teaspoons ground cumin",
-      "1 teaspoon dried oregano",
-      "1/4 teaspoon cayenne pepper",
-      "1 orange, juiced and zested"
+      "1 tablespoon freshly ground black pepper"
     ],
     "cuisine": "American",
-    "dishType": "main_course",
+    "dishType": "Dish",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg",
     "duration": 160,
     "creator": "Chef John"
@@ -55,7 +48,7 @@
       "4 teaspoons ground cinnamon"
     ],
     "cuisine": "International",
-    "dishType": "dessert",
+    "dishType": "Dessert",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg",
     "duration": 130,
     "creator": "Chef Nadia"
@@ -71,7 +64,7 @@
       "2 tablespoons freshly grated Parmigiano-Reggiano cheese"
     ],
     "cuisine": "Italian",
-    "dishType": "main_course",
+    "dishType": "Dish",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg",
     "duration": 220,
     "creator": "Chef Luigi"
@@ -87,7 +80,7 @@
       "2 cups semisweet chocolate chips"
     ],
     "cuisine": "French",
-    "dishType": "dessert",
+    "dishType": "Dessert",
     "image": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F4398987.jpg&w=596&h=399.32000000000005&c=sc&poi=face&q=85",
     "duration": 30,
     "creator": "Chef Jennifer"

@@ -23,37 +23,47 @@ mongoose
   })
   .then(() => {
     const newRecipe = {
-      title: "Carbonara´s Pizza",
+      title: "Carbonara's Pizza",
       level: "Amateur Chef",
       ingredients: [
-        "1/2 cup rice vinegar",
-        "5 tablespoons honey",
-        "1/3 cup soy sauce (such as Silver Swan®)",
-        "1/4 cup Asian (toasted) sesame oil",
-        "3 tablespoons Asian chili garlic sauce",
-        "3 tablespoons minced garlic",
-        "salt to taste",
-        "8 skinless, boneless chicken thighs",
+        "Homemade or refrigerated pizza dough",
+        "100 ml liquid cream for cooking",
+        "200gr bacon",
+        "1 ball mozzarella cheese",
+        "Salt",
+        "100gr sliced mushrooms",
+        "ground black pepper",
+        "100gr grated cheese",
       ],
       cuisine: "Italian",
       dishType: "main_course",
       image:
         "https://recetinas.com/wp-content/uploads/2020/02/pizza-carbonara.jpg",
       duration: 30,
-      creator: "Tito Berni",
+      creator: "Chef Tito Berni",
     };
-    //console.log(data.find(title));
+    console.log("New recipe created successfully");
     return Recipe.create(newRecipe);
   })
 
   .then(() => {
-    console.log("All recipes included");
+    console.log("All recipes included successfully");
     return Recipe.insertMany(data);
   })
 
   .then(() => {
-    console.log("Recipe modified!");
+    console.log("Recipe modified successfully");
     return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  })
+
+  .then(() => {
+    console.log("Recipe deleted successfully");
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+
+  .then(() => {
+    mongoose.connection.close();
+    console.log("Conection closed successfully")
   })
 
   .catch((error) => {

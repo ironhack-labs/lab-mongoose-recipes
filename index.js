@@ -32,21 +32,27 @@ mongoose
   })
   .then((createdRecipe) => {
     console.log("Recipe title:", createdRecipe.title);
+    return Recipe.insertMany(data);
   })
   .then(() => {
-    Recipe.insertMany(data);
     for (let i = 0; i < data.length; i++) {
       console.log(data[i].title);
     }
+    return Recipe.deleteOne({ title: "Carrot Cake" });
   })
+  .then((deleteOneRecipe) => {
+    console.log(deleteOneRecipe);
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true });
+  })
+  .then((updatedRecipe) => {
+    console.log("UpdatedRecipe: Rigatoni alla Genovese", updatedRecipe);
+  })
+  .then((disconnect) => {
+    mongoose.disconnect();
+  })
+
   .catch((error) => {
     console.error("Error connecting to the database", error);
-  });
-
-Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
-  .then((updatedRecipe) => {
-    console.log("UpdatedRecipe: Rigatoni alla Genovese", updatedRecipe.duration);
-  })
-  .catch((err) => {
-    console.log(err);
   });

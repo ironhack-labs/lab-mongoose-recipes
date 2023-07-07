@@ -43,18 +43,6 @@ mongoose
     console.error("Error connecting to the database", error);
   });
 
-// Recipe.insertMany(data)
-//   .then((recipes) => {
-//     console.log(recipes);
-
-//     for (let i = 0; i < data.length; i++) {
-//       console.log(data[i].title);
-//     }
-//   })
-// .catch((err) => {
-//   console.log(err);
-// });
-
 Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
   .then((updatedRecipe) => {
     console.log("UpdatedRecipe: Rigatoni alla Genovese", updatedRecipe.duration);

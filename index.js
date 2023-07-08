@@ -27,47 +27,55 @@ mongoose
       creator: "Chef Franklin"
     }
 
-    Recipe.create(newRecipe)
-    .then(createdRecipe => {
-      console.log(createdRecipe.title)
-    })
-    .catch(err => console.log(err))
+    return Recipe.create(newRecipe)
 
   })
+    .then((createdRecipe) =>{
+      console.log(createdRecipe.title)
+
+      //Iteration 3
+     return Recipe.insertMany(data)
+    })
+
+    .then(insertedRecipes => {
+      
+      insertedRecipes.forEach(recipe => console.log(recipe.title))
+
+        //Iteration 4
+      return  Recipe.findOneAndUpdate (
+          {title: "Rigatoni alla Genovese"},
+          {duration: 100},
+          {new: true}
+        )
+      
+    })
+    .then(updatedRecipe => {
+      //Iteration 5
+      console.log ("Successful Updated recipe")
+       return Recipe.deleteOne (
+        {title: "Carrot Cake"}
+      )
+
+    })
+
+    .then((deletedRecipe) => {
+
+      //Iteration 6 
+     console.log ("Successfully removed Carrot Cake")
+     return mongoose.disconnect()
+
+    })
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
  
-//Iteration 3
-Recipe.insertMany(data)
-.then(result => {
-  result.forEach(recipe => console.log(recipe.title))
-})
-.catch(error => console.log(error))
 
-//Iteration 4
-Recipe.findOneAndUpdate (
-  {title: "Rigatoni alla Genovese"},
-  {duration: 100},
-  {new: true}
-)
-.then(updatedRecipe => {
-  console.log ("Successful Updated recipe")
-})
-.catch(error => {
-  console.log(error)
-})
 
-//Iteration 5
 
-Recipe.deleteOne (
-  {title: "Carrot Cake"}
-)
 
-.then(() => 
-console.log ("Successfully removed Carrot Cake")
-)
 
-.catch(error => {
-  console.log("Is it removed?", error)
-})
+
+
+

@@ -1,23 +1,58 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 
 // Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
+const Recipe = require("./models/Recipe.model");
 // Import of the data from './data.json'
-const data = require('./data');
+const data = require("./data");
 
-const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
+const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI)
-  .then(x => {
+  .connect("mongodb://127.0.0.1:27017/recipe-app")
+  .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
+    return Recipe.deleteMany();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const newRecipe = {
+      title: "Strawberry Cake",
+      level: "Amateur Chef",
+      ingredients: ["2 cups sugar", "1 cup butter", "4 large eggs", "2 cups flour", "1 cup milk", "1/2 cup strawberries"],
+      cuisine: "Asian",
+      dishType: "main_course",
+      image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      duration: 40,
+      creator: "Chef LePapu",
+    };
+
+    return Recipe.create(newRecipe);
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
+  .then((createdRecipe) => {
+    console.log("Recipe title:", createdRecipe.title);
+    return Recipe.insertMany(data);
+  })
+  .then(() => {
+    for (let i = 0; i < data.length; i++) {
+      console.log(data[i].title);
+    }
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((deleteOneRecipe) => {
+    console.log(deleteOneRecipe);
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true });
+  })
+  .then((updatedRecipe) => {
+    console.log("UpdatedRecipe: Rigatoni alla Genovese", updatedRecipe);
+  })
+  .then((disconnect) => {
+    mongoose.disconnect();
+  })
+
+  .catch((error) => {
+    console.error("Error connecting to the database", error);
   });

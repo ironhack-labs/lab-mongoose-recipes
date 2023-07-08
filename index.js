@@ -16,8 +16,58 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const newRecipe = {
+      title: "Jollof Rice",
+      level: "UltraPro Chef",
+      ingrdients: ["Tomato", "Potato"],
+      cuisine: "Ghanaian",
+      dishType: "breakfast",
+      
+      duration: 45,
+      creator: "Chef Franklin"
+    }
+
+    Recipe.create(newRecipe)
+    .then(createdRecipe => {
+      console.log(createdRecipe.title)
+    })
+    .catch(err => console.log(err))
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+ 
+//Iteration 3
+Recipe.insertMany(data)
+.then(result => {
+  result.forEach(recipe => console.log(recipe.title))
+})
+.catch(error => console.log(error))
+
+//Iteration 4
+Recipe.findOneAndUpdate (
+  {title: "Rigatoni alla Genovese"},
+  {duration: 100},
+  {new: true}
+)
+.then(updatedRecipe => {
+  console.log ("Successful Updated recipe")
+})
+.catch(error => {
+  console.log(error)
+})
+
+//Iteration 5
+
+Recipe.deleteOne (
+  {title: "Carrot Cake"}
+)
+
+.then(() => 
+console.log ("Successfully removed Carrot Cake")
+)
+
+.catch(error => {
+  console.log("Is it removed?", error)
+})

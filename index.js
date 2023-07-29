@@ -26,6 +26,10 @@ mongoose
           return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
         })
           .then(() => console.log("Actualizado con exito"))
+            .then(() => {
+              return Recipe.deleteOne({title: "Carrot Cake"})
+            })
+              .then(() => console.log("Carrot Cake eliminada"))
       .catch((error) => {
         console.error("Error creando recetas:", error);
       });

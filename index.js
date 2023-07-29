@@ -16,6 +16,23 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
+    return Recipe.create({
+      title: "Mondongo",
+      level: "Amateur Chef",
+      ingredients: [
+        "1/2 rice",
+        "1 sugar",
+        "24 hours wait"
+      ],
+      cuisine: "Asian",
+      dishType: "main_course",
+      image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      duration: 60,
+      creator: "Chef Drew"
+    })
+    .then(() => console.log("Receta propia creada"))
+  })
+  .then(() => {
     console.log("Todo borrado");
     Recipe.insertMany(data)
       .then((insertedRecipes) => {

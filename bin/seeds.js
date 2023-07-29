@@ -8,9 +8,9 @@ const Recipe = require("../models/recipe.model");
 mongoose.connection
   .dropDatabase()
   .then(() => {
-    Recipe.create(recipes)
-    .then((recipes) => {
-      Recipe.create(
+   Recipe.create(recipes)
+    .then(() => {
+     return Recipe.create(
       { 
       title:"arroz con leche",
       level:"Easy Peasy",
@@ -20,9 +20,14 @@ mongoose.connection
       duration: 3,
       creator: "vero y luis",
        })
+       .then((newRecipe) =>{
+        console.log(newRecipe.title)
+       })
       }) 
-   .then((recipes) => {
-    Recipe.insertMany(
+      
+
+   .then(() => {
+    Recipe.insertMany([
     
       {
         title: "Orange and Milk-Braised Pork Carnitas dos",
@@ -66,19 +71,25 @@ mongoose.connection
         image: "https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg",
         duration: 130,
         creator: "Chef Nadia"
-      },
-    )
-   }) 
-   .then((recipes) => {
-    Recipe.findOneAndUpdate(
-      {title: "Rigatoni alla Genovese" }, {$set: {duration:100}}
+      },]
     )
    })
+   .then(() => {
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { $set: { duration: 100 } }
+    );
+  })
+  .then(() => {
+    console.log("Updated recipe");
+  }) 
+  .then(() => {
+    return Recipe.findOneAndRemove(
+      { title: "Carot Cake" },
+    );
+  })
+  .then(() => {
+    console.log("deleted!");
+  }) 
 
-   .then((recipes) => {
-    Recipe.deleteOne(
-      {title:"Carrot Cake"}
-    )
-   })
-    
   })

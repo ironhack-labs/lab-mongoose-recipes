@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
-    "dev": "node ./index.js"
+    "dev": "nodemon -e hbs css js ./index.js"
   },
   "license": "MIT",
   "devDependencies": {

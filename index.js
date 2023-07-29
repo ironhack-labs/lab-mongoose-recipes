@@ -30,6 +30,10 @@ mongoose
               return Recipe.deleteOne({title: "Carrot Cake"})
             })
               .then(() => console.log("Carrot Cake eliminada"))
+                .then(() => {
+                  return mongoose.connection.close()
+                })
+                  .then(() => console.log("Conexion cerrada! Bye! :P"))
       .catch((error) => {
         console.error("Error creando recetas:", error);
       });

@@ -20,7 +20,7 @@ mongoose
     Recipe.insertMany(data)
       .then((insertedRecipes) => {
         console.log(`${insertedRecipes.length} recetas insertadas.`);
-        return insertedRecipes.forEach(x => console.log(x.title)); // Array con los documentos insertados
+        return insertedRecipes.forEach(x => console.log(x.title));
       })
         .then(() => {
           return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})

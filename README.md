@@ -40,7 +40,7 @@ npm install
 Create a `Recipe` model inside of the file `/models/Recipe.model.js`. The schema should have the following fields:
 
 - **title** - Type `String`. It should be required and unique.
-- **level** - Type `String`. Can be one of the following values: _Easy Peasy_ - _Amateur Chef_ - _UltraPro Chef_ (remember the `enum` validator :wink:).
+UltraPro Chef- **level** - Type `String`. Can be one of the following values: _Easy Peasy_ - _Amateur Chef_ - _UltraPro Chef_ (remember the `enum` validator :wink:).
 - **ingredients** - Type `Array` of `String`s (represented as `[ String ]`).
 - **cuisine** - Type `String`. Should be required.
 - **dishType** - Type `String`. Possible values: _breakfast_, _main_course_, _soup_, _snack_, _drink_, _dessert_ or _other_.

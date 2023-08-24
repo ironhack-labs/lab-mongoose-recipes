@@ -38,13 +38,24 @@ mongoose
     return Recipe.insertMany(data)
   })
   .then(() =>{
-    const multipleRecipes = JSON.parse(data);
-    multipleRecipes.forEach((recipe) => {
+    data.forEach((recipe) => {
+
       console.log("Recipe's title: ", recipe.title)
-    })
+    }) 
   })
+  .then(() => {
+    console.log("Sucess!")
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+  })
+  .then(() => {
+    console.log("Sucess!")
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  mongoose.connection.close()
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
 
 

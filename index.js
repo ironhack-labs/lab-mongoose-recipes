@@ -36,7 +36,6 @@ mongoose
       "duration": 40,
       "creator": "Chef LePapu"
     });
-
   })
   .then((result) => {
     console.log("Dish created: " + result.title);
@@ -50,10 +49,13 @@ mongoose
   })
   .then((result) => {
     console.log(`the ${result.title} has been updated`);
-    return Recipe.deleteOne({name:'Carrot Cake'});
+    console.log("Deleting carrot cake...")
+    return Recipe.deleteOne({title:'Carrot Cake'});
   })
   .then((result) => {
-    console.log(`the ${result.title} has been deleted`);
+    console.log(`It has been deleted!`);
+  })
+  .then(() => {
     mongoose.connection.close();
   })
   .then(() => {

@@ -26,7 +26,8 @@ const recipeSchema = new Schema({
     min: 0
   },
   creator: String,
-  created: Date
+  created: {type:Date,
+  default: Date.now}
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

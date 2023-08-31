@@ -36,12 +36,23 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create(penneCaprese).then((food) =>
-      console.log(`${food.title} was added to DB!`)
-    );
+    Recipe.create(penneCaprese)
+      .then((food) => console.log(`${food.title} was added to DB!`))
+      .catch((err) => console.log(`An error occured while adding the recipe`));
     // Recipe.create(penneCaprese)
     //   .then((recipe) => console.log(`Recipe ${recipe.title} is added to DB!`))
     //   .catch((err) => console.log(`An error occured while adding the recipe`));
+  })
+  .then(() => {
+    Recipe.insertMany(data)
+      .then((dataRR) => {
+        dataRR.forEach((docRR) => {
+          console.log(`Added Recipe: ${docRR.title}`);
+        });
+      })
+      .catch((err) =>
+        console.log(`An error occured while adding the recipes from DB`)
+      );
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

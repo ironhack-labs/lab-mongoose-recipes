@@ -61,6 +61,10 @@ mongoose
     );
     console.log(`changed duration!`);
   })
+  .then(() => {
+    Recipe.deleteOne({ title: "Carrot Cake" });
+    console.log(`successfully deleted Carrot Cake`);
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

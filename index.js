@@ -54,6 +54,13 @@ mongoose
         console.log(`An error occured while adding the recipes from DB`)
       );
   })
+  .then(() => {
+    Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genevese" },
+      { duration: 100 }
+    );
+    console.log(`changed duration!`);
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

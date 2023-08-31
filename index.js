@@ -31,40 +31,33 @@ mongoose
   .connect(MONGODB_URI)
   .then((x) => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    Recipe.create(penneCaprese)
-      .then((food) => console.log(`${food.title} was added to DB!`))
-      .catch((err) => console.log(`An error occured while adding the recipe`));
-    // Recipe.create(penneCaprese)
-    //   .then((recipe) => console.log(`Recipe ${recipe.title} is added to DB!`))
-    //   .catch((err) => console.log(`An error occured while adding the recipe`));
+    return Recipe.create(penneCaprese);
   })
-  .then(() => {
-    Recipe.insertMany(data)
-      .then((dataRR) => {
-        dataRR.forEach((docRR) => {
-          console.log(`Added Recipe: ${docRR.title}`);
-        });
-      })
-      .catch((err) =>
-        console.log(`An error occured while adding the recipes from DB`)
-      );
+  .then((addedRecipe) => {
+    console.log(`${addedRecipe.title} was added to DB!`);
+    return Recipe.insertMany(data);
   })
-  .then(() => {
-    Recipe.findOneAndUpdate(
+  .then((addedData) => {
+    addedData.forEach((docRR) => {
+      console.log(`Added Recipe: ${docRR.title}`);
+    });
+    return Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genevese" },
       { duration: 100 }
     );
-    console.log(`changed duration!`);
   })
   .then(() => {
-    Recipe.deleteOne({ title: "Carrot Cake" });
-    console.log(`successfully deleted Carrot Cake`);
+    console.log("Changed duration of Rigatoni alla Genevese!");
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then(() => {
+    console.log("Successfully deleted Carrot Cake");
+    mongoose.connection.close();
+    console.log("Database connection closed");
   })
   .catch((error) => {
-    console.error("Error connecting to the database", error);
+    console.error("Error:", error);
   });

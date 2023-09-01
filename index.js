@@ -1,3 +1,5 @@
+const express = require("express");
+const app = express();
 const mongoose = require('mongoose');
 
 // Import of the model Recipe from './models/Recipe.model.js'
@@ -17,7 +19,37 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+  const myRecipe = {
+    title: "Tortilla de papas",
+    level: 'Easy Peasy',
+    ingredients: ["potatoes", "eggs", "oil", "salt"], 
+    cuisine: "Spanish",
+    dishType:  "Mediterranean food",
+    duration:  1, 
+    creator: "Davinia Tosco"
+  }
+  return Recipe.create(myRecipe)
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+  .then((element) => {
+    console.log(element.title)
+
+    return Recipe.insertMany(data)
+  })
+  .then((elements) => {
+    console.log('all the recipes has been added', elements)
+   
+    return Recipe.findOneAndUpdate( {title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
+  })
+  .then((updatedRecipe) => {
+    console.log('Great, duration has been updated', updatedRecipe)
+
+    return Recipe.deleteOne( {title: "Carrot Cake"})
+})
+.then((deletedRecipe) => {
+  console.log('The carrot cake has been removed', deletedRecipe)
+})
+
+ .catch(error => console.log('An error happened while connecting to recipe database', error));
+
+ mongoose.connection.close();
+  

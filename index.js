@@ -28,10 +28,23 @@ mongoose
     duration : "10",
     creator : "Paris Hilton",
     created: "yes"
-
     }
 
+    Recipe.create(myRecipe, (error, recipe) => {
+      if (error) {
+        console.log('An error happened:', error);
+        return Recipe;
+      }
+      console.log("Recepi");
+    });
+
+    // The same code as above but with a Promise version
+    Recipe.create(data)
+      .then(user => console.log('The user is saved and its value is: ', user))
+      .catch(error => console.log('An error happened while saving a new user:', error));
+
   })
+  
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

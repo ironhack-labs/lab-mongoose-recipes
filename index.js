@@ -16,7 +16,15 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: 'Macarrones con Queso', level: 'Easy Peasy',
+      ingredients: ["50gr Macarrones", "tomate frito"], cuisine: "International", dishType: "main_course",
+      image: "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg", duration: 30, creator: "Chef Alberto"
+    })
+
+  })
+  .then(createdRecipe => {
+    console.log(createdRecipe.title)
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

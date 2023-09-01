@@ -20,7 +20,7 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     let myRecipe = {
     title : "Torta",
-    level : "Okey",
+      level: "Amateur Chef",
     ingredients : "Palta",
     cuisine : "High",
     dishType : "Asian",
@@ -30,22 +30,18 @@ mongoose
     created: "yes"
     }
 
-    Recipe.create(myRecipe, (error, recipe) => {
-      if (error) {
-        console.log('An error happened:', error);
-        return Recipe;
-      }
-      console.log("Recepi");
-    });
-
-    // The same code as above but with a Promise version
-    Recipe.create(data)
-      .then(user => console.log('The user is saved and its value is: ', user))
-      .catch(error => console.log('An error happened while saving a new user:', error));
-
+    return Recipe.create(myRecipe)   
   })
-  
-  .catch(error => {
+  .then(()=> {})
+
+  //   The same code as above but with a Promise version
+  //   Recipe.create(myRecipe)
+  //     .then(user => console.log('The recipe is saved and its value is: ', user))
+  //     .catch(error => console.log('An error happened while saving a new user:', error));
+
+  // })
+
+  .catch((error) => {
     console.error('Error connecting to the database', error);
   });
 

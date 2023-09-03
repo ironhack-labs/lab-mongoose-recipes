@@ -99,6 +99,7 @@ const connectDB = async () => {
   try {
     await mongoose.connect(MONGODB_URI);
     console.log('MongoDB connected!!')
+    return Recipe.deleteMany()
   } catch (err) {
     console.log('Failed to connect to MongoDB', err)
   }
@@ -115,6 +116,7 @@ createRecipe = async () => {
         duration: 60,
         creator: "Mum"
       });
+    return firstRecipe
   }
   catch (err) {
     console.log('There was an error:', err)
@@ -125,6 +127,7 @@ addAllRecipes = async () => {
   try {
     const allRecipes = await Recipe.insertMany(data);
     console.log("Here are all 6 recipes added:", allRecipes);
+    return allRecipes;
   }
   catch (err) {
     console.log('Could not add all recipes:', err)
@@ -134,6 +137,7 @@ findOneUpdate = async () => {
   try {
     const toUpdate = await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { $set: { "duration": 100 } }, { new: true });
     console.log("The recipe was updated", toUpdate);
+    return toUpdate
   }
   catch (err) {
     console.log("Could not update:", err);
@@ -144,6 +148,7 @@ deleteOne = async () => {
   try {
     const deletedOne = await Recipe.deleteOne({ title: "Carrot Cake" });
     console.log("Recipe deleted: ", deletedOne);
+    return deletedOne;
   }
   catch (err) {
     console.log("Could not delete")

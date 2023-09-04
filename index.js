@@ -45,21 +45,22 @@ return Recipe.deleteMany()
   })
 
   .then(() => {
-    Recipe.deleteOne({ title: "Carrot Cake" });
+    return Recipe.deleteOne({ title: "Carrot Cake" });
   })
-  .then(() => {
-    console.log("Carrot Cake has Changed!");
+  .then((result) => {
+    console.log("Carrot Cake has removed!", result);
+    console.log(data)
   })
   .then(() => {
     const newRecipe = {
-      title: "titleName",
+      title: "Soup of the Day",
       level: "Easy Peasy",
       ingredients: ["ingre1", "ingre2", "ingre3"],
       cuisine: "cuisineType",
       dishType: "soup",
       image: "url",
       duration: 40,
-      creator: "creatorName",
+      creator: "Alice Choi",
     };
     return Recipe.create(newRecipe);
   })

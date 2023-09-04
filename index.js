@@ -30,15 +30,22 @@ mongoose
     }
     return Recipe.create(newRecipe);
   })
-  .then((dataFromDB) => {
-    console.log(dataFromDB.title);
-    Recipe.insertMany(data)
+  // .then((dataFromDB) => {
+  //   console.log(dataFromDB.title);
+  // })
+  .then(()=>{
+    return Recipe.insertMany(data);
   })
-
+  .then((recipe)=>{
+    recipe.forEach((newData)=>{
+      console.log(`${newData.title}`)
+    })
+  })
   .then(()=> {
     return Recipe.findOneAndUpdate(
       {title:"Rigatoni alla Genovese"}, 
-      {duration: 100})
+      {duration: "100"}, 
+      {new: true})    
   })
   .then(()=> {
     console.log('Recipe is updated!')

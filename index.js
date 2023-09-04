@@ -20,19 +20,21 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     let myRecipe = {
     title : "Torta",
-      level: "Amateur Chef",
+    level: "Amateur Chef",
     ingredients : "Palta",
     cuisine : "High",
-    dishType : "Asian",
-    image : "Yes",
-    duration : "10",
+    dishType: "main_course",
+      image: "https://images.media-allrecipes.com/images/75131.jpg",
+    duration : 10,
     creator : "Paris Hilton",
-    created: "yes"
+      created: "2023-09-03"
     }
-
     return Recipe.create(myRecipe)   
   })
-  .then(()=> {})
+  .then(result => {
+    console.log(`Recipe created: ${result}`)
+    return Recipe.insertMany(data)
+  })
 
   //   The same code as above but with a Promise version
   //   Recipe.create(myRecipe)
@@ -40,6 +42,22 @@ mongoose
   //     .catch(error => console.log('An error happened while saving a new user:', error));
 
   // })
+
+  .then(result => {
+    console.log(`Created: ${result.length} recipes`);
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 }, { new: true })
+  })
+  .then(result => {
+    console.log(`Update ${result.title} and new duration is: ${result.duration}`);
+    return Recipe.deleteOne({ title: 'Carrot Cake' })
+  })
+  .then((result) => {
+    console.log("This recipe was deleted:", result)
+  })
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+  })
+  .finally(() => mongoose.connection.close())
 
   .catch((error) => {
     console.error('Error connecting to the database', error);

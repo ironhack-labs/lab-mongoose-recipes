@@ -29,7 +29,6 @@ mongoose
         "https://www.macheesmo.com/wp-content/uploads/2018/08/12-Egg-Party-Omelet-118.jpg",
       duration: 15,
       creator: "Duc",
-      created: "07.09.2023",
     };
 
     // Iteration 2 - Create a recipe
@@ -73,13 +72,6 @@ mongoose
         Recipe.deleteOne({ title: "Carrot Cake" })
           .then(function () {
             console.log("Iteration 5 - Carrot Cake deleted"); // Success
-            //Iteration 6
-            mongoose.connection.close(() => {
-              console.log(
-                "Iteration 6 - Mongoose default connection disconnected through app termination"
-              );
-              process.exit(0);
-            });
           })
           .catch(function (error) {
             console.log(error); // Failure
@@ -94,4 +86,16 @@ mongoose
 
   .catch((error) =>
     console.log("An error happened while saving a new recipe:", error)
-  );
+  )
+  .finally(() => {
+    // If the Node process ends, close the Mongoose connection
+    //Iteration 6
+    process.on("SIGINT", function () {
+      mongoose.connection.close(function () {
+        console.log(
+          "Iteration 6 - Mongoose default connection disconnected through app termination"
+        );
+        process.exit(0);
+      });
+    });
+  });

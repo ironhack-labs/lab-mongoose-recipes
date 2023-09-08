@@ -47,31 +47,33 @@ mongoose
     //Iteration 3 - Insert multiple recipes
     const recipeData = require("./data.json");
     Recipe.insertMany(recipeData)
-      .then((recipe) =>
-        console.log(
-          "Iteration 3 - Recipe title: ",
-          Recipe.find({ title: 1, _id: 0 }),
-
-          //Iteration 4
-          Recipe.findOneAndUpdate(
-            { _id: recipe[3]._id /*name: "Rigatoni alla Genovese"*/ },
-            { $set: { duration: 100 } },
-            { returnOriginal: false },
-            function (err, recipe) {
-              if (err) {
-                console.log("Something wrong when updating data!");
-              } else {
-                console.log(recipe);
-              }
+      .then((recipe) => {
+        for (let i = 0; i < recipe.length; i++) {
+          console.log(
+            `Iteration 3.${i + 1} - Recipe title ${i + 1}: `,
+            recipe[i].title
+          );
+        }
+        //Iteration 4
+        Recipe.findOneAndUpdate(
+          { _id: recipe[3]._id },
+          /*{ name: "Rigatoni alla Genovese" },*/
+          { $set: { duration: 100 } },
+          { returnOriginal: false },
+          function (err, recipe) {
+            if (err) {
+              console.log("Something wrong when updating data!");
+            } else {
+              console.log("Iteration 4: ", recipe);
             }
-          )
-        )
-      )
+          }
+        );
+      })
       .then((recipe) => {
         //Iteration 5
         Recipe.deleteOne({ title: "Carrot Cake" })
-          .then(function () {
-            console.log("Iteration 5 - Carrot Cake deleted"); // Success
+          .then(function (recipe) {
+            console.log("Iteration 5 - Carrot Cake deleted", recipe); // Success
           })
           .catch(function (error) {
             console.log(error); // Failure

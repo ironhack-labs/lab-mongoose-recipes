@@ -22,7 +22,7 @@ mongoose
     console.error('Error connecting to the database', error);
   });
 
-function addNewRecipe(){
+  function addNewRecipe(){
   const newRecipe = {
     title: "Garlic Braised Short Ribs With Red Wine",
     level: "Amateur Chef",
@@ -37,6 +37,15 @@ function addNewRecipe(){
   Recipe.create(newRecipe)
   .then(res => console.log(res))
   .catch((err) => console.log(err))
-}
+  }
 
-addNewRecipe();
+  addNewRecipe();
+
+
+  .then((result) => {
+    console.log(`Recipe created: "${result.title}"`);
+    return Recipe.insertMany(data);
+  })
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+  });

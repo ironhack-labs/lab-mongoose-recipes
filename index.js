@@ -38,7 +38,7 @@ mongoose
   .then(res => console.log(res))
   .catch((err) => console.log(err))
   }
-
+  addNewRecipe();
   
   .then((result) => {
     console.log(`Recipe created: "${result.title}"`);
@@ -60,5 +60,9 @@ mongoose
   });
   
 
-
-  addNewRecipe();
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });

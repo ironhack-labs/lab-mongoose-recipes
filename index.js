@@ -39,13 +39,26 @@ mongoose
   .catch((err) => console.log(err))
   }
 
-  addNewRecipe();
-
-
+  
   .then((result) => {
     console.log(`Recipe created: "${result.title}"`);
     return Recipe.insertMany(data);
   })
+
+  .then (() => {
+    console.log ('Rigatoni alla Genovese has successfully updated!')
+    return Recipe.findOneAndUpdate ({title: "Rigatoni alla Genovese", duration: 100})
+  })
+
+  .then (() => {
+    console.log ('Successfully destroyed the carrot cake')
+    return Recipe.deleteOne ({title: "Carrot Cake"})
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  
+
+
+  addNewRecipe();

@@ -21,3 +21,22 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+function addNewRecipe(){
+  const newRecipe = {
+    title: "Garlic Braised Short Ribs With Red Wine",
+    level: "Amateur Chef",
+    ingredients: ["Short Ribs", "Garlic", "Dry Red Wine Bottle", "Beef Stock"],
+    cuisine: "International",
+    dishType: "main_course",
+    image: "https://static01.nyt.com/images/2017/12/16/dining/16COOKING-BRAISED-SHORTRIBS/16COOKING-BRAISED-SHORTRIBS-master768.jpg?w=1280&q=75",
+    duration: 4.5,
+    creator: "Alison Roman",
+  }
+
+  Recipe.create(newRecipe)
+  .then(res => console.log(res))
+  .catch((err) => console.log(err))
+}
+
+addNewRecipe();

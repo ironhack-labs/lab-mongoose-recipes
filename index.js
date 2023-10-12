@@ -21,3 +21,48 @@ mongoose
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  function addNewRecipe(){
+  const newRecipe = {
+    title: "Garlic Braised Short Ribs With Red Wine",
+    level: "Amateur Chef",
+    ingredients: ["Short Ribs", "Garlic", "Dry Red Wine Bottle", "Beef Stock"],
+    cuisine: "International",
+    dishType: "main_course",
+    image: "https://static01.nyt.com/images/2017/12/16/dining/16COOKING-BRAISED-SHORTRIBS/16COOKING-BRAISED-SHORTRIBS-master768.jpg?w=1280&q=75",
+    duration: 4.5,
+    creator: "Alison Roman",
+  }
+
+  Recipe.create(newRecipe)
+  .then(res => console.log(res))
+  .catch((err) => console.log(err))
+  }
+  addNewRecipe();
+  
+  .then((result) => {
+    console.log(`Recipe created: "${result.title}"`);
+    return Recipe.insertMany(data);
+  })
+
+  .then (() => {
+    console.log ('Rigatoni alla Genovese has successfully updated!')
+    return Recipe.findOneAndUpdate ({title: "Rigatoni alla Genovese", duration: 100})
+  })
+
+  .then (() => {
+    console.log ('Successfully destroyed the carrot cake')
+    return Recipe.deleteOne ({title: "Carrot Cake"})
+  })
+
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+  });
+  
+
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });

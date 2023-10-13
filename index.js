@@ -16,8 +16,53 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    const recipe = new Recipe({
+      title: "Spaghetti",
+      level: "Easy Peasy",
+      ingredients: [
+        "Butter", "Water", "Salt", "Pasta"
+      ],
+      cuisine: "Italian",
+      dishType: "main_course",
+      duration: 20,
+      creator: "Chef Zeynep"
+    })
+
+    return Recipe.create(recipe)
+  })
+  .then(recipe => {
+    console.log(`the title of the recipe is ${recipe.title}`)
+  })
+  //inserting multiple recipes from data.json
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+  .then(dataRecipes => {
+    dataRecipes.forEach(y => {
+      console.log(`the title of the recipe is ${y.title}`)
+    })
+  })
+  //I dont care previous promise value thats why =>()
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: "Carrot Cake" })
+  })
+  .then(() => {
+    return mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+// When successfully connected
+mongoose.connection.on('connected', () => console.log('Mongoose default connection open'));
+
+// If the connection throws an error
+mongoose.connection.on('error', err => console.log(`Mongoose default connection error: ${err}`));
+
+// When the connection is disconnected
+mongoose.connection.on('disconnected', () => console.log('Mongoose default connection disconnected'));
+

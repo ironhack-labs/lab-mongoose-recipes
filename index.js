@@ -17,7 +17,34 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: 'Albondigas',
+      level: 'Amateur Chef',
+      ingredients: ['pollo', 'champiñones'],
+      cuisine: 'IronHack',
+      dishType: 'main_course',
+      image: 'https://images.hola.com/imagenes/cocina/recetas/20200312162984/albondigas-en-salsa-faciles/0-797-500/albondigas-en-salsa-t.jpg?tx=w_1200',
+      duration: 20,
+      creator: 'Angel'
+    })
   })
+  .then(createdRecipe => {
+    console.log(createdRecipe.title) // iteration 2
+    return Recipe.insertMany(data)
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: 'Carrot Cake' })
+  })
+  .then(() => {
+    process.on('SIGINT', () => {
+      mongoose.connection.close()
+      console.log('connection to database closed')
+    })
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });

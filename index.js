@@ -32,7 +32,10 @@ mongoose
     console.log(createdRecipe.title) // iteration 2
     return Recipe.insertMany(data)
   })
-  .then(() => {
+  .then(createdRecipes => {
+    createdRecipes.forEach(elm => {
+      console.log(elm.title)
+    })
     return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
   })
   .then(() => {

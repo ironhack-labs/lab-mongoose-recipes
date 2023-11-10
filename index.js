@@ -20,9 +20,9 @@ mongoose
     updateData();
   })
 
-  .then(() => {
-    mongoose.connection.close();
-  })
+  // .then(() => {
+  //   mongoose.connection.close();
+  // })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
@@ -33,7 +33,7 @@ mongoose
 async function updateData() {
   try {
     const insertData = await Recipe.insertMany(data);
-    console.log("data imported", data);
+    console.log("data imported", insertData);
 
     const updateandFind = await Recipe.findOneAndUpdate(
       { title: "Rigatoni alla Genovese" },

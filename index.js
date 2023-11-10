@@ -18,10 +18,14 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     // updateData();
-    updateData().then(() => {
-      console.log("closing connection");
-      return mongoose.connection.close();
-    });
+    updateData()
+      .then(() => {
+        setTimeout(() => {
+          mongoose.connection.close();
+          console.log("closing");
+        }, 3000);
+      })
+      .catch((err) => console.log(err));
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);

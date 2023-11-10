@@ -17,21 +17,36 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    updateData();
+    // updateData();
+    updateData().then(() => {
+      console.log("closing connection");
+      return mongoose.connection.close();
+    });
   })
-
-  // .then(() => {
-  //   mongoose.connection.close();
-  // })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
 
-//close the database connection
-//mongoose.connection.close()
-
 async function updateData() {
   try {
+    const newRecipe = {
+      title: "Asian Glazed Chicken Thighs New ONe",
+      level: "Amateur Chef",
+      ingridients: [],
+      cuisine: "Asian",
+      dishType: "main_course",
+      image:
+        "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      duration: 40,
+      creator: "Chef LePapu",
+    };
+    const addNewReciepe = await Recipe.create(newRecipe);
+    console.log("data added", addNewReciepe);
+    const consolelog = await Recipe.find(
+      { title: "Asian Glazed Chicken Thighs New ONe" },
+      { title: 1, _id: 0 }
+    );
+    console.log("writetitle", consolelog);
     const insertData = await Recipe.insertMany(data);
     console.log("data imported", insertData);
 

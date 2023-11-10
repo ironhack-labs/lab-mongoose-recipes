@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require("./models/Recipe.model");
-// Import of the data from './data.json'
+// Import of the data from the file './data.json'
 const data = require("./data");
 
 const MONGODB_URI = "mongodb://localhost:27017/recipe-app";
@@ -16,41 +16,46 @@ mongoose
     return Recipe.deleteMany();
   })
   .then(() => {
-    const myRecipe = {
-      title: "Sandvic",
-      level: "Easy Peasy",
-      ingredients: ["Bread", "Lettuce", "Tomatoes", "Cheese", "Beef"],
-      cuisine: "Turkish",
-      dishType: "xXx",
-      duration: 60,
-      creator: "Aykut",
-      created: new Date(),
-    };
+    console.log("All existing recipes deleted from the DB!!!");
     // Run your code here, after you have insured that the connection was made
-    return Recipe.create(myRecipe);
-  })
-  .then(() => {
-    return Recipe.insertMany(data);
-  })
-  .then((data) => {
-    data.forEach((recipe) => {
-      console.log("Recipe Title:", recipe.title);
-    });
-  })
-  .then(() => {
-    const filter = { title: "Rigatoni alla Genovese" };
-    const update = { duration: 100 };
+    // iteration 2
 
-    return Recipe.findOneAndUpdate(filter, update);
+    const newRecipe = {
+      title: "Mixto quente",
+      level: "Easy Peasy",
+      ingredients: ["pão francês", "queijo", "presunto"],
+      cuisine: "Brasileira",
+      dishType: "snack",
+      image:
+        "http://culinaria.culturamix.com/blog/wp-content/gallery/misto-quente-3/Misto-Quente-6.jpg",
+      duration: 5,
+      creator: "unknown",
+    };
+
+    return Recipe.create(newRecipe);
   })
-  .then(() => {
-    const filter = { title: "Carrot Cake" };
-    return Recipe.deleteOne(filter);
+  .then((result) => console.log(`Recipe created: ${result}`))
+  .then(() => Recipe.insertMany(data))
+  .then((result) => {
+    // console.log(`Created recipes:`, result);
+    console.log(`Created ${result.length} recipes`);
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
   })
-  .then(() => {
-    console.log("Hello world");
-    return mongoose.connection.close();
+  .then((result) => {
+    console.log(
+      `Updated ${result.title} and new duration is: ${result.duration}`
+    );
+
+    return Recipe.deleteOne({ title: "Carrot Cake" });
+  })
+  .then((result) => {
+    console.log("The recipe was deleted", result);
   })
   .catch((error) => {
-    console.error("Error connecting to the database", error);
-  });
+    console.error("Error: ", error);
+  })
+  .finally(() => mongoose.connection.close());

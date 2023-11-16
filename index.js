@@ -16,7 +16,19 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.create(data);
+  })
+  .then(() => {
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
+  })
+  .then(() => {
+    return Recipe.deleteOne({ title: 'Carrot Cake' });
+  })
+  .then(() => {
+    return mongoose.connection.close();
+  })
+  .then(() => {
+    console.log('Connection closed');
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

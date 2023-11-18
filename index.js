@@ -8,6 +8,7 @@ const data = require('./data');
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
 // Connection to the database "recipe-app"
+mongoose.set('strictQuery', true)
 mongoose
   .connect(MONGODB_URI)
   .then(x => {
@@ -20,7 +21,7 @@ mongoose
   .then(() => {
     const newRecipe = {
       title: 'Fabada',
-      level: 'UltraPro chef',
+      level: 'UltraPro Chef',
       ingredients: ['450gr White beans', '250 gr Onion', '2 Garlic gloves', '2 Asturian chorizo', '2 Asturian morcilla', '200gr pork shoulder', '200gr Bacon', '1 Bay leaf', '45gr Extra virgin olive oil'],
       cuisine: 'Asturian',
       dishType: 'main_course',

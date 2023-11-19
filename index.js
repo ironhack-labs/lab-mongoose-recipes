@@ -16,9 +16,12 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then((data) => {
+  .then(() => {
+    return Recipe.create(data)
+  })
+  .then(() => {
     // Run your code here, after you have insured that the connection was made
-    Recipe.create({
+    return Recipe.create({
       title: 'Delicious Spaghetti Carbonara',
       level: "Amateur Chef",
       ingredients: ['200g spaghetti', '100g pancetta', '2 large eggs', '50g Pecorino cheese', 'Salt and black pepper to taste'],
@@ -29,56 +32,30 @@ mongoose
       creator: "Chef Julia",
       created: Date.now()
     })
-      .then(() => {
-      })
-      .catch((err) => console.log(err))
-
-    Recipe.create(recipes)
-      .then(() => {
-
-      })
-      .catch((err) => console.log(err))
-
-    Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
-      .then(() => {
-        //Entra en este then pero no devuelve la query actualizada
-        console.log("updated")
-      })
-      .catch((err) => console.log(err))
-
-    Recipe.deleteOne({ title: 'Carrot Cake' })
-      .then(() => {
-      })
-      .catch((err) => console.log(err))
   })
-
+  
+  .then(() => {
+    // Con el método Recipe.findOneAndUpdate() actualizamos la duración de la receta 'Rigatoni alla Genovese'
+    // El primer parámetro es el filtro (qué receta queremos actualizar)
+    // El segundo parámetro es el cambio que queremos hacer
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
+  })
+  .then(() => {
+    // Con el método Recipe.deleteOne() borramos la receta 'Carrot Cake'
+    // El primer parámetro es el filtro (qué receta queremos borrar)
+    return Recipe.deleteOne({ title: 'Carrot Cake' });
+  })
+  .then(() => {
+    // Cerramos la conexión a la base de datos
+    return mongoose.connection.close();
+  })
+  .then(() => {
+    // Si todo ha ido bien, mostramos un mensaje
+    console.log('Connection closed');
+  })
   .catch(error => {
-    console.error('Error connecting to the database', error);
+    // Si hay algún error, lo mostramos por consola
+    console.error(error);
   });
+  
 
-  /*return Recipe.create({
-    title: 'Delicious Spaghetti Carbonara',
-    level: "Amateur Chef",
-    ingredients: ['200g spaghetti', '100g pancetta', '2 large eggs', '50g Pecorino cheese', 'Salt and black pepper to taste'],
-    cuisine: "Italian",
-    dishType: "main_course",
-    image: "https://images.media-allrecipes.com/images/75131.jpg",
-    duration: 30,
-    creator: "Chef Julia",
-    created: Date.now()
-  })
-  .then(() => {
-    return Recipe.create(recipes)
-  })
-  .then(() => {
-    return Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
-  })
-  .then(() => {
-    Recipe.deleteOne({ title: 'Carrot Cake' })
-  })
-  .then(() => {
-    mongoose.connection.close();
-  })
-  .catch((error) => {
-    console.error('Error connecting to the database', error);
-  })*/

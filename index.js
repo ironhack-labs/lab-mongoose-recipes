@@ -8,16 +8,33 @@ const data = require('./data');
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
 // Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI)
-  .then(x => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+mongoose.connect(MONGODB_URI)
+        .then(x => console.log(`Connected to the database: "${x.connection.name}"`))
+                Recipe.deleteMany()
+        .catch(err => {console.error('Error connecting to the database', err)});
+
+  Recipe.create({
+  title:'Amêijoas', 
+  level:'Easy Peasy', 
+  ingredients:['Amêijoa', 'Alho', 'Azeite', 'Malagueta', 'Louro', 'Sal'], 
+  cuisine: 'Portuguesa', 
+  dishType: 'other', 
+  duration: 20, 
+  creator: 'Viviane'})
+  .then (title => {console.log(title)})
+  
+
+  Recipe.insertMany(data)
+    .then(data => {console.log(data)})
+    .then(recipes => console.log(recipes))
+
+  
+  Recipe.findOneAndUpdate({title:'Rigatoni alla Genovese'}, {duration: 100}, {new:true})
+    .then(updatetime => console.log('updatetime', updatetime))
+
+
+  return Recipe.deleteOne({title: 'Carrot Cake'})
+    .then(deleted => console.log('deleted', deleted))
+    
+    
+    .catch(error => console.log('Not deleted recipe'));

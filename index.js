@@ -36,8 +36,16 @@ mongoose
   .then(async () => {
     try {
       const recipeUpdated = await Recipe.findOneAndUpdate(
-        { "title": "Rigatoni alla Genovese" },
-        { "duration": 100 },
+        { "title": 'Rigatoni alla Genovese'},
+        {
+        "title": 'Spaghetti Bolognese',
+        "level": 'Easy Peasy',
+        "ingredients": ['150g Spaghetti', '100g meat', 'Tomato Sauce'],
+        "cuisine": 'Italian',
+        "dishType": 'main_course',
+        "duration": 100,
+        "creator": "An Italian" 
+        },
         { new: true }
       );
       return console.log('Recipe updated:', recipeUpdated);

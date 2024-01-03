@@ -15,8 +15,56 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+  .then(async () => {
+    try {
+      const recipe = await Recipe.create({ title: 'Spaghetti', cuisine: 'Italian' });
+      return console.log('Recipes imported:', recipe.title);
+    } catch (error) {
+      return console.log('Error happened:', error);
+    }
+  })
+  .then(async () => {
+    try {
+      const recipes = await Recipe.insertMany(data);
+      recipes.forEach(recipe => {
+        console.log('Recipe saved:', recipe.title);
+      });
+    } catch (error) {
+      return console.log('Error happened:', error);
+    }
+  })
+  .then(async () => {
+    try {
+      const recipeUpdated = await Recipe.findOneAndUpdate(
+        { "title": 'Rigatoni alla Genovese'},
+        {
+        "title": 'Spaghetti Bolognese',
+        "level": 'Easy Peasy',
+        "ingredients": ['150g Spaghetti', '100g meat', 'Tomato Sauce'],
+        "cuisine": 'Italian',
+        "dishType": 'main_course',
+        "duration": 100,
+        "creator": "An Italian" 
+        },
+        { new: true }
+      );
+      return console.log('Recipe updated:', recipeUpdated);
+    } catch (error) {
+      return console.log('Error happened:', error);
+    }
+  })
+  .then(async () => {
+    try {
+      const recipeDeleted = await Recipe.deleteOne(
+        { "title": "Carrot Cake" }
+      );
+      return console.log('Recipe deleted:', recipeDeleted);
+    } catch (error) {
+      return console.log('Error happened:', error);
+    }
+  })
+  .then(async () => {
+    return mongoose.connection.close();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

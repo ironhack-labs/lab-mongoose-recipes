@@ -17,6 +17,40 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.create({
+      title: "Pizza Margherita",
+      level: "Amateur Chef",
+      ingredients:["1 can of San Marzone tomatoes", "1 pound of pizza dough", "12 ounces of mozarella", "olive oil", "basil"],
+      cuisine:"Italian",
+      dishType: "main_course",
+      image: "https://cookieandkate.com/images/2021/07/homemade-margherita-pizza.jpg",
+      duration:"90",
+      creator: "Raffaele Esposito"
+    })
+  })
+  .then( (recipe)=>{
+    console.log (recipe.title)
+    return Recipe.create(data)
+  })
+  .then((recipes)=>{
+    recipes.forEach((rec)=>{
+      console.log(rec.title);
+    })
+
+    return Recipe.findOneAndUpdate({title:"Rigatoni alla Genovese"},{duration: 100})
+  })
+  .then((updatedRecipe)=> {
+    console.log(`${updatedRecipe.title} was successfully updated :)`);
+    
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(()=>{
+    console.log(`The recipe was successfully deleted :)`)
+    
+    mongoose.connection.close();
+  })
+  .then(()=>{
+    console.log("DB successfully closed :)")
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

@@ -162,7 +162,6 @@ mongoose
       setTimeout(removeRecipe, 2000);
 
       //Iteration 6 - Close Database
-      //SKIPPED
 
       function closeConnection(){
         process.on('SIGINT', () => {

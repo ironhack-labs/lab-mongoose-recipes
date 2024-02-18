@@ -1,23 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-// Import of the model Recipe from './models/Recipe.model.js'
-const Recipe = require('./models/Recipe.model');
-// Import of the data from './data.json'
-const data = require('./data');
+require('dotenv').config();
+require('./configs/db.config');
 
-const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
+const Recipe = require('./models/Recipe.model')
+const recipeData = require('./data')
 
-// Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI)
-  .then(x => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany()
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
+console.info('Cleaning recipes collection');
+Recipe.deleteMany()
+  .then(() => Recipe.create({title: 'Paella', cuisine: 'Spanish'}))
+  .then((recipe) => console.log(`${recipe.title} recipe created`))
+  .catch(error => {
+    console.error('Error sending the recipe', error);
+  });
+
+Recipe.create(recipeData)
+  .then((recipes) => {
+    recipes.forEach((recipe) => { console.log(recipe.title)})
   })
   .catch(error => {
-    console.error('Error connecting to the database', error);
+    console.error('Error sending multiple recipes', error);
   });
+
+Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' },{ duration: 100 })
+  .then(() => console.log('Updated!'))
+  .catch((error) => console.error('Error updating the recipe', error))
+
+Recipe.deleteOne({ title: 'Carrot cake' })
+  .then(() => {
+    console.log('Recipe deleted!');
+    mongoose.connection.close(() => {console.log("Finished")});
+  })
+  .catch((error) => console.error('Error deleting the recipe', error))

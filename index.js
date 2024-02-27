@@ -16,8 +16,53 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+
+    Recipe.create({
+      title: 'Macarrones',
+      level: 'Easy Peasy',
+      ingredients: ['Pasta', 'Tomate', 'Queso'],
+      cuisine: 'Italiana',
+      dishType: 'main_course',
+      duration: '20',
+      creator: 'Anónimo'
+    })
+      .then((nuevaReceta) => {
+        console.log('Receta creada con éxito:', nuevaReceta);
+      })
+      .catch((error) => {
+        console.error('Error al crear la receta:', error);
+      });
+  
+  
+    const recipies = require('./data.json');
+  
+    Recipe.insertMany(recipies)
+      .then((recipies) => {
+        recipies.forEach((rec) => console.log(rec.title))
+        
+        Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true })
+          .then((updatedRecipe) => {
+            console.log('Receta actualizada con éxito:', updatedRecipe.duration);
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+          
+        Recipe.deleteOne({title: 'Carrot Cake'})
+          .then( console.log('Receta borrada con exito'))
+          .catch()
+
+      })
+  
+      .catch((error) => console.log(error));
+  
+
+      
+    
+
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  

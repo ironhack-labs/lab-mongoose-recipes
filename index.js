@@ -18,7 +18,14 @@ mongoose
   })
   .then(() => {
    Recipe
-    .create({title: "brownie", level: "Easy Peasy", ingredients: ["chocolate","eggs","flour"], cuisine: "American", dishtType: "dessert", duration: 45, creator: "Raul and Chiara"})
+    .create(
+      {title: "brownie",
+       level: "Easy Peasy",
+        ingredients: ["chocolate","eggs","flour"],
+         cuisine: "American", 
+         dishtType: "dessert", 
+         duration: 45, 
+         creator: "Raul"})
     .then(recipe => console.log("El titulo de la receta es:", recipe.title ))
 
   })

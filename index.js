@@ -7,6 +7,7 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
@@ -16,8 +17,50 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+   Recipe
+    .create(
+      {title: "brownie",
+       level: "Easy Peasy",
+        ingredients: ["chocolate","eggs","flour"],
+         cuisine: "American", 
+         dishtType: "dessert", 
+         duration: 45, 
+         creator: "Raul"})
+    .then(recipe => console.log("El titulo de la receta es:", recipe.title ))
+
   })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+
+  Recipe
+    .insertMany(data)
+    .then(recipe => {
+      recipe.forEach(recipe => console.log("FUNCIONA?", recipe.title))
+    } )
+    .catch(err => console.log("yay", err))
+
+  Recipe
+  .findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+  .then(() => {
+    console.log("Updated Rigatoni alla Genovese duration to 100 minutes");
+  })
+  .catch(error => {
+    console.error('Error updating recipe', error);
+  });
+
+  Recipe
+    .deleteOne({title : "Carrot Cake"})
+    .then(() => {
+      console.log("Removed Carrot Cake from the database")
+    })
+    .catch(error => {
+      console.log("Removed Carrot Cake from the database", error)
+    })
+
+process.on('SIGINT', () => {
+  mongoose.connection.close()
+  console.log('Mongoose default connection disconnected through app termination')
+})

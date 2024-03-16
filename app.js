@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const fs = require("fs");
 
 // Import of the model Recipe from './models/Recipe.model.js'
 const Recipe = require("./models/Recipe.model");
@@ -18,40 +17,39 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    fs.readFile("data.json", "utf8", (err, data) => {
-      const documents = JSON.parse(data);
-      Recipe.insertMany(documents)
-        .then((recipe) =>
-          console.log("The recipes is saved")
-        )
-        .catch((error) =>
-          console.log("An error happened while saving a new user:", error)
-        );
-    })
 
-    Recipe.findOneAndUpdate(
-      { title: "Rigatoni alla Genovese" },
-      { duration: 100 },
-      { new: true, runValidators: true }
-    )
-      .then((newRecipe) => {
-        console.log("The recipe has been update: ", newRecipe);
+    Recipe.insertMany(data)
+      .then((recipe) => {
+        Recipe.findOneAndUpdate(
+          { title: "Rigatoni alla Genovese" },
+          { duration: 100 },
+          { new: true, runValidators: true }
+        )
+          .then((newRecipe) => {
+            Recipe.deleteOne({ title: "Carrot Cake" })
+              .then(() =>
+                console
+                  .log("The recipe has been delete successfully")   
+              )
+              .finally(() => {
+                // Close the Mongoose connection
+                mongoose.connection.close();
+              })
+              .catch((error) =>
+                console.log("An error happened while delete the recipe:", error)
+              );
+            console.log("The recipe has been update: ", newRecipe);
+          })
+          .catch((error) =>
+            console.log("An error happened while update a new recipe:", error)
+          );
+        console.log("The recipes is saved");
       })
       .catch((error) =>
-        console.log("An error happened while update a new recipe:", error)
+        console.log("An error happened while saving a new user:", error)
       );
-
-    Recipe.deleteOne({ title: "Carrot Cake" })
-      .then(() => console.log("The recipe has been delete successfully"))
-      .catch((error) =>
-        console.log("An error happened while delete the recipe:", error)
-      )
-
-      /*.finally(() => {
-        // Close the Mongoose connection
-        mongoose.connection.close();
-      });*/
   })
+  
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });

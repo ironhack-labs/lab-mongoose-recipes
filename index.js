@@ -34,3 +34,26 @@ mongoose
       recipe.forEach(recipe => console.log("FUNCIONA?", recipe.title))
     } )
     .catch(err => console.log("yay", err))
+
+  Recipe
+  .findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 })
+  .then(() => {
+    console.log("Updated Rigatoni alla Genovese duration to 100 minutes");
+  })
+  .catch(error => {
+    console.error('Error updating recipe', error);
+  });
+
+  Recipe
+    .deleteOne({title : "Carrot Cake"})
+    .then(() => {
+      console.log("Removed Carrot Cake from the database")
+    })
+    .catch(error => {
+      console.log("Removed Carrot Cake from the database", error)
+    })
+
+process.on('SIGINT', () => {
+  mongoose.connection.close()
+  console.log('Mongoose default connection disconnected through app termination')
+})

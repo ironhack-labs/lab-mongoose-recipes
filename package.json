@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js",
-    "dev": "node ./index.js"
+    "start": "node ./app.js",
+    "dev": "node ./app.js"
   },
   "license": "MIT",
   "devDependencies": {
